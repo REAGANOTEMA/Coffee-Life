@@ -35,7 +35,6 @@
 
 .brand-footer img {
     width: 120px;
-    /* smaller logo */
     border-radius: 10px;
     margin-bottom: 0.8rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
@@ -82,6 +81,10 @@
     flex-direction: column;
     align-items: center;
     gap: 0.7rem;
+    padding: 0.6rem;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #2c2c2c, #1c1c1c);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.3);
 }
 
 .footer-qr h4 {
@@ -93,16 +96,17 @@
 }
 
 .qr-btn img {
-    width: 130px;
-    height: 130px;
-    border-radius: 14px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    width: 140px;
+    height: 140px;
+    border-radius: 16px;
+    border: 3px solid #d4af37;
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .qr-btn img:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.55);
 }
 
 /* ===== WhatsApp Button Under QR ===== */
@@ -111,14 +115,14 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 0.4rem;
-    padding: 0.6rem 1rem;
+    margin-top: 0.5rem;
+    padding: 0.65rem 1.2rem;
     background: #25D366;
     color: #fff;
     border-radius: 50px;
     font-weight: 600;
-    font-size: 0.9rem;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+    font-size: 0.92rem;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.35);
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -126,7 +130,7 @@
 .btn-whatsapp-send-footer:hover {
     background: #1EBE5D;
     transform: translateY(-1px);
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.45);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
 }
 
 /* ===== RIGHT COLUMN ===== */
