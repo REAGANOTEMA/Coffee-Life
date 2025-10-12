@@ -2130,29 +2130,6 @@
             </div>
         </section>
 
-        <!-- ===== ABOUT ===== -->
-        <section id="about" class="about container">
-            <h2>About Coffee Life</h2>
-            <p>Coffee Life is where flavor, comfort and craft meet. We provide specialty coffee, wholesome meals, and a
-                warm workspace to meet friends or get work done. Our chefs use fresh ingredients — our baristas craft
-                each cup with care.</p>
-            <div class="about-grid">
-                <div class="about-card">
-                    <h4>Our Vision</h4>
-                    <p>To be the cozy hub in Jinja & Kampala where people gather to eat, meet and work.</p>
-                </div>
-                <div class="about-card">
-                    <h4>Our Promise</h4>
-                    <p>High-quality ingredients, quick delivery, friendly service, and an inviting atmosphere.</p>
-                </div>
-                <div class="about-card">
-                    <h4>Designed & Managed</h4>
-                    <p>Designed and Managed by <strong>Mr. Reagan Otema</strong> — <a href="https://wa.me/256772514889"
-                            target="_blank" rel="noopener">+256 772 514 889</a></p>
-                </div>
-            </div>
-        </section>
-
         <!-- ===== CONTACT & LOCATIONS ===== -->
         <section id="contact" class="contact container">
             <h2>Contact & Locations</h2>
@@ -2203,34 +2180,55 @@
         <!-- ===== FOOTER ===== -->
         <footer class="site-footer">
             <div class="container footer-inner">
-                <!-- Left Column -->
+
+                <!-- Left Column: Logo & About -->
                 <div class="footer-left">
                     <a class="brand-footer" href="#top">
                         <img src="images/logo.jpg" alt="Coffee Life Logo" />
                     </a>
-                    <p class="copyright">© <span id="year"></span> Coffee Life Jinja & Kampala</p>
+                    <p class="about-footer">
+                        Coffee Life is where flavor, comfort, and craft meet. Specialty coffee, wholesome meals, and a
+                        cozy workspace.
+                    </p>
+                    <div class="vision-mission">
+                        <h4>Our Vision</h4>
+                        <p>To be the cozy hub in Jinja & Kampala where people gather to eat, meet, and work.</p>
+                    </div>
+                    <p class="copyright">
+                        © <span id="year"></span> Coffee Life Jinja & Kampala
+                    </p>
                     <p class="designed">
                         Designed & Managed by
-                        <a href="https://wa.me/256772514889" target="_blank" rel="noopener noreferrer">
-                            <strong>Reagan Otema</strong>
-                        </a>
+                        <a href="https://wa.me/256772514889" target="_blank"><strong>Reagan Otema</strong></a>
                     </p>
                 </div>
 
-                <!-- Middle Column -->
+                <!-- Middle Column: Contact & QR Code -->
                 <div class="footer-mid">
                     <h4>Contact</h4>
                     <p>+256746888730</p>
                     <p>+256784305795</p>
                     <p><a href="mailto:coffeeliferestaurant@gmail.com">coffeeliferestaurant@gmail.com</a></p>
-                    <p><strong>Locations:</strong>Total Roundabout, Total Lakeview, Gabba Road</p>
+                    <p><strong>Locations:</strong> Total Roundabout, Total Lakeview, Gabba Road</p>
+                    <h4>Our Promise</h4>
+                    <p>High-quality ingredients, quick delivery, friendly service, and an inviting atmosphere.</p>
                 </div>
-
-                <!-- Right Column -->
+                <!-- QR Code -->
+                <div class="footer-qr">
+                    <h4>Menu QR Code</h4>
+                    <a href="https://reaganotema.github.io/Coffee-Life/#menu" target="_blank" class="qr-btn">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://reaganotema.github.io/Coffee-Life/#menu"
+                            alt="Scan to view menu" />
+                    </a>
+                    <a href="https://wa.me/256772514889" target="_blank" class="btn-whatsapp-send-footer">
+                        <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                    </a>
+                </div>
+                <!-- Right Column: Socials -->
                 <div class="footer-right">
                     <h4>Follow Us</h4>
                     <div class="socials">
-                        <a href="https://wa.me/+256772514889" target="_blank" class="social"><i
+                        <a href="https://wa.me/256772514889" target="_blank" class="social"><i
                                 class="fab fa-whatsapp"></i></a>
                         <a href="https://www.youtube.com/" target="_blank" class="social"><i
                                 class="fab fa-youtube"></i></a>
@@ -2245,7 +2243,27 @@
                     </div>
                 </div>
 
-                <script>
-    </body >
+            </div>
+        </footer>
 
-</html >
+
+        <!-- Optional: Update year dynamically -->
+        <script>
+            document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
+
+        <body>
+            <script src="js/cart.js"></script>
+            <script src="js/footer-qr.js"></script>
+            <script src="js/footer.js"></script>
+            <script src="js/global.js"></script>
+            <script src="js/hero.js"></script>
+            <script src="js/home.js"></script>
+            <script src="js/location.js"></script>
+            <script src="js/main.js"></script>
+            <script src="js/menu.js"></script>
+            <script src="js/navbar.js"></script>
+            <script src="js/whatsapp.js"></script>
+        </body>
+
+</html>

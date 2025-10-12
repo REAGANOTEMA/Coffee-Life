@@ -1,46 +1,25 @@
-/* === FOOTER.JS - Luxurious & Interactive Footer === */
+// ============================
+// Footer JS: WhatsApp + QR + Year
+// ============================
 
-// Select footer elements for animation
-const footerInner = document.querySelector('.footer-inner');
-const footerCredit = document.querySelector('.footer-credit');
+// Set current year
+document.getElementById("year").textContent = new Date().getFullYear();
 
-// Intersection Observer for fade-in on scroll
-const footerObserver = new IntersectionObserver(
-    (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    },
-    { threshold: 0.1 }
-);
+// WhatsApp button under QR in footer
+const whatsappBtnFooter = document.querySelector(".btn-whatsapp-send-footer");
 
-if (footerInner) footerObserver.observe(footerInner);
-if (footerCredit) footerObserver.observe(footerCredit);
+whatsappBtnFooter?.addEventListener("click", () => {
+    const name = prompt("Please enter your name:");
+    if (!name) return alert("Name is required!");
 
-// Social icon hover animations
-const socialLinks = document.querySelectorAll('.footer-socials a');
-socialLinks.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        link.style.transform = 'scale(1.2) rotate(10deg)';
-        link.style.transition = 'all 0.4s ease';
-    });
-    link.addEventListener('mouseleave', () => {
-        link.style.transform = 'scale(1) rotate(0deg)';
-    });
+    const location = prompt("Please enter your delivery location:");
+    if (!location) return alert("Location is required for delivery!");
+
+    const message = `Hello Coffee Life ☕! I'm ${name}.\nDelivery Location: ${location}\nI'd like to place an order.`;
+    const phone = "256772514889";
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
 });
 
-// Optional: Smooth scroll to top when clicking brand name
-const footerBrand = document.querySelector('.footer-brand h3');
-if (footerBrand) {
-    footerBrand.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
-
-// Optional: Animate radial background swirl (CSS handles main animation)
+// QR code link dynamically updates to menu section
+const qrBtn = document.querySelector(".qr-btn");
+qrBtn?.setAttribute("href", "https://reaganotema.github.io/Coffee-Life/#menu");

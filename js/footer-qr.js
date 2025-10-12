@@ -1,26 +1,25 @@
-// ===== FOOTER QR JS =====
-const menuURL = window.location.origin + "/menu.html";
+// ============================
+// Footer JS: WhatsApp + QR + Year
+// ============================
 
-const footerQRCodeContainer = document.getElementById("footerQRCode");
+// Set current year
+document.getElementById("year").textContent = new Date().getFullYear();
 
-if (footerQRCodeContainer) {
-    new QRCode(footerQRCodeContainer, {
-        text: menuURL,
-        width: 120,
-        height: 120,
-        colorDark: "#4b2e1e",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H,
-    });
-}
+// WhatsApp button under QR in footer
+const whatsappBtnFooter = document.querySelector(".btn-whatsapp-send-footer");
 
-// WhatsApp order button functionality
-const whatsappBtn = document.querySelector(".qr-btn");
-if (whatsappBtn) {
-    whatsappBtn.addEventListener("click", () => {
-        window.open(
-            "https://wa.me/256772514889?text=Hello%20Coffee%20Life!%20I'd%20like%20to%20see%20the%20menu.",
-            "_blank"
-        );
-    });
-}
+whatsappBtnFooter?.addEventListener("click", () => {
+    const name = prompt("Please enter your name:");
+    if (!name) return alert("Name is required!");
+
+    const location = prompt("Please enter your delivery location:");
+    if (!location) return alert("Location is required for delivery!");
+
+    const message = `Hello Coffee Life ☕! I'm ${name}.\nDelivery Location: ${location}\nI'd like to place an order.`;
+    const phone = "256772514889";
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+});
+
+// QR code link dynamically updates to menu section
+const qrBtn = document.querySelector(".qr-btn");
+qrBtn?.setAttribute("href", "https://reaganotema.github.io/Coffee-Life/#menu");
