@@ -1,0 +1,30 @@
+{
+    "name": "CoffeeLife Restaurant & Cafe",
+    "short_name": "CoffeeLife",
+    "description": "Enjoy the best coffee, meals, and vibes in town. Order online and explore our menu! Place orders directly via WhatsApp and enjoy exclusive offers.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#1c1c1c",
+    "theme_color": "#b85c38",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "images/logo",
+            "sizes": "192x192",
+            "type": "image/jpg"
+        },
+        {
+            "src": "images/logo.jpg",
+            "sizes": "512x512",
+            "type": "image/jpg"
+        }
+    ],
+    "categories": [
+        "food",
+        "restaurant",
+        "delivery"
+    ],
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "lang": "en-US"
+}
