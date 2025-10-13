@@ -2178,68 +2178,104 @@
             </div>
         </section>
         <!-- ===== FOOTER ===== -->
-        <footer class="site-footer">
+        <footer class="site-footer" id="footer">
             <div class="container footer-inner">
 
-                <!-- Left Column: Logo & About -->
+                <!-- ===== LEFT COLUMN: Logo, About, Vision & Values ===== -->
                 <div class="footer-left">
                     <a class="brand-footer" href="#top">
                         <img src="images/logo.jpg" alt="Coffee Life Logo" />
                     </a>
+
                     <p class="about-footer">
-                        Coffee Life is where flavor, comfort, and craft meet. Specialty coffee, wholesome meals, and a
-                        cozy workspace.
+                        Coffee Life is where flavor, comfort, and craft meet — specialty coffee, wholesome meals, and a
+                        cozy workspace for dreamers and doers.
                     </p>
+
                     <div class="vision-mission">
                         <h4>Our Vision</h4>
-                        <p>To be the cozy hub in Jinja & Kampala where people gather to eat, meet, and work.</p>
+                        <p>To be the cozy hub in Jinja & Kampala where people gather to eat, meet, and work — fueled by
+                            great coffee and community spirit.</p>
                     </div>
+
+                    <div class="values">
+                        <h4>Our Values</h4>
+                        <ul>
+                            <li>☕ Passion for Coffee & Quality</li>
+                            <li>🤝 Friendly Service</li>
+                            <li>🌍 Community & Sustainability</li>
+                            <li>💡 Creativity & Growth</li>
+                        </ul>
+                    </div>
+
                     <p class="copyright">
-                        © <span id="year"></span> Coffee Life Jinja & Kampala
+                        © <span id="year"></span> Coffee Life — Jinja & Kampala
                     </p>
                     <p class="designed">
-                        Designed & Managed by
-                        <a href="https://wa.me/256772514889" target="_blank"><strong>Reagan Otema</strong></a>
+                        Designed & Managed by <a href="https://wa.me/256772514889" target="_blank"
+                            rel="noopener"><strong>Reagan Otema</strong></a>
                     </p>
                 </div>
 
-                <!-- Middle Column: Contact & QR Code -->
+                <!-- ===== MIDDLE COLUMN: Contact & WhatsApp Form ===== -->
                 <div class="footer-mid">
                     <h4>Contact</h4>
-                    <p>+256746888730</p>
-                    <p>+256784305795</p>
-                    <p><a href="mailto:coffeeliferestaurant@gmail.com">coffeeliferestaurant@gmail.com</a></p>
-                    <p><strong>Locations:</strong> Total Roundabout, Total Lakeview, Gabba Road</p>
+                    <p><i class="fas fa-phone"></i> +256 746 888 730</p>
+                    <p><i class="fas fa-phone"></i> +256 784 305 795</p>
+                    <p><i class="fas fa-envelope"></i>
+                        <a href="mailto:coffeeliferestaurant@gmail.com">coffeeliferestaurant@gmail.com</a>
+                    </p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Locations:</strong> Total Roundabout • Total
+                        Lakeview • Gabba Road</p>
+
                     <h4>Our Promise</h4>
-                    <p>High-quality ingredients, quick delivery, friendly service, and an inviting atmosphere.</p>
+                    <p>High-quality ingredients, quick delivery, friendly service, and an inviting atmosphere — that’s
+                        our daily promise to you.</p>
+
+                    <div class="footer-whatsapp-order">
+                        <h4>Send Us a WhatsApp Message</h4>
+                        <form id="whatsapp-order-form">
+                            <input type="text" id="custName" placeholder="Your Name" required />
+                            <input type="text" id="custLocation" placeholder="Your Location" required />
+                            <textarea id="custOrder" rows="3" placeholder="What would you like to order?"
+                                required></textarea>
+                            <button type="submit" class="btn-whatsapp-send-footer">
+                                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <!-- QR Code -->
-                <div class="footer-qr">
-                    <h4>Menu QR Code</h4>
-                    <a href="https://reaganotema.github.io/Coffee-Life/#menu" target="_blank" class="qr-btn">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://reaganotema.github.io/Coffee-Life/#menu"
-                            alt="Scan to view menu" />
-                    </a>
-                    <a href="https://wa.me/256772514889" target="_blank" class="btn-whatsapp-send-footer">
-                        <i class="fab fa-whatsapp"></i> Order via WhatsApp
-                    </a>
-                </div>
-                <!-- Right Column: Socials -->
+
+                <!-- ===== RIGHT COLUMN: Socials, QR & Newsletter ===== -->
                 <div class="footer-right">
                     <h4>Follow Us</h4>
                     <div class="socials">
-                        <a href="https://wa.me/256772514889" target="_blank" class="social"><i
-                                class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.youtube.com/" target="_blank" class="social"><i
-                                class="fab fa-youtube"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank" class="social"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/" target="_blank" class="social"><i
-                                class="fab fa-tiktok"></i></a>
-                        <a href="https://www.facebook.com/" target="_blank" class="social"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/" target="_blank" class="social"><i
-                                class="fab fa-x-twitter"></i></a>
+                        <a href="https://wa.me/256772514889" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+
+                    <div class="footer-qr">
+                        <h4>Menu QR Code</h4>
+                        <a href="https://reaganotema.github.io/Coffee-Life/#menu" target="_blank" class="qr-btn"
+                            rel="noopener">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://reaganotema.github.io/Coffee-Life/#menu"
+                                alt="Scan to view Coffee Life menu" />
+                        </a>
+                    </div>
+
+                    <div class="newsletter">
+                        <h4>Stay Updated</h4>
+                        <form id="newsletter-form">
+                            <input type="email" id="newsletter-email" placeholder="Your email address" required />
+                            <button type="submit" class="btn-subscribe">
+                                <i class="fas fa-paper-plane"></i> Subscribe
+                            </button>
+                        </form>
+                        <p class="small-text">No spam — just coffee news ☕</p>
                     </div>
                 </div>
 
@@ -2247,10 +2283,9 @@
         </footer>
 
 
-        <!-- Optional: Update year dynamically -->
-        <script>
-            document.getElementById("year").textContent = new Date().getFullYear();
-        </script>
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
         <body>
             <script src="js/cart.js"></script>

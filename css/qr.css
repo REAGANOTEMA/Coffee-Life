@@ -1,272 +1,236 @@
-/* ===== GENERAL QR SECTION STYLING ===== */
-.qr-section {
-    background: var(--cream);
-    padding: 5rem 2rem;
-    text-align: center;
-    color: var(--dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-    z-index: 10;
-    overflow: hidden;
+/* ===== FOOTER BASE ===== */
+.site-footer {
+    background: #1c1c1c;
+    color: #f5f5f5;
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    font-family: 'Roboto', sans-serif;
+    border-top: 4px solid #d4af37;
 }
 
-.qr-section::before,
-.qr-section::after {
-    content: "";
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    opacity: 0.12;
-    animation: rotateQR linear infinite;
-}
-
-.qr-section::before {
-    top: -100px;
-    left: -150px;
-    background: radial-gradient(circle, var(--coffee) 0%, transparent 70%);
-    animation-duration: 40s;
-}
-
-.qr-section::after {
-    bottom: -100px;
-    right: -150px;
-    background: radial-gradient(circle, var(--gold) 0%, transparent 80%);
-    animation-duration: 60s;
-    animation-direction: reverse;
-}
-
-.qr-section h2 {
-    font-family: "Playfair Display", serif;
-    font-size: 2.5rem;
-    color: var(--coffee);
-    margin-bottom: 0.5rem;
-    letter-spacing: 1px;
-}
-
-.qr-section p {
-    font-family: "Open Sans", sans-serif;
-    font-size: 1.1rem;
-    color: var(--dark);
-    max-width: 700px;
-    margin: 0 auto 2rem auto;
-    line-height: 1.7;
-}
-
-/* ===== QR CARD STYLING ===== */
-.qr-card {
-    background: #ffffff;
-    border: 3px solid var(--gold);
-    border-radius: 20px;
-    padding: 2.5rem 3rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 450px;
-    width: 100%;
-    transition: all 0.4s ease;
-    animation: fadeInQR 1.2s ease forwards;
-}
-
-.qr-card:hover {
-    transform: scale(1.04);
-    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.25);
-}
-
-.qr-card h2,
-.qr-card h4 {
-    font-family: "Playfair Display", serif;
-    color: var(--coffee);
-    margin-bottom: 0.5rem;
-}
-
-.qr-card h2 {
-    font-size: 2.2rem;
-}
-
-.qr-card h4 {
-    font-size: 1.3rem;
-}
-
-.qr-card p {
-    font-family: "Open Sans", sans-serif;
-    font-size: 1.1rem;
-    color: #444;
-    line-height: 1.6;
-    margin-bottom: 1.8rem;
-}
-
-/* ===== QR IMAGE ===== */
-.qr-image {
-    width: 200px;
-    height: 200px;
-    border: 4px solid var(--coffee);
-    border-radius: 12px;
-    background: #fff;
-    padding: 8px;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ===== QR BUTTON ===== */
-.qr-btn {
-    background: var(--coffee);
-    color: var(--cream);
-    padding: 0.8rem 2.2rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
+/* Links */
+.site-footer a {
+    color: #d4af37;
     text-decoration: none;
-    box-shadow: 0 5px 15px rgba(111, 78, 55, 0.4);
-    transition: all 0.3s ease;
-}
-
-.qr-btn:hover {
-    background: var(--gold);
-    color: var(--dark);
-    transform: translateY(-3px);
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes rotateQR {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes fadeInQR {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===== FOOTER QR CODE ===== */
-.footer-qr {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    text-align: center;
-    margin-top: 1.5rem;
-}
-
-.footer-qr .qr-card {
-    background: #fff;
-    border: 2px solid var(--gold);
-    border-radius: 15px;
-    padding: 1rem 1.5rem;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    transform: rotate(-3deg);
-    transition: all 0.4s ease;
-    width: 200px;
-}
-
-.footer-qr .qr-card:hover {
-    transform: rotate(0deg) scale(1.05);
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
-}
-
-.footer-qr h4 {
-    font-family: "Playfair Display", serif;
-    font-size: 1.3rem;
-    color: var(--coffee);
-    margin-bottom: 0.3rem;
-}
-
-.footer-qr p {
-    font-size: 0.9rem;
-    color: #444;
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
-}
-
-.footer-qr .qr-image {
-    width: 130px;
-    height: 130px;
-    border: 3px solid var(--coffee);
-    border-radius: 10px;
-    background: #fff;
-    margin: 0 auto 0.7rem auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-}
-
-.footer-qr .qr-btn {
-    display: inline-block;
-    background: var(--coffee);
-    color: var(--cream);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(111, 78, 55, 0.3);
     transition: 0.3s ease;
 }
 
-.footer-qr .qr-btn:hover {
-    background: var(--gold);
-    color: var(--dark);
-    transform: translateY(-2px);
+.site-footer a:hover {
+    color: #fff;
+}
+
+/* ===== GRID ===== */
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* ===== LEFT COLUMN ===== */
+.footer-left {
+    flex: 1 1 220px;
+    text-align: left;
+    font-family: 'Lora', serif;
+}
+
+.brand-footer img {
+    width: 120px;
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.about-footer {
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #ddd;
+}
+
+.vision-mission h4,
+.values h4 {
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    margin: 0.4rem 0 0.2rem;
+}
+
+.vision-mission p,
+.values ul {
+    font-size: 0.87rem;
+    margin-bottom: 0.4rem;
+}
+
+.values ul {
+    padding-left: 1.2rem;
+}
+
+/* ===== MIDDLE COLUMN ===== */
+.footer-mid {
+    flex: 1 1 220px;
+    text-align: center;
+}
+
+.footer-mid h4 {
+    font-size: 1.1rem;
+    color: #d4af37;
+    margin-bottom: 0.8rem;
+}
+
+.footer-mid p {
+    font-size: 0.88rem;
+    margin: 0.2rem 0;
+}
+
+/* QR CODE SECTION */
+.footer-qr {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.6rem;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #2c2c2c, #1c1c1c);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.3);
+}
+
+.footer-qr h4 {
+    margin-bottom: 0.3rem;
+    color: #d4af37;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.qr-btn img {
+    width: 140px;
+    height: 140px;
+    border-radius: 16px;
+    border: 3px solid #d4af37;
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qr-btn img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.55);
+}
+
+/* WhatsApp Button */
+.btn-whatsapp-send-footer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.35);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-whatsapp-send-footer:hover {
+    background: #1EBE5D;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+}
+
+/* ===== RIGHT COLUMN ===== */
+.footer-right {
+    flex: 1 1 220px;
+    text-align: right;
+}
+
+.footer-right h4 {
+    font-size: 1.1rem;
+    color: #d4af37;
+    margin-bottom: 0.8rem;
+}
+
+.socials a {
+    display: inline-block;
+    margin: 0 0.3rem;
+    font-size: 1.4rem;
+    color: #d4af37;
+    transition: 0.3s ease;
+}
+
+.socials a:hover {
+    color: #fff;
+}
+
+/* Newsletter */
+.newsletter input {
+    padding: 0.55rem 0.8rem;
+    border-radius: 50px 0 0 50px;
+    border: none;
+    outline: none;
+    width: 60%;
+    font-size: 0.88rem;
+}
+
+.newsletter button {
+    padding: 0.55rem 1rem;
+    border-radius: 0 50px 50px 0;
+    border: none;
+    cursor: pointer;
+    background: #d4af37;
+    color: #1c1c1c;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.newsletter button:hover {
+    background: #fff;
+}
+
+/* Footer Small Text */
+.site-footer .copyright,
+.site-footer .designed,
+.newsletter .small-text {
+    font-size: 0.78rem;
+    color: #aaa;
+    margin-top: 0.3rem;
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .qr-section {
-        padding: 4rem 1rem;
-    }
-
-    .qr-card {
-        padding: 2rem;
-    }
-
-    .qr-card h2 {
-        font-size: 1.8rem;
-    }
-
-    .qr-card p {
-        font-size: 1rem;
-    }
-
-    .qr-image {
-        width: 160px;
-        height: 160px;
-    }
-
+@media (max-width: 900px) {
     .footer-inner {
         flex-direction: column;
+        align-items: center;
         text-align: center;
     }
 
-    .footer-qr {
-        justify-content: center;
-        margin-top: 1rem;
+    .footer-left,
+    .footer-mid,
+    .footer-right {
+        margin-bottom: 1rem;
     }
 
-    .footer-qr .qr-card {
-        width: 170px;
-        transform: none;
-        margin: 0 auto;
+    .qr-btn img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .newsletter input {
+        width: 70%;
+        margin-bottom: 0.5rem;
+        border-radius: 50px;
+    }
+
+    .newsletter button {
+        width: 50%;
+        border-radius: 50px;
+    }
+
+    .footer-right {
+        text-align: center;
     }
 }
