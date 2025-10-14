@@ -1,9 +1,12 @@
-/* === CART PANEL STYLES === */
+/* ============================
+   COFFEE LIFE Cart Styles (Final)
+   ============================ */
+
+/* === CART PANEL === */
 .cart-container {
     position: fixed;
     top: 0;
     right: -400px;
-    /* Hidden by default */
     width: 360px;
     height: 100vh;
     background: #fff;
@@ -20,6 +23,7 @@
     right: 0;
 }
 
+/* === CART HEADER === */
 .cart-header {
     background: var(--coffee);
     color: var(--cream);
@@ -47,7 +51,7 @@
     transform: rotate(90deg);
 }
 
-/* CART ITEM */
+/* === CART ITEM === */
 .cart-item {
     display: flex;
     align-items: center;
@@ -58,15 +62,8 @@
 }
 
 @keyframes fadeInCart {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .cart-item img {
@@ -93,7 +90,7 @@
     color: #777;
 }
 
-/* REMOVE BUTTON */
+/* === REMOVE BUTTON === */
 .cart-item-remove {
     color: #c0392b;
     cursor: pointer;
@@ -106,7 +103,7 @@
     color: #e74c3c;
 }
 
-/* CART TOTAL */
+/* === CART TOTAL === */
 .cart-total {
     padding: 1rem 1.5rem;
     text-align: right;
@@ -116,7 +113,7 @@
     font-size: 1.1rem;
 }
 
-/* ORDER BUTTON */
+/* === ORDER BUTTON === */
 .cart-order-btn {
     display: block;
     width: 90%;
@@ -138,7 +135,7 @@
     transform: translateY(-3px);
 }
 
-/* EMPTY CART MESSAGE */
+/* === EMPTY CART MESSAGE === */
 .cart-empty {
     text-align: center;
     color: #777;
@@ -147,7 +144,7 @@
     font-size: 1rem;
 }
 
-/* CART ITEM CONTROLS (QUANTITY) */
+/* === CART ITEM CONTROLS (QUANTITY) === */
 .cart-item .controls {
     display: flex;
     align-items: center;
@@ -163,7 +160,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
+    transition: all 0.3s;
 }
 
 .cart-item .qty-btn:hover {
@@ -172,14 +169,50 @@
     transform: scale(1.1);
 }
 
+/* Shake animation for quantity buttons */
+@keyframes shakeBtn {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-3px); }
+    40%, 80% { transform: translateX(3px); }
+}
+
+.cart-item .qty-btn.shake {
+    animation: shakeBtn 0.5s ease;
+}
+
+/* Glow animation for quantity buttons */
+.cart-item .qty-btn.glow {
+    box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
+}
+
+/* Quantity text */
 .cart-item .qty {
     min-width: 20px;
     text-align: center;
+    font-weight: bold;
 }
 
-/* RESPONSIVE CART */
+/* === RESPONSIVE CART === */
 @media (max-width: 768px) {
     .cart-container {
         width: 100%;
+        right: -100%;
+    }
+
+    .cart-order-btn {
+        width: 95%;
+    }
+
+    .cart-item img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .cart-item-info h4 {
+        font-size: 0.95rem;
+    }
+
+    .cart-item-info p {
+        font-size: 0.85rem;
     }
 }

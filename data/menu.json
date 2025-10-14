@@ -1,113 +1,113 @@
 {
-    "restaurant": {
-        "name": "CoffeeLife Restaurant & Cafe",
-        "author": "Designed and Managed by Mr. Reagan Otema",
-        "contact": {
-            "phone": "+256772514889",
-            "email": "coffeeliferestaurant@gmail.com"
-        }
-    },
-    "menu": {
-        "food": [
-            {
-                "id": 1,
-                "name": "Grilled Chicken Sandwich",
-                "description": "Juicy grilled chicken breast with fresh lettuce, tomatoes, and house sauce in a toasted bun.",
-                "price": 18000,
-                "image": "images/menu/food1.jpg"
-            },
-            {
-                "id": 2,
-                "name": "Classic Burger",
-                "description": "Beef patty, cheddar cheese, lettuce, tomato, and special sauce served with fries.",
-                "price": 20000,
-                "image": "images/menu/food2.jpg"
-            },
-            {
-                "id": 3,
-                "name": "Veggie Wrap",
-                "description": "A healthy wrap filled with fresh seasonal vegetables and hummus.",
-                "price": 15000,
-                "image": "images/menu/food3.jpg"
-            }
-        ],
-        "drinks": [
-            {
-                "id": 1,
-                "name": "Cappuccino",
-                "description": "Espresso with steamed milk and foam, served hot.",
-                "price": 8000,
-                "image": "images/menu/drink1.jpg"
-            },
-            {
-                "id": 2,
-                "name": "Latte",
-                "description": "Smooth blend of espresso and milk, lightly sweetened.",
-                "price": 9000,
-                "image": "images/menu/drink2.jpg"
-            },
-            {
-                "id": 3,
-                "name": "Cold Brew Coffee",
-                "description": "Slow-brewed coffee served chilled over ice.",
-                "price": 10000,
-                "image": "images/menu/drink3.jpg"
-            },
-            {
-                "id": 4,
-                "name": "Fresh Orange Juice",
-                "description": "Cold-pressed fresh orange juice, served chilled.",
-                "price": 7000,
-                "image": "images/menu/drink4.jpg"
-            }
-        ],
-        "desserts": [
-            {
-                "id": 1,
-                "name": "Chocolate Lava Cake",
-                "description": "Rich chocolate cake with a molten center, served with vanilla ice cream.",
-                "price": 12000,
-                "image": "images/menu/dessert1.jpg"
-            },
-            {
-                "id": 2,
-                "name": "Cheesecake",
-                "description": "Creamy cheesecake with a buttery crust and strawberry topping.",
-                "price": 13000,
-                "image": "images/menu/dessert2.jpg"
-            }
-        ],
-        "specials": [
-            {
-                "id": 1,
-                "name": "Chef’s Special Breakfast",
-                "description": "Scrambled eggs, smoked salmon, avocado toast, and fresh juice.",
-                "price": 22000,
-                "image": "images/menu/special1.jpg"
-            },
-            {
-                "id": 2,
-                "name": "Afternoon Coffee Combo",
-                "description": "Your choice of coffee with a slice of cake or pastry.",
-                "price": 15000,
-                "image": "images/menu/special2.jpg"
-            }
-        ],
-        "coffeeBeans": [
-            {
-                "id": 1,
-                "name": "Arabica Blend",
-                "description": "Premium Arabica beans with a smooth, rich flavor.",
-                "price": 40000,
-                "image": "images/menu/coffee1.jpg"
-            },
-            {
-                "id": 2,
-                "name": "Espresso Roast",
-                "description": "Bold, dark roasted espresso beans for your perfect cup.",
-                "price": 38000,
-                "image": "images/menu/coffee2.jpg"
-            }
-        ]
+  "restaurant": {
+    "name": "CoffeeLife Restaurant & Cafe",
+    "author": "Designed and Managed by Mr. Reagan Otema",
+    "contact": {
+      "phone": "+256772514889",
+      "email": "coffeeliferestaurant@gmail.com"
     }
+  },
+  "menu": {
+    "food": [
+      {
+        "id": 1,
+        "name": "Grilled Chicken Sandwich",
+        "description": "Juicy grilled chicken breast with fresh lettuce, tomatoes, and house sauce in a toasted bun.",
+        "price": 18000,
+        "image": "images/menu/food1.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Classic Burger",
+        "description": "Beef patty, cheddar cheese, lettuce, tomato, and special sauce served with fries.",
+        "price": 20000,
+        "image": "images/menu/food2.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Veggie Wrap",
+        "description": "A healthy wrap filled with fresh seasonal vegetables and hummus.",
+        "price": 15000,
+        "image": "images/menu/food3.jpg"
+      }
+    ],
+    "drinks": [
+      {
+        "id": 4,
+        "name": "Cappuccino",
+        "description": "Espresso with steamed milk and foam, served hot.",
+        "price": 8000,
+        "image": "images/menu/drink1.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Latte",
+        "description": "Smooth blend of espresso and milk, lightly sweetened.",
+        "price": 9000,
+        "image": "images/menu/drink2.jpg"
+      },
+      {
+        "id": 6,
+        "name": "Cold Brew Coffee",
+        "description": "Slow-brewed coffee served chilled over ice.",
+        "price": 10000,
+        "image": "images/menu/drink3.jpg"
+      },
+      {
+        "id": 7,
+        "name": "Fresh Orange Juice",
+        "description": "Cold-pressed fresh orange juice, served chilled.",
+        "price": 7000,
+        "image": "images/menu/drink4.jpg"
+      }
+    ],
+    "desserts": [
+      {
+        "id": 8,
+        "name": "Chocolate Lava Cake",
+        "description": "Rich chocolate cake with a molten center, served with vanilla ice cream.",
+        "price": 12000,
+        "image": "images/menu/dessert1.jpg"
+      },
+      {
+        "id": 9,
+        "name": "Cheesecake",
+        "description": "Creamy cheesecake with a buttery crust and strawberry topping.",
+        "price": 13000,
+        "image": "images/menu/dessert2.jpg"
+      }
+    ],
+    "specials": [
+      {
+        "id": 10,
+        "name": "Chef’s Special Breakfast",
+        "description": "Scrambled eggs, smoked salmon, avocado toast, and fresh juice.",
+        "price": 22000,
+        "image": "images/menu/special1.jpg"
+      },
+      {
+        "id": 11,
+        "name": "Afternoon Coffee Combo",
+        "description": "Your choice of coffee with a slice of cake or pastry.",
+        "price": 15000,
+        "image": "images/menu/special2.jpg"
+      }
+    ],
+    "coffeeBeans": [
+      {
+        "id": 12,
+        "name": "Arabica Blend",
+        "description": "Premium Arabica beans with a smooth, rich flavor.",
+        "price": 40000,
+        "image": "images/menu/coffee1.jpg"
+      },
+      {
+        "id": 13,
+        "name": "Espresso Roast",
+        "description": "Bold, dark roasted espresso beans for your perfect cup.",
+        "price": 38000,
+        "image": "images/menu/coffee2.jpg"
+      }
+    ]
+  }
 }

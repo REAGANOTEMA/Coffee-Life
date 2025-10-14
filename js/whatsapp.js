@@ -1,32 +1,35 @@
 // ============================
-// COFFEE LIFE WhatsApp + AI Chatbot + Footer Integration
+// COFFEE LIFE WhatsApp + AI Chatbot + Footer Integration (Final)
 // ============================
 
-// ===== Elements =====
+// ===== DOM Elements =====
 const whatsappFloat = document.querySelector(".whatsapp-float");
 const whatsappModal = document.querySelector(".whatsapp-modal");
 const whatsappClose = document.querySelector(".close-whatsapp");
 const whatsappSendBtn = document.querySelector(".btn-whatsapp-send");
+const whatsappBtnFooter = document.querySelector(".btn-whatsapp-send-footer");
 const cartPreview = document.querySelector(".whatsapp-cart-preview");
 const qrBtn = document.querySelector(".qr-btn");
-const whatsappBtnFooter = document.querySelector(".btn-whatsapp-send-footer");
 
-// WhatsApp business number
+const chatMessages = document.querySelector(".chat-messages");
+const chatInput = document.getElementById("chatUserInput");
+const chatSendBtnChat = document.getElementById("chatSendBtn");
+
 const WA_PHONE = "256772514889";
 
-// ===== Cart System =====
-let cart = [];
+// ===== Global Cart =====
+window.cart = []; // shared with menu.js
 
-// Add-to-cart functionality (requires .btn-add with data-name & data-price)
+// ===== Add to Cart from Menu Items =====
 document.querySelectorAll(".btn-add").forEach(btn => {
     btn.addEventListener("click", e => {
         const itemEl = e.target.closest(".menu-item");
         if (!itemEl) return;
         const name = itemEl.dataset.name;
         const price = parseInt(itemEl.dataset.price) || 0;
-        const existing = cart.find(i => i.name === name);
+        const existing = window.cart.find(i => i.name === name);
         if (existing) existing.qty++;
-        else cart.push({ name, price, qty: 1 });
+        else window.cart.push({ name, price, qty: 1 });
         updateCartPreview();
         updateQRLink();
     });
@@ -37,12 +40,12 @@ function updateCartPreview() {
     if (!cartPreview) return;
     cartPreview.innerHTML = "";
 
-    if (cart.length === 0) {
+    if (window.cart.length === 0) {
         cartPreview.innerHTML = "<p>Your cart is empty.</p>";
         return;
     }
 
-    cart.forEach(item => {
+    window.cart.forEach(item => {
         const div = document.createElement("div");
         div.classList.add("item");
         div.innerHTML = `
@@ -57,16 +60,17 @@ function updateCartPreview() {
         cartPreview.appendChild(div);
     });
 
+    // ===== Quantity Buttons =====
     cartPreview.querySelectorAll(".qty-btn").forEach(btn => {
         btn.addEventListener("click", e => {
             const action = e.target.dataset.action;
             const name = e.target.dataset.name;
-            const item = cart.find(i => i.name === name);
+            const item = window.cart.find(i => i.name === name);
             if (!item) return;
             if (action === "plus") item.qty++;
             else {
                 item.qty--;
-                if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+                if (item.qty <= 0) window.cart = window.cart.filter(i => i.name !== name);
             }
             updateCartPreview();
             updateQRLink();
@@ -80,11 +84,11 @@ function generateCartMessage(name, location) {
     message += `👤 Customer: ${name || "[Your Name]"}\n📍 Delivery: ${location || "[Your Location]"}\n\n`;
     message += "🛒 Order Details:\n";
 
-    if (cart.length === 0) message += "No items selected yet.\n";
+    if (window.cart.length === 0) message += "No items selected yet.\n";
     else {
         let total = 0;
-        cart.forEach((item, index) => {
-            message += `${index + 1}. ${item.name} x${item.qty} - ${item.price * item.qty} UGX\n`;
+        window.cart.forEach((item, i) => {
+            message += `${i + 1}. ${item.name} x${item.qty} - ${item.price * item.qty} UGX\n`;
             total += item.price * item.qty;
         });
         message += `\n💰 Total: ${total} UGX`;
@@ -94,51 +98,42 @@ function generateCartMessage(name, location) {
     return message;
 }
 
+// ===== Send to WhatsApp =====
+function sendCartWhatsApp() {
+    if (window.cart.length === 0) return alert("Your cart is empty! Please add items first.");
+    const name = prompt("Please enter your name:");
+    if (!name) return alert("Name is required!");
+    const location = prompt("Please enter your delivery location:");
+    if (!location) return alert("Location is required!");
+    const message = generateCartMessage(name, location);
+    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
+}
+
 // ===== Floating WhatsApp Modal =====
 whatsappFloat?.addEventListener("click", () => {
     whatsappModal?.classList.toggle("active");
     updateCartPreview();
     startChat();
 });
+
 whatsappClose?.addEventListener("click", () => whatsappModal?.classList.remove("active"));
 
-// ===== Send via WhatsApp from Floating Modal =====
-whatsappSendBtn?.addEventListener("click", () => {
-    if (cart.length === 0) return alert("Please add items to your order first.");
-    const name = prompt("Please enter your name:");
-    if (!name) return alert("Name is required!");
-    const location = prompt("Please enter your delivery location:");
-    if (!location) return alert("Location is required!");
-    const message = generateCartMessage(name, location);
-    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
-});
+// ===== Footer & Floating Send Buttons =====
+whatsappSendBtn?.addEventListener("click", sendCartWhatsApp);
+whatsappBtnFooter?.addEventListener("click", sendCartWhatsApp);
 
-// ===== Footer WhatsApp Button =====
-whatsappBtnFooter?.addEventListener("click", () => {
-    if (cart.length === 0) return alert("Your cart is empty! Please add items before sending.");
-    const name = prompt("Please enter your name:");
-    if (!name) return alert("Name is required!");
-    const location = prompt("Please enter your delivery location:");
-    if (!location) return alert("Location is required!");
-    const message = generateCartMessage(name, location);
-    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
-});
-
-// ===== Update QR Link =====
+// ===== QR Link Update =====
 function updateQRLink() {
     if (!qrBtn) return;
-    qrBtn.setAttribute("href", "https://reaganotema.github.io/Coffee-Life/#menu");
+    qrBtn.setAttribute("href", "#menu");
 }
 
-// ===== Floating Animation =====
+// ===== Floating Pulse Animation =====
 setInterval(() => {
     whatsappFloat?.classList.toggle("highlight");
 }, 3000);
 
 // ===== AI Chatbot =====
-const chatMessages = document.querySelector(".chat-messages");
-const chatInput = document.getElementById("chatUserInput");
-const chatSendBtnChat = document.getElementById("chatSendBtn");
 let chatStep = 0;
 let userData = { name: "", location: "" };
 
@@ -188,10 +183,7 @@ function handleChat() {
                 const orderBtn = document.createElement("button");
                 orderBtn.className = "btn-whatsapp-send";
                 orderBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Send to WhatsApp';
-                orderBtn.onclick = () => {
-                    const message = generateCartMessage(userData.name, userData.location);
-                    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
-                };
+                orderBtn.onclick = sendCartWhatsApp;
                 chatMessages.appendChild(orderBtn);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
@@ -208,3 +200,30 @@ document.getElementById("year")?.textContent = new Date().getFullYear();
 // ===== Initialize =====
 updateCartPreview();
 updateQRLink();
+// ===== Hero Buttons Integration =====
+const discoverMenuBtn = document.getElementById("discoverMenu");
+const orderWhatsAppBtn = document.getElementById("orderWhatsApp");
+
+// Smooth scroll to menu section
+discoverMenuBtn?.addEventListener("click", e => {
+    e.preventDefault();
+    document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" });
+});
+
+// Hero WhatsApp button: send all current cart items
+orderWhatsAppBtn?.addEventListener("click", e => {
+    e.preventDefault();
+    sendCartWhatsApp(); // Uses your professional cart WhatsApp function
+});
+
+// Hero title shimmer effect (premium)
+const shimmer = document.querySelector(".hero-title-shimmer");
+if (shimmer) {
+    shimmer.innerHTML = shimmer.textContent;
+    shimmer.style.background = "linear-gradient(120deg, transparent 0%, rgba(255, 215, 128, 0.7) 50%, transparent 100%)";
+    shimmer.style.backgroundSize = "200% auto";
+    shimmer.style.color = "transparent";
+    shimmer.style.backgroundClip = "text";
+    shimmer.style.webkitBackgroundClip = "text";
+    shimmer.style.animation = "heroShimmer 6s infinite linear";
+}

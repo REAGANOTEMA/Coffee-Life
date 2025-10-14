@@ -1,6 +1,6 @@
-/* ============================ */
-/* COFFEE LIFE WhatsApp + Chat */
-/* ============================ */
+/* ============================
+   COFFEE LIFE WhatsApp + Chat Styles (Final)
+   ============================ */
 
 /* ===== Floating WhatsApp Button ===== */
 .whatsapp-float {
@@ -34,38 +34,16 @@
 
 /* ===== Pulse Animation ===== */
 @keyframes floatPulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-    }
-
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
-    }
+    0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5); }
 }
 
 /* ===== Shake Animation ===== */
 @keyframes shakeBtn {
-
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    25% {
-        transform: translateX(-3px);
-    }
-
-    50% {
-        transform: translateX(3px);
-    }
-
-    75% {
-        transform: translateX(-3px);
-    }
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
 }
 
 /* ===== WhatsApp Modal ===== */
@@ -160,6 +138,14 @@
     background: #b28e00;
 }
 
+.whatsapp-cart-preview .item button.qty-btn.shake {
+    animation: shakeBtn 0.5s ease;
+}
+
+.whatsapp-cart-preview .item button.qty-btn.glow {
+    box-shadow: 0 0 10px #b28e00, 0 0 20px #b28e00;
+}
+
 /* ===== Send Button ===== */
 .btn-whatsapp-send {
     background: #25D366;
@@ -185,36 +171,8 @@
 
 /* ===== Slide Up Animation ===== */
 @keyframes slideUp {
-    from {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-    .whatsapp-float {
-        width: 55px;
-        height: 55px;
-        bottom: 20px;
-        right: 20px;
-    }
-
-    .whatsapp-float i {
-        font-size: 1.7rem;
-    }
-
-    .whatsapp-modal {
-        width: 90%;
-        right: 5%;
-        bottom: 80px;
-        padding: 1rem 1.2rem;
-    }
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 /* ===== Chat Messages Styling ===== */
@@ -274,4 +232,29 @@
 
 .chat-input-container button:hover {
     background: #1EBE5D;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 55px;
+        height: 55px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .whatsapp-float i {
+        font-size: 1.7rem;
+    }
+
+    .whatsapp-modal {
+        width: 90%;
+        right: 5%;
+        bottom: 80px;
+        padding: 1rem 1.2rem;
+    }
+
+    .chat-messages {
+        max-height: 250px;
+    }
 }
