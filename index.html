@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/whatsapp.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/gallery.css">
     <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="css/footer.css">
 
@@ -335,12 +336,19 @@
                     <!-- Burger Promotion -->
                     <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                         data-price="25000">
-                        <div class="menu-media"><img src="images/burger-promotion.jpg" alt="Burger Promotion"></div>
+                      <div class="menu-media">
+  <video autoplay muted loop playsinline>
+    <source src="videos/burger.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
                         <div class="menu-body">
                             <h4>Burger Promotion</h4>
                             <p class="desc">Buy 1 Get 1 Free Delicious burger </p>
                             <div class="meta">
                             </div>
+                             <div class="actions"><button class="btn-add">Add</button></div>
                         </div>
                     </article>
 
@@ -2122,25 +2130,86 @@
             </section>
         </section> <!-- /menu -->
 
-        <!-- ===== GALLERY (images/videos) ===== -->
-        <section id="gallery" class="gallery container">
-            <h2>Gallery</h2>
-            <p>Moments from Coffee Life, our space, our kitchen, our craft.</p>
-            <div class="gallery-grid">
-                <a href="images/burger-promotion.jpg" class="gallery-item"><img src="images/promotion.jpg"
-                        alt="Coffee Life Coffee"></a>
-                <a href="images/cafe2.heic" class="gallery-item"><img src="images/gallery/coffee2.jpg"
-                        alt="Coffee Life Drinks"></a>
-                <a href="images/cafe3.heic" class="gallery-item"><img src="images/gallery/coffee3.jpg"
-                        alt="Coffee Life Breakfast"></a>
-                <a href="images/cafe5.heic" class="gallery-item"><img src="images/gallery/coffee4.jpg"
-                        alt="Coffee Life Interior"></a>
-                <a href="images/cafe6.heic" class="gallery-item"><img src="images/gallery/coffee5.jpg"
-                        alt="Coffee Life Desserts"></a>
-                <a href="images/cafe7.heic" class="gallery-item"><img src="images/gallery/coffee6.jpg"
-                        alt="Coffee Life Smoothies"></a>
-            </div>
-        </section>
+      <!-- ===== GALLERY SECTION ===== -->
+<section id="gallery" class="gallery-section container">
+  <div class="gallery-header">
+    <h2 class="gallery-title">Our Story in Moments</h2>
+    <p class="gallery-subtitle">
+      Discover the spirit of <strong>Coffee Life</strong> — where aroma, art, and community blend perfectly in Jinja, Uganda.
+    </p>
+  </div>
+
+  <div class="gallery-grid">
+    <!-- HERO VIDEO: Coffee Life House -->
+    <div class="gallery-item video-item">
+      <video class="gallery-video" autoplay muted loop playsinline poster="gallery-images/coffee-life-house-cover.jpg">
+        <source src="videos/coffee-life-house.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-overlay">
+        <div class="video-text">
+          <h3>Welcome to Coffee Life House</h3>
+          <p>Located opposite the Police Barracks, Jinja, Uganda — where every aroma tells a story.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGE 1: Coffee close-up -->
+    <div class="gallery-item">
+      <img src="gallery-images/coffee-life2.jpeg" alt="Freshly brewed coffee art" />
+      <div class="overlay">
+        <span class="caption">Morning Aroma — brewed with passion</span>
+      </div>
+    </div>
+
+    <!-- IMAGE 2: Lounge and ambience -->
+    <div class="gallery-item">
+      <img src="gallery-images/lounge-view.jpeg" alt="Lounge and interior view" />
+      <div class="overlay">
+        <span class="caption">The Lounge — where comfort meets elegance</span>
+      </div>
+    </div>
+
+    <!-- IMAGE 3: Chef and kitchen craft -->
+    <div class="gallery-item">
+      <img src="gallery-images/chefs1.jpeg" alt="Chef preparing coffee and food" />
+      <div class="overlay">
+        <span class="caption">Craft & Care — in every cup, every plate</span>
+      </div>
+    </div>
+
+    <!-- IMAGE 4: Manager and staff -->
+    <div class="gallery-item">
+      <img src="gallery-images/manager-staff.jpeg" alt="Coffee Life Manager and Staff" />
+      <div class="overlay">
+        <span class="caption">Our Team — the heart behind the experience</span>
+      </div>
+    </div>
+
+    <!-- IMAGE 5: Waitresses dancing & smiling -->
+    <div class="gallery-item">
+      <img src="gallery-images/three-waitress.jpeg" alt="Waitresses dancing and smiling" />
+      <div class="overlay">
+        <span class="caption">Warm Welcomes — smiles that brew happiness</span>
+      </div>
+    </div>
+
+    <!-- SECOND VIDEO: Coffee Life Experience -->
+    <div class="gallery-item video-item">
+      <video class="gallery-video" controls poster="gallery-images/coffee-vibe-cover.jpg">
+        <source src="videos/coffee-experience.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-overlay dark">
+        <div class="video-text">
+          <h3>Coffee Life Vibes</h3>
+          <p>Experience our people, our rhythm, our craft — the heartbeat of Jinja’s café scene.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
         <!-- ===== CONTACT & LOCATIONS ===== -->
         <section id="contact" class="contact container">
@@ -2310,6 +2379,7 @@
             <script src="js/main.js"></script>
             <script src="js/menu.js"></script>
             <script src="js/navbar.js"></script>
+            <script src="js/gallery.js"></script>
             <script src="js/whatsapp.js"></script>
         </body>
 
