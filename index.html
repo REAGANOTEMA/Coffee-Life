@@ -51,102 +51,126 @@
 
 <body>
 
-    <!-- ===== HEADER (single header for the entire site) ===== -->
-    <header class="site-header">
-        <div class="container nav-inner">
-            <a class="brand" href="#home" aria-label="Coffee Life home">
-                <img src="images/logo.jpg" alt="Coffee Life Logo" class="brand-logo">
-                <span class="brand-text" data-text="Coffee Life — Eat. Meet. Work.">COFFEE LIFE</span>
-            </a>
+<!-- ===== FINAL STATIC LUXURY HEADER HTML ===== -->
+<header class="site-header" id="mainHeader" role="banner">
+  <div class="container nav-inner">
+    <!-- BRAND / LOGO -->
+    <a class="logo" href="#home" aria-label="Coffee Life home">
+      <img src="images/logo.jpg" alt="Coffee Life Logo">
+      <span class="brand-text">
+        <strong>COFFEE LIFE</strong>
+        <p>Eat. Meet. Work.</p>
+      </span>
+    </a>
+
+    <!-- NAVIGATION -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#menu" class="nav-link">Menu</a></li>
+        <li><a href="#gallery" class="nav-link">Gallery</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- ACTIONS -->
+      <div class="nav-actions">
+        <!-- WhatsApp Order CTA -->
+        <a href="https://wa.me/+18179130394" target="_blank" class="btn btn-cta" id="ctaOrderTop">
+          <i class="fab fa-whatsapp"></i> Order on WhatsApp
+        </a>
+
+        <!-- Hamburger for mobile -->
+        <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="bar bar1"></span>
+          <span class="bar bar2"></span>
+          <span class="bar bar3"></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#menu" class="mobile-link">Menu</a>
+    <a href="#gallery" class="mobile-link">Gallery</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <a href="https://wa.me/+18179130394" target="_blank" class="mobile-link whatsapp-link">
+      <i class="fab fa-whatsapp"></i> WhatsApp Order
+    </a>
+  </div>
+</header>
+<!-- ===== END FINAL STATIC LUXURY HEADER HTML ===== -->
 
 
-            <nav class="nav" role="navigation" aria-label="Main navigation">
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#menu" class="nav-link">Menu</a></li>
-                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-
-                <div class="nav-actions">
-                    <button id="ctaOrderTop" class="btn btn-cta" data-whatsapp-number="256772514889">
-                        <i class="fab fa-whatsapp"></i> Order on WhatsApp
-                    </button>
-
-                    <!-- hamburger on the RIGHT for mobile -->
-                    <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-                        <span class="bar bar1"></span>
-                        <span class="bar bar2"></span>
-                        <span class="bar bar3"></span>
-                    </button>
-                </div>
-            </nav>
-        </div>
-    </header>
 
     <body>
-        <!-- ===== HERO SECTION - LUXURY FULL STRUCTURE ===== -->
-        <main id="home" class="main">
-            <section class="hero" aria-label="Coffee Life Luxury Hero">
+       <!-- ===== HERO SECTION - LUXURY FULL STRUCTURE ===== -->
+<main id="home" class="main">
+    <section class="hero" aria-label="Coffee Life Luxury Hero">
 
-                <!-- Background Pattern Layer -->
-                <div class="hero-background"></div>
+        <!-- Background Pattern Layer -->
+        <div class="hero-background"></div>
 
-                <!-- Hero Videos -->
-                <video class="hero-video" playsinline muted preload="auto" poster="images/food-view.jpg"></video>
-                <video class="hero-video" playsinline muted preload="auto" poster="images/space1.jpg"></video>
-                <video class="hero-video" playsinline muted preload="auto" poster="images/promotion.jpg"></video>
+        <!-- Hero Videos -->
+        <video class="hero-video" playsinline muted autoplay loop></video>
+        <video class="hero-video" playsinline muted autoplay loop></video>
+        <video class="hero-video" playsinline muted autoplay loop></video>
 
-                <!-- Gradient Overlay -->
-                <div class="hero-overlay"></div>
+        <!-- Gradient Overlay -->
+        <div class="hero-overlay"></div>
 
-                <!-- Luxury Glow / Sparkles -->
-                <div class="hero-luxury-glow"></div>
+        <!-- Luxury Glow / Sparkles -->
+        <div class="hero-luxury-glow"></div>
 
-                <!-- Hero Content -->
-                <div class="hero-inner container">
+        <!-- Hero Content -->
+        <div class="hero-inner container">
 
-                    <!-- Main Content -->
-                    <div class="hero-content" data-animate="fade-in-up">
-                        <h1 class="hero-title">
-                            <span class="hero-title-text">COFFEE LIFE</span>
-                            <span class="hero-title-shimmer"></span>
-                        </h1>
-                        <p class="hero-subtitle">EAT. MEET. WORK.</p>
-                        <p class="hero-note">
-                            Indulge in handcrafted coffee, gourmet meals, and unforgettable moments in Jinja & Kampala.
-                        </p>
+            <!-- Main Content -->
+            <div class="hero-content" data-animate="fade-in-up">
+                <h1 class="hero-title">
+                    <span class="hero-title-text">COFFEE LIFE</span>
+                    <span class="hero-title-shimmer"></span>
+                </h1>
+                <p class="hero-subtitle">
+                    <span class="eat">EAT.</span>
+                    <span class="meet">MEET.</span>
+                    <span class="work">WORK.</span>
+                </p>
+                <p class="hero-note">
+                    Indulge in handcrafted coffee, gourmet meals, and unforgettable moments in Jinja & Kampala.
+                </p>
 
-                        <div class="hero-ctas">
-                            <a href="#menu" class="btn hero-btn glass-btn" id="discoverMenu">☕ View Food Menu</a>
-                            <a href="https://wa.me/+18179130394" target="_blank" class="btn hero-btn glass-btn"
-                                id="orderWhatsApp">
-                                <i class="fab fa-whatsapp"></i> Order via WhatsApp
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Aside Section -->
-                    <aside class="hero-aside" data-animate="fade-in">
-                        <div class="quick-info">
-                            <h3>OUR LOCATIONS</h3>
-                            <ul class="locations">
-                                <li>(1) Total Energies opposite Gadhafi Police Barracks, Jinja Highway</li>
-                                <li>(2) Total Lakeview, Mailombili</li>
-                                <li>(3) Gabba Road opposite University of East Africa</li>
-                            </ul>
-                            <a href="#contact" class="link">Get directions & contact</a>
-                        </div>
-                    </aside>
+                <div class="hero-ctas">
+                    <a href="#menu" class="btn hero-btn glass-btn" id="discoverMenu">☕ View Food Menu</a>
+                    <a href="https://wa.me/+18179130394" target="_blank" class="btn hero-btn glass-btn"
+                        id="orderWhatsApp">
+                        <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                    </a>
                 </div>
+            </div>
 
-                <!-- Scroll Down -->
-                <a class="scroll-down" href="#menu" aria-label="Scroll to menu"><span class="scroll-icon">↓</span></a>
+            <!-- Aside Section -->
+            <aside class="hero-aside" data-animate="fade-in">
+                <div class="quick-info">
+                    <h3>OUR LOCATIONS</h3>
+                    <ul class="locations">
+                        <li>(1) Total Energies opposite Gadhafi Police Barracks, Jinja Highway</li>
+                        <li>(2) Total Lakeview, Mailombili</li>
+                        <li>(3) Gabba Road opposite University of East Africa</li>
+                    </ul>
+                    <a href="#contact" class="link">Get directions & contact</a>
+                </div>
+            </aside>
+        </div>
 
-                <!-- Parallax / Floating Food Elements -->
-                <div class="hero-parallax" aria-hidden="true"></div>
+        <!-- Scroll Down -->
+        <a class="scroll-down" href="#menu" aria-label="Scroll to menu"><span class="scroll-icon">↓</span></a>
 
-            </section>
+        <!-- Parallax / Floating Food Elements -->
+        <div class="hero-parallax" aria-hidden="true"></div>
+
+    </section>
         </main>
         <!-- ===== NAV ANCHOR: Menu (full interactive menu) ===== -->
         <section id="menu" class="menu-section container" data-menu-src="data/menu.json">
@@ -341,6 +365,7 @@
     <source src="videos/burger.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
+  <button onclick="addToCart('hamburger',35000)">Add to Cart</button>
 </div>
 
                         <div class="menu-body">
@@ -564,7 +589,7 @@
                             <p class="desc">3 Pieces + Chips, Salad & Soda.</p>
                             <div class="meta">
                                 <div class="price">29,000 UGX</div>
-                                <div class="actions"><button class="btn-add">Add</button></div>
+                                <button onclick="addToCart('Crispy Three',29000)">Add to Cart</button>
                             </div>
                         </div>
                     </article>
@@ -576,7 +601,7 @@
                             <p class="desc">4 Pieces + Chips, Salad & Soda.</p>
                             <div class="meta">
                                 <div class="price">35,000 UGX</div>
-                                <div class="actions"><button class="btn-add">Add</button></div>
+                                <button onclick="addToCart('Crispy Four',35000)">Add to Cart</button>
                             </div>
                         </div>
                     </article>
@@ -2371,6 +2396,60 @@
             <script src="js/navbar.js"></script>
             <script src="js/gallery.js"></script>
             <script src="js/whatsapp.js"></script>
+
+            <script>
+  // ====== GLOBAL CART ======
+  let cart = [];
+
+  // Add an item to the cart
+  function addToCart(name, price) {
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+    alert(`${name} added to cart!`);
+  }
+
+  // Calculate total
+  function getTotal() {
+    return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  }
+
+  // Generate message for WhatsApp
+  function generateOrderMessage(name, location, customOrder) {
+    if (cart.length === 0) return "No items selected.";
+    let message = `*New Order*%0A`;
+    message += `👤 Name: ${name}%0A📍 Location: ${location}%0A%0A`;
+    message += `🛒 *Items Ordered:*%0A`;
+    cart.forEach(item => {
+      message += `- ${item.name} (x${item.qty}) — UGX ${item.price * item.qty}%0A`;
+    });
+    message += `%0A💰 *Total:* UGX ${getTotal()}%0A`;
+    message += `%0A🗒️ Notes: ${customOrder || "None"}`;
+    return message;
+  }
+
+  // Handle WhatsApp form submit
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("whatsapp-order-form");
+    if (!form) return;
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("custName").value.trim();
+      const location = document.getElementById("custLocation").value.trim();
+      const orderNote = document.getElementById("custOrder").value.trim();
+
+      const whatsappNumber = "+18179130394"; // your WhatsApp number
+      const message = generateOrderMessage(name, location, orderNote);
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+      window.open(whatsappURL, "_blank");
+    });
+  });
+</script>
+
         </body>
 
 </html>

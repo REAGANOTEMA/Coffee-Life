@@ -101,9 +101,9 @@ function generateCartMessage(name, location) {
 // ===== Send to WhatsApp =====
 function sendCartWhatsApp() {
     if (window.cart.length === 0) return alert("Your cart is empty! Please add items first.");
-    const name = prompt("Please enter your name:");
+    const name = prompt("Please enter your name:")?.trim();
     if (!name) return alert("Name is required!");
-    const location = prompt("Please enter your delivery location:");
+    const location = prompt("Please enter your delivery location:")?.trim();
     if (!location) return alert("Location is required!");
     const message = generateCartMessage(name, location);
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
@@ -129,9 +129,7 @@ function updateQRLink() {
 }
 
 // ===== Floating Pulse Animation =====
-setInterval(() => {
-    whatsappFloat?.classList.toggle("highlight");
-}, 3000);
+setInterval(() => whatsappFloat?.classList.toggle("highlight"), 3000);
 
 // ===== AI Chatbot =====
 let chatStep = 0;
@@ -200,23 +198,19 @@ document.getElementById("year")?.textContent = new Date().getFullYear();
 // ===== Initialize =====
 updateCartPreview();
 updateQRLink();
-// ===== Hero Buttons Integration =====
-const discoverMenuBtn = document.getElementById("discoverMenu");
-const orderWhatsAppBtn = document.getElementById("orderWhatsApp");
 
-// Smooth scroll to menu section
-discoverMenuBtn?.addEventListener("click", e => {
+// ===== Hero Buttons Integration =====
+document.getElementById("discoverMenu")?.addEventListener("click", e => {
     e.preventDefault();
     document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" });
 });
 
-// Hero WhatsApp button: send all current cart items
-orderWhatsAppBtn?.addEventListener("click", e => {
+document.getElementById("orderWhatsApp")?.addEventListener("click", e => {
     e.preventDefault();
-    sendCartWhatsApp(); // Uses your professional cart WhatsApp function
+    sendCartWhatsApp();
 });
 
-// Hero title shimmer effect (premium)
+// ===== Hero title shimmer effect (premium) =====
 const shimmer = document.querySelector(".hero-title-shimmer");
 if (shimmer) {
     shimmer.innerHTML = shimmer.textContent;

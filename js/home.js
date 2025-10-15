@@ -1,99 +1,81 @@
-/* =========================
-   HOME.JS - HERO INTERACTIONS & PWA
-========================= */
+/* =========================================
+   HOME.JS - FINAL, ULTRA PREMIUM, STATIC HEADER
+   ========================================= */
 
-// Hero text elements
-const heroMainHeading = document.querySelector('.hero-content h1');
-const heroSubHeading = document.querySelector('.hero-content p');
-const heroMovingText = document.querySelector('.hero-moving-text span');
-
-// Array of luxurious fonts for hero headings
-const fonts = ["'Playfair Display', serif", "'Lora', serif", "'Cinzel', serif", "'Montserrat', sans-serif", "'Garamond', serif"];
-let fontIndex = 0;
-
-// Rotate fonts every 4 seconds
-setInterval(() => {
-    if (heroMainHeading && heroSubHeading) {
-        heroMainHeading.style.fontFamily = fonts[fontIndex % fonts.length];
-        heroSubHeading.style.fontFamily = fonts[(fontIndex + 1) % fonts.length];
-        fontIndex++;
+/* ===== 1. HEADER SCROLL EFFECT ===== */
+const header = document.querySelector("header");
+function handleHeaderScroll() {
+    if(window.scrollY > 50) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
     }
-}, 4000);
-
-// Hero button hover effect
-const heroButtons = document.querySelectorAll('.hero-btn');
-heroButtons.forEach(btn => {
-    btn.addEventListener('mouseenter', () => {
-        btn.style.transform = 'scale(1.1)';
-        btn.style.transition = 'all 0.3s ease';
-    });
-    btn.addEventListener('mouseleave', () => {
-        btn.style.transform = 'scale(1)';
-    });
-});
-
-// Fade-in animations on load
-window.addEventListener('load', () => {
-    if (heroMainHeading) heroMainHeading.classList.add('fade-in');
-    if (heroSubHeading) heroSubHeading.classList.add('fade-in');
-    if (heroMovingText) heroMovingText.classList.add('fade-in');
-});
-
-// Pause moving text on hover
-if (heroMovingText) {
-    heroMovingText.addEventListener('mouseenter', () => {
-        heroMovingText.style.animationPlayState = 'paused';
-    });
-    heroMovingText.addEventListener('mouseleave', () => {
-        heroMovingText.style.animationPlayState = 'running';
-    });
 }
+window.addEventListener("scroll", handleHeaderScroll);
+handleHeaderScroll();
 
-// Scroll-triggered effects for hero section
-const heroSection = document.querySelector('.hero');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            heroSection.style.opacity = 1;
-            heroSection.style.transform = 'scale(1)';
+/* ===== 2. HAMBURGER MENU TOGGLE ===== */
+const hamburger = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile-menu");
+
+hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    mobileMenu.classList.toggle("active");
+});
+
+/* ===== 3. MOBILE LINK CLICK CLOSE MENU ===== */
+const mobileLinks = document.querySelectorAll(".mobile-link");
+mobileLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        mobileMenu.classList.remove("active");
+    });
+});
+
+/* ===== 4. NAV LINK HOVER EFFECT ===== */
+const navLinks = document.querySelectorAll(".nav-link");
+navLinks.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+        link.style.color = "var(--gold)";
+    });
+    link.addEventListener("mouseleave", () => {
+        link.style.color = "var(--coffee)";
+    });
+});
+
+/* ===== 5. NAV LINK SHAKE ANIMATION EVERY 5s ===== */
+setInterval(() => {
+    navLinks.forEach(link => {
+        link.style.animation = "shake 0.5s";
+        setTimeout(() => link.style.animation = "", 500);
+    });
+}, 5000);
+
+/* ===== 6. NAV LINK LIGHT-UP ANIMATION EVERY 6s ===== */
+setInterval(() => {
+    navLinks.forEach(link => {
+        link.style.animation = "lightUp 1s";
+        setTimeout(() => link.style.animation = "", 1000);
+    });
+}, 6000);
+
+/* ===== 7. RESPONSIVE HERO FONT SIZES (OPTIONAL IF YOU HAVE HERO TEXT) ===== */
+function adjustHeroFonts(){
+    const heroTitle = document.querySelector(".hero-title-text");
+    const heroSubtitle = document.querySelector(".hero-subtitle");
+    const heroNote = document.querySelector(".hero-note");
+
+    if(heroTitle && heroSubtitle && heroNote){
+        if(window.innerWidth < 768){
+            heroTitle.style.fontSize = "3.5rem";
+            heroSubtitle.style.fontSize = "1.5rem";
+            heroNote.style.fontSize = "1rem";
         } else {
-            heroSection.style.opacity = 0.95;
-            heroSection.style.transform = 'scale(0.98)';
+            heroTitle.style.fontSize = "5rem";
+            heroSubtitle.style.fontSize = "2rem";
+            heroNote.style.fontSize = "1.2rem";
         }
-    });
-}, { threshold: 0.1 });
-
-if (heroSection) observer.observe(heroSection);
-
-/* =========================
-   PWA SERVICE WORKER REGISTRATION
-========================= */
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js')
-            .then(reg => console.log('Service Worker registered!', reg))
-            .catch(err => console.log('Service Worker registration failed:', err));
-    });
+    }
 }
-
-/* =========================
-   OPTIONAL: MENU INTERACTIONS (Offline-ready)
-========================= */
-// Fetch menu JSON (cached via service worker)
-const menuContainer = document.querySelector('#menu-container'); // assuming this div exists
-fetch('menu.json')
-    .then(response => response.json())
-    .then(data => {
-        if (menuContainer) {
-            menuContainer.innerHTML = data.map(item => `
-                <div class="menu-item">
-                    <img src="${item.image}" alt="${item.name}" />
-                    <h4>${item.name}</h4>
-                    <p>${item.description}</p>
-                    <span class="price">UGX ${item.price}</span>
-                    <button class="order-btn">Order Now</button>
-                </div>
-            `).join('');
-        }
-    })
-    .catch(err => console.log('Failed to load menu:', err));
+window.addEventListener("resize", adjustHeroFonts);
+adjustHeroFonts();

@@ -2,7 +2,7 @@
 // COFFEE LIFE Cart + WhatsApp + AI Chatbot Integration (Final)
 // ============================
 
-// ===== Elements =====
+// ===== DOM Elements =====
 const cartBtn = document.querySelector(".cart-btn");
 const cartClose = document.querySelector(".cart-close");
 const cartContainer = document.querySelector(".cart-container");
@@ -24,7 +24,7 @@ const chatSendBtnChat = document.getElementById("chatSendBtn");
 const WA_PHONE = "256772514889";
 
 // ===== Global Cart =====
-window.cart = []; // shared with menu.js
+window.cart = [];
 
 // ===== Cart Modal Open/Close =====
 cartBtn?.addEventListener("click", () => cartContainer?.classList.toggle("active"));
@@ -53,6 +53,7 @@ function renderCart() {
     if (!cartItemsContainer) return;
     cartItemsContainer.innerHTML = "";
     let total = 0;
+
     if (window.cart.length === 0) {
         cartItemsContainer.innerHTML = `<p class="cart-empty">Your cart is empty.</p>`;
         document.querySelector(".cart-total")?.textContent = `Total: UGX 0`;
@@ -144,20 +145,19 @@ function generateCartMessage(name = "[Your Name]", location = "[Your Location]")
 // ===== Send Cart via WhatsApp =====
 function sendCartWhatsApp() {
     if (window.cart.length === 0) return alert("Your cart is empty! Please add items first.");
-    const name = prompt("Please enter your name:");
+    const name = prompt("Please enter your name:")?.trim();
     if (!name) return alert("Name is required!");
-    const location = prompt("Please enter your delivery location:");
+    const location = prompt("Please enter your delivery location:")?.trim();
     if (!location) return alert("Location is required!");
     const message = generateCartMessage(name, location);
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
 }
 
-// ===== Event Listeners for WhatsApp =====
+// ===== WhatsApp Event Listeners =====
 cartOrderBtn?.addEventListener("click", sendCartWhatsApp);
 whatsappSendBtn?.addEventListener("click", sendCartWhatsApp);
 whatsappBtnFooter?.addEventListener("click", sendCartWhatsApp);
 
-// ===== Floating WhatsApp Modal =====
 whatsappFloat?.addEventListener("click", () => {
     whatsappModal?.classList.toggle("active");
     renderCart();
@@ -241,23 +241,19 @@ document.getElementById("year")?.textContent = new Date().getFullYear();
 renderCart();
 updateCartPreview();
 updateQRLink();
-// ===== Hero Buttons Integration =====
-const discoverMenuBtn = document.getElementById("discoverMenu");
-const orderWhatsAppBtn = document.getElementById("orderWhatsApp");
 
-// Smooth scroll to menu section
-discoverMenuBtn?.addEventListener("click", e => {
+// ===== Hero Buttons Integration =====
+document.getElementById("discoverMenu")?.addEventListener("click", e => {
     e.preventDefault();
     document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" });
 });
 
-// Hero WhatsApp button: send all current cart items
-orderWhatsAppBtn?.addEventListener("click", e => {
+document.getElementById("orderWhatsApp")?.addEventListener("click", e => {
     e.preventDefault();
-    sendCartWhatsApp(); // Uses your professional cart WhatsApp function
+    sendCartWhatsApp();
 });
 
-// Hero title shimmer effect (premium)
+// ===== Hero title shimmer effect (premium) =====
 const shimmer = document.querySelector(".hero-title-shimmer");
 if (shimmer) {
     shimmer.innerHTML = shimmer.textContent;
