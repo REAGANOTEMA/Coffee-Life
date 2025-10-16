@@ -30,11 +30,12 @@
 
 .whatsapp-float i { font-size: 2rem; }
 
-/* ===== Pulse Animation ===== */
+/* ===== Pulse & Shake Animations ===== */
 @keyframes floatPulse {
     0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
     50% { transform: scale(1.05); box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5); }
 }
+
 @keyframes shakeBtn {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-3px); }
@@ -58,11 +59,32 @@
     animation: slideUp 0.6s ease forwards;
     flex-direction: column;
 }
+
 .whatsapp-modal.active { display: flex; }
 
-.whatsapp-modal h4 { color: #b85c38; text-align: center; margin-bottom: 0.5rem; font-size: 1.2rem; }
-.whatsapp-modal p { color: #333; font-size: 0.95rem; text-align: center; margin-bottom: 1rem; }
-.close-whatsapp { position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 1.2rem; color: #b85c38; }
+.whatsapp-modal h4 {
+    color: #b85c38;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.whatsapp-modal p {
+    color: #333;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.close-whatsapp {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #b85c38;
+}
+
 .close-whatsapp:hover { color: #25D366; }
 
 /* ===== Cart Preview ===== */
@@ -74,6 +96,7 @@
     border-bottom: 1px solid #eee;
     padding: 0.6rem 0;
 }
+
 .whatsapp-cart-preview .item {
     display: flex;
     justify-content: space-between;
@@ -81,9 +104,30 @@
     font-size: 0.95rem;
     margin: 6px 0;
 }
-.whatsapp-cart-preview .item span.name { flex: 1; font-weight: 600; color: #333; }
-.whatsapp-cart-preview .item span.qty { font-weight: 600; color: #b28e00; margin: 0 6px; }
-.whatsapp-cart-preview .item button.qty-btn { background: #d4af37; border: none; color: #fff; padding: 2px 6px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
+
+.whatsapp-cart-preview .item span.name {
+    flex: 1;
+    font-weight: 600;
+    color: #333;
+}
+
+.whatsapp-cart-preview .item span.qty {
+    font-weight: 600;
+    color: #b28e00;
+    margin: 0 6px;
+}
+
+.whatsapp-cart-preview .item button.qty-btn {
+    background: #d4af37;
+    border: none;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.2s;
+}
+
 .whatsapp-cart-preview .item button.qty-btn:hover { background: #b28e00; }
 .whatsapp-cart-preview .item button.qty-btn.shake { animation: shakeBtn 0.5s ease; }
 .whatsapp-cart-preview .item button.qty-btn.glow { box-shadow: 0 0 10px #b28e00, 0 0 20px #b28e00; }
@@ -105,14 +149,19 @@
     gap: 8px;
     transition: all 0.3s ease;
 }
-.btn-whatsapp-send:hover { background: #1EBE5D; transform: translateY(-2px); }
 
-/* ===== Payment Buttons (TEMP) - clearly visible to change later ===== */
+.btn-whatsapp-send:hover {
+    background: #1EBE5D;
+    transform: translateY(-2px);
+}
+
+/* ===== Payment Options ===== */
 .payment-options {
     display: flex;
     gap: 8px;
     margin-top: 8px;
 }
+
 .payment-btn {
     flex: 1;
     padding: 0.6rem;
@@ -122,11 +171,11 @@
     font-weight: 700;
     color: #fff;
 }
-.payment-btn.mtn { background: #ffcd00; color: #1e1e1e; } /* MTN brand yellow */
-.payment-btn.airtel { background: #e60000; } /* Airtel red */
-.payment-btn.manual { background: #6c757d; } /* cash on delivery / manual */
 
-/* highlight the temporary merchant codes block visually in modal */
+.payment-btn.mtn { background: #ffcd00; color: #1e1e1e; }
+.payment-btn.airtel { background: #e60000; }
+.payment-btn.manual { background: #6c757d; }
+
 .payment-note {
     margin-top: 10px;
     font-size: 0.9rem;
@@ -146,14 +195,52 @@
     flex-direction: column;
     gap: 6px;
 }
-.chat-messages .msg { padding: 0.5rem 0.8rem; border-radius: 12px; max-width: 85%; word-wrap: break-word; }
-.chat-messages .msg.bot { background: #f1f1f1; color: #333; align-self: flex-start; }
-.chat-messages .msg.user { background: #25D366; color: #fff; align-self: flex-end; }
+
+.chat-messages .msg {
+    padding: 0.5rem 0.8rem;
+    border-radius: 12px;
+    max-width: 85%;
+    word-wrap: break-word;
+}
+
+.chat-messages .msg.bot {
+    background: #f1f1f1;
+    color: #333;
+    align-self: flex-start;
+}
+
+.chat-messages .msg.user {
+    background: #25D366;
+    color: #fff;
+    align-self: flex-end;
+}
 
 /* ===== Chat Input Styling ===== */
-.chat-input-container { display: flex; gap: 8px; margin-top: 6px; }
-.chat-input-container input { flex: 1; padding: 0.6rem 1rem; border-radius: 50px; border: 1px solid #ccc; outline: none; font-size: 0.95rem; }
-.chat-input-container button { padding: 0.6rem 1rem; border-radius: 50px; border: none; background: #25D366; color: #fff; cursor: pointer; font-weight: 600; }
+.chat-input-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.chat-input-container input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.chat-input-container button {
+    padding: 0.6rem 1rem;
+    border-radius: 50px;
+    border: none;
+    background: #25D366;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
 .chat-input-container button:hover { background: #1EBE5D; }
 
 /* ===== Responsive Adjustments ===== */

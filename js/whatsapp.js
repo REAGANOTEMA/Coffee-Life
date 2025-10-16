@@ -3,7 +3,6 @@
 // ============================
 
 // ===== DOM Elements =====
-const whatsappFloat = document.querySelector(".whatsapp-float");
 const whatsappModal = document.querySelector(".whatsapp-modal");
 const whatsappClose = document.querySelector(".close-whatsapp");
 const whatsappSendBtn = document.querySelector(".btn-whatsapp-send");
@@ -20,18 +19,72 @@ const WA_PHONE = "256772514889"; // Coffee Life business number
 // ===== Global Cart =====
 window.cart = window.cart || [];
 
-// ===== Add to Cart (with +4000 delivery display) =====
+// ===== Location-based delivery charge =====
+function getDeliveryCharge(distanceKm) {
+    if(distanceKm <= 5) return 5000;
+    if(distanceKm <= 10) return 8000;
+    if(distanceKm <= 20) return 13000;
+    return 20000;
+}
+
+// ===== Haversine distance calculation =====
+function calcDistanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI/180;
+    const dLon = (lon2 - lon1) * Math.PI/180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) * Math.sin(dLon/2)**2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+// ===== Add to Cart with distance-based delivery =====
 document.querySelectorAll(".btn-add").forEach(btn => {
     btn.addEventListener("click", e => {
         const itemEl = e.target.closest(".menu-item, .menu-card");
         if (!itemEl) return;
         const name = itemEl.dataset.name;
         const price = parseInt(itemEl.dataset.price) || 0;
-        const existing = window.cart.find(i => i.name === name);
-        if (existing) existing.qty++;
-        else window.cart.push({ name, price, qty: 1 });
-        updateCartPreview();
-        updateQRLink();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+                const userLat = pos.coords.latitude;
+                const userLng = pos.coords.longitude;
+                const shopLat = -1.2921; // Coffee Life HQ latitude
+                const shopLng = 36.8219; // Coffee Life HQ longitude
+                const distanceKm = calcDistanceKm(userLat, userLng, shopLat, shopLng);
+                const deliveryFee = getDeliveryCharge(distanceKm);
+
+                const existing = window.cart.find(i => i.name === name);
+                const totalPrice = price + deliveryFee;
+
+                // Cap 50M UGX
+                const cartTotal = (window.cart || []).reduce((sum,i)=>sum+i.price*(i.qty||1),0)+totalPrice;
+                if(cartTotal > 50000000) return alert("Cart cannot exceed UGX 50,000,000!");
+
+                if (existing) existing.qty++;
+                else window.cart.push({ name, price: totalPrice, qty: 1, deliveryFee, distanceKm });
+
+                updateCartPreview();
+            }, () => {
+                const deliveryFee = 5000;
+                const existing = window.cart.find(i => i.name === name);
+                const totalPrice = price + deliveryFee;
+                const cartTotal = (window.cart || []).reduce((sum,i)=>sum+i.price*(i.qty||1),0)+totalPrice;
+                if(cartTotal > 50000000) return alert("Cart cannot exceed UGX 50,000,000!");
+                if (existing) existing.qty++;
+                else window.cart.push({ name, price: totalPrice, qty: 1, deliveryFee, distanceKm: 0 });
+                updateCartPreview();
+            });
+        } else {
+            const deliveryFee = 5000;
+            const existing = window.cart.find(i => i.name === name);
+            const totalPrice = price + deliveryFee;
+            const cartTotal = (window.cart || []).reduce((sum,i)=>sum+i.price*(i.qty||1),0)+totalPrice;
+            if(cartTotal > 50000000) return alert("Cart cannot exceed UGX 50,000,000!");
+            if (existing) existing.qty++;
+            else window.cart.push({ name, price: totalPrice, qty: 1, deliveryFee, distanceKm: 0 });
+            updateCartPreview();
+        }
     });
 });
 
@@ -46,8 +99,10 @@ function updateCartPreview() {
     }
 
     let subtotal = 0;
+    let totalDelivery = 0;
     window.cart.forEach(item => {
-        subtotal += item.price * item.qty;
+        subtotal += item.price * item.qty - (item.deliveryFee*item.qty);
+        totalDelivery += item.deliveryFee*item.qty;
         const div = document.createElement("div");
         div.classList.add("item");
         div.innerHTML = `
@@ -62,20 +117,17 @@ function updateCartPreview() {
         cartPreview.appendChild(div);
     });
 
-    const deliveryFee = 4000;
-    const total = subtotal + deliveryFee;
-
+    const total = subtotal + totalDelivery;
     const summary = document.createElement("div");
     summary.classList.add("summary");
     summary.innerHTML = `
         <hr>
         <p>Subtotal: <strong>${subtotal} UGX</strong></p>
-        <p>Delivery Fee: <strong>+${deliveryFee} UGX</strong></p>
+        <p>Delivery Fee: <strong>${totalDelivery} UGX</strong></p>
         <p>Total: <strong>${total} UGX</strong></p>
     `;
     cartPreview.appendChild(summary);
 
-    // Quantity Buttons
     cartPreview.querySelectorAll(".qty-btn").forEach(btn => {
         btn.addEventListener("click", e => {
             const action = e.target.dataset.action;
@@ -85,32 +137,29 @@ function updateCartPreview() {
             if (action === "plus") item.qty++;
             else {
                 item.qty--;
-                if (item.qty <= 0) window.cart = window.cart.filter(i => i.name !== name);
+                if (item.qty <= 0) window.cart = window.cart.filter(i=>i.name!==name);
             }
             updateCartPreview();
-            updateQRLink();
         });
     });
 }
 
 // ===== Generate WhatsApp Message =====
 function generateCartMessage(name, location) {
-    let message = `✨ Coffee Life Order ✨\n\n`;
-    message += `👤 Name: ${name || "[Your Name]"}\n📍 Delivery: ${location || "[Your Location]"}\n\n`;
-    message += "🛒 Order Details:\n";
+    let message = `✨ Coffee Life Order ✨\n\n👤 Name: ${name || "[Your Name]"}\n📍 Delivery: ${location || "[Your Location]"}\n\n🛒 Order Details:\n`;
 
-    if (window.cart.length === 0) message += "No items selected.\n";
+    if(window.cart.length===0) message += "No items selected.\n";
     else {
-        let subtotal = 0;
-        window.cart.forEach((item, i) => {
-            message += `${i + 1}. ${item.name} x${item.qty} - ${item.price * item.qty} UGX\n`;
-            subtotal += item.price * item.qty;
+        let subtotal = 0, delivery = 0;
+        window.cart.forEach((item,i)=>{
+            message += `${i+1}. ${item.name} x${item.qty} - ${item.price*item.qty} UGX\n`;
+            subtotal += item.price*item.qty - (item.deliveryFee*item.qty);
+            delivery += item.deliveryFee*item.qty;
         });
         message += `\n💰 Subtotal: ${subtotal} UGX`;
-        message += `\n🚚 Delivery Fee: +4000 UGX`;
-        message += `\n📦 Total: ${subtotal + 4000} UGX`;
+        message += `\n🚚 Delivery Fee: +${delivery} UGX`;
+        message += `\n📦 Total: ${subtotal+delivery} UGX`;
     }
-
     message += "\n\n💵 Payment before delivery required.";
     message += "\n☕ Coffee Life — Crafted with Passion, Served with Care.";
     return message;
@@ -118,139 +167,91 @@ function generateCartMessage(name, location) {
 
 // ===== Send to WhatsApp =====
 function sendCartWhatsApp() {
-    if (window.cart.length === 0) return alert("Your cart is empty! Please add items first.");
-    const name = prompt("Please enter your name:")?.trim();
-    if (!name) return alert("Name is required!");
-    const location = prompt("Please enter your delivery location:")?.trim();
-    if (!location) return alert("Location is required!");
+    if(window.cart.length===0) return alert("Your cart is empty!");
+    const name = prompt("Enter your name:")?.trim();
+    if(!name) return alert("Name is required!");
+    const location = prompt("Enter your delivery location:")?.trim();
+    if(!location) return alert("Location is required!");
     const message = generateCartMessage(name, location);
-    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
+    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`,"_blank");
 }
 
-// ===== Floating WhatsApp Modal =====
-whatsappFloat?.addEventListener("click", () => {
-    whatsappModal?.classList.toggle("active");
-    updateCartPreview();
-    startChat();
-});
-
-whatsappClose?.addEventListener("click", () => whatsappModal?.classList.remove("active"));
-
-// ===== Footer & Floating Send Buttons =====
+// ===== WhatsApp Modal =====
+whatsappClose?.addEventListener("click", ()=>whatsappModal?.classList.remove("active"));
 whatsappSendBtn?.addEventListener("click", sendCartWhatsApp);
 whatsappBtnFooter?.addEventListener("click", sendCartWhatsApp);
 
-// ===== QR Link =====
-function updateQRLink() {
-    if (!qrBtn) return;
-    qrBtn.setAttribute("href", "#menu");
-}
-
-// ===== Floating Button Pulse =====
-setInterval(() => whatsappFloat?.classList.toggle("highlight"), 3000);
-
-// ============================
-// AI CHATBOT
-// ============================
+// ===== AI Chatbot =====
 let chatStep = 0;
-let userData = { name: "", location: "" };
-
-function addMessage(text, sender = "bot") {
-    if (!chatMessages) return;
+let userData = { name:"", location:"" };
+function addMessage(text,sender="bot"){
+    if(!chatMessages) return;
     const msg = document.createElement("div");
     msg.className = `msg ${sender}`;
     msg.textContent = text;
     chatMessages.appendChild(msg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
-
-function startChat() {
-    if (!chatMessages) return;
-    chatMessages.innerHTML = "";
-    chatStep = 0;
-    userData = { name: "", location: "" };
+function startChat(){
+    if(!chatMessages) return;
+    chatMessages.innerHTML="";
+    chatStep=0;
+    userData={ name:"", location:"" };
     addMessage("👋 Hello! Welcome to Coffee Life ☕");
-    setTimeout(() => addMessage("Can I have your name, please?"), 1200);
+    setTimeout(()=>addMessage("Can I have your name, please?"),1200);
 }
-
-function handleChat() {
+function handleChat(){
     const input = chatInput?.value.trim();
-    if (!input) return;
-    addMessage(input, "user");
-    chatInput.value = "";
-
-    setTimeout(() => {
-        if (chatStep === 0) {
-            userData.name = input;
+    if(!input) return;
+    addMessage(input,"user");
+    chatInput.value="";
+    setTimeout(()=>{
+        if(chatStep===0){
+            userData.name=input;
             addMessage(`Nice to meet you, ${userData.name}! 😊`);
             addMessage("Where should we deliver your order?");
             chatStep++;
-        } else if (chatStep === 1) {
-            userData.location = input;
+        } else if(chatStep===1){
+            userData.location=input;
             addMessage(`Got it! Delivery to ${userData.location}.`);
-            addMessage("💡 Delivery fee: +4000 UGX within Kampala.");
+            addMessage("💡 Delivery fee depends on your location.");
             addMessage("Would you like to *view the menu* or *place your order*?");
             chatStep++;
-        } else if (chatStep === 2) {
-            if (input.toLowerCase().includes("menu")) {
+        } else if(chatStep===2){
+            if(input.toLowerCase().includes("menu")){
                 addMessage("Opening the menu... 🍰☕");
-                setTimeout(() => window.location.href = "#menu", 1000);
+                setTimeout(()=>window.location.href="#menu",1000);
             } else {
                 addMessage("Preparing your order. Choose a payment option below 👇");
                 showPaymentOptions();
             }
         }
-    }, 1000);
+    },1000);
 }
-
-// ===== PAYMENT PLACEHOLDERS (Replace later) =====
-function showPaymentOptions() {
+function showPaymentOptions(){
     const wrapper = document.createElement("div");
-    wrapper.className = "payment-options";
-    wrapper.innerHTML = `
+    wrapper.className="payment-options";
+    wrapper.innerHTML=`
         <button class="pay-btn mtn">MTN Mobile Money</button>
         <button class="pay-btn airtel">Airtel Money</button>
         <button class="pay-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Order</button>
     `;
     chatMessages.appendChild(wrapper);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    wrapper.querySelector(".mtn").addEventListener("click", () => {
-        addMessage("📲 MTN Payment (temporary): Please send to *0772 514 889* and confirm on WhatsApp.");
-    });
-    wrapper.querySelector(".airtel").addEventListener("click", () => {
-        addMessage("📲 Airtel Payment (temporary): Please send to *0702 514 889* and confirm on WhatsApp.");
-    });
-    wrapper.querySelector(".whatsapp").addEventListener("click", sendCartWhatsApp);
+    chatMessages.scrollTop=chatMessages.scrollHeight;
+    wrapper.querySelector(".mtn").addEventListener("click",()=>addMessage("📲 MTN Payment: send to *0772 514 889* and confirm on WhatsApp."));
+    wrapper.querySelector(".airtel").addEventListener("click",()=>addMessage("📲 Airtel Payment: send to *0702 514 889* and confirm on WhatsApp."));
+    wrapper.querySelector(".whatsapp").addEventListener("click",sendCartWhatsApp);
 }
+chatSendBtnChat?.addEventListener("click",handleChat);
+chatInput?.addEventListener("keypress",e=>{if(e.key==="Enter") handleChat();});
 
-chatSendBtnChat?.addEventListener("click", handleChat);
-chatInput?.addEventListener("keypress", e => { if (e.key === "Enter") handleChat(); });
-
-// ===== Auto Year in Footer =====
+// ===== Footer Year =====
 document.getElementById("year")?.textContent = new Date().getFullYear();
 
-// ===== Hero Section Buttons =====
-document.getElementById("discoverMenu")?.addEventListener("click", e => {
-    e.preventDefault();
-    document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" });
-});
-document.getElementById("orderWhatsApp")?.addEventListener("click", e => {
-    e.preventDefault();
-    sendCartWhatsApp();
-});
-
-// ===== Hero Title Shimmer Effect =====
-const shimmer = document.querySelector(".hero-title-shimmer");
-if (shimmer) {
-    shimmer.style.background = "linear-gradient(120deg, transparent 0%, rgba(255,215,128,0.8) 50%, transparent 100%)";
-    shimmer.style.backgroundSize = "200% auto";
-    shimmer.style.color = "transparent";
-    shimmer.style.backgroundClip = "text";
-    shimmer.style.webkitBackgroundClip = "text";
-    shimmer.style.animation = "heroShimmer 6s infinite linear";
-}
+// ===== Hero Buttons =====
+document.getElementById("discoverMenu")?.addEventListener("click",e=>{e.preventDefault(); document.querySelector("#menu")?.scrollIntoView({behavior:"smooth"});});
+document.getElementById("orderWhatsApp")?.addEventListener("click",e=>{e.preventDefault(); sendCartWhatsApp();});
 
 // ===== Initialize =====
 updateCartPreview();
-updateQRLink();
+startChat();
