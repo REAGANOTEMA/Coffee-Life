@@ -82,3 +82,92 @@ navLinkItems.forEach(link => {
         }
     });
 });
+// ============================
+// global.js — CoffeeLife Cafe PWA
+// ============================
+
+// ===== Service Worker Registration =====
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+        .then(() => console.log('Service Worker Registered'))
+        .catch(err => console.error('SW registration failed:', err));
+}
+
+// ===== PWA Install Prompt =====
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); // Prevent automatic prompt
+    deferredPrompt = e;
+
+    // Create custom install button
+    const btn = document.createElement('button');
+    btn.textContent = 'Install CoffeeLife App';
+    btn.className = 'btn-install';
+    btn.style.position = 'fixed';
+    btn.style.bottom = '80px';
+    btn.style.right = '20px';
+    btn.style.zIndex = '1000';
+    btn.style.padding = '15px 25px';
+    btn.style.backgroundColor = '#b85c38';
+    btn.style.color = '#fff';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '12px';
+    btn.style.fontWeight = 'bold';
+    btn.style.cursor = 'pointer';
+    document.body.appendChild(btn);
+
+    btn.addEventListener('click', async () => {
+        btn.style.display = 'none';
+        deferredPrompt.prompt(); // Show browser install prompt
+        const choice = await deferredPrompt.userChoice;
+        console.log('User choice:', choice.outcome);
+        deferredPrompt = null;
+    });
+});
+
+// ===== WhatsApp Floating Button =====
+const whatsappBtn = document.querySelector('.whatsapp-btn');
+if (whatsappBtn) {
+    whatsappBtn.addEventListener('click', () => {
+        const phone = '2567XXXXXXXX'; // Replace with your WhatsApp number
+        const message = encodeURIComponent('Hello CoffeeLife, I want to place an order.');
+        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    });
+}
+
+// ===== Utility Function: Format UGX =====
+function formatUGX(amount) {
+    return "UGX " + Number(amount).toLocaleString();
+}
+
+// ===== Menu Rendering Hooks =====
+function addToCart(item) {
+    // Add 4000 transport charge
+    const itemWithTransport = { ...item, price: item.price + 4000 };
+    console.log(`Added to cart: ${item.name} (+4000 transport)`);
+
+    if (window.cartAdd) {
+        window.cartAdd(itemWithTransport);
+    } else {
+        // fallback if cartAdd is not defined
+        window.cart = window.cart || [];
+        const existing = window.cart.find(i => i.id === item.id);
+        if (existing) existing.qty++;
+        else window.cart.push({ ...itemWithTransport, qty: 1 });
+        alert(`${item.name} added to cart (+4000 delivery)`);
+    }
+}
+
+// Optional: Expose globally for menu.js
+window.globalAddToCart = addToCart;
+
+// ===== Responsive Adjustments =====
+window.addEventListener("resize", () => {
+    const menuContainer = document.getElementById("menu-container");
+    if (!menuContainer) return;
+
+    if (window.innerWidth <= 600) menuContainer.style.gridTemplateColumns = "1fr";
+    else if (window.innerWidth <= 900) menuContainer.style.gridTemplateColumns = "repeat(2, 1fr)";
+    else if (window.innerWidth <= 1200) menuContainer.style.gridTemplateColumns = "repeat(3, 1fr)";
+    else menuContainer.style.gridTemplateColumns = "repeat(4, 1fr)";
+});
