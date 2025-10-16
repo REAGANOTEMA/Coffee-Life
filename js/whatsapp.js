@@ -1,5 +1,5 @@
 // ============================
-// COFFEE LIFE WhatsApp + AI Chatbot + Footer Integration (Final)
+// COFFEE LIFE WhatsApp + AI Chatbot + Footer Integration (Final 2025)
 // ============================
 
 // ===== DOM Elements =====
@@ -15,15 +15,15 @@ const chatMessages = document.querySelector(".chat-messages");
 const chatInput = document.getElementById("chatUserInput");
 const chatSendBtnChat = document.getElementById("chatSendBtn");
 
-const WA_PHONE = "256772514889";
+const WA_PHONE = "256772514889"; // Coffee Life business number
 
 // ===== Global Cart =====
-window.cart = []; // shared with menu.js
+window.cart = window.cart || [];
 
-// ===== Add to Cart from Menu Items =====
+// ===== Add to Cart (with +4000 delivery display) =====
 document.querySelectorAll(".btn-add").forEach(btn => {
     btn.addEventListener("click", e => {
-        const itemEl = e.target.closest(".menu-item");
+        const itemEl = e.target.closest(".menu-item, .menu-card");
         if (!itemEl) return;
         const name = itemEl.dataset.name;
         const price = parseInt(itemEl.dataset.price) || 0;
@@ -41,11 +41,13 @@ function updateCartPreview() {
     cartPreview.innerHTML = "";
 
     if (window.cart.length === 0) {
-        cartPreview.innerHTML = "<p>Your cart is empty.</p>";
+        cartPreview.innerHTML = "<p class='empty-msg'>🛒 Your cart is empty.</p>";
         return;
     }
 
+    let subtotal = 0;
     window.cart.forEach(item => {
+        subtotal += item.price * item.qty;
         const div = document.createElement("div");
         div.classList.add("item");
         div.innerHTML = `
@@ -60,7 +62,20 @@ function updateCartPreview() {
         cartPreview.appendChild(div);
     });
 
-    // ===== Quantity Buttons =====
+    const deliveryFee = 4000;
+    const total = subtotal + deliveryFee;
+
+    const summary = document.createElement("div");
+    summary.classList.add("summary");
+    summary.innerHTML = `
+        <hr>
+        <p>Subtotal: <strong>${subtotal} UGX</strong></p>
+        <p>Delivery Fee: <strong>+${deliveryFee} UGX</strong></p>
+        <p>Total: <strong>${total} UGX</strong></p>
+    `;
+    cartPreview.appendChild(summary);
+
+    // Quantity Buttons
     cartPreview.querySelectorAll(".qty-btn").forEach(btn => {
         btn.addEventListener("click", e => {
             const action = e.target.dataset.action;
@@ -81,20 +96,23 @@ function updateCartPreview() {
 // ===== Generate WhatsApp Message =====
 function generateCartMessage(name, location) {
     let message = `✨ Coffee Life Order ✨\n\n`;
-    message += `👤 Customer: ${name || "[Your Name]"}\n📍 Delivery: ${location || "[Your Location]"}\n\n`;
+    message += `👤 Name: ${name || "[Your Name]"}\n📍 Delivery: ${location || "[Your Location]"}\n\n`;
     message += "🛒 Order Details:\n";
 
-    if (window.cart.length === 0) message += "No items selected yet.\n";
+    if (window.cart.length === 0) message += "No items selected.\n";
     else {
-        let total = 0;
+        let subtotal = 0;
         window.cart.forEach((item, i) => {
             message += `${i + 1}. ${item.name} x${item.qty} - ${item.price * item.qty} UGX\n`;
-            total += item.price * item.qty;
+            subtotal += item.price * item.qty;
         });
-        message += `\n💰 Total: ${total} UGX`;
+        message += `\n💰 Subtotal: ${subtotal} UGX`;
+        message += `\n🚚 Delivery Fee: +4000 UGX`;
+        message += `\n📦 Total: ${subtotal + 4000} UGX`;
     }
 
-    message += "\n\n💵 Payment before delivery required.\n☕ Coffee Life — Crafted with Passion, Served with Care.";
+    message += "\n\n💵 Payment before delivery required.";
+    message += "\n☕ Coffee Life — Crafted with Passion, Served with Care.";
     return message;
 }
 
@@ -122,16 +140,18 @@ whatsappClose?.addEventListener("click", () => whatsappModal?.classList.remove("
 whatsappSendBtn?.addEventListener("click", sendCartWhatsApp);
 whatsappBtnFooter?.addEventListener("click", sendCartWhatsApp);
 
-// ===== QR Link Update =====
+// ===== QR Link =====
 function updateQRLink() {
     if (!qrBtn) return;
     qrBtn.setAttribute("href", "#menu");
 }
 
-// ===== Floating Pulse Animation =====
+// ===== Floating Button Pulse =====
 setInterval(() => whatsappFloat?.classList.toggle("highlight"), 3000);
 
-// ===== AI Chatbot =====
+// ============================
+// AI CHATBOT
+// ============================
 let chatStep = 0;
 let userData = { name: "", location: "" };
 
@@ -150,12 +170,11 @@ function startChat() {
     chatStep = 0;
     userData = { name: "", location: "" };
     addMessage("👋 Hello! Welcome to Coffee Life ☕");
-    setTimeout(() => addMessage("May I have your name, please?"), 1500);
+    setTimeout(() => addMessage("Can I have your name, please?"), 1200);
 }
 
 function handleChat() {
-    if (!chatInput) return;
-    const input = chatInput.value.trim();
+    const input = chatInput?.value.trim();
     if (!input) return;
     addMessage(input, "user");
     chatInput.value = "";
@@ -169,55 +188,69 @@ function handleChat() {
         } else if (chatStep === 1) {
             userData.location = input;
             addMessage(`Got it! Delivery to ${userData.location}.`);
-            addMessage("💡 Note: delivery fee may vary depending on distance.");
-            addMessage("Would you like to *view the menu* or *place an order*?");
+            addMessage("💡 Delivery fee: +4000 UGX within Kampala.");
+            addMessage("Would you like to *view the menu* or *place your order*?");
             chatStep++;
         } else if (chatStep === 2) {
             if (input.toLowerCase().includes("menu")) {
-                addMessage("Opening our menu... 🍰☕");
+                addMessage("Opening the menu... 🍰☕");
                 setTimeout(() => window.location.href = "#menu", 1000);
             } else {
-                addMessage("Preparing your order. Click below 👇");
-                const orderBtn = document.createElement("button");
-                orderBtn.className = "btn-whatsapp-send";
-                orderBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Send to WhatsApp';
-                orderBtn.onclick = sendCartWhatsApp;
-                chatMessages.appendChild(orderBtn);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                addMessage("Preparing your order. Choose a payment option below 👇");
+                showPaymentOptions();
             }
         }
     }, 1000);
 }
 
+// ===== PAYMENT PLACEHOLDERS (Replace later) =====
+function showPaymentOptions() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "payment-options";
+    wrapper.innerHTML = `
+        <button class="pay-btn mtn">MTN Mobile Money</button>
+        <button class="pay-btn airtel">Airtel Money</button>
+        <button class="pay-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Order</button>
+    `;
+    chatMessages.appendChild(wrapper);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    wrapper.querySelector(".mtn").addEventListener("click", () => {
+        addMessage("📲 MTN Payment (temporary): Please send to *0772 514 889* and confirm on WhatsApp.");
+    });
+    wrapper.querySelector(".airtel").addEventListener("click", () => {
+        addMessage("📲 Airtel Payment (temporary): Please send to *0702 514 889* and confirm on WhatsApp.");
+    });
+    wrapper.querySelector(".whatsapp").addEventListener("click", sendCartWhatsApp);
+}
+
 chatSendBtnChat?.addEventListener("click", handleChat);
 chatInput?.addEventListener("keypress", e => { if (e.key === "Enter") handleChat(); });
 
-// ===== Auto Year Update =====
+// ===== Auto Year in Footer =====
 document.getElementById("year")?.textContent = new Date().getFullYear();
 
-// ===== Initialize =====
-updateCartPreview();
-updateQRLink();
-
-// ===== Hero Buttons Integration =====
+// ===== Hero Section Buttons =====
 document.getElementById("discoverMenu")?.addEventListener("click", e => {
     e.preventDefault();
     document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" });
 });
-
 document.getElementById("orderWhatsApp")?.addEventListener("click", e => {
     e.preventDefault();
     sendCartWhatsApp();
 });
 
-// ===== Hero title shimmer effect (premium) =====
+// ===== Hero Title Shimmer Effect =====
 const shimmer = document.querySelector(".hero-title-shimmer");
 if (shimmer) {
-    shimmer.innerHTML = shimmer.textContent;
-    shimmer.style.background = "linear-gradient(120deg, transparent 0%, rgba(255, 215, 128, 0.7) 50%, transparent 100%)";
+    shimmer.style.background = "linear-gradient(120deg, transparent 0%, rgba(255,215,128,0.8) 50%, transparent 100%)";
     shimmer.style.backgroundSize = "200% auto";
     shimmer.style.color = "transparent";
     shimmer.style.backgroundClip = "text";
     shimmer.style.webkitBackgroundClip = "text";
     shimmer.style.animation = "heroShimmer 6s infinite linear";
 }
+
+// ===== Initialize =====
+updateCartPreview();
+updateQRLink();

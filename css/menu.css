@@ -1,5 +1,5 @@
 /* ============================
-   COFFEE LIFE Menu Styles (Final)
+   COFFEE LIFE Menu Styles (Final Premium Version)
    ============================ */
 
 /* === ROOT VARIABLES === */
@@ -8,188 +8,121 @@
     --coffee: #4b2e1e;
     --gold: #b47b3a;
     --cream: #f5e6d3;
-    --dark: #333333;
+    --dark: #2c1b0e;
 }
 
 /* === MENU SECTION === */
 .menu-section {
     margin: 4rem auto;
     text-align: center;
+    padding: 3rem 2rem;
+    max-width: 1400px;
+    background: linear-gradient(180deg, #fff 0%, #fdf8f3 100%);
+    border-top: 2px solid rgba(180, 123, 58, 0.1);
+    border-bottom: 2px solid rgba(180, 123, 58, 0.1);
+    border-radius: 16px;
 }
 
 .menu-section h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--coffee);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
 }
 
-/* === MENU GRID === */
-.menu-grid {
+.menu-section h2::after {
+    content: "";
+    width: 100px;
+    height: 3px;
+    background: var(--gold);
+    display: block;
+    margin: 0.8rem auto 0;
+    border-radius: 5px;
+}
+
+/* === MENU GRID (4 PER ROW) === */
+#menu-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+    justify-items: center;
+    align-items: stretch;
 }
 
-/* === MENU ITEM CARDS === */
+@media (max-width: 1200px) {
+    #menu-container { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+    #menu-container { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    #menu-container { grid-template-columns: 1fr; }
+}
+
+/* === MENU ITEM CARD === */
 .menu-item {
     background: #fff;
-    border-radius: 16px;
+    border-radius: 18px;
     box-shadow: var(--shadow);
-    padding: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+}
+
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 14px 35px rgba(0,0,0,0.15), 0 8px 20px rgba(180, 123, 58, 0.25);
 }
 
-.menu-item img {
+/* === MENU IMAGE === */
+.menu-item img, .menu-item video {
     width: 100%;
-    border-radius: 16px;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
+    border-radius: 18px 18px 0 0;
     transition: transform 0.4s ease;
 }
 
-.menu-item img:hover {
+.menu-item:hover img,
+.menu-item:hover video {
     transform: scale(1.05);
 }
 
+/* === TEXT AREA === */
+.menu-info {
+    padding: 1rem 1.3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
 .menu-item h3 {
-    margin-top: 1rem;
     color: var(--dark);
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-}
-
-.menu-item .price {
-    color: var(--gold);
-    font-weight: 700;
-    margin-top: 0.5rem;
-    font-size: 1rem;
-}
-
-.menu-item .btn-add {
-    margin-top: 1rem;
-    display: inline-block;
-    background: var(--coffee);
-    color: var(--cream);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: none;
-}
-
-/* Add-to-cart button hover & effects */
-.menu-item .btn-add:hover {
-    background: var(--gold);
-    color: var(--dark);
-    transform: translateY(-2px) scale(1.05);
-}
-
-/* Shake and Glow Animations for add-to-cart */
-@keyframes shakeBtn {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-3px); }
-    40%, 80% { transform: translateX(3px); }
-}
-
-.btn-add.shake {
-    animation: shakeBtn 0.5s ease;
-}
-
-.btn-add.glow {
-    box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
-}
-
-/* === HEADER LOGO === */
-header .logo img {
-    display: block;
-    width: 130px;
-    height: auto;
-    object-fit: contain;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-    filter: brightness(1.1) contrast(1.15) saturate(1.1);
-    transition: all 0.4s ease;
-}
-
-header .logo img:hover {
-    transform: scale(1.05);
-    filter: brightness(1.2) contrast(1.2) saturate(1.15);
-}
-
-header .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-}
-
-header .logo span {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #4b2e1e;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
-}
-
-header .logo:hover span {
-    color: #b47b3a;
-}
-
-/* === MEDIA ADJUSTMENTS === */
-@media (max-width: 768px) {
-    header .logo img {
-        width: 100px;
-    }
-    header .logo span {
-        font-size: 1.3rem;
-    }
-    .menu-item img {
-        height: 180px;
-    }
-}
-
-/* === MENU MEDIA (VIDEO/IMAGES) === */
-.menu-media {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    border-radius: 16px;
-    position: relative;
-}
-
-.menu-media video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 16px;
-    transition: transform 0.4s ease;
-}
-
-.menu-media video:hover {
-    transform: scale(1.05);
-}
-/* ============================
-   MENU TEXT CLARITY & PROFESSIONAL TOUCH
-   ============================ */
-
-/* Menu titles (h3) clarity and premium feel */
-.menu-item h3 {
-    color: #2c1b0e; /* Darker coffee color for better contrast */
-    font-size: 1.2rem;
-    letter-spacing: 0.5px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 1.15rem;
+    letter-spacing: 0.4px;
+    margin-bottom: 0.3rem;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -198,179 +131,223 @@ header .logo:hover span {
     transform: scale(1.03);
 }
 
-/* Price readability */
+/* === PRICE === */
 .menu-item .price {
+    color: var(--gold);
+    font-weight: 700;
+    margin-top: 0.4rem;
     font-size: 1.1rem;
-    font-weight: 700;
-    color: #a87e2f; /* Clear gold color */
     text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-/* Buttons text clarity */
-.menu-item .btn-add {
-    font-size: 0.95rem;
-    font-weight: 700;
+.menu-item .price::after {
+    content: " + 4000 UGX (Delivery)";
+    font-size: 0.85rem;
+    color: #a8844f;
+    display: block;
+    margin-top: 2px;
+}
+
+/* === ADD BUTTON === */
+.btn-add {
+    margin-top: 0.8rem;
+    background: var(--coffee);
     color: var(--cream);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    transition: all 0.3s ease, text-shadow 0.3s ease;
+    padding: 0.6rem 1.3rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.menu-item .btn-add:hover {
+.btn-add:hover {
+    background: var(--gold);
     color: var(--dark);
-    text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+    transform: translateY(-3px) scale(1.05);
 }
 
-/* Animate menu cards on scroll for premium feel */
-.menu-item {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
+/* === ANIMATIONS === */
+@keyframes shakeBtn {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-3px); }
+    40%, 80% { transform: translateX(3px); }
 }
 
-.menu-item:nth-child(1) { animation-delay: 0.2s; }
-.menu-item:nth-child(2) { animation-delay: 0.4s; }
-.menu-item:nth-child(3) { animation-delay: 0.6s; }
-.menu-item:nth-child(4) { animation-delay: 0.8s; }
+.btn-add.shake { animation: shakeBtn 0.5s ease; }
+.btn-add.glow { box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold); }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Subtle card glow on hover for luxury feel */
-.menu-item:hover {
-    box-shadow: 0 12px 28px rgba(180, 130, 50, 0.25), 0 8px 20px rgba(0,0,0,0.1);
-}
-
-/* Ensure video media text visibility */
-.menu-media::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.1);
+/* === SMALL ITEM CARDS === */
+.menu-item--small {
+    background: #fff;
     border-radius: 16px;
-    pointer-events: none;
-}
-
-/* Responsive readability adjustments */
-@media (max-width: 768px) {
-    .menu-item h3 { font-size: 1.1rem; }
-    .menu-item .price { font-size: 1rem; }
-    .menu-item .btn-add { font-size: 0.9rem; }
-}
-/* ============================
-   EXTRA TOPPINGS / SMALL ITEMS TEXT FIX
-   ============================ */
-
-/* Make sure small items display title, price, and button below the image */
-.menu-item--small .menu-media {
-    position: relative;
-    overflow: visible;
-}
-
-/* Container for text under image */
-.menu-item--small .menu-body {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    width: 100%;
-    background: #fff; /* clean white background for clarity */
-    padding: 0.6rem 0.8rem;
-    border-radius: 0 0 16px 16px;
     box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
     text-align: center;
-    color: var(--dark);
+    padding: 0.8rem;
 }
 
-/* Title styling */
-.menu-item--small .menu-body h4 {
+.menu-item--small h4 {
     font-size: 1rem;
     font-weight: 600;
-    margin: 0;
     color: var(--dark);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    transition: color 0.3s ease, transform 0.3s ease;
+    margin-top: 0.5rem;
 }
 
-.menu-item--small .menu-body h4:hover {
+.menu-item--small .price {
     color: var(--gold);
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+}
+
+.menu-item--small .btn-add {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .menu-section h2 { font-size: 1.9rem; }
+    .menu-item img { height: 190px; }
+    .btn-add { font-size: 0.9rem; }
+    .menu-item .price { font-size: 1rem; }
+}
+/* ============================
+   COFFEE LIFE – 4x4 Premium Menu Layout (Tight & Professional)
+   ============================ */
+
+/* === GRID CONTAINER === */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px; /* minimal spacing between items */
+    justify-items: center;
+    align-items: start;
+    margin-top: 1rem; /* small top margin to separate from header */
+}
+
+/* === MENU CATEGORY HEADERS === */
+.menu-category h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    text-align: left; /* aligned neatly */
+    margin: 1.5rem 0 0.8rem 0; /* extra spacing for headers only */
+    color: #4b2e1e;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #b47b3a;
+    padding-bottom: 6px;
+    width: 100%;
+}
+
+/* === MENU ITEMS === */
+.menu-item {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 200px; /* slightly smaller for tighter layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.7s forwards;
+}
+
+/* staggered animation via CSS variable */
+.menu-item:nth-child(n) {
+    animation-delay: calc(0.05s * var(--i, 1));
+}
+
+/* Hover effect */
+.menu-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+/* IMAGE */
+.menu-item .menu-media img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    transition: transform 0.3s ease;
+}
+
+.menu-item:hover .menu-media img {
     transform: scale(1.03);
 }
 
-/* Price styling */
-.menu-item--small .menu-body .price {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--gold);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+/* TEXT BODY */
+.menu-body {
+    padding: 0.4rem 0.6rem 0.6rem;
+    text-align: center;
 }
 
-/* Add button styling */
-.menu-item--small .menu-body .actions .btn-add {
-    font-size: 0.9rem;
+.menu-body h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.92rem;
     font-weight: 600;
-    color: var(--cream);
-    background: var(--coffee);
-    padding: 0.35rem 0.8rem;
+    color: #2c1b0e;
+    margin-bottom: 0.2rem;
+}
+
+.menu-body .desc {
+    font-size: 0.78rem;
+    color: #4b2e1e;
+    margin-bottom: 0.3rem;
+}
+
+/* PRICE AND BUTTON */
+.menu-body .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+}
+
+.menu-body .price {
+    color: #b47b3a;
+    font-weight: 700;
+}
+
+.menu-body .actions .btn-add {
+    background: #4b2e1e;
+    color: #f5e6d3;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.78rem;
     border-radius: 50px;
-    margin-top: 0.3rem;
-    transition: all 0.3s ease, text-shadow 0.3s ease;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.menu-item--small .menu-body .actions .btn-add:hover {
-    background: var(--gold);
-    color: var(--dark);
-    transform: translateY(-2px) scale(1.05);
-    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+.menu-body .actions .btn-add:hover {
+    background: #b47b3a;
+    color: #2c1b0e;
+    transform: scale(1.05);
 }
 
-/* Remove dark overlay for small items */
-.menu-item--small .menu-media::after {
-    background: none !important;
-}
-
-/* Spacing between image and text */
-.menu-item--small img {
-    margin-bottom: 0.5rem;
-    border-radius: 16px 16px 0 0; /* match card styling */
-}
-
-/* Animate small menu cards on scroll */
-.menu-item--small {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
-}
-
-.menu-item--small:nth-child(1) { animation-delay: 0.2s; }
-.menu-item--small:nth-child(2) { animation-delay: 0.4s; }
-.menu-item--small:nth-child(3) { animation-delay: 0.6s; }
-
+/* === ANIMATIONS === */
 @keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .menu-item--small .menu-body h4 {
-        font-size: 0.95rem;
-    }
-    .menu-item--small .menu-body .price {
-        font-size: 0.9rem;
-    }
-    .menu-item--small .menu-body .actions .btn-add {
-        font-size: 0.85rem;
-        padding: 0.3rem 0.7rem;
-    }
+/* === RESPONSIVE GRID === */
+@media (max-width: 1200px) {
+    .menu-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .menu-item .menu-media img { height: 130px; }
+}
+
+@media (max-width: 900px) {
+    .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .menu-item .menu-media img { height: 120px; }
+}
+
+@media (max-width: 600px) {
+    .menu-grid { grid-template-columns: 1fr; gap: 8px; }
+    .menu-item .menu-media img { height: 110px; }
 }

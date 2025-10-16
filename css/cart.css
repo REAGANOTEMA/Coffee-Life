@@ -1,5 +1,5 @@
 /* ============================
-   COFFEE LIFE Cart Styles (Final)
+   COFFEE LIFE Cart Styles (Final + MTN/Airtel Payment)
    ============================ */
 
 /* === CART PANEL === */
@@ -192,7 +192,76 @@
     font-weight: bold;
 }
 
-/* === RESPONSIVE CART === */
+/* =============================
+   TEMP PAYMENT SECTION (MTN + Airtel)
+   ============================= */
+.payment-section {
+    padding: 1rem 1.5rem;
+    border-top: 1px dashed #ccc;
+    text-align: center;
+}
+
+.payment-section h4 {
+    margin-bottom: 0.5rem;
+    color: var(--coffee);
+    font-family: "Playfair Display", serif;
+    font-size: 1.1rem;
+}
+
+/* Payment Buttons */
+.payment-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin: 0.4rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 85%;
+    font-size: 0.95rem;
+}
+
+.payment-btn i {
+    font-size: 1.1rem;
+}
+
+/* MTN button (TEMP) */
+.payment-btn.mtn {
+    background: #ffcb05;
+    color: #333;
+}
+
+.payment-btn.mtn:hover {
+    background: #ffdb4d;
+    transform: translateY(-2px);
+}
+
+/* Airtel button (TEMP) */
+.payment-btn.airtel {
+    background: #d81a2d;
+    color: #fff;
+}
+
+.payment-btn.airtel:hover {
+    background: #ff3349;
+    transform: translateY(-2px);
+}
+
+/* TEMP label */
+.payment-temp-note {
+    font-size: 0.85rem;
+    color: #777;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* =============================
+   RESPONSIVE CART
+   ============================= */
 @media (max-width: 768px) {
     .cart-container {
         width: 100%;
@@ -214,5 +283,10 @@
 
     .cart-item-info p {
         font-size: 0.85rem;
+    }
+
+    .payment-btn {
+        width: 90%;
+        font-size: 0.9rem;
     }
 }
