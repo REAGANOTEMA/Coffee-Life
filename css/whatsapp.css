@@ -1,5 +1,5 @@
 /* ============================
-   whatsapp.css — COFFEE LIFE WhatsApp + Chat Styles (Final)
+   COFFEE LIFE WhatsApp + Chat Styles (Final)
    ============================ */
 
 /* ===== Floating WhatsApp Button ===== */
@@ -15,7 +15,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
     cursor: pointer;
     z-index: 999;
     transition: all 0.4s ease;
@@ -25,15 +25,15 @@
 .whatsapp-float:hover {
     background-color: #1EBE5D;
     transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
+    box-shadow: 0 10px 25px rgba(37,211,102,0.5);
 }
 
 .whatsapp-float i { font-size: 2rem; }
 
 /* ===== Pulse & Shake Animations ===== */
 @keyframes floatPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
-    50% { transform: scale(1.05); box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5); }
+    0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 12px 28px rgba(37,211,102,0.5); }
 }
 
 @keyframes shakeBtn {
@@ -51,7 +51,7 @@
     right: 30px;
     background: #fff;
     border-radius: 18px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.35);
     padding: 1.5rem 2rem;
     width: 360px;
     z-index: 998;
@@ -126,11 +126,15 @@
     cursor: pointer;
     font-size: 0.85rem;
     transition: 0.2s;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
 }
 
 .whatsapp-cart-preview .item button.qty-btn:hover { background: #b28e00; }
-.whatsapp-cart-preview .item button.qty-btn.shake { animation: shakeBtn 0.5s ease; }
-.whatsapp-cart-preview .item button.qty-btn.glow { box-shadow: 0 0 10px #b28e00, 0 0 20px #b28e00; }
+
+@keyframes glowBtn {
+    0%, 100% { box-shadow: 0 0 0 #b28e00; }
+    50% { box-shadow: 0 0 10px #b28e00, 0 0 20px #b28e00; }
+}
 
 /* ===== Send Button ===== */
 .btn-whatsapp-send {
@@ -142,12 +146,13 @@
     cursor: pointer;
     width: 100%;
     margin-top: 10px;
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 5px 15px rgba(37,211,102,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     transition: all 0.3s ease;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
 }
 
 .btn-whatsapp-send:hover {
@@ -170,6 +175,7 @@
     cursor: pointer;
     font-weight: 700;
     color: #fff;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
 }
 
 .payment-btn.mtn { background: #ffcd00; color: #1e1e1e; }
@@ -239,6 +245,7 @@
     color: #fff;
     cursor: pointer;
     font-weight: 600;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
 }
 
 .chat-input-container button:hover { background: #1EBE5D; }

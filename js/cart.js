@@ -3,8 +3,7 @@
   const WA_PHONE = "256772514889";
   const MTN_MERCHANT_CODE = "TEMP_MERCHANT_CODE_MTN";
   const AIRTEL_MERCHANT_CODE = "TEMP_MERCHANT_CODE_AIRTEL";
-
-  let DELIVERY_FEE = 0; // Will be updated dynamically via location.js
+  let DELIVERY_FEE = 0;
 
   // ===== DOM SELECTORS =====
   const cartBtn = document.querySelector(".cart-btn");
@@ -26,8 +25,8 @@
   function calcTotal(){ return window.cart.reduce((s,it)=>s+(it.price*it.qty),0); }
 
   // ===== CART MODAL =====
-  if(cartBtn && cartContainer) cartBtn.addEventListener("click",()=>cartContainer.classList.toggle("active"));
-  if(cartClose && cartContainer) cartClose.addEventListener("click",()=>cartContainer.classList.remove("active"));
+  cartBtn?.addEventListener("click",()=>cartContainer?.classList.toggle("active"));
+  cartClose?.addEventListener("click",()=>cartContainer?.classList.remove("active"));
 
   // ===== ADD TO CART =====
   function addToCart(item){
@@ -44,7 +43,7 @@
       if(btn.__wired) return; btn.__wired=true;
       btn.addEventListener("click",e=>{
         const itemEl = e.target.closest(".menu-item");
-        const id = itemEl?.dataset.id || itemEl?.querySelector(".add-to-cart-btn")?.dataset.id || null;
+        const id = itemEl?.dataset.id || null;
         const name = itemEl?.dataset.name || itemEl?.querySelector("h4,h3")?.textContent?.trim() || "Item";
         const price = parseInt(itemEl?.dataset.price || itemEl?.querySelector(".price")?.textContent?.replace(/\D/g,"") || 0);
         const img = itemEl?.querySelector("img")?.getAttribute("src") || "";
@@ -70,7 +69,7 @@
   function renderCart(){
     if(!cartItemsContainer) return; cartItemsContainer.innerHTML="";
     let total=0;
-    if(window.cart.length===0){ cartItemsContainer.innerHTML=`<p class="cart-empty">Your cart is empty.</p>`; if(cartTotalEl) cartTotalEl.textContent=`Total: UGX 0`; return; }
+    if(window.cart.length===0){ cartItemsContainer.innerHTML=`<p class="cart-empty">Your cart is empty.</p>`; cartTotalEl&&(cartTotalEl.textContent=`Total: UGX 0`); return; }
     window.cart.forEach(item=>{
       total += item.price*item.qty;
       const div=document.createElement("div"); div.className="cart-item";
@@ -94,7 +93,6 @@
       div.querySelector(".cart-item-remove")?.addEventListener("click",e=>removeFromCart(e.currentTarget.dataset.id));
       cartItemsContainer.appendChild(div);
     });
-
     const grandTotal = total + (DELIVERY_FEE || 0);
     if(cartTotalEl) cartTotalEl.textContent=`Total: ${formatUGX(grandTotal)}`;
   }
@@ -126,7 +124,7 @@
 
   // ===== UPDATE DELIVERY FEE FROM LOCATION =====
   window.cartUpdateDistance = function(distanceKm){
-    DELIVERY_FEE = Math.ceil(distanceKm * 1000); // 1000 UGX per km
+    DELIVERY_FEE = Math.ceil(distanceKm * 1000);
     renderCart();
     updateCartPreview();
   }
@@ -169,10 +167,10 @@
   }
 
   // ===== WHATSAPP EVENT LISTENERS =====
-  if(cartOrderBtn) cartOrderBtn.addEventListener("click",sendCartWhatsApp);
-  if(whatsappSendBtn) whatsappSendBtn.addEventListener("click",sendCartWhatsApp);
-  if(whatsappBtnFooter) whatsappBtnFooter.addEventListener("click",sendCartWhatsApp);
-  if(whatsappModal && whatsappClose) whatsappClose.addEventListener("click",()=>whatsappModal.classList.remove("active"));
+  cartOrderBtn?.addEventListener("click",sendCartWhatsApp);
+  whatsappSendBtn?.addEventListener("click",sendCartWhatsApp);
+  whatsappBtnFooter?.addEventListener("click",sendCartWhatsApp);
+  whatsappModal && whatsappClose?.addEventListener("click",()=>whatsappModal.classList.remove("active"));
 
   // ===== INIT =====
   renderCart(); updateCartPreview(); wireStaticAddButtons();

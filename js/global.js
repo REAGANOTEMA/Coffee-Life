@@ -171,3 +171,29 @@ window.addEventListener("resize", () => {
     else if (window.innerWidth <= 1200) menuContainer.style.gridTemplateColumns = "repeat(3, 1fr)";
     else menuContainer.style.gridTemplateColumns = "repeat(4, 1fr)";
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const hamburger = document.getElementById("hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+
+    // Toggle Menu
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+    });
+
+    // Close menu when link clicked
+    document.querySelectorAll(".nav-menu a").forEach(link => {
+        link.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        });
+    });
+
+    // Optional: Close menu on outside click
+    document.addEventListener("click", (e) => {
+        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }
+    });
+});

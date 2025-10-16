@@ -1,5 +1,6 @@
 /* ============================
-   COFFEE LIFE Menu Styles (Final Premium + Dynamic Delivery)
+   COFFEE LIFE Final Premium CSS Bundle
+   Includes Menu + Cart + WhatsApp + Chat + Animations
    ============================ */
 
 /* === ROOT VARIABLES === */
@@ -11,15 +12,15 @@
     --dark: #2c1b0e;
 }
 
-/* === MENU SECTION === */
+/* ===================== MENU STYLES ===================== */
 .menu-section {
     margin: 4rem auto;
     text-align: center;
     padding: 3rem 2rem;
     max-width: 1400px;
     background: linear-gradient(180deg, #fff 0%, #fdf8f3 100%);
-    border-top: 2px solid rgba(180, 123, 58, 0.1);
-    border-bottom: 2px solid rgba(180, 123, 58, 0.1);
+    border-top: 2px solid rgba(180,123,58,0.1);
+    border-bottom: 2px solid rgba(180,123,58,0.1);
     border-radius: 16px;
 }
 
@@ -32,7 +33,6 @@
     letter-spacing: 1.5px;
     position: relative;
 }
-
 .menu-section h2::after {
     content: "";
     width: 100px;
@@ -46,189 +46,309 @@
 /* === MENU GRID === */
 #menu-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 2rem;
     justify-items: center;
     align-items: stretch;
 }
-
-@media (max-width: 1200px) { #menu-container { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 900px) { #menu-container { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { #menu-container { grid-template-columns: 1fr; } }
+@media(max-width:1200px){#menu-container{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:900px){#menu-container{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){#menu-container{grid-template-columns:1fr;}}
 
 /* === MENU ITEM CARD === */
 .menu-item {
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    transition: all 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
+    background:#fff;
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    transition:all 0.4s ease;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    position:relative;
+    opacity:0;
+    transform:translateY(20px);
+    animation:fadeInUp 0.8s forwards;
 }
+.menu-item:hover{transform:translateY(-8px);box-shadow:0 14px 35px rgba(0,0,0,0.15),0 8px 20px rgba(180,123,58,0.25);}
 
-.menu-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 14px 35px rgba(0,0,0,0.15), 0 8px 20px rgba(180, 123, 58, 0.25);
+.menu-item img,.menu-item video{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:18px 18px 0 0;
+    transition:transform 0.4s ease;
 }
+.menu-item:hover img,.menu-item:hover video{transform:scale(1.05);}
 
-/* === MENU IMAGE === */
-.menu-item img, .menu-item video {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 18px 18px 0 0;
-    transition: transform 0.4s ease;
-}
-
-.menu-item:hover img,
-.menu-item:hover video {
-    transform: scale(1.05);
-}
-
-/* === TEXT AREA === */
 .menu-body {
-    padding: 0.8rem 1rem 1.2rem;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+    padding:0.8rem 1rem 1.2rem;
+    display:flex;
+    flex-direction:column;
+    text-align:center;
 }
-
 .menu-body h4 {
-    color: var(--dark);
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 1.15rem;
-    letter-spacing: 0.4px;
-    margin-bottom: 0.3rem;
+    color:var(--dark);
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:1.15rem;
+    letter-spacing:0.4px;
+    margin-bottom:0.3rem;
     transition: color 0.3s ease, transform 0.3s ease;
 }
+.menu-body h4:hover{color:var(--gold);transform:scale(1.03);}
 
-.menu-body h4:hover {
-    color: var(--gold);
-    transform: scale(1.03);
+.menu-body .desc{
+    font-size:0.85rem;
+    color:#4b2e1e;
+    margin-bottom:0.4rem;
 }
-
-/* === DESCRIPTION === */
-.menu-body .desc {
-    font-size: 0.85rem;
-    color: #4b2e1e;
-    margin-bottom: 0.4rem;
+.menu-body .price{
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:0.6rem;
+    font-size:1.05rem;
 }
-
-/* === PRICE AND DYNAMIC DELIVERY NOTE === */
-.menu-body .price {
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-    font-size: 1.05rem;
-}
-
-.menu-body .price .delivery-note {
-    font-size: 0.78rem;
-    color: #a8844f;
-    display: block;
-    margin-top: 3px;
-    font-style: italic;
+.menu-body .price .delivery-note{
+    font-size:0.78rem;
+    color:#a8844f;
+    display:block;
+    margin-top:3px;
+    font-style:italic;
 }
 
 /* === BUTTONS === */
-.menu-body .actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+.menu-body .actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:0.5rem;
+    flex-wrap:wrap;
 }
-
 .menu-body .btn-add,
-.menu-body .btn-whatsapp {
-    background: var(--coffee);
-    color: var(--cream);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    flex: 1;
-    text-align: center;
+.menu-body .btn-whatsapp{
+    background:var(--coffee);
+    color:var(--cream);
+    padding:0.5rem 1rem;
+    border-radius:50px;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    flex:1;
+    text-align:center;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
 }
-
 .menu-body .btn-add:hover,
-.menu-body .btn-whatsapp:hover {
-    background: var(--gold);
-    color: var(--dark);
-    transform: translateY(-2px) scale(1.03);
+.menu-body .btn-whatsapp:hover{
+    background:var(--gold);
+    color:var(--dark);
+    transform:translateY(-2px) scale(1.03);
 }
-
-.menu-body .btn-whatsapp i { margin-right: 5px; }
+.menu-body .btn-whatsapp i{margin-right:5px;}
 
 /* === ANIMATIONS === */
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shakeBtn {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-3px); }
-    40%, 80% { transform: translateX(3px); }
-}
-
-.btn-add.shake { animation: shakeBtn 0.5s ease; }
-.btn-add.glow { box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold); }
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes shakeBtn{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-3px);}40%,80%{transform:translateX(3px);}}
+@keyframes glowBtn{0%,100%{box-shadow:0 0 0 var(--gold);}50%{box-shadow:0 0 10px var(--gold),0 0 20px var(--gold);}}
 
 /* === SMALL ITEM CARDS === */
-.menu-item--small {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    padding: 0.8rem;
+.menu-item--small{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    text-align:center;
+    padding:0.8rem;
+}
+.menu-item--small h4{
+    font-size:1rem;
+    font-weight:600;
+    color:var(--dark);
+    margin-top:0.5rem;
+}
+.menu-item--small .price{
+    color:var(--gold);
+    font-size:0.95rem;
+    margin-top:0.3rem;
+}
+.menu-item--small .btn-add{
+    font-size:0.85rem;
+    padding:0.4rem 0.8rem;
 }
 
-.menu-item--small h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--dark);
-    margin-top: 0.5rem;
+/* === WHATSAPP FLOATING BUTTON === */
+.whatsapp-float{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background-color:#25D366;
+    color:#fff;
+    border-radius:50%;
+    width:65px;
+    height:65px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    cursor:pointer;
+    z-index:999;
+    transition:all 0.4s ease;
+    animation: floatPulse 3s infinite ease-in-out, shakeBtn 4s infinite, glowBtn 4s infinite;
 }
+.whatsapp-float:hover{
+    background-color:#1EBE5D;
+    transform:scale(1.1) rotate(5deg);
+    box-shadow:0 10px 25px rgba(37,211,102,0.5);
+}
+.whatsapp-float i{font-size:2rem;}
+@keyframes floatPulse{0%,100%{transform:scale(1);box-shadow:0 8px 20px rgba(37,211,102,0.3);}50%{transform:scale(1.05);box-shadow:0 12px 28px rgba(37,211,102,0.5);}}
 
-.menu-item--small .price {
-    color: var(--gold);
-    font-size: 0.95rem;
-    margin-top: 0.3rem;
+/* === WHATSAPP MODAL === */
+.whatsapp-modal{
+    display:none;
+    position:fixed;
+    bottom:100px;
+    right:30px;
+    background:#fff;
+    border-radius:18px;
+    box-shadow:0 15px 50px rgba(0,0,0,0.35);
+    padding:1.5rem 2rem;
+    width:360px;
+    z-index:998;
+    font-family:'Playfair Display',serif;
+    animation: slideUp 0.6s ease forwards;
+    flex-direction:column;
 }
+.whatsapp-modal.active{display:flex;}
+.whatsapp-modal h4{color:#b85c38;text-align:center;margin-bottom:0.5rem;font-size:1.2rem;}
+.whatsapp-modal p{color:#333;font-size:0.95rem;text-align:center;margin-bottom:1rem;}
+.close-whatsapp{position:absolute;top:10px;right:15px;cursor:pointer;font-size:1.2rem;color:#b85c38;}
+.close-whatsapp:hover{color:#25D366;}
 
-.menu-item--small .btn-add {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.8rem;
+/* === CART PREVIEW === */
+.whatsapp-cart-preview{
+    max-height:220px;
+    overflow-y:auto;
+    margin-bottom:0.8rem;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    padding:0.6rem 0;
 }
+.whatsapp-cart-preview .item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:0.95rem;
+    margin:6px 0;
+}
+.whatsapp-cart-preview .item span.name{flex:1;font-weight:600;color:#333;}
+.whatsapp-cart-preview .item span.qty{font-weight:600;color:#b28e00;margin:0 6px;}
+.whatsapp-cart-preview .item button.qty-btn{
+    background:#d4af37;
+    border:none;
+    color:#fff;
+    padding:2px 6px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:0.85rem;
+    transition:0.2s;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
+}
+.whatsapp-cart-preview .item button.qty-btn:hover{background:#b28e00;}
+
+/* === SEND BUTTON === */
+.btn-whatsapp-send{
+    background:#25D366;
+    color:#fff;
+    font-weight:600;
+    padding:0.8rem 1.5rem;
+    border-radius:50px;
+    cursor:pointer;
+    width:100%;
+    margin-top:10px;
+    box-shadow:0 5px 15px rgba(37,211,102,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:all 0.3s ease;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
+}
+.btn-whatsapp-send:hover{background:#1EBE5D;transform:translateY(-2px);}
+
+/* === PAYMENT OPTIONS === */
+.payment-options{display:flex;gap:8px;margin-top:8px;}
+.payment-btn{
+    flex:1;
+    padding:0.6rem;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    font-weight:700;
+    color:#fff;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
+}
+.payment-btn.mtn{background:#ffcd00;color:#1e1e1e;}
+.payment-btn.airtel{background:#e60000;}
+.payment-btn.manual{background:#6c757d;}
+.payment-note{margin-top:10px;font-size:0.9rem;color:#444;background:#fff8e6;border:1px dashed #d4af37;padding:8px;border-radius:8px;}
+
+/* === CHAT MESSAGES === */
+.chat-messages{
+    max-height:220px;
+    overflow-y:auto;
+    padding:0.8rem;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+.chat-messages .msg{
+    padding:0.5rem 0.8rem;
+    border-radius:12px;
+    max-width:85%;
+    word-wrap:break-word;
+}
+.chat-messages .msg.bot{background:#f1f1f1;color:#333;align-self:flex-start;}
+.chat-messages .msg.user{background:#25D366;color:#fff;align-self:flex-end;}
+
+/* === CHAT INPUT === */
+.chat-input-container{display:flex;gap:8px;margin-top:6px;}
+.chat-input-container input{
+    flex:1;
+    padding:0.6rem 1rem;
+    border-radius:50px;
+    border:1px solid #ccc;
+    outline:none;
+    font-size:0.95rem;
+}
+.chat-input-container button{
+    padding:0.6rem 1rem;
+    border-radius:50px;
+    border:none;
+    background:#25D366;
+    color:#fff;
+    cursor:pointer;
+    font-weight:600;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
+}
+.chat-input-container button:hover{background:#1EBE5D;}
 
 /* === RESPONSIVE === */
-@media (max-width: 1024px) {
-    .menu-body h4 { font-size: 1.05rem; }
-    .menu-body .desc { font-size: 0.82rem; }
+@media(max-width:1024px){.menu-body h4{font-size:1.05rem;}.menu-body .desc{font-size:0.82rem;}}
+@media(max-width:768px){
+    .menu-section h2{font-size:1.9rem;}
+    .menu-item img{height:190px;}
+    .menu-body .price{font-size:1rem;}
+    .menu-body .desc{font-size:0.8rem;}
+    .menu-body .btn-add,.menu-body .btn-whatsapp{font-size:0.8rem;padding:0.45rem 0.9rem;}
+    .whatsapp-float{width:55px;height:55px;bottom:20px;right:20px;}
+    .whatsapp-float i{font-size:1.7rem;}
+    .whatsapp-modal{width:90%;right:5%;bottom:80px;padding:1rem 1.2rem;}
+    .chat-messages{max-height:250px;}
 }
-
-@media (max-width: 768px) {
-    .menu-section h2 { font-size: 1.9rem; }
-    .menu-item img { height: 190px; }
-    .menu-body .price { font-size: 1rem; }
-    .menu-body .desc { font-size: 0.8rem; }
-    .menu-body .btn-add,
-    .menu-body .btn-whatsapp { font-size: 0.8rem; padding: 0.45rem 0.9rem; }
-}
-
-@media (max-width: 600px) {
-    #menu-container { grid-template-columns: 1fr; gap: 10px; }
-    .menu-item img { height: 160px; }
-    .menu-body h4 { font-size: 1rem; }
-    .menu-body .desc { font-size: 0.78rem; }
+@media(max-width:600px){
+    #menu-container{grid-template-columns:1fr;gap:10px;}
+    .menu-item img{height:160px;}
+    .menu-body h4{font-size:1rem;}
+    .menu-body .desc{font-size:0.78rem;}
 }

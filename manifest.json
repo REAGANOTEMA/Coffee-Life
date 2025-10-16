@@ -2,21 +2,44 @@
   "name": "COFFEE LIFE CAFE",
   "short_name": "CoffeeLife",
   "description": "COFFEE LIFE CAFE — finest coffee and meals in Jinja & Kampala. View menu, order via WhatsApp.",
-  "start_url": "https://reaganotema.github.io/Coffee-Life/",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#b85c38",
   "orientation": "portrait",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["food", "restaurant", "cafe"],
   "icons": [
     {
       "src": "images/logo.jpg",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     },
     {
       "src": "images/logo.jpg",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "View Menu",
+      "short_name": "Menu",
+      "description": "Open the Coffee Life Cafe menu",
+      "url": "/index.html#menu",
+      "icons": [{ "src": "images/logo.jpg", "sizes": "192x192", "type": "image/jpeg" }]
+    },
+    {
+      "name": "Order via WhatsApp",
+      "short_name": "WhatsApp Order",
+      "description": "Place your order directly via WhatsApp",
+      "url": "/index.html#order",
+      "icons": [{ "src": "images/logo.jpg", "sizes": "192x192", "type": "image/jpeg" }]
     }
   ]
 }
