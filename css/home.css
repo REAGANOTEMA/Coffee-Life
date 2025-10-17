@@ -4,14 +4,12 @@
 
 /* ===== ROOT VARIABLES ===== */
 :root {
-    --coffee: #4b2e1e;
-    --gold: #b47b3a;
+    --coffee: #3d2214;        /* darker, richer brown */
+    --gold: #c49b6d;          /* soft metallic gold */
     --white: #ffffff;
-    --ug-black: #000000;
-    --ug-yellow: #ffe600;
-    --ug-red: #e60000;
-    --glass-bg: rgba(255,255,255,0.05);
-    --glass-blur: blur(12px);
+    --black: #000000;
+    --glass-bg: rgba(255,255,255,0.08);
+    --glass-blur: blur(14px);
 }
 
 /* ===== HEADER STRUCTURE ===== */
@@ -24,20 +22,21 @@ header.site-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.8rem 5%;
+    padding: 1rem 5%;
     backdrop-filter: var(--glass-blur);
-    background: var(--white);
-    box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+    background: var(--glass-bg);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
     font-family: 'Cinzel Decorative', serif;
-    border-bottom: 5px solid transparent;
-    border-image: linear-gradient(to right, var(--ug-black), var(--ug-yellow), var(--ug-red)) 1;
+    border-bottom: 4px solid transparent;
+    border-image: linear-gradient(to right, var(--black), var(--gold)) 1;
+    transition: all 0.3s ease;
 }
 
 /* ===== LOGO ===== */
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     text-decoration: none;
     flex-shrink: 0;
 }
@@ -46,16 +45,17 @@ header.site-header {
     width: 120px;
     height: 120px;
     object-fit: cover;
-    border-radius: 50%; /* perfect circle */
-    border: 4px solid var(--white);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.55);
-    filter: brightness(1.35) contrast(1.3) saturate(1.25);
-    transition: transform 0.4s ease, filter 0.4s ease;
+    border-radius: 50%;
+    border: 5px solid var(--gold);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.6);
+    filter: brightness(1.4) contrast(1.3) saturate(1.25);
+    transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
 }
 
 .logo img:hover {
-    transform: scale(1.08);
-    filter: brightness(1.4) contrast(1.35) saturate(1.3);
+    transform: scale(1.1);
+    filter: brightness(1.45) contrast(1.35) saturate(1.3);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.65);
 }
 
 /* BRAND TEXT NEXT TO LOGO */
@@ -69,8 +69,9 @@ header.site-header {
 }
 
 .logo .brand-text strong {
-    font-size: 1.8rem;
-    letter-spacing: 1px;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
 .logo .brand-text p {
@@ -78,6 +79,7 @@ header.site-header {
     margin: 0;
     color: var(--coffee);
     letter-spacing: 0.5px;
+    font-style: italic;
 }
 
 /* ===== NAVIGATION ===== */
@@ -90,7 +92,7 @@ header.site-header {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     list-style: none;
     align-items: center;
 }
@@ -98,7 +100,7 @@ header.site-header {
 .nav-link {
     color: var(--coffee);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.05rem;
     text-decoration: none;
     position: relative;
     transition: all 0.3s ease;
@@ -107,11 +109,12 @@ header.site-header {
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -3px;
+    bottom: -4px;
     left: 0;
     width: 0%;
-    height: 2px;
+    height: 3px;
     background: var(--gold);
+    border-radius: 2px;
     transition: width 0.4s ease;
 }
 
@@ -131,21 +134,21 @@ header.site-header {
 }
 
 .btn-cta {
-    background: var(--gold);
+    background: linear-gradient(145deg, var(--gold), #d0a56f);
     color: var(--white);
     font-weight: 700;
-    padding: 12px 28px;
+    padding: 14px 32px;
     border-radius: 50px;
     text-decoration: none;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.5);
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+    font-size: 1rem;
+    transition: all 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-cta:hover {
-    transform: scale(1.05) translateY(-1px);
-    background: #a66a2e;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+    transform: scale(1.08) translateY(-2px);
+    background: linear-gradient(145deg, #b88a55, #d0a56f);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.6);
 }
 
 /* ===== HAMBURGER MENU ===== */
@@ -162,10 +165,10 @@ header.site-header {
 }
 
 .hamburger .bar {
-    width: 32px;
+    width: 35px;
     height: 3px;
     background: var(--coffee);
-    margin: 5px 0;
+    margin: 6px 0;
     border-radius: 2px;
     transition: all 0.4s ease;
 }
@@ -176,7 +179,7 @@ header.site-header {
     flex-direction: column;
     align-items: center;
     background: var(--white);
-    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.3);
     position: absolute;
     top: 100%;
     width: 100%;
@@ -187,12 +190,13 @@ header.site-header {
 .mobile-menu.active { display: flex; }
 
 .mobile-link {
-    padding: 1rem 0;
+    padding: 1.2rem 0;
     width: 100%;
     text-align: center;
     color: var(--coffee);
     font-weight: 600;
     border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
 }
 
 .mobile-link:hover {
@@ -203,24 +207,24 @@ header.site-header {
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width:1024px){
     .logo img { width:100px; height:100px; }
-    .logo .brand-text strong { font-size:1.5rem; }
-    .logo .brand-text p { font-size:0.9rem; }
-    .nav-link { font-size:0.9rem; }
-    .btn-cta { padding:10px 24px; font-size:0.85rem; }
+    .logo .brand-text strong { font-size:1.7rem; }
+    .logo .brand-text p { font-size:0.95rem; }
+    .nav-link { font-size:0.95rem; }
+    .btn-cta { padding:12px 28px; font-size:0.9rem; }
 }
 
 @media screen and (max-width:768px){
     .nav-links { display:none; }
     .hamburger { display:flex; }
     .logo img { width:80px; height:80px; }
-    .logo .brand-text strong { font-size:1.2rem; }
-    .logo .brand-text p { font-size:0.75rem; }
-    .btn-cta { padding:8px 18px; font-size:0.8rem; }
+    .logo .brand-text strong { font-size:1.4rem; }
+    .logo .brand-text p { font-size:0.8rem; }
+    .btn-cta { padding:10px 22px; font-size:0.85rem; }
 }
 
 @media screen and (max-width:480px){
     .logo img { width:70px; height:70px; }
-    .logo .brand-text strong { font-size:1rem; }
+    .logo .brand-text strong { font-size:1.2rem; }
     .logo .brand-text p { font-size:0.7rem; }
-    .btn-cta { padding:6px 14px; font-size:0.75rem; }
+    .btn-cta { padding:8px 18px; font-size:0.8rem; }
 }

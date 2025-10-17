@@ -4,13 +4,19 @@
 
 /* ===== 1. HEADER SCROLL EFFECT ===== */
 const header = document.querySelector("header");
+
 function handleHeaderScroll() {
     if(window.scrollY > 50) {
         header.classList.add("scrolled");
+        header.style.backdropFilter = "blur(18px)";
+        header.style.boxShadow = "0 15px 50px rgba(0,0,0,0.55)";
     } else {
         header.classList.remove("scrolled");
+        header.style.backdropFilter = "blur(14px)";
+        header.style.boxShadow = "0 12px 40px rgba(0,0,0,0.5)";
     }
 }
+
 window.addEventListener("scroll", handleHeaderScroll);
 handleHeaderScroll();
 
@@ -21,6 +27,9 @@ const mobileMenu = document.querySelector(".mobile-menu");
 hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("active");
+    hamburger.querySelectorAll('.bar').forEach(bar => {
+        bar.style.backgroundColor = hamburger.classList.contains('active') ? 'var(--gold)' : 'var(--coffee)';
+    });
 });
 
 /* ===== 3. MOBILE LINK CLICK CLOSE MENU ===== */
@@ -29,24 +38,21 @@ mobileLinks.forEach(link => {
     link.addEventListener("click", () => {
         hamburger.classList.remove("active");
         mobileMenu.classList.remove("active");
+        hamburger.querySelectorAll('.bar').forEach(bar => bar.style.backgroundColor = 'var(--coffee)');
     });
 });
 
 /* ===== 4. NAV LINK HOVER EFFECT ===== */
 const navLinks = document.querySelectorAll(".nav-link");
 navLinks.forEach(link => {
-    link.addEventListener("mouseenter", () => {
-        link.style.color = "var(--gold)";
-    });
-    link.addEventListener("mouseleave", () => {
-        link.style.color = "var(--coffee)";
-    });
+    link.addEventListener("mouseenter", () => link.style.color = "var(--gold)");
+    link.addEventListener("mouseleave", () => link.style.color = "var(--coffee)");
 });
 
 /* ===== 5. NAV LINK SHAKE ANIMATION EVERY 5s ===== */
 setInterval(() => {
     navLinks.forEach(link => {
-        link.style.animation = "shake 0.5s";
+        link.style.animation = "shake 0.5s ease-in-out";
         setTimeout(() => link.style.animation = "", 500);
     });
 }, 5000);
@@ -54,13 +60,13 @@ setInterval(() => {
 /* ===== 6. NAV LINK LIGHT-UP ANIMATION EVERY 6s ===== */
 setInterval(() => {
     navLinks.forEach(link => {
-        link.style.animation = "lightUp 1s";
+        link.style.animation = "lightUp 1s ease-in-out";
         setTimeout(() => link.style.animation = "", 1000);
     });
 }, 6000);
 
 /* ===== 7. RESPONSIVE HERO FONT SIZES ===== */
-function adjustHeroFonts(){
+function adjustHeroFonts() {
     const heroTitle = document.querySelector(".hero-title-text");
     const heroSubtitle = document.querySelector(".hero-subtitle");
     const heroNote = document.querySelector(".hero-note");
@@ -77,6 +83,7 @@ function adjustHeroFonts(){
         }
     }
 }
+
 window.addEventListener("resize", adjustHeroFonts);
 adjustHeroFonts();
 
@@ -90,11 +97,13 @@ function updateWhatsAppButton() {
         whatsappBtn.classList.add('disabled');
         whatsappBtn.style.pointerEvents = 'none';
         whatsappBtn.title = "Add items to your cart first!";
+        whatsappBtn.style.opacity = 0.5;
     } else {
         whatsappBtn.classList.remove('disabled');
         whatsappBtn.style.pointerEvents = 'auto';
         whatsappBtn.title = "Chat on WhatsApp";
         whatsappBtn.classList.add('highlight');
+        whatsappBtn.style.opacity = 1;
     }
 }
 
