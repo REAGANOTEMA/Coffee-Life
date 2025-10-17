@@ -1,12 +1,13 @@
 /* =========================================
-   HOME.JS - FINAL, ULTRA PREMIUM, STATIC HEADER
+   HOME.JS - FINAL ULTRA-LUXURY HEADER
+   Clean, Rounded, Responsive, Premium
    ========================================= */
 
 /* ===== 1. HEADER SCROLL EFFECT ===== */
 const header = document.querySelector("header");
 
 function handleHeaderScroll() {
-    if(window.scrollY > 50) {
+    if(window.scrollY > 30) {
         header.classList.add("scrolled");
         header.style.backdropFilter = "blur(18px)";
         header.style.boxShadow = "0 15px 50px rgba(0,0,0,0.55)";
@@ -16,7 +17,6 @@ function handleHeaderScroll() {
         header.style.boxShadow = "0 12px 40px rgba(0,0,0,0.5)";
     }
 }
-
 window.addEventListener("scroll", handleHeaderScroll);
 handleHeaderScroll();
 
@@ -32,7 +32,7 @@ hamburger.addEventListener("click", () => {
     });
 });
 
-/* ===== 3. MOBILE LINK CLICK CLOSE MENU ===== */
+/* ===== 3. CLOSE MOBILE MENU ON LINK CLICK ===== */
 const mobileLinks = document.querySelectorAll(".mobile-link");
 mobileLinks.forEach(link => {
     link.addEventListener("click", () => {
@@ -49,23 +49,7 @@ navLinks.forEach(link => {
     link.addEventListener("mouseleave", () => link.style.color = "var(--coffee)");
 });
 
-/* ===== 5. NAV LINK SHAKE ANIMATION EVERY 5s ===== */
-setInterval(() => {
-    navLinks.forEach(link => {
-        link.style.animation = "shake 0.5s ease-in-out";
-        setTimeout(() => link.style.animation = "", 500);
-    });
-}, 5000);
-
-/* ===== 6. NAV LINK LIGHT-UP ANIMATION EVERY 6s ===== */
-setInterval(() => {
-    navLinks.forEach(link => {
-        link.style.animation = "lightUp 1s ease-in-out";
-        setTimeout(() => link.style.animation = "", 1000);
-    });
-}, 6000);
-
-/* ===== 7. RESPONSIVE HERO FONT SIZES ===== */
+/* ===== 5. RESPONSIVE HERO FONT SIZES ===== */
 function adjustHeroFonts() {
     const heroTitle = document.querySelector(".hero-title-text");
     const heroSubtitle = document.querySelector(".hero-subtitle");
@@ -73,37 +57,36 @@ function adjustHeroFonts() {
 
     if(heroTitle && heroSubtitle && heroNote){
         if(window.innerWidth < 768){
-            heroTitle.style.fontSize = "3.5rem";
-            heroSubtitle.style.fontSize = "1.5rem";
-            heroNote.style.fontSize = "1rem";
+            heroTitle.style.fontSize = "3.2rem";
+            heroSubtitle.style.fontSize = "1.4rem";
+            heroNote.style.fontSize = "0.95rem";
         } else {
-            heroTitle.style.fontSize = "5rem";
+            heroTitle.style.fontSize = "4.8rem";
             heroSubtitle.style.fontSize = "2rem";
             heroNote.style.fontSize = "1.2rem";
         }
     }
 }
-
 window.addEventListener("resize", adjustHeroFonts);
 adjustHeroFonts();
 
-/* ===== 8. CART & WHATSAPP INTEGRATION ===== */
+/* ===== 6. CART & WHATSAPP INTEGRATION ===== */
 window.cart = window.cart || [];
 const whatsappBtn = document.querySelector('.whatsapp-btn, .whatsapp-float');
 
 function updateWhatsAppButton() {
     if (!whatsappBtn) return;
+
     if (window.cart.length === 0) {
         whatsappBtn.classList.add('disabled');
         whatsappBtn.style.pointerEvents = 'none';
-        whatsappBtn.title = "Add items to your cart first!";
         whatsappBtn.style.opacity = 0.5;
+        whatsappBtn.title = "Add items to your cart first!";
     } else {
         whatsappBtn.classList.remove('disabled');
         whatsappBtn.style.pointerEvents = 'auto';
-        whatsappBtn.title = "Chat on WhatsApp";
-        whatsappBtn.classList.add('highlight');
         whatsappBtn.style.opacity = 1;
+        whatsappBtn.title = "Chat on WhatsApp";
     }
 }
 
@@ -120,10 +103,11 @@ if (whatsappBtn) {
     });
 }
 
-/* ===== 9. ADD TO CART HOOK ===== */
+/* ===== 7. ADD TO CART FUNCTION ===== */
 function addToCart(item) {
     const itemWithTransport = { ...item, price: item.price + 4000 };
     const existing = window.cart.find(i => i.id === item.id);
+
     if (existing) existing.qty++;
     else window.cart.push({ ...itemWithTransport, qty: 1 });
 
@@ -134,5 +118,5 @@ function addToCart(item) {
 
 window.globalAddToCart = addToCart;
 
-// Initialize WhatsApp button on page load
+/* ===== 8. INITIALIZE ON PAGE LOAD ===== */
 document.addEventListener("DOMContentLoaded", updateWhatsAppButton);

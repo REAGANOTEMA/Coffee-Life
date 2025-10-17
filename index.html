@@ -34,9 +34,20 @@
 
 <!-- Styles -->
 <link rel="stylesheet" href="/css/hero.css">
+<link rel="stylesheet" href="/css/location.css">
+<link rel="stylesheet" href="/css/global.css">
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<link rel="stylesheet" href="/css/gallery.css">
+<link rel="stylesheet" href="/css/apps.css">
+<link rel="stylesheet" href="/css/qr.css">
+<link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/contact.css">
+<link rel="stylesheet" href="/css/payments.css">
 <link rel="stylesheet" href="/css/menu.css">
 <link rel="stylesheet" href="/css/cart.css">
 <link rel="stylesheet" href="/css/whatsapp.css">
+
 
 <!-- Service Worker Registration -->
 <script>
@@ -300,19 +311,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   </div>
 
   <!-- CART SUMMARY -->
-  <aside class="cart card" id="cart">
-    <h3>Your Order</h3>
-    <div id="cartItems" class="cart-items">
-      <p class="cart-empty">No items yet — add something delicious!</p>
-    </div>
-    <div class="cart-summary">
-      <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
-      <div class="cart-delivery">Delivery Fee: <span id="deliveryFee">0</span> UGX</div>
-      <button id="orderNow" class="btn-order" data-whatsapp-number="+256772514889">
-        <i class="fab fa-whatsapp"></i> Order Now on WhatsApp
-      </button>
-    </div>
-  </aside>
+<aside class="cart card" id="cart">
+  <h3>Your Order</h3>
+
+  <!-- Cart Items Container -->
+  <div id="cartItems" class="cart-items">
+    <p class="cart-empty">No items yet — add something delicious!</p>
+  </div>
+
+  <!-- Payment Buttons -->
+  <div class="payment-section">
+    <button class="payment-btn mtn">Pay with MTN</button>
+    <button class="payment-btn airtel">Pay with Airtel</button>
+  </div>
+
+  <!-- Cart Summary -->
+  <div class="cart-summary">
+    <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
+    <div class="cart-delivery">Delivery Fee: <span id="deliveryFee">0</span> UGX</div>
+    <button id="orderNow" class="btn-order" data-whatsapp-number="+256772514889">
+      <i class="fab fa-whatsapp"></i> Order Now on WhatsApp
+    </button>
+  </div>
+</aside>
 </section>
 
 
@@ -2553,6 +2574,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     <script src="js/gallery.js"></script>
     <script src="js/whatsapp.js"></script>
     <script src="js/apps.js"></script>
+    <script src="js/payments.js"></script>
+
 
     <!-- ==============================
          COFFEE LIFE CAFE — GLOBAL CART & WHATSAPP ORDER
