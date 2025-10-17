@@ -1,6 +1,7 @@
 (() => {
   // ==========================
   // COFFEE LIFE Cart + WhatsApp + Payments (FINAL 2025)
+  // Luxurious, Royal Placement: MTN/Airtel above delivery/order
   // ==========================
 
   const WA_PHONE = "256772514889";
@@ -23,11 +24,28 @@
   const cartTotalEl = document.querySelector(".cart-total");
   const deliverySelect = document.getElementById("delivery-zone");
 
-  // Payment / Order Buttons
+  // Order & Payment buttons container (will hold MTN/Airtel above delivery)
+  let paymentContainer = document.querySelector(".payment-section");
+  if(!paymentContainer){
+    paymentContainer = document.createElement("div");
+    paymentContainer.className = "payment-section";
+    cartContainer.insertBefore(paymentContainer, cartTotalEl); // place above total & order
+  }
+
   const orderNowBtns = document.querySelectorAll(".cart-order-btn, .btn-whatsapp-send, .payment-btn");
+
+  // Floating WhatsApp button
+  let whatsappFloat = document.querySelector(".whatsapp-float");
+  if(!whatsappFloat){
+    whatsappFloat = document.createElement("div");
+    whatsappFloat.className = "whatsapp-float";
+    whatsappFloat.innerHTML = '<i class="fab fa-whatsapp"></i>';
+    document.body.appendChild(whatsappFloat);
+  }
 
   // ===== GLOBAL CART =====
   window.cart = JSON.parse(localStorage.getItem("coffee_life_cart") || "[]");
+
   function persistCart() { localStorage.setItem("coffee_life_cart", JSON.stringify(window.cart)); }
   function formatUGX(v){ return Number(v).toLocaleString() + " UGX"; }
   function calcTotal(){ return window.cart.reduce((s,it)=>s+(it.price*it.qty),0); }
@@ -40,7 +58,16 @@
   function addToCart(item){
     if(!item||!item.id) return console.warn("addToCart requires item with id");
     const existing = window.cart.find(i=>i.id===item.id);
-    if(existing) existing.qty++; else window.cart.push({...item,qty:1});
+    if(existing) existing.qty++;
+    else window.cart.push({...item,qty:1});
+
+    const currentTotal = calcTotal();
+    if(currentTotal > 50000000){
+      alert("Cart cannot exceed UGX 50,000,000!");
+      if(existing) existing.qty--; else window.cart.pop();
+      return;
+    }
+
     persistCart(); renderCart(); flashAddButton(item.id);
   }
   window.cartAdd = addToCart;
@@ -64,7 +91,8 @@
   // ===== BUTTON ANIMATIONS =====
   function flashAddButton(itemId){
     const btn=document.querySelector(`.menu-item[data-id="${itemId}"] .btn-add`) || document.querySelector(`.add-to-cart-btn[data-id="${itemId}"]`);
-    if(!btn) return; btn.classList.add("shake","glow");
+    if(!btn) return;
+    btn.classList.add("shake","glow");
     setTimeout(()=>btn.classList.remove("shake"),600);
     setTimeout(()=>btn.classList.remove("glow"),1400);
   }
@@ -77,7 +105,7 @@
   function renderCart(){
     if(!cartItemsContainer) return; cartItemsContainer.innerHTML="";
     let total=0;
-    if(window.cart.length===0){ 
+    if(window.cart.length===0){
       cartItemsContainer.innerHTML=`<p class="cart-empty">Your cart is empty.</p>`; 
       if(cartTotalEl) cartTotalEl.textContent=`Total: UGX 0`; 
       return; 
@@ -106,8 +134,12 @@
       div.querySelector(".cart-item-remove")?.addEventListener("click",e=>removeFromCart(e.currentTarget.dataset.id));
       cartItemsContainer.appendChild(div);
     });
+
     const grandTotal = total + (DELIVERY_FEE || 0);
-    if(cartTotalEl) cartTotalEl.innerHTML=`Total: ${formatUGX(grandTotal)}<span class="delivery-fee">Delivery: ${formatUGX(DELIVERY_FEE)}</span>`;
+    if(cartTotalEl) cartTotalEl.innerHTML=`
+      Total: ${formatUGX(grandTotal)}
+      <span class="delivery-fee">Delivery: ${formatUGX(DELIVERY_FEE)}</span>
+    `;
   }
 
   // ===== UPDATE DELIVERY FEE =====
@@ -138,25 +170,26 @@
     window.cart=[]; persistCart(); renderCart();
   }
 
-  // ===== BIND ORDER & PAYMENT BUTTONS =====
-  orderNowBtns.forEach(btn=>{
-    if(btn.__wired) return; btn.__wired=true;
-    btn.addEventListener("click",e=>{
-      e.preventDefault();
-      const method = btn.dataset.method || (btn.classList.contains("mtn") ? "MTN Mobile Money" : btn.classList.contains("airtel") ? "Airtel Money" : "Cash");
-      handleOrderButton(method);
+  // ===== ADD MTN & Airtel BUTTONS ABOVE DELIVERY SELECT =====
+  function addPaymentButtons(){
+    paymentContainer.innerHTML = '';
+    ["mtn","airtel"].forEach(type=>{
+      const btn = document.createElement("button");
+      btn.className = `payment-btn ${type}`;
+      btn.textContent = type === "mtn" ? "Pay with MTN" : "Pay with Airtel";
+      btn.addEventListener("click",()=>handleOrderButton(type === "mtn"?"MTN Mobile Money":"Airtel Money"));
+      paymentContainer.appendChild(btn);
     });
-  });
+    const note = document.createElement("div");
+    note.className = "payment-temp-note";
+    note.textContent = "Select your preferred payment method above";
+    paymentContainer.appendChild(note);
+  }
 
-  // ===== INITIALIZE =====
-  renderCart(); wireStaticAddButtons();
-  const observer=new MutationObserver(()=>wireStaticAddButtons());
-  observer.observe(document.body,{childList:true,subtree:true});
+  // ===== FLOATING WHATSAPP BUTTON =====
+  whatsappFloat.addEventListener("click",()=>handleOrderButton("WhatsApp"));
 
-  window.__coffeeLife={
-    getCart:()=>window.cart,
-    clearCart:()=>{window.cart=[]; persistCart(); renderCart();},
-    addToCart, removeFromCart, updateQty,
-    DELIVERY_FEE, DELIVERY_AREAS
-  };
+  wireStaticAddButtons();
+  addPaymentButtons();
+  renderCart();
 })();

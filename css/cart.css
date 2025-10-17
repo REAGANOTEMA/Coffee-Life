@@ -1,15 +1,16 @@
 /* ============================ 
    COFFEE LIFE Premium CSS Bundle (FINAL 2025)
-   Menu + Cart + WhatsApp + Chat + Animations + MTN/Airtel
+   Menu + Cart + WhatsApp + Chat + Animations + MTN/Airtel + Luxurious
    ============================ */
 
 /* === ROOT VARIABLES === */
 :root {
-    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    --shadow: 0 4px 20px rgba(0,0,0,0.15);
     --coffee: #4b2e1e;
     --gold: #b47b3a;
     --cream: #f5e6d3;
     --dark: #2c1b0e;
+    --lux-glow: 0 0 20px #FFD700, 0 0 40px #FFD700 inset;
 }
 
 /* ===================== MENU STYLES ===================== */
@@ -19,8 +20,8 @@
     padding:3rem 2rem;
     max-width:1400px;
     background:linear-gradient(180deg,#fff 0%,#fdf8f3 100%);
-    border-top:2px solid rgba(180,123,58,0.1);
-    border-bottom:2px solid rgba(180,123,58,0.1);
+    border-top:2px solid rgba(180,123,58,0.15);
+    border-bottom:2px solid rgba(180,123,58,0.15);
     border-radius:16px;
 }
 .menu-section h2{
@@ -34,8 +35,8 @@
 }
 .menu-section h2::after{
     content:"";
-    width:100px;
-    height:3px;
+    width:120px;
+    height:4px;
     background:var(--gold);
     display:block;
     margin:0.8rem auto 0;
@@ -70,7 +71,7 @@
 }
 .menu-item:hover{
     transform:translateY(-8px);
-    box-shadow:0 14px 35px rgba(0,0,0,0.15),0 8px 20px rgba(180,123,58,0.25);
+    box-shadow:0 14px 35px rgba(0,0,0,0.2),0 8px 20px rgba(180,123,58,0.25);
 }
 .menu-item img,.menu-item video{
     width:100%;
@@ -124,7 +125,8 @@
 .menu-body .btn-add:hover,.menu-body .btn-whatsapp:hover{
     background:var(--gold);
     color:var(--dark);
-    transform:translateY(-2px) scale(1.03);
+    transform:translateY(-2px) scale(1.05);
+    box-shadow: var(--lux-glow);
 }
 .menu-body .btn-whatsapp i{margin-right:5px;}
 
@@ -150,7 +152,7 @@
     position:fixed;
     top:0;
     right:-400px;
-    width:360px;
+    width:380px;
     height:100vh;
     background:#fff;
     color:var(--dark);
@@ -186,7 +188,7 @@
     border-bottom:1px solid #eee;
     animation:fadeInCart 0.5s ease;
 }
-@keyframes fadeInCart{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+@keyframes fadeInCart{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);} }
 .cart-item img{width:60px;height:60px;border-radius:8px;margin-right:10px;object-fit:cover;}
 .cart-item-info{flex:1;}
 .cart-item-info h4{margin:0;font-size:1rem;color:var(--dark);}
@@ -211,7 +213,7 @@
     box-shadow:0 5px 15px rgba(207,160,122,0.5);
     animation: shakeBtn 4s infinite, glowBtn 4s infinite;
 }
-.cart-order-btn:hover{background:var(--coffee);color:var(--cream);transform:translateY(-3px);}
+.cart-order-btn:hover{background:var(--coffee);color:var(--cream);transform:translateY(-3px);box-shadow: var(--lux-glow);}
 .cart-empty{text-align:center;color:#777;margin-top:3rem;font-style:italic;font-size:1rem;}
 .cart-item .controls{display:flex;align-items:center;gap:0.5rem;margin-left:10px;}
 .cart-item .qty-btn{
@@ -225,13 +227,13 @@
     transition:all 0.3s;
     animation: shakeBtn 4s infinite, glowBtn 4s infinite;
 }
-.cart-item .qty-btn:hover{background:var(--gold);color:var(--dark);transform:scale(1.1);}
+.cart-item .qty-btn:hover{background:var(--gold);color:var(--dark);transform:scale(1.1);box-shadow: var(--lux-glow);}
 .cart-item .qty{min-width:20px;text-align:center;font-weight:bold;}
 
 /* ================= MTN/AIRTEL PAYMENT BUTTONS ================= */
 .payment-section{
     padding:1rem 1.5rem;
-    border-top:1px dashed #ccc;
+    border-bottom:1px dashed #ccc;
     text-align:center;
 }
 .payment-section h4{margin-bottom:0.5rem;color:var(--coffee);font-family:"Playfair Display",serif;font-size:1.1rem;}
@@ -240,22 +242,22 @@
     align-items:center;
     justify-content:center;
     gap:0.5rem;
-    font-weight:600;
+    font-weight:700;
     border:none;
-    border-radius:8px;
-    padding:0.6rem 1rem;
-    margin:0.4rem;
+    border-radius:50px;
+    padding:0.8rem 1rem;
+    margin:0.5rem 0;
     cursor:pointer;
     transition:all 0.3s;
-    width:85%;
-    font-size:0.95rem;
+    width:90%;
+    font-size:1rem;
     animation: shakeBtn 4s infinite, glowBtn 4s infinite;
 }
 .payment-btn i{font-size:1.1rem;}
-.payment-btn.mtn{background:#ffcb05;color:#333;}
-.payment-btn.mtn:hover{background:#ffdb4d;transform:translateY(-2px);}
-.payment-btn.airtel{background:#d81a2d;color:#fff;}
-.payment-btn.airtel:hover{background:#ff3349;transform:translateY(-2px);}
+.payment-btn.mtn{background:linear-gradient(90deg,#FFD700,#1E90FF);color:#000;font-weight:bold;}
+.payment-btn.mtn:hover{background:linear-gradient(90deg,#FFE066,#5F9DF7);transform:translateY(-2px);box-shadow: var(--lux-glow);}
+.payment-btn.airtel{background:linear-gradient(90deg,#FF0000,#FFFFFF);color:#000;font-weight:bold;}
+.payment-btn.airtel:hover{background:linear-gradient(90deg,#FF6666,#FFE6E6);transform:translateY(-2px);box-shadow: var(--lux-glow);}
 .payment-temp-note{font-size:0.85rem;color:#777;font-style:italic;margin-top:0.5rem;}
 
 /* ================= FLOATING WHATSAPP BUTTON ================= */
@@ -280,16 +282,14 @@
 @keyframes floatPulse{0%,100%{transform:scale(1);box-shadow:0 8px 20px rgba(37,211,102,0.3);}50%{transform:scale(1.05);box-shadow:0 12px 28px rgba(37,211,102,0.5);}}
 
 /* ===================== RESPONSIVE ===================== */
-@media(max-width:1024px){
-    #menu-container{grid-template-columns:repeat(2,1fr);}
-}
+@media(max-width:1024px){#menu-container{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:768px){
     .cart-container{width:100%;right:-100%;}
     .cart-order-btn{width:95%;}
     .cart-item img{width:50px;height:50px;}
     .cart-item-info h4{font-size:0.95rem;}
     .cart-item-info p{font-size:0.85rem;}
-    .payment-btn{width:90%;font-size:0.9rem;}
+    .payment-btn{width:90%;font-size:0.95rem;}
     .whatsapp-float{width:55px;height:55px;line-height:55px;font-size:1.7rem;}
 }
 @media(max-width:600px){
