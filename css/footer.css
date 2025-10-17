@@ -191,6 +191,10 @@
 /* Newsletter */
 .newsletter {
     margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+    flex-wrap: wrap;
 }
 
 .newsletter input {

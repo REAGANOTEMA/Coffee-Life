@@ -1,5 +1,5 @@
 // ============================
-// COFFEE LIFE WhatsApp + AI Chatbot + Footer Integration
+// COFFEE LIFE WhatsApp + AI Chatbot + Footer Integration (FINAL 2025)
 // ============================
 
 // ===== Elements =====
@@ -206,3 +206,9 @@ document.getElementById("year")?.textContent = new Date().getFullYear();
 // ===== Initialize =====
 updateCartPreview();
 updateQRLink();
+
+// ============================
+// COFFEE LIFE WhatsApp + AI Chatbot Mobile Enhancements (FINAL 2025)
+// ============================
+
+// All responsive styles should be included in CSS file
