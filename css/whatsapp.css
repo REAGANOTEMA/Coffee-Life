@@ -299,3 +299,27 @@
     .chat-messages { max-height: 250px; }
     .menu-item { font-size: 0.95rem; }
 }
+/* ===== TOUCH FRIENDLY BUTTONS ===== */
+button, select {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== RESPONSIVE MENU GRID ===== */
+#menu-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* ===== MOBILE CART ===== */
+@media (max-width: 768px) {
+  .cart-container { width: 100%; right: -100%; }
+  .cart-order-btn { width: 95%; font-size: 1rem; }
+  .cart-item img { width: 50px; height: 50px; }
+  .whatsapp-float { width: 55px; height: 55px; line-height: 55px; font-size: 1.7rem; }
+  .menu-item img { height: 160px; }
+}
+
+/* ===== MOBILE PAYMENT BUTTONS ===== */
+.payment-btn { width: 90%; font-size: 0.95rem; margin: 0.3rem 0; }
