@@ -319,3 +319,169 @@ button, select { touch-action: manipulation; -webkit-tap-highlight-color: transp
   .menu-item img { height: 160px; }
   .payment-btn { width: 90%; font-size: 0.95rem; margin: 0.3rem 0; }
 }
+/* ============================
+   Coffee Life Menu + Cart CSS
+   ============================ */
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f5f5f5; /* keep your perfect background */
+  margin: 0; padding: 0;
+}
+
+#menu-container {
+  display: grid;
+  gap: 12px; /* smaller gap for compact view */
+  padding: 10px;
+}
+
+.menu-item {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-media img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.menu-body {
+  padding: 6px 10px;
+  text-align: center;
+}
+
+.menu-body h4 {
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+.menu-body p.desc {
+  font-size: 0.8rem;
+  margin: 2px 0;
+  min-height: 30px;
+}
+
+.menu-body p.price {
+  font-weight: bold;
+  margin: 2px 0;
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.actions button {
+  padding: 4px 6px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.actions .btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+
+.actions .btn-mtn {
+  background: #FFD700;
+  color: #000;
+}
+
+.actions .btn-airtel {
+  background: #FF0000;
+  color: #fff;
+}
+
+.actions .btn-add {
+  background: #333;
+  color: #fff;
+}
+
+/* Cart Items */
+.cart-items {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+}
+
+.cart-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.cart-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-info h4 {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.cart-item-info p, .subtotal {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.controls .qty-btn {
+  padding: 2px 4px;
+  font-size: 0.75rem;
+}
+
+.controls .cart-item-remove {
+  cursor: pointer;
+  font-weight: bold;
+  color: #ff0000;
+  font-size: 0.85rem;
+}
+
+/* Cart summary */
+.cart-total {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.cart-total hr {
+  margin: 4px 0;
+  border-color: #ddd;
+}
+
+
+/* Responsive adjustments */
+@media(max-width:1024px){
+  #menu-container { grid-template-columns: repeat(2,1fr); }
+}
+@media(max-width:600px){
+  #menu-container { grid-template-columns: 1fr; }
+}
