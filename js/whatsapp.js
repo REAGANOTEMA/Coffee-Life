@@ -99,7 +99,7 @@ function updateCartPreview(){
   `;
   cartPreview.appendChild(summary);
 
-  // ===== Quantity Buttons =====
+  // Quantity Buttons
   cartPreview.querySelectorAll(".qty-btn").forEach(btn => {
     btn.addEventListener("click", e => {
       const action = e.target.dataset.action;
@@ -138,7 +138,7 @@ function generateCartMessage(name, location, paymentMethod="Cash"){
   return message;
 }
 
-// ===== Order Now Handler =====
+// ===== Order Handler =====
 function handleOrderNow(paymentMethod="Cash"){
   if(window.cart.length === 0) return alert("Please add items to your cart before ordering!");
   if(!deliverySelect?.value) return alert("Please select a delivery area!");
@@ -152,75 +152,9 @@ function handleOrderNow(paymentMethod="Cash"){
   updateCartPreview();
 }
 
-// ===== Bind Order Buttons =====
+// ===== Bind Buttons =====
 [orderNowBtn, footerOrderBtn].forEach(btn=>{
   btn?.addEventListener("click", ()=>handleOrderNow());
-});
-
-// ===== Bind Menu WhatsApp Buttons =====
-allWAButtons.forEach(btn=>{
-  btn.classList.add("shake","glow");
-  btn.addEventListener("click", e=>{
-    if(window.cart.length === 0){
-      e.preventDefault();
-      alert("Please add items to your cart before contacting us on WhatsApp!");
-    } else {
-      const paymentMethod = btn.classList.contains("mtn") ? "MTN Mobile Money" :
-                            btn.classList.contains("airtel") ? "Airtel Money" : "Cash";
-      handleOrderNow(paymentMethod);
-    }
-  });
-});
-
-// ===== MTN / Airtel Merchant Codes =====
-const PAYMENT_MERCHANTS = {
-  mtn: "4393386",   
-  airtel1: "971714", 
-  airtel2: "4393386" 
-};
-
-// USSD patterns (replace # with %23 for tel: links)
-const USSD_PATTERNS = {
-  mtn: "*165*3*{merchant}*{amount}%23",
-  airtel: "*185*9*{merchant}*{amount}%23"
-};
-
-// ===== Payment Buttons (MTN/Airtel) =====
-document.querySelectorAll(".payment-btn.mtn, .payment-btn.airtel").forEach(btn => {
-  btn.classList.add("shake","glow");
-  btn.addEventListener("click", e => {
-    if(window.cart.length === 0) return alert("Add items to cart first!");
-
-    // Calculate total (subtotal + delivery)
-    let subtotal = window.cart.reduce((acc,i)=>acc + i.price*i.qty,0);
-    const area = deliverySelect?.value || "";
-    const delivery = DELIVERY_AREAS[area] || 0;
-    const total = subtotal + delivery;
-
-    // Determine payment method and merchant
-    let method = "Cash";
-    let merchantCode = "";
-    if(btn.classList.contains("mtn")){
-      method = "MTN Mobile Money";
-      merchantCode = PAYMENT_MERCHANTS.mtn;
-    } else {
-      method = "Airtel Money";
-      merchantCode = PAYMENT_MERCHANTS.airtel1;
-    }
-
-    // Generate USSD code
-    const ussd = (method==="MTN Mobile Money" ? USSD_PATTERNS.mtn : USSD_PATTERNS.airtel)
-                  .replace("{merchant}", merchantCode)
-                  .replace("{amount}", total);
-
-    // Open dialer (mobile)
-    window.location.href = "tel:" + ussd;
-
-    // After short delay, open WhatsApp with order confirmation
-    setTimeout(()=> {
-      handleOrderNow(method);
-    }, 1000); // 1-second delay for dialer
-  });
 });
 
 // ===== WhatsApp Button State =====
@@ -237,7 +171,42 @@ function updateWhatsAppState(){
   }
 }
 
-// Disabled WhatsApp click
+// ===== Payment Buttons (MTN/Airtel) =====
+const PAYMENT_MERCHANTS = { mtn: "4393386", airtel1: "971714", airtel2: "4393386" };
+const USSD_PATTERNS = { mtn: "*165*3*{merchant}*{amount}%23", airtel: "*185*9*{merchant}*{amount}%23" };
+
+document.querySelectorAll(".payment-btn.mtn, .payment-btn.airtel").forEach(btn => {
+  btn.classList.add("shake","glow");
+  btn.addEventListener("click", e => {
+    if(window.cart.length === 0) return alert("Add items to cart first!");
+
+    let subtotal = window.cart.reduce((acc,i)=>acc + i.price*i.qty,0);
+    const area = deliverySelect?.value || "";
+    const total = subtotal + (DELIVERY_AREAS[area] || 0);
+
+    let method = "Cash";
+    let merchant = "";
+    if(btn.classList.contains("mtn")){
+      method = "MTN Mobile Money";
+      merchant = PAYMENT_MERCHANTS.mtn;
+    } else {
+      method = "Airtel Money";
+      merchant = PAYMENT_MERCHANTS.airtel1;
+    }
+
+    const ussd = (method==="MTN Mobile Money" ? USSD_PATTERNS.mtn : USSD_PATTERNS.airtel)
+                  .replace("{merchant}", merchant)
+                  .replace("{amount}", total);
+
+    // Open mobile dialer
+    window.location.href = "tel:" + ussd;
+
+    // After short delay, open WhatsApp for confirmation
+    setTimeout(()=>handleOrderNow(method), 1000);
+  });
+});
+
+// ===== Disabled WhatsApp if empty =====
 whatsappBtn?.addEventListener("click", e=>{
   if(whatsappBtn.classList.contains("disabled")){
     e.preventDefault();
@@ -245,10 +214,8 @@ whatsappBtn?.addEventListener("click", e=>{
   }
 });
 
-// ===== Initialize =====
+// ===== Init =====
 updateCartPreview();
-
-// ===== Update delivery fee when location changes =====
 deliverySelect?.addEventListener("change", ()=>{
   DELIVERY_FEE = DELIVERY_AREAS[deliverySelect.value] || 0;
   updateCartPreview();
