@@ -1,5 +1,5 @@
 // ============================
-// COFFEE LIFE Cart + WhatsApp (Offline/Online Ready, Final 2025)
+// COFFEE LIFE Cart + WhatsApp (Final 2025)
 // ============================
 
 const WA_PHONE = "256772514889"; 
@@ -14,6 +14,7 @@ const DELIVERY_AREAS = {
 let DELIVERY_FEE = 0;
 window.cart = JSON.parse(localStorage.getItem("coffee_life_cart") || "[]");
 
+// ===== DOM ELEMENTS =====
 const cartPreview = document.querySelector(".whatsapp-cart-preview");
 const deliverySelect = document.getElementById("delivery-zone");
 const orderNowBtn = document.getElementById("orderNow");
@@ -98,7 +99,7 @@ function updateCartPreview(){
   `;
   cartPreview.appendChild(summary);
 
-  // ===== Quantity buttons =====
+  // ===== Quantity Buttons =====
   cartPreview.querySelectorAll(".qty-btn").forEach(btn => {
     btn.addEventListener("click", e => {
       const action = e.target.dataset.action;
@@ -205,3 +206,9 @@ whatsappBtn?.addEventListener("click", e=>{
 
 // ===== Initialize =====
 updateCartPreview();
+
+// ===== Update delivery fee when location changes =====
+deliverySelect?.addEventListener("change", ()=>{
+  DELIVERY_FEE = DELIVERY_AREAS[deliverySelect.value] || 0;
+  updateCartPreview();
+});

@@ -1,7 +1,6 @@
 (() => {
   // ==========================
   // COFFEE LIFE Cart + WhatsApp + Payments (FINAL 2025)
-  // Luxurious, Royal Placement: MTN/Airtel above delivery/order
   // ==========================
 
   const WA_PHONE = "256772514889";
@@ -24,12 +23,12 @@
   const cartTotalEl = document.querySelector(".cart-total");
   const deliverySelect = document.getElementById("delivery-zone");
 
-  // Order & Payment buttons container (will hold MTN/Airtel above delivery)
+  // Payment buttons container above delivery/total
   let paymentContainer = document.querySelector(".payment-section");
   if(!paymentContainer){
     paymentContainer = document.createElement("div");
     paymentContainer.className = "payment-section";
-    cartContainer.insertBefore(paymentContainer, cartTotalEl); // place above total & order
+    cartContainer.insertBefore(paymentContainer, cartTotalEl);
   }
 
   const orderNowBtns = document.querySelectorAll(".cart-order-btn, .btn-whatsapp-send, .payment-btn");
@@ -61,8 +60,7 @@
     if(existing) existing.qty++;
     else window.cart.push({...item,qty:1});
 
-    const currentTotal = calcTotal();
-    if(currentTotal > 50000000){
+    if(calcTotal() > 50000000){
       alert("Cart cannot exceed UGX 50,000,000!");
       if(existing) existing.qty--; else window.cart.pop();
       return;
@@ -166,7 +164,6 @@
 
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
 
-    // Clear cart after order
     window.cart=[]; persistCart(); renderCart();
   }
 
@@ -187,7 +184,7 @@
   }
 
   // ===== FLOATING WHATSAPP BUTTON =====
-  whatsappFloat.addEventListener("click",()=>handleOrderButton("WhatsApp"));
+  whatsappFloat.addEventListener("click",()=>handleOrderButton("Cash"));
 
   wireStaticAddButtons();
   addPaymentButtons();

@@ -102,8 +102,6 @@ function updateCartPreview(){
     cartPreview.appendChild(div);
   });
 
-  // ===== CART TOTAL =====
-  const selectedZone = deliverySelect?.value;
   const dynamicDelivery = window.cart.reduce((sum, i) => sum + i.deliveryFee*i.qty, 0);
   const total = subtotal + dynamicDelivery;
 
@@ -235,7 +233,6 @@ menuButtons.forEach(btn => {
 if(deliverySelect){
   deliverySelect.onchange = () => {
     window.cart.forEach(item => {
-      // recalc distance based on selected zone (example: each zone has fixed distance)
       const distanceMap = { "Zone1": 3, "Zone2": 7, "Zone3": 15, "Zone4": 20 };
       const dist = distanceMap[deliverySelect.value] || 0;
       item.deliveryFee = getDeliveryCharge(dist);

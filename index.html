@@ -256,18 +256,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     </section>
         </main>
- <!-- ===== NAV ANCHOR: Menu (full interactive menu) ===== -->
+ <!-- ===== COFFEE LIFE MENU + CART ===== -->
 <section id="menu" class="menu-section container">
   <div class="menu-header">
     <h2>FOOD MENU FOR FOOD DELIVERIES</h2>
     <p class="menu-intro"><strong>COFFEE LIFE CAFÉ</strong></p>
-    <p>EAT. MEET. WORK!<br>
-       Choose multiple items and place one order on WhatsApp.<br>
-       All order buttons connect to our WhatsApp ordering system.
-    </p>
+    <p>EAT. MEET. WORK! Choose multiple items and place one order on WhatsApp. All order buttons connect to our WhatsApp ordering system.</p>
 
-    <!-- quick category filters -->
-    <nav class="menu-cats" aria-label="Menu categories">
+    <!-- Category filters -->
+    <nav class="menu-cats">
       <a href="#food" class="menu-cat">Food</a>
       <a href="#drinks" class="menu-cat">Drinks</a>
       <a href="#desserts" class="menu-cat">Desserts</a>
@@ -278,8 +275,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
   <!-- DELIVERY AREA SELECTION -->
   <div class="delivery-zone">
-    <label for="deliverySelect"><strong>Select Your Location (Jinja):</strong></label>
-    <select id="deliverySelect">
+    <label for="delivery-zone"><strong>Select Delivery Area (Jinja):</strong></label>
+    <select id="delivery-zone">
       <option value="">-- Select Area --</option>
       <option value="Jinja Town">Jinja Town (2,000 UGX)</option>
       <option value="Milo Mbili">Milo Mbili (2,000 UGX)</option>
@@ -298,13 +295,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   </div>
 
   <!-- MENU ITEMS -->
-  <div id="menuItems" class="menu-items"></div>
+  <div id="menu-container" class="menu-items">
+    <!-- JS will populate menu items here -->
+  </div>
 
   <!-- CART SUMMARY -->
   <aside class="cart card" id="cart">
     <h3>Your Order</h3>
     <div id="cartItems" class="cart-items">
-      <p class="empty">No items yet — add something delicious!</p>
+      <p class="cart-empty">No items yet — add something delicious!</p>
     </div>
     <div class="cart-summary">
       <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
@@ -316,127 +315,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   </aside>
 </section>
 
-<script>
-(async function() {
-  const WA_NUMBER = "256772514889";
-  const menuURL = "data/menu.json"; // adjust if different
-  const menuContainer = document.getElementById("menuItems");
-  const cartItemsEl = document.getElementById("cartItems");
-  const cartTotalEl = document.getElementById("cartTotal");
-  const deliveryFeeEl = document.getElementById("deliveryFee");
-  const orderBtn = document.getElementById("orderNow");
-  const deliverySelect = document.getElementById("deliverySelect");
 
-  const DELIVERY_AREAS = {
-    "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
-    "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000,
-    "Bugembe": 3000, "Nile": 3000, "Makerere": 3000,
-    "Kira Road": 3000, "Masese": 4000, "Wakitaka": 4000,
-    "Namuleesa": 4000
-  };
-
-  let cart = [];
-  let deliveryFee = 0;
-
-  // Load menu.json
-  const res = await fetch(menuURL);
-  const data = await res.json();
-
-  const allItems = [
-    ...data.menu.food,
-    ...data.menu.drinks,
-    ...data.menu.desserts,
-    ...data.menu.specials,
-    ...data.menu.coffeeBeans
-  ];
-
-  function renderMenu() {
-    menuContainer.innerHTML = "";
-    allItems.forEach(item => {
-      const div = document.createElement("div");
-      div.className = "menu-item";
-      div.dataset.id = item.id;
-      div.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" class="menu-img">
-        <h4>${item.name}</h4>
-        <p>${item.description}</p>
-        <p><strong>${item.price.toLocaleString()} UGX</strong></p>
-        <button class="btn-add" data-id="${item.id}">Add to Cart</button>
-      `;
-      menuContainer.appendChild(div);
-    });
-
-    document.querySelectorAll(".btn-add").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = parseInt(btn.dataset.id);
-        const selected = allItems.find(i => i.id === id);
-        addToCart(selected);
-      });
-    });
-  }
-
-  function addToCart(item) {
-    const existing = cart.find(i => i.id === item.id);
-    if (existing) existing.qty++;
-    else cart.push({ ...item, qty: 1 });
-    renderCart();
-  }
-
-  function removeFromCart(id) {
-    cart = cart.filter(i => i.id !== id);
-    renderCart();
-  }
-
-  function renderCart() {
-    cartItemsEl.innerHTML = "";
-    if (cart.length === 0) {
-      cartItemsEl.innerHTML = `<p class="empty">No items yet — add something delicious!</p>`;
-      cartTotalEl.textContent = "0";
-      deliveryFeeEl.textContent = "0";
-      return;
-    }
-
-    let total = 0;
-    cart.forEach(item => {
-      const subtotal = item.qty * item.price;
-      total += subtotal;
-
-      const itemEl = document.createElement("div");
-      itemEl.className = "cart-item";
-      itemEl.innerHTML = `
-        <div>
-          <strong>${item.name}</strong><br>
-          ${item.qty} × ${item.price.toLocaleString()} = ${subtotal.toLocaleString()} UGX
-        </div>
-        <button class="btn-remove" title="Remove">&times;</button>
-      `;
-      itemEl.querySelector(".btn-remove").addEventListener("click", () => removeFromCart(item.id));
-      cartItemsEl.appendChild(itemEl);
-    });
-
-    deliveryFee = DELIVERY_AREAS[deliverySelect.value] || 0;
-    cartTotalEl.textContent = (total + deliveryFee).toLocaleString();
-    deliveryFeeEl.textContent = deliveryFee.toLocaleString();
-  }
-
-  deliverySelect.addEventListener("change", renderCart);
-
-  orderBtn.addEventListener("click", () => {
-    if (!deliverySelect.value) { alert("Please select your delivery area."); return; }
-    if (cart.length === 0) { alert("Add items first!"); return; }
-
-    const total = cart.reduce((s, i) => s + i.price * i.qty, 0) + deliveryFee;
-    const msg =
-      `☕ *Coffee Life Café Order*\n\nDelivery Area: ${deliverySelect.value}\n\n` +
-      cart.map(i => `${i.name} ×${i.qty} = ${i.price * i.qty} UGX`).join("\n") +
-      `\n\nDelivery Fee: ${deliveryFee.toLocaleString()} UGX\nTotal: ${total.toLocaleString()} UGX`;
-
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
-  });
-
-  renderMenu();
-})();
-</script>
 
             <!-- ===== FOOD CATEGORIES & ITEMS (each item includes image slot, description, price, add/remove) ===== -->
 
