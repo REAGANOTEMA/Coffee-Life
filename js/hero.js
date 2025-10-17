@@ -12,11 +12,16 @@ let currentVideo = 0;
 videos.forEach((v, i) => {
   v.src = videoFiles[i];
   v.load();
+  v.muted = true; // required for mobile autoplay
+  v.playsInline = true; // ensures in-page mobile playback
   v.style.opacity = i === 0 ? 1 : 0;
   v.style.transition = "opacity 2s ease-in-out";
+  v.style.width = "100%";
+  v.style.height = "100%";
+  v.style.objectFit = "cover"; // cover container
 });
 
-// Function to play a video and fade out others
+// Play video and fade others
 function playVideo(i) {
   videos.forEach((v, j) => {
     if (i === j) {
@@ -25,12 +30,12 @@ function playVideo(i) {
     } else {
       v.style.opacity = 0;
       v.pause();
-      v.currentTime = 0; // reset paused videos
+      v.currentTime = 0;
     }
   });
 }
 
-// Automatically play next video on ended
+// Auto-play next video
 videos.forEach((v, i) => {
   v.addEventListener("ended", () => {
     currentVideo = (i + 1) % videos.length;
@@ -38,13 +43,11 @@ videos.forEach((v, i) => {
   });
 });
 
-// Start the first video
+// Start first video
 playVideo(currentVideo);
 
-// Optional: seamless loop without delay
-videos.forEach(v => v.addEventListener("loadeddata", () => {
-  v.loop = false; // handled manually
-}));
+// Optional: loop manually
+videos.forEach(v => v.addEventListener("loadeddata", () => { v.loop = false; }));
 
 // ==================== Shimmer & Button Glow ====================
 setInterval(() => {
@@ -99,28 +102,27 @@ document.addEventListener("mousemove", e => {
   if (heroSubtitle) heroSubtitle.style.transform = `translate(${x / 6}px,${y / 6}px)`;
 });
 
-// ==================== Coffee Life Cafe Sizing ====================
+// ==================== Hero Text Styling ====================
 if (heroTitle) {
-  heroTitle.style.fontSize = "4rem"; // large, prominent
+  heroTitle.style.fontSize = "clamp(2rem, 5vw, 4rem)";
   heroTitle.style.fontWeight = "900";
   heroTitle.style.color = "#6f4e37"; // coffee color
 }
 
-// ==================== Eat Meet Work Animated Colors + Shake + Slide ====================
 const subtitleWords = document.querySelectorAll(".hero-subtitle");
 subtitleWords.forEach(w => {
-  w.style.fontSize = "3rem";
+  w.style.fontSize = "clamp(1.5rem, 4vw, 3rem)";
   w.style.fontWeight = "700";
-  w.style.color = "#6f4e37"; // default coffee color
+  w.style.color = "#6f4e37";
   w.style.display = "inline-block";
   w.style.whiteSpace = "nowrap";
   w.style.transition = "transform 0.6s ease-in-out, background 1.5s linear";
 });
 
-// Gradient colors for Eat. Meet. Work.
+// Gradient animation
 function animateSubtitle() {
   subtitleWords.forEach(w => {
-    w.style.background = `linear-gradient(45deg, #6f4e37, #ffffff)`; // coffee + white
+    w.style.background = `linear-gradient(45deg, #6f4e37, #ffffff)`;
     w.style.webkitBackgroundClip = "text";
     w.style.color = "transparent";
   });
@@ -136,36 +138,32 @@ function shakeSubtitle() {
   });
 }
 
-// Sliding animation
-let slideDirection = 1; // 1 = right, -1 = left
+// Slide animation
+let slideDirection = 1;
 function slideSubtitle() {
   subtitleWords.forEach(w => {
     const currentX = w.dataset.offset ? parseFloat(w.dataset.offset) : 0;
-    let newX = currentX + 10 * slideDirection; // slide distance
-    if (Math.abs(newX) > 20) slideDirection *= -1; // reverse direction
+    let newX = currentX + 10 * slideDirection;
+    if (Math.abs(newX) > 20) slideDirection *= -1;
     w.dataset.offset = newX;
     w.style.transform = `translateX(${newX}px)`;
   });
 }
 
-// Run gradient animation every 1.5s
+// Animations intervals
 setInterval(animateSubtitle, 1500);
-
-// Shake every 5 seconds
 setInterval(shakeSubtitle, 5000);
-
-// Slide continuously every 2s
 setInterval(slideSubtitle, 2000);
+
 // ==================== WhatsApp Blocking Until Cart Has Items ====================
 const whatsappBtn = document.querySelector(".whatsapp-float");
 const cartContainer = document.querySelector(".cart-container");
 
-// Function to check cart items
 function checkCartForWhatsApp() {
   const cartItems = cartContainer.querySelectorAll(".cart-item");
   if (cartItems.length === 0) {
     whatsappBtn.classList.add("disabled");
-    whatsappBtn.style.pointerEvents = "none"; // block clicks
+    whatsappBtn.style.pointerEvents = "none";
     whatsappBtn.title = "Add items to cart first!";
   } else {
     whatsappBtn.classList.remove("disabled");
@@ -174,14 +172,11 @@ function checkCartForWhatsApp() {
   }
 }
 
-// Initial check
 checkCartForWhatsApp();
 
-// Monitor cart changes (if you add/remove items dynamically)
 const observer = new MutationObserver(checkCartForWhatsApp);
 observer.observe(cartContainer, { childList: true, subtree: true });
 
-// Optional: add alert if clicked while disabled
 whatsappBtn.addEventListener("click", e => {
   if (whatsappBtn.classList.contains("disabled")) {
     e.preventDefault();

@@ -80,7 +80,7 @@
 .hero-title {
     position: relative;
     font-family: 'Cinzel Decorative', serif;
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 6vw, 5rem);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -112,7 +112,7 @@
 /* Subtitle & animated words */
 .hero-subtitle {
     font-family: 'Lora', serif;
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 500;
     margin-bottom: 20px;
 }
@@ -125,7 +125,7 @@
 /* Note */
 .hero-note {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
     font-weight: 400;
     color: #fdf1e6;
     margin-bottom: 30px;
@@ -141,7 +141,7 @@
 }
 .hero-btn {
     padding: 15px 35px;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
     font-weight: 600;
     border-radius: 50px;
     border: none;
@@ -156,7 +156,6 @@
     transform: scale(1.05);
     background: rgba(255,255,255,0.2);
 }
-/* Glowing effect added by JS */
 .hero-btn.light-effect {
     box-shadow: 0 0 15px rgba(255,255,255,0.5),
                 0 0 30px rgba(224,123,95,0.5);
@@ -216,7 +215,7 @@
 ===================== */
 .hero-food-decor {
     position: absolute;
-    font-size: 2rem;
+    font-size: clamp(1.2rem, 3vw, 2rem);
     opacity: 0.15;
     user-select: none;
     pointer-events: none;
@@ -260,8 +259,16 @@
     .hero-aside { margin-top: 25px; max-width: 100%; }
 }
 @media screen and (max-width: 768px){
-    .hero-title { font-size: 3.5rem; }
-    .hero-subtitle { font-size: 1.5rem; }
-    .hero-note { font-size: 1rem; }
-    .hero-btn { font-size: 1rem; padding: 12px 28px; }
+    .hero-title { font-size: clamp(2rem, 6vw, 3.5rem); }
+    .hero-subtitle { font-size: clamp(1rem, 4vw, 1.5rem); }
+    .hero-note { font-size: clamp(0.8rem, 3vw, 1rem); }
+    .hero-btn { font-size: clamp(0.9rem, 3vw, 1rem); padding: 12px 28px; }
+    .hero-aside { padding: 20px; }
+    .scroll-down { font-size: 1.5rem; bottom: 15px; }
+}
+@media screen and (max-width: 480px){
+    .hero-title { font-size: clamp(1.5rem, 7vw, 2.8rem); }
+    .hero-subtitle { font-size: clamp(0.9rem, 4vw, 1.2rem); }
+    .hero-note { font-size: clamp(0.7rem, 3vw, 0.9rem); }
+    .hero-btn { font-size: clamp(0.8rem, 3vw, 0.9rem); padding: 10px 22px; }
 }
