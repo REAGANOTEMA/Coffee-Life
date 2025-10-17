@@ -4,7 +4,6 @@
   // ==========================
 
   const WA_PHONE = "256772514889";
-
   const DELIVERY_AREAS = {
     "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
     "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000,
@@ -12,7 +11,6 @@
     "Kira Road": 3000, "Masese": 4000, "Wakitaka": 4000,
     "Namuleesa": 4000
   };
-
   let DELIVERY_FEE = 0;
 
   // ===== DOM SELECTORS =====
@@ -23,17 +21,15 @@
   const cartTotalEl = document.querySelector(".cart-total");
   const deliverySelect = document.getElementById("delivery-zone");
 
-  // Payment buttons container above delivery/total
   let paymentContainer = document.querySelector(".payment-section");
   if(!paymentContainer){
     paymentContainer = document.createElement("div");
     paymentContainer.className = "payment-section";
-    cartContainer.insertBefore(paymentContainer, cartTotalEl);
+    cartContainer?.insertBefore(paymentContainer, cartTotalEl);
   }
 
   const orderNowBtns = document.querySelectorAll(".cart-order-btn, .btn-whatsapp-send, .payment-btn");
 
-  // Floating WhatsApp button
   let whatsappFloat = document.querySelector(".whatsapp-float");
   if(!whatsappFloat){
     whatsappFloat = document.createElement("div");
@@ -44,10 +40,9 @@
 
   // ===== GLOBAL CART =====
   window.cart = JSON.parse(localStorage.getItem("coffee_life_cart") || "[]");
-
-  function persistCart() { localStorage.setItem("coffee_life_cart", JSON.stringify(window.cart)); }
-  function formatUGX(v){ return Number(v).toLocaleString() + " UGX"; }
-  function calcTotal(){ return window.cart.reduce((s,it)=>s+(it.price*it.qty),0); }
+  const persistCart = () => localStorage.setItem("coffee_life_cart", JSON.stringify(window.cart));
+  const formatUGX = v => Number(v).toLocaleString() + " UGX";
+  const calcTotal = () => window.cart.reduce((s,it)=>s+(it.price*it.qty),0);
 
   // ===== CART MODAL =====
   cartBtn?.addEventListener("click",()=>cartContainer?.classList.toggle("active"));
@@ -70,25 +65,27 @@
   }
   window.cartAdd = addToCart;
 
-  // ===== STATIC ADD BUTTONS =====
+  // ===== WIRE STATIC ADD BUTTONS =====
   function wireStaticAddButtons(){
     document.querySelectorAll(".menu-item .btn-add, .menu-item .add-to-cart-btn").forEach(btn=>{
       if(btn.__wired) return; btn.__wired=true;
       btn.addEventListener("click",e=>{
         const itemEl = e.target.closest(".menu-item");
-        const id = itemEl?.dataset.id || null;
-        const name = itemEl?.dataset.name || itemEl?.querySelector("h4,h3")?.textContent?.trim() || "Item";
-        const price = parseInt(itemEl?.dataset.price || itemEl?.querySelector(".price")?.textContent?.replace(/\D/g,"") || 0);
-        const img = itemEl?.querySelector("img")?.getAttribute("src") || "";
+        if(!itemEl) return;
+        const id = itemEl.dataset.id || null;
+        const name = itemEl.dataset.name || itemEl.querySelector("h4,h3")?.textContent?.trim() || "Item";
+        const price = parseInt(itemEl.dataset.price || itemEl.querySelector(".price")?.textContent?.replace(/\D/g,"") || 0);
+        const img = itemEl.querySelector("img")?.getAttribute("src") || "";
         const safeId = id || name.toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9\-]/g,"");
         addToCart({id:safeId,name,price:Number(price),img});
       });
     });
   }
 
-  // ===== BUTTON ANIMATIONS =====
+  // ===== BUTTON ANIMATION =====
   function flashAddButton(itemId){
-    const btn=document.querySelector(`.menu-item[data-id="${itemId}"] .btn-add`) || document.querySelector(`.add-to-cart-btn[data-id="${itemId}"]`);
+    const btn=document.querySelector(`.menu-item[data-id="${itemId}"] .btn-add`) 
+             || document.querySelector(`.add-to-cart-btn[data-id="${itemId}"]`);
     if(!btn) return;
     btn.classList.add("shake","glow");
     setTimeout(()=>btn.classList.remove("shake"),600);
@@ -167,7 +164,7 @@
     window.cart=[]; persistCart(); renderCart();
   }
 
-  // ===== ADD MTN & Airtel BUTTONS ABOVE DELIVERY SELECT =====
+  // ===== PAYMENT BUTTONS =====
   function addPaymentButtons(){
     paymentContainer.innerHTML = '';
     ["mtn","airtel"].forEach(type=>{
