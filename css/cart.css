@@ -142,7 +142,7 @@
 
 /* === ANIMATIONS === */
 @keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
-@keyframes shakeBtn{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-3px);}40%,80%{transform:translateX(3px);}}
+@keyframes shakeBtn{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-3px);}40%,80%{transform:translateX(3px);} }
 @keyframes glowBtn{0%,100%{box-shadow:0 0 0 var(--gold);}50%{box-shadow:0 0 10px var(--gold),0 0 20px var(--gold);}}
 
 /* ===================== CART STYLES ===================== */

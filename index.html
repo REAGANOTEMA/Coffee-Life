@@ -256,80 +256,91 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     </section>
         </main>
-        <!-- ===== NAV ANCHOR: Menu (full interactive menu) ===== -->
-        <section id="menu" class="menu-section container" data-menu-src="data/menu.json">
-            <div class="menu-header">
-                <h2>FOOD MENU FOR FOOD DELIVERIES</h2>
-                <p class="menu-intro"><strong>COFFEE LIFE CAFE.</strong>
+  <!-- ===== MENU SECTION: Full Interactive Menu ===== -->
+<section id="menu" class="menu-section container" data-menu-src="data/menu.json">
+  
+  <!-- ===== MENU HEADER ===== -->
+  <div class="menu-header">
+    <h2>FOOD MENU FOR DELIVERY</h2>
+    <p class="menu-intro">
+      <strong>COFFEE LIFE CAFE.</strong> EAT. MEET. WORK!<br>
+      Choose multiple items and place one order on WhatsApp. All order buttons connect to our WhatsApp ordering system.
+    </p>
 
-                <p>EAT. MEET. WORK!</p> Choose multiple items and place one order on
-                WhatsApp. All order buttons connect to our WhatsApp ordering system.</p>
+    <!-- ===== QUICK CATEGORY FILTERS ===== -->
+    <nav class="menu-cats" aria-label="Menu categories">
+      <a href="#beef-dishes" class="menu-cat">Beef Dishes</a>
+      <a href="#shawarmas" class="menu-cat">Shawarmas</a>
+      <a href="#chicken-delights" class="menu-cat">Chicken</a>
+      <a href="#goats" class="menu-cat">Goats</a>
+      <a href="#pizzas" class="menu-cat">Pizzas</a>
+      <a href="#burgers" class="menu-cat">Burgers</a>
+      <a href="#pastas" class="menu-cat">Pastas</a>
+      <a href="#local-food" class="menu-cat">Local Food</a>
+      <a href="#beverages" class="menu-cat">Beverages</a>
+      <a href="#breakfast" class="menu-cat">Breakfast</a>
+      <a href="#light-bites" class="menu-cat">Light Bites</a>
+      <a href="#kids" class="menu-cat">Kids Menu</a>
+    </nav>
+  </div>
 
-                <!-- quick category filters / links -->
-                <nav class="menu-cats" aria-label="Menu categories">
-                    <a href="#beef-dishes" class="menu-cat">Beef Dishes</a>
-                    <a href="#shawarmas" class="menu-cat">Shawarmas</a>
-                    <a href="#chicken-delights" class="menu-cat">Chicken</a>
-                    <a href="#goats" class="menu-cat">Goats</a>
-                    <a href="#pizzas" class="menu-cat">Pizzas</a>
-                    <a href="#burgers" class="menu-cat">Burgers</a>
-                    <a href="#pastas" class="menu-cat">Pastas</a>
-                    <a href="#local-food" class="menu-cat">Local Food</a>
-                    <a href="#beverages" class="menu-cat">Beverages</a>
-                    <a href="#breakfast" class="menu-cat">Breakfast</a>
-                    <a href="#light-bites" class="menu-cat">Light Bites</a>
-                    <a href="#kids" class="menu-cat">Kids Menu</a>
-                </nav>
-            </div>
+  <!-- ===== MENU GRID: JS will populate items ===== -->
+  <div id="menu-container"></div>
 
-            <!-- CART SUMMARY (interactive — JS will populate) -->
-            <aside class="cart card" id="cart">
-                <h3>Your Order</h3>
-                <div id="cartItems" class="cart-items">
-                    <p class="empty">No items yet add something delicious!</p>
-                </div>
-                <div class="cart-summary">
-                    <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
-                    <button id="orderNow" class="btn-order" data-whatsapp-number="+256772514889">
-                        <i class="fab fa-whatsapp"></i> Place Your Order on WhatsApp
-                    </button>
-                </div>
-            </aside>
-            <!-- CART SUMMARY (interactive — JS will populate) -->
-<aside class="cart card" id="cart">
-    <h3>Your Order</h3>
-    <div id="cartItems" class="cart-items">
-        <p class="empty">No items yet add something delicious!</p>
+  <!-- ===== CART CONTAINER: Interactive ===== -->
+  <aside class="cart-container">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <span class="cart-close">&times;</span>
     </div>
 
-    <!-- ===== DELIVERY AREA SELECTION ===== -->
+    <!-- ===== CART ITEMS ===== -->
+    <div class="cart-items">
+      <p class="cart-empty">No items yet. Add something delicious!</p>
+    </div>
+
+    <!-- ===== DELIVERY AREA ===== -->
     <div class="delivery-area">
-        <label for="delivery-zone">Select Delivery Area:</label>
-        <select id="delivery-zone">
-            <option value="">-- Choose your area --</option>
-            <option value="Jinja Town">Jinja Town - UGX 2,000</option>
-            <option value="Milo Mbili">Milo Mbili - UGX 2,000</option>
-            <option value="Walukuba West">Walukuba West - UGX 2,000</option>
-            <option value="Walukuba East">Walukuba East - UGX 3,000</option>
-            <option value="Mafubira">Mafubira - UGX 3,000</option>
-            <option value="Mpumudde">Mpumudde - UGX 3,000</option>
-            <option value="Bugembe">Bugembe - UGX 3,000</option>
-            <option value="Nile">Nile - UGX 3,000</option>
-            <option value="Makerere">Makerere - UGX 3,000</option>
-            <option value="Kira Road">Kira Road - UGX 3,000</option>
-            <option value="Masese">Masese - UGX 4,000</option>
-            <option value="Wakitaka">Wakitaka - UGX 4,000</option>
-            <option value="Namuleesa">Namuleesa - UGX 4,000</option>
-        </select>
+      <label for="delivery-zone">Select Delivery Area:</label>
+      <select id="delivery-zone">
+        <option value="">-- Choose your area --</option>
+        <option value="Jinja Town">Jinja Town - UGX 2,000</option>
+        <option value="Milo Mbili">Milo Mbili - UGX 2,000</option>
+        <option value="Walukuba West">Walukuba West - UGX 2,000</option>
+        <option value="Walukuba East">Walukuba East - UGX 3,000</option>
+        <option value="Mafubira">Mafubira - UGX 3,000</option>
+        <option value="Mpumudde">Mpumudde - UGX 3,000</option>
+        <option value="Bugembe">Bugembe - UGX 3,000</option>
+        <option value="Nile">Nile - UGX 3,000</option>
+        <option value="Makerere">Makerere - UGX 3,000</option>
+        <option value="Kira Road">Kira Road - UGX 3,000</option>
+        <option value="Masese">Masese - UGX 4,000</option>
+        <option value="Wakitaka">Wakitaka - UGX 4,000</option>
+        <option value="Namuleesa">Namuleesa - UGX 4,000</option>
+      </select>
     </div>
 
+    <!-- ===== CART TOTAL ===== -->
     <div class="cart-summary">
-        <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
-        <button id="orderNow" class="btn-order" data-whatsapp-number="+256772514889">
-            <i class="fab fa-whatsapp"></i> Order Now
-        </button>
+      <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
     </div>
-</aside>
+
+    <!-- ===== ORDER BUTTONS ===== -->
+    <a href="#" class="cart-order-btn">Order Now via WhatsApp</a>
+    <div class="payment-section">
+      <h4>Pay via Mobile Money</h4>
+      <button class="payment-btn mtn" data-method="MTN Mobile Money">MTN</button>
+      <button class="payment-btn airtel" data-method="Airtel Money">Airtel</button>
+      <div class="payment-temp-note">Payment before delivery required</div>
+    </div>
+  </aside>
+
+  <!-- ===== FLOATING WHATSAPP BUTTON ===== -->
+  <div class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+
+</section>
 
 
             <!-- ===== FOOD CATEGORIES & ITEMS (each item includes image slot, description, price, add/remove) ===== -->

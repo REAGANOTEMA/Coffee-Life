@@ -1,6 +1,6 @@
 // ============================
 // COFFEE LIFE WhatsApp + Cart + Chatbot (Professional Final 2025)
-// All WhatsApp buttons (except removed header) shake & glow, work only after cart items
+// All WhatsApp buttons shake & glow, work only after cart items
 // ============================
 
 const WA_PHONE = "256772514889"; // Coffee Life WhatsApp

@@ -1,23 +1,15 @@
 (() => {
   // ==========================
-  // COFFEE LIFE Cart + WhatsApp (Final 2025)
+  // COFFEE LIFE Cart + WhatsApp + Payments (FINAL 2025)
   // ==========================
 
   const WA_PHONE = "256772514889";
 
   const DELIVERY_AREAS = {
-    "Jinja Town": 2000,
-    "Milo Mbili": 2000,
-    "Walukuba West": 2000,
-    "Walukuba East": 3000,
-    "Mafubira": 3000,
-    "Mpumudde": 3000,
-    "Bugembe": 3000,
-    "Nile": 3000,
-    "Makerere": 3000,
-    "Kira Road": 3000,
-    "Masese": 4000,
-    "Wakitaka": 4000,
+    "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
+    "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000,
+    "Bugembe": 3000, "Nile": 3000, "Makerere": 3000,
+    "Kira Road": 3000, "Masese": 4000, "Wakitaka": 4000,
     "Namuleesa": 4000
   };
 
@@ -29,8 +21,10 @@
   const cartContainer = document.querySelector(".cart-container");
   const cartItemsContainer = document.querySelector(".cart-items");
   const cartTotalEl = document.querySelector(".cart-total");
-  const orderNowBtns = document.querySelectorAll(".order-now, .btn-whatsapp-send, .payment-btn");
   const deliverySelect = document.getElementById("delivery-zone");
+
+  // Payment / Order Buttons
+  const orderNowBtns = document.querySelectorAll(".cart-order-btn, .btn-whatsapp-send, .payment-btn");
 
   // ===== GLOBAL CART =====
   window.cart = JSON.parse(localStorage.getItem("coffee_life_cart") || "[]");
@@ -47,7 +41,7 @@
     if(!item||!item.id) return console.warn("addToCart requires item with id");
     const existing = window.cart.find(i=>i.id===item.id);
     if(existing) existing.qty++; else window.cart.push({...item,qty:1});
-    persistCart(); renderCart(); updateCartPreview(); flashAddButton(item.id);
+    persistCart(); renderCart(); flashAddButton(item.id);
   }
   window.cartAdd = addToCart;
 
@@ -76,8 +70,8 @@
   }
 
   // ===== REMOVE / UPDATE QTY =====
-  function removeFromCart(id){ window.cart = window.cart.filter(i=>i.id!==id); persistCart(); renderCart(); updateCartPreview(); }
-  function updateQty(id,qty){ const it = window.cart.find(i=>i.id===id); if(!it) return; it.qty=qty; if(it.qty<=0) removeFromCart(id); persistCart(); renderCart(); updateCartPreview(); }
+  function removeFromCart(id){ window.cart = window.cart.filter(i=>i.id!==id); persistCart(); renderCart(); }
+  function updateQty(id,qty){ const it = window.cart.find(i=>i.id===id); if(!it) return; it.qty=qty; if(it.qty<=0) removeFromCart(id); persistCart(); renderCart(); }
 
   // ===== RENDER CART =====
   function renderCart(){
@@ -95,13 +89,14 @@
         <img src="${item.img||'menu-images/placeholder.jpg'}" alt="${item.name}">
         <div class="cart-item-info">
           <h4>${item.name}</h4>
-          <p>${formatUGX(item.price)} x ${item.qty} = ${formatUGX(item.price*item.qty)}</p>
+          <p>${formatUGX(item.price)} x ${item.qty}</p>
+          <span class="subtotal">${formatUGX(item.price*item.qty)}</span>
         </div>
-        <div class="cart-controls">
-          <button class="qty-btn small" data-action="minus" data-id="${item.id}">-</button>
+        <div class="controls">
+          <button class="qty-btn" data-action="minus" data-id="${item.id}">-</button>
           <span class="qty">${item.qty}</span>
-          <button class="qty-btn small" data-action="plus" data-id="${item.id}">+</button>
-          <button class="cart-item-remove" data-id="${item.id}" title="Remove">&times;</button>
+          <button class="qty-btn" data-action="plus" data-id="${item.id}">+</button>
+          <span class="cart-item-remove" data-id="${item.id}">&times;</span>
         </div>
       `;
       div.querySelectorAll(".qty-btn").forEach(b=>b.addEventListener("click",e=>{
@@ -111,9 +106,8 @@
       div.querySelector(".cart-item-remove")?.addEventListener("click",e=>removeFromCart(e.currentTarget.dataset.id));
       cartItemsContainer.appendChild(div);
     });
-
     const grandTotal = total + (DELIVERY_FEE || 0);
-    if(cartTotalEl) cartTotalEl.textContent=`Total: ${formatUGX(grandTotal)} (Including delivery: ${formatUGX(DELIVERY_FEE)})`;
+    if(cartTotalEl) cartTotalEl.innerHTML=`Total: ${formatUGX(grandTotal)}<span class="delivery-fee">Delivery: ${formatUGX(DELIVERY_FEE)}</span>`;
   }
 
   // ===== UPDATE DELIVERY FEE =====
@@ -124,8 +118,8 @@
   }
   deliverySelect?.addEventListener("change", updateDeliveryFee);
 
-  // ===== UNIVERSAL ORDER HANDLER =====
-  function handleOrderButton(){
+  // ===== ORDER HANDLER (WHATSAPP) =====
+  function handleOrderButton(paymentMethod="Cash"){
     if(window.cart.length===0){ alert("Please add items to your cart before proceeding."); return; }
     if(!deliverySelect?.value){ alert("Please select a delivery area."); return; }
 
@@ -133,35 +127,35 @@
     if(!name){ alert("Name required"); return; }
     const area = deliverySelect.value;
 
-    let message = `✨ *Coffee Life Order* ✨\n\n👤 Customer: ${name}\n📍 Delivery Area: ${area}\n\n🛒 Order Details:\n`;
+    let message = `✨ *Coffee Life Order* ✨\n\n👤 Customer: ${name}\n📍 Delivery Area: ${area}\n💰 Payment: ${paymentMethod}\n\n🛒 Order Details:\n`;
     message += window.cart.map((it,i)=>`${i+1}. ${it.name} x${it.qty} = ${formatUGX(it.price*it.qty)}`).join("\n");
     message += `\n\n🧾 Subtotal: ${formatUGX(calcTotal())}\n🚚 Delivery Fee: ${formatUGX(DELIVERY_FEE)}\n💰 Grand Total: ${formatUGX(calcTotal()+DELIVERY_FEE)}`;
-    message += `\n\n💵 Payment before delivery required.\n☕ Coffee Life — Crafted with Passion, Served with Care.`;
+    message += `\n\n☕ Coffee Life — Crafted with Passion, Served with Care.`;
 
-    // Open WhatsApp
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
 
     // Clear cart after order
-    window.cart=[]; persistCart(); renderCart(); updateCartPreview();
+    window.cart=[]; persistCart(); renderCart();
   }
 
-  // ===== BIND ALL ORDER BUTTONS =====
+  // ===== BIND ORDER & PAYMENT BUTTONS =====
   orderNowBtns.forEach(btn=>{
     if(btn.__wired) return; btn.__wired=true;
-    btn.addEventListener("click",(e)=>{
+    btn.addEventListener("click",e=>{
       e.preventDefault();
-      handleOrderButton();
+      const method = btn.dataset.method || (btn.classList.contains("mtn") ? "MTN Mobile Money" : btn.classList.contains("airtel") ? "Airtel Money" : "Cash");
+      handleOrderButton(method);
     });
   });
 
   // ===== INITIALIZE =====
-  renderCart(); updateCartPreview(); wireStaticAddButtons();
+  renderCart(); wireStaticAddButtons();
   const observer=new MutationObserver(()=>wireStaticAddButtons());
   observer.observe(document.body,{childList:true,subtree:true});
 
   window.__coffeeLife={
     getCart:()=>window.cart,
-    clearCart:()=>{window.cart=[]; persistCart(); renderCart(); updateCartPreview();},
+    clearCart:()=>{window.cart=[]; persistCart(); renderCart();},
     addToCart, removeFromCart, updateQty,
     DELIVERY_FEE, DELIVERY_AREAS
   };
