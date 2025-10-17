@@ -17,12 +17,11 @@ window.cart = window.cart || [];
 function formatUGX(amount) {
   return "UGX " + Number(amount).toLocaleString();
 }
-
 function escapeHtml(s) {
   return String(s || "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
-const HQ_LAT = 0.44;  
+const HQ_LAT = 0.44;
 const HQ_LNG = 33.2;
 
 function calculateDistance(lat1, lon1, lat2, lon2){
@@ -115,7 +114,6 @@ function updateCartPreview(){
   `;
   cartPreview.appendChild(summary);
 
-  // ===== BIND CART CONTROLS =====
   cartPreview.querySelectorAll(".qty-btn").forEach(btn=>{
     btn.onclick = e => {
       const action = e.target.dataset.action;
@@ -182,9 +180,18 @@ function sendCartWhatsApp(){
 function renderMenu(category){
   menuContainer.innerHTML = "";
   const items = menuData[category] || [];
+
+  // ===== PERFECT 4x4 GRID =====
+  function adjustGrid(){
+    const w = window.innerWidth;
+    if(w <= 600) menuContainer.style.gridTemplateColumns = "1fr";      // mobile
+    else if(w <= 1024) menuContainer.style.gridTemplateColumns = "repeat(2, 1fr)"; // tablet
+    else menuContainer.style.gridTemplateColumns = "repeat(4, 1fr)";  // desktop
+  }
   menuContainer.style.display = "grid";
-  menuContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(250px, 1fr))";
-  menuContainer.style.gap = "16px";
+  menuContainer.style.gap = "20px";
+  window.addEventListener("resize", adjustGrid);
+  adjustGrid();
 
   items.forEach(item => {
     const card = document.createElement("div");
@@ -204,10 +211,7 @@ function renderMenu(category){
     `;
     menuContainer.appendChild(card);
 
-    const btnAdd = card.querySelector(".btn-add");
-    const btnWA = card.querySelector(".btn-whatsapp");
-
-    btnAdd.onclick = () => {
+    card.querySelector(".btn-add").onclick = () => {
       if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(pos => {
           const dist = calculateDistance(pos.coords.latitude, pos.coords.longitude, HQ_LAT, HQ_LNG);
@@ -215,8 +219,7 @@ function renderMenu(category){
         }, () => addToCart(item,0));
       } else addToCart(item,0);
     };
-
-    btnWA.onclick = sendCartWhatsApp;
+    card.querySelector(".btn-whatsapp").onclick = sendCartWhatsApp;
   });
 }
 

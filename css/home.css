@@ -1,5 +1,5 @@
 /* =========================================
-   LUXURY HEADER - STATIC, PROFESSIONAL & ULTRA PREMIUM
+   LUXURY HEADER - FINAL MOBILE + DESKTOP
    ========================================= */
 
 /* ===== ROOT VARIABLES ===== */
@@ -22,9 +22,9 @@ header.site-header {
     width: 100%;
     z-index: 9999;
     display: flex;
-    justify-content: space-between; /* logo left, nav center, CTA right */
+    justify-content: space-between;
     align-items: center;
-    padding: 1rem 5%;
+    padding: 0.8rem 5%;
     backdrop-filter: var(--glass-blur);
     background: var(--white);
     box-shadow: 0 10px 35px rgba(0,0,0,0.35);
@@ -37,27 +37,28 @@ header.site-header {
 .logo {
     display: flex;
     align-items: center;
-    gap: 15px; /* compact spacing */
+    gap: 12px;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .logo img {
     width: 120px;
     height: 120px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--white);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-    filter: brightness(1.3) contrast(1.25) saturate(1.2);
+    border-radius: 50%; /* perfect circle */
+    border: 4px solid var(--white);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+    filter: brightness(1.35) contrast(1.3) saturate(1.25);
     transition: transform 0.4s ease, filter 0.4s ease;
 }
 
 .logo img:hover {
-    transform: scale(1.05);
-    filter: brightness(1.35) contrast(1.3) saturate(1.25);
+    transform: scale(1.08);
+    filter: brightness(1.4) contrast(1.35) saturate(1.3);
 }
 
-/* ===== BRAND TEXT ===== */
+/* BRAND TEXT NEXT TO LOGO */
 .logo .brand-text {
     display: flex;
     flex-direction: column;
@@ -199,26 +200,13 @@ header.site-header {
     color: var(--white);
 }
 
-/* ===== NAV LINK ANIMATIONS ===== */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-3px); }
-    40% { transform: translateX(3px); }
-    60% { transform: translateX(-2px); }
-    80% { transform: translateX(2px); }
-}
-
-@keyframes lightUp {
-    0%, 100% { color: var(--coffee); }
-    50% { color: var(--gold); }
-}
-
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width:1024px){
     .logo img { width:100px; height:100px; }
     .logo .brand-text strong { font-size:1.5rem; }
     .logo .brand-text p { font-size:0.9rem; }
     .nav-link { font-size:0.9rem; }
+    .btn-cta { padding:10px 24px; font-size:0.85rem; }
 }
 
 @media screen and (max-width:768px){
@@ -229,7 +217,10 @@ header.site-header {
     .logo .brand-text p { font-size:0.75rem; }
     .btn-cta { padding:8px 18px; font-size:0.8rem; }
 }
-/* ===== HIDE HEADER WHATSAPP BUTTON ===== */
-header .whatsapp-btn {
-    display: none !important;
+
+@media screen and (max-width:480px){
+    .logo img { width:70px; height:70px; }
+    .logo .brand-text strong { font-size:1rem; }
+    .logo .brand-text p { font-size:0.7rem; }
+    .btn-cta { padding:6px 14px; font-size:0.75rem; }
 }

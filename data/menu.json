@@ -14,7 +14,7 @@
       "name": "Grilled Chicken Sandwich",
       "description": "Juicy grilled chicken with lettuce and sauce",
       "price": 18000,
-      "image": "images/menu/food1.jpg"
+      "img": "images/menu/food1.jpg"
     },
     {
       "id": "food2",
@@ -22,7 +22,7 @@
       "name": "Classic Burger",
       "description": "Beef patty with cheddar, lettuce, tomato and fries",
       "price": 20000,
-      "image": "images/menu/food2.jpg"
+      "img": "images/menu/food2.jpg"
     },
     {
       "id": "food3",
@@ -30,7 +30,7 @@
       "name": "Veggie Wrap",
       "description": "Wrap with fresh seasonal vegetables and hummus",
       "price": 15000,
-      "image": "images/menu/food3.jpg"
+      "img": "images/menu/food3.jpg"
     },
     {
       "id": "food4",
@@ -38,7 +38,7 @@
       "name": "Spicy Chicken Wings",
       "description": "Crispy wings with spicy sauce",
       "price": 17000,
-      "image": "images/menu/food4.jpg"
+      "img": "images/menu/food4.jpg"
     },
     {
       "id": "drink1",
@@ -46,7 +46,7 @@
       "name": "Cappuccino",
       "description": "Espresso with steamed milk and foam",
       "price": 8000,
-      "image": "images/menu/drink1.jpg"
+      "img": "images/menu/drink1.jpg"
     },
     {
       "id": "drink2",
@@ -54,7 +54,7 @@
       "name": "Latte",
       "description": "Smooth blend of espresso and milk",
       "price": 9000,
-      "image": "images/menu/drink2.jpg"
+      "img": "images/menu/drink2.jpg"
     },
     {
       "id": "drink3",
@@ -62,7 +62,7 @@
       "name": "Cold Brew Coffee",
       "description": "Slow-brewed coffee served chilled",
       "price": 10000,
-      "image": "images/menu/drink3.jpg"
+      "img": "images/menu/drink3.jpg"
     },
     {
       "id": "drink4",
@@ -70,7 +70,7 @@
       "name": "Fresh Orange Juice",
       "description": "Cold-pressed fresh orange juice",
       "price": 7000,
-      "image": "images/menu/drink4.jpg"
+      "img": "images/menu/drink4.jpg"
     },
     {
       "id": "drink5",
@@ -78,7 +78,7 @@
       "name": "Green Tea Latte",
       "description": "Smooth green tea with milk foam",
       "price": 9500,
-      "image": "images/menu/drink5.jpg"
+      "img": "images/menu/drink5.jpg"
     },
     {
       "id": "dessert1",
@@ -86,7 +86,7 @@
       "name": "Chocolate Lava Cake",
       "description": "Rich chocolate cake with molten center",
       "price": 12000,
-      "image": "images/menu/dessert1.jpg"
+      "img": "images/menu/dessert1.jpg"
     },
     {
       "id": "dessert2",
@@ -94,7 +94,7 @@
       "name": "Cheesecake",
       "description": "Creamy cheesecake with strawberry topping",
       "price": 13000,
-      "image": "images/menu/dessert2.jpg"
+      "img": "images/menu/dessert2.jpg"
     },
     {
       "id": "dessert3",
@@ -102,7 +102,7 @@
       "name": "Tiramisu",
       "description": "Classic Italian coffee-flavored dessert",
       "price": 14000,
-      "image": "images/menu/dessert3.jpg"
+      "img": "images/menu/dessert3.jpg"
     },
     {
       "id": "special1",
@@ -110,7 +110,7 @@
       "name": "Chef’s Special Breakfast",
       "description": "Scrambled eggs, smoked salmon, avocado toast",
       "price": 22000,
-      "image": "images/menu/special1.jpg"
+      "img": "images/menu/special1.jpg"
     },
     {
       "id": "special2",
@@ -118,7 +118,7 @@
       "name": "Afternoon Coffee Combo",
       "description": "Choice of coffee with cake or pastry",
       "price": 15000,
-      "image": "images/menu/special2.jpg"
+      "img": "images/menu/special2.jpg"
     },
     {
       "id": "coffee1",
@@ -126,7 +126,7 @@
       "name": "Arabica Blend",
       "description": "Premium Arabica beans with rich flavor",
       "price": 40000,
-      "image": "images/menu/coffee1.jpg"
+      "img": "images/menu/coffee1.jpg"
     },
     {
       "id": "coffee2",
@@ -134,7 +134,7 @@
       "name": "Espresso Roast",
       "description": "Bold, dark roasted espresso beans",
       "price": 38000,
-      "image": "images/menu/coffee2.jpg"
+      "img": "images/menu/coffee2.jpg"
     }
   ]
 }
