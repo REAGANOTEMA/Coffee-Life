@@ -1,22 +1,22 @@
 /* =========================================
    HOME.JS - FINAL ULTRA-LUXURY HEADER
-   Clean, Rounded, Responsive, Premium
    ========================================= */
 
 /* ===== 1. HEADER SCROLL EFFECT ===== */
-const header = document.querySelector("header");
+const header = document.querySelector("header.site-header");
 
 function handleHeaderScroll() {
-    if(window.scrollY > 30) {
+    if (window.scrollY > 30) {
         header.classList.add("scrolled");
         header.style.backdropFilter = "blur(18px)";
         header.style.boxShadow = "0 15px 50px rgba(0,0,0,0.55)";
     } else {
         header.classList.remove("scrolled");
-        header.style.backdropFilter = "blur(14px)";
+        header.style.backdropFilter = "blur(16px)";
         header.style.boxShadow = "0 12px 40px rgba(0,0,0,0.5)";
     }
 }
+
 window.addEventListener("scroll", handleHeaderScroll);
 handleHeaderScroll();
 
@@ -28,7 +28,7 @@ hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("active");
     hamburger.querySelectorAll('.bar').forEach(bar => {
-        bar.style.backgroundColor = hamburger.classList.contains('active') ? 'var(--gold)' : 'var(--coffee)';
+        bar.style.backgroundColor = hamburger.classList.contains('active') ? 'var(--gold)' : 'var(--royal-blue)';
     });
 });
 
@@ -38,7 +38,7 @@ mobileLinks.forEach(link => {
     link.addEventListener("click", () => {
         hamburger.classList.remove("active");
         mobileMenu.classList.remove("active");
-        hamburger.querySelectorAll('.bar').forEach(bar => bar.style.backgroundColor = 'var(--coffee)');
+        hamburger.querySelectorAll('.bar').forEach(bar => bar.style.backgroundColor = 'var(--royal-blue)');
     });
 });
 
@@ -46,7 +46,7 @@ mobileLinks.forEach(link => {
 const navLinks = document.querySelectorAll(".nav-link");
 navLinks.forEach(link => {
     link.addEventListener("mouseenter", () => link.style.color = "var(--gold)");
-    link.addEventListener("mouseleave", () => link.style.color = "var(--coffee)");
+    link.addEventListener("mouseleave", () => link.style.color = "var(--royal-blue)");
 });
 
 /* ===== 5. RESPONSIVE HERO FONT SIZES ===== */
@@ -55,8 +55,8 @@ function adjustHeroFonts() {
     const heroSubtitle = document.querySelector(".hero-subtitle");
     const heroNote = document.querySelector(".hero-note");
 
-    if(heroTitle && heroSubtitle && heroNote){
-        if(window.innerWidth < 768){
+    if (heroTitle && heroSubtitle && heroNote) {
+        if (window.innerWidth < 768) {
             heroTitle.style.fontSize = "3.2rem";
             heroSubtitle.style.fontSize = "1.4rem";
             heroNote.style.fontSize = "0.95rem";
@@ -120,3 +120,13 @@ window.globalAddToCart = addToCart;
 
 /* ===== 8. INITIALIZE ON PAGE LOAD ===== */
 document.addEventListener("DOMContentLoaded", updateWhatsAppButton);
+
+/* ===== 9. OPTIONAL PREMIUM ANIMATIONS ===== */
+// Subtle nav link glow every 8 seconds
+setInterval(() => {
+    navLinks.forEach(link => {
+        link.style.transition = "all 0.5s ease";
+        link.style.color = "var(--gold)";
+        setTimeout(() => link.style.color = "var(--royal-blue)", 500);
+    });
+}, 8000);
