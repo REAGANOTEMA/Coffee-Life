@@ -256,8 +256,45 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     </section>
         </main>
- 
+  <!-- ===== NAV ANCHOR: Menu (full interactive menu) ===== -->
+        <section id="menu" class="menu-section container" data-menu-src="data/menu.json">
+            <div class="menu-header">
+                <h2>FOOD MENU FOR FOOD DELIVERIES</h2>
+                <p class="menu-intro"><strong>COFFEE LIFE.</strong>
 
+                <p>EAT. MEET. WORK!</p> Choose multiple items and place one order on
+                WhatsApp. All order buttons connect to our WhatsApp ordering system.</p>
+
+                <!-- quick category filters / links -->
+                <nav class="menu-cats" aria-label="Menu categories">
+                    <a href="#beef-dishes" class="menu-cat">Beef Dishes</a>
+                    <a href="#shawarmas" class="menu-cat">Shawarmas</a>
+                    <a href="#chicken-delights" class="menu-cat">Chicken</a>
+                    <a href="#goats" class="menu-cat">Goats</a>
+                    <a href="#pizzas" class="menu-cat">Pizzas</a>
+                    <a href="#burgers" class="menu-cat">Burgers</a>
+                    <a href="#pastas" class="menu-cat">Pastas</a>
+                    <a href="#local-food" class="menu-cat">Local Food</a>
+                    <a href="#beverages" class="menu-cat">Beverages</a>
+                    <a href="#breakfast" class="menu-cat">Breakfast</a>
+                    <a href="#light-bites" class="menu-cat">Light Bites</a>
+                    <a href="#kids" class="menu-cat">Kids Menu</a>
+                </nav>
+            </div>
+
+            <!-- CART SUMMARY (interactive — JS will populate) -->
+            <aside class="cart card" id="cart">
+                <h3>Your Order</h3>
+                <div id="cartItems" class="cart-items">
+                    <p class="empty">No items yet add something delicious!</p>
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
+                    <button id="orderNow" class="btn-order" data-whatsapp-number="+256772514889">
+                        <i class="fab fa-whatsapp"></i> Order Now on WhatsApp
+                    </button>
+                </div>
+            </aside>
 
             <!-- ===== FOOD CATEGORIES & ITEMS (each item includes image slot, description, price, add/remove) ===== -->
 
