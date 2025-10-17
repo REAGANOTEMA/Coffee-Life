@@ -98,7 +98,7 @@ function updateCartPreview(){
   `;
   cartPreview.appendChild(summary);
 
-  // Quantity buttons
+  // ===== Quantity buttons =====
   cartPreview.querySelectorAll(".qty-btn").forEach(btn => {
     btn.addEventListener("click", e => {
       const action = e.target.dataset.action;
@@ -106,7 +106,10 @@ function updateCartPreview(){
       const item = window.cart.find(i => i.name === name);
       if(!item) return;
       if(action === "plus") item.qty++;
-      else { item.qty--; if(item.qty <= 0) window.cart = window.cart.filter(i => i.name !== name); }
+      else { 
+        item.qty--; 
+        if(item.qty <= 0) window.cart = window.cart.filter(i => i.name !== name); 
+      }
       persistCart();
       updateCartPreview();
     });
@@ -143,18 +146,17 @@ function handleOrderNow(paymentMethod="Cash"){
   const area = deliverySelect.value;
   const msg = generateCartMessage(name, area, paymentMethod);
   window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`,"_blank");
-  alert(`✅ Your order of ${window.cart.length} item(s) has been prepared!`);
   window.cart = [];
   persistCart();
   updateCartPreview();
 }
 
-// Bind order buttons
+// ===== Bind Order Buttons =====
 [orderNowBtn, footerOrderBtn].forEach(btn=>{
   btn?.addEventListener("click", ()=>handleOrderNow());
 });
 
-// Bind all menu WhatsApp buttons
+// ===== Bind Menu WhatsApp Buttons =====
 allWAButtons.forEach(btn=>{
   btn.classList.add("shake","glow");
   btn.addEventListener("click", e=>{
@@ -169,7 +171,7 @@ allWAButtons.forEach(btn=>{
   });
 });
 
-// ===== Payment buttons =====
+// ===== Payment Buttons =====
 document.querySelectorAll(".payment-btn.mtn, .payment-btn.airtel").forEach(btn=>{
   btn.classList.add("shake","glow");
   btn.addEventListener("click", e=>{
@@ -201,5 +203,5 @@ whatsappBtn?.addEventListener("click", e=>{
   }
 });
 
-// ===== INIT =====
+// ===== Initialize =====
 updateCartPreview();
