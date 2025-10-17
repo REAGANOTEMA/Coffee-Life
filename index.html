@@ -256,31 +256,31 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     </section>
         </main>
-  <!-- ===== MENU SECTION: Full Interactive Menu ===== -->
+ <!-- ===== MENU SECTION: Full Interactive Menu ===== -->
 <section id="menu" class="menu-section container" data-menu-src="data/menu.json">
   
   <!-- ===== MENU HEADER ===== -->
   <div class="menu-header">
-    <h2>FOOD MENU FOR DELIVERY</h2>
+    <h2 class="menu-title">FOOD MENU FOR DELIVERY</h2>
     <p class="menu-intro">
-      <strong>COFFEE LIFE CAFE.</strong> EAT. MEET. WORK!<br>
+      <strong class="highlight-coffee">COFFEE LIFE CAFE.</strong> <span class="text-gold">EAT. MEET. WORK!</span><br>
       Choose multiple items and place one order on WhatsApp. All order buttons connect to our WhatsApp ordering system.
     </p>
 
     <!-- ===== QUICK CATEGORY FILTERS ===== -->
     <nav class="menu-cats" aria-label="Menu categories">
-      <a href="#beef-dishes" class="menu-cat">Beef Dishes</a>
-      <a href="#shawarmas" class="menu-cat">Shawarmas</a>
-      <a href="#chicken-delights" class="menu-cat">Chicken</a>
-      <a href="#goats" class="menu-cat">Goats</a>
-      <a href="#pizzas" class="menu-cat">Pizzas</a>
-      <a href="#burgers" class="menu-cat">Burgers</a>
-      <a href="#pastas" class="menu-cat">Pastas</a>
-      <a href="#local-food" class="menu-cat">Local Food</a>
-      <a href="#beverages" class="menu-cat">Beverages</a>
-      <a href="#breakfast" class="menu-cat">Breakfast</a>
-      <a href="#light-bites" class="menu-cat">Light Bites</a>
-      <a href="#kids" class="menu-cat">Kids Menu</a>
+      <a href="#beef-dishes" class="menu-cat royal-link">Beef Dishes</a>
+      <a href="#shawarmas" class="menu-cat royal-link">Shawarmas</a>
+      <a href="#chicken-delights" class="menu-cat royal-link">Chicken</a>
+      <a href="#goats" class="menu-cat royal-link">Goats</a>
+      <a href="#pizzas" class="menu-cat royal-link">Pizzas</a>
+      <a href="#burgers" class="menu-cat royal-link">Burgers</a>
+      <a href="#pastas" class="menu-cat royal-link">Pastas</a>
+      <a href="#local-food" class="menu-cat royal-link">Local Food</a>
+      <a href="#beverages" class="menu-cat royal-link">Beverages</a>
+      <a href="#breakfast" class="menu-cat royal-link">Breakfast</a>
+      <a href="#light-bites" class="menu-cat royal-link">Light Bites</a>
+      <a href="#kids" class="menu-cat royal-link">Kids Menu</a>
     </nav>
   </div>
 
@@ -289,20 +289,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
   <!-- ===== CART CONTAINER: Interactive ===== -->
   <aside class="cart-container">
-    <div class="cart-header">
-      <h3>Your Cart</h3>
+    <div class="cart-header royal-bg">
+      <h3 class="cart-title highlight-coffee">Your Cart</h3>
       <span class="cart-close">&times;</span>
     </div>
 
     <!-- ===== CART ITEMS ===== -->
     <div class="cart-items">
-      <p class="cart-empty">No items yet. Add something delicious!</p>
+      <p class="cart-empty text-muted">No items yet. Add something delicious!</p>
     </div>
 
     <!-- ===== DELIVERY AREA ===== -->
     <div class="delivery-area">
-      <label for="delivery-zone">Select Delivery Area:</label>
-      <select id="delivery-zone">
+      <label for="delivery-zone" class="text-gold">Select Delivery Area:</label>
+      <select id="delivery-zone" class="select-area">
         <option value="">-- Choose your area --</option>
         <option value="Jinja Town">Jinja Town - UGX 2,000</option>
         <option value="Milo Mbili">Milo Mbili - UGX 2,000</option>
@@ -326,12 +326,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     </div>
 
     <!-- ===== ORDER BUTTONS ===== -->
-    <a href="#" class="cart-order-btn">Order Now via WhatsApp</a>
+    <a href="#" class="cart-order-btn royal-btn">Order Now via WhatsApp</a>
     <div class="payment-section">
-      <h4>Pay via Mobile Money</h4>
-      <button class="payment-btn mtn" data-method="MTN Mobile Money">MTN</button>
-      <button class="payment-btn airtel" data-method="Airtel Money">Airtel</button>
-      <div class="payment-temp-note">Payment before delivery required</div>
+      <h4 class="text-gold">Pay via Mobile Money</h4>
+      <button class="payment-btn mtn royal-btn" data-method="MTN Mobile Money">MTN</button>
+      <button class="payment-btn airtel royal-btn" data-method="Airtel Money">Airtel</button>
+      <div class="payment-temp-note text-muted">Payment before delivery required</div>
     </div>
   </aside>
 
@@ -339,8 +339,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   <div class="whatsapp-float">
     <i class="fab fa-whatsapp"></i>
   </div>
-
 </section>
+
 
 
             <!-- ===== FOOD CATEGORIES & ITEMS (each item includes image slot, description, price, add/remove) ===== -->

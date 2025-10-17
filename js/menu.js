@@ -14,8 +14,13 @@ const orderNowBtn = document.querySelector(".cart-order-btn");
 window.cart = window.cart || [];
 
 // ===== UTILITY FUNCTIONS =====
-function formatUGX(amount) { return "UGX " + Number(amount).toLocaleString(); }
-function escapeHtml(s) { return String(s || "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function formatUGX(amount) {
+  return "UGX " + Number(amount).toLocaleString();
+}
+
+function escapeHtml(s) {
+  return String(s || "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
 
 const HQ_LAT = 0.44;  
 const HQ_LNG = 33.2;
@@ -36,12 +41,12 @@ function getDeliveryCharge(distanceKm){
 // ===== CART FUNCTIONS =====
 function addToCart(item, distanceKm=0){
   const deliveryFee = getDeliveryCharge(distanceKm);
-  const existing = window.cart.find(i=>i.id===item.id);
+  const existing = window.cart.find(i => i.id === item.id);
   if(existing) existing.qty++;
   else window.cart.push({...item, qty:1, deliveryFee, distanceKm});
 
-  const cartTotal = window.cart.reduce((sum,i)=>sum+(i.price*i.qty + i.deliveryFee*i.qty),0);
-  if(cartTotal>50000000){
+  const cartTotal = window.cart.reduce((sum,i) => sum + (i.price*i.qty + i.deliveryFee*i.qty), 0);
+  if(cartTotal > 50000000){
     alert("Cart cannot exceed UGX 50,000,000!");
     if(existing) existing.qty--; else window.cart.pop();
     return;
@@ -52,12 +57,12 @@ function addToCart(item, distanceKm=0){
 }
 
 function removeFromCart(id){
-  window.cart = window.cart.filter(i=>i.id !== id);
+  window.cart = window.cart.filter(i => i.id !== id);
   updateCartPreview();
 }
 
 function updateQty(id, qty){
-  const item = window.cart.find(i=>i.id === id);
+  const item = window.cart.find(i => i.id === id);
   if(!item) return;
   item.qty = qty;
   if(item.qty <= 0) removeFromCart(id);
@@ -73,8 +78,8 @@ function updateCartPreview(){
     return;
   }
 
-  let subtotal=0, totalDelivery=0;
-  window.cart.forEach(item=>{
+  let subtotal = 0, totalDelivery = 0;
+  window.cart.forEach(item => {
     subtotal += item.price*item.qty;
     totalDelivery += item.deliveryFee*item.qty;
 
@@ -93,41 +98,40 @@ function updateCartPreview(){
         <button class="qty-btn" data-action="plus" data-id="${item.id}">+</button>
         <span class="cart-item-remove" data-id="${item.id}">&times;</span>
       </div>
-      <p class="delivery-fee">Delivery: ${formatUGX(item.deliveryFee*item.qty)}</p>
     `;
     cartPreview.appendChild(div);
   });
 
   // ===== CART TOTAL =====
-  const total = subtotal + totalDelivery;
+  const selectedZone = deliverySelect?.value;
+  const dynamicDelivery = window.cart.reduce((sum, i) => sum + i.deliveryFee*i.qty, 0);
+  const total = subtotal + dynamicDelivery;
+
   const summary = document.createElement("div");
   summary.classList.add("cart-total");
   summary.innerHTML = `
     <hr>
     <p>Subtotal: <strong>${formatUGX(subtotal)}</strong></p>
-    <p>Delivery Fee: <strong>${formatUGX(totalDelivery)}</strong></p>
+    <p>Delivery Fee: <strong>${formatUGX(dynamicDelivery)}</strong></p>
     <p>Total: <strong>${formatUGX(total)}</strong></p>
   `;
   cartPreview.appendChild(summary);
 
   // ===== BIND CART CONTROLS =====
   cartPreview.querySelectorAll(".qty-btn").forEach(btn=>{
-    btn.addEventListener("click", e=>{
+    btn.onclick = e => {
       const action = e.target.dataset.action;
       const id = e.target.dataset.id;
-      const item = window.cart.find(i=>i.id == id);
+      const item = window.cart.find(i => i.id == id);
       if(!item) return;
       if(action === "plus") item.qty++;
       else updateQty(id, item.qty-1);
       updateCartPreview();
-    });
+    };
   });
 
   cartPreview.querySelectorAll(".cart-item-remove").forEach(btn=>{
-    btn.addEventListener("click", e=>{
-      const id = e.target.dataset.id;
-      removeFromCart(id);
-    });
+    btn.onclick = e => removeFromCart(e.target.dataset.id);
   });
 }
 
@@ -145,15 +149,15 @@ function generateCartMessage(name, location){
   let msg = `✨ Coffee Life Order ✨\n\n👤 Name: ${name}\n📍 Delivery: ${location}\n\n🛒 Order Details:\n`;
   if(window.cart.length === 0) msg += "No items selected.\n";
   else{
-    let subtotal=0, delivery=0;
-    window.cart.forEach((item,i)=>{
+    let subtotal = 0, delivery = 0;
+    window.cart.forEach((item, i) => {
       msg += `${i+1}. ${item.name} x${item.qty} - ${formatUGX(item.price*item.qty)}\n`;
       subtotal += item.price*item.qty;
       delivery += item.deliveryFee*item.qty;
     });
     msg += `\n💰 Subtotal: ${formatUGX(subtotal)}`;
     msg += `\n🚚 Delivery Fee: +${formatUGX(delivery)}`;
-    msg += `\n📦 Total: ${formatUGX(subtotal+delivery)}`;
+    msg += `\n📦 Total: ${formatUGX(subtotal + delivery)}`;
   }
   msg += "\n\n💵 Payment before delivery required.";
   msg += "\n☕ Coffee Life — Crafted with Passion, Served with Care.";
@@ -162,14 +166,18 @@ function generateCartMessage(name, location){
 
 // ===== SEND CART VIA WHATSAPP =====
 function sendCartWhatsApp(){
-  if(window.cart.length === 0){ alert("Please add items to your cart before proceeding!"); return; }
-  if(deliverySelect && !deliverySelect.value){ alert("Please select your delivery area!"); return; }
-  const name = prompt("Enter your full name:")?.trim(); if(!name){ alert("Name is required!"); return; }
-  const location = deliverySelect ? deliverySelect.value : prompt("Enter delivery location:")?.trim();
-  if(!location){ alert("Delivery location is required!"); return; }
+  if(window.cart.length === 0){ alert("Please add items to your cart!"); return; }
+  if(!deliverySelect?.value){ alert("Please select a delivery area from the list!"); return; }
+
+  const name = prompt("Enter your full name:")?.trim();
+  if(!name){ alert("Name is required!"); return; }
+
+  const location = deliverySelect.value;
   const msg = generateCartMessage(name, location);
-  window.open(`https://wa.me/256772514889?text=${encodeURIComponent(msg)}`,"_blank");
-  window.cart=[]; updateCartPreview();
+  window.open(`https://wa.me/256772514889?text=${encodeURIComponent(msg)}`, "_blank");
+
+  window.cart = [];
+  updateCartPreview();
 }
 
 // ===== RENDER MENU ITEMS =====
@@ -180,7 +188,7 @@ function renderMenu(category){
   menuContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(250px, 1fr))";
   menuContainer.style.gap = "16px";
 
-  items.forEach(item=>{
+  items.forEach(item => {
     const card = document.createElement("div");
     card.classList.add("menu-item");
     card.dataset.id = item.id;
@@ -201,29 +209,42 @@ function renderMenu(category){
     const btnAdd = card.querySelector(".btn-add");
     const btnWA = card.querySelector(".btn-whatsapp");
 
-    btnAdd.addEventListener("click", ()=>{ 
+    btnAdd.onclick = () => {
       if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(pos=>{
+        navigator.geolocation.getCurrentPosition(pos => {
           const dist = calculateDistance(pos.coords.latitude, pos.coords.longitude, HQ_LAT, HQ_LNG);
           addToCart(item, dist);
-        }, ()=>addToCart(item,0));
+        }, () => addToCart(item,0));
       } else addToCart(item,0);
-    });
+    };
 
-    btnWA.addEventListener("click", ()=>sendCartWhatsApp());
+    btnWA.onclick = sendCartWhatsApp;
   });
 }
 
 // ===== CATEGORY BUTTONS =====
-menuButtons.forEach(btn=>{
-  btn.addEventListener("click", ()=>{
+menuButtons.forEach(btn => {
+  btn.onclick = () => {
     renderMenu(btn.dataset.category);
-    menuButtons.forEach(b=>b.classList.remove("active"));
+    menuButtons.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
-  });
+  };
 });
 
-// ===== ORDER BUTTONS =====
+// ===== DELIVERY SELECT CHANGE DYNAMICALLY UPDATES CART =====
+if(deliverySelect){
+  deliverySelect.onchange = () => {
+    window.cart.forEach(item => {
+      // recalc distance based on selected zone (example: each zone has fixed distance)
+      const distanceMap = { "Zone1": 3, "Zone2": 7, "Zone3": 15, "Zone4": 20 };
+      const dist = distanceMap[deliverySelect.value] || 0;
+      item.deliveryFee = getDeliveryCharge(dist);
+    });
+    updateCartPreview();
+  };
+}
+
+// ===== ORDER BUTTON =====
 orderNowBtn?.addEventListener("click", sendCartWhatsApp);
 
 // ===== INITIALIZE =====
