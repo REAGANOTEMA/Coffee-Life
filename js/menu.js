@@ -1,8 +1,8 @@
 // ============================
-// COFFEE LIFE Menu + WhatsApp + Dynamic Delivery — Final 2025
+// COFFEE LIFE Menu + WhatsApp + Dynamic Delivery — FINAL 2025
 // ============================
 
-const menuData = { /* ... your existing menu JSON ... */ };
+const menuData = { /* your menu JSON here */ };
 
 const menuContainer = document.getElementById("menu-container");
 const menuButtons = document.querySelectorAll(".menu-btn");
@@ -34,13 +34,20 @@ window.cart = window.cart || [];
 
 function addToCart(item,distanceKm=0){
   const deliveryFee = getDeliveryCharge(distanceKm);
-  const totalPrice = item.price + deliveryFee;
   const existing = window.cart.find(i=>i.id===item.id);
-  const cartTotal = window.cart.reduce((sum,i)=>sum+i.price*i.qty,0)+totalPrice;
-  if(cartTotal>50000000){ alert("Cart cannot exceed UGX 50,000,000!"); return; }
 
-  if(existing) existing.qty++; 
-  else window.cart.push({...item, price: totalPrice, qty:1, deliveryFee, distanceKm});
+  if(existing){
+    existing.qty++;
+  } else {
+    window.cart.push({...item, qty:1, deliveryFee, distanceKm});
+  }
+
+  const cartTotal = window.cart.reduce((sum,i)=>sum+(i.price*i.qty + i.deliveryFee*i.qty),0);
+  if(cartTotal>50000000){ 
+    alert("Cart cannot exceed UGX 50,000,000!"); 
+    if(existing) existing.qty--; else window.cart.pop();
+    return; 
+  }
 
   updateCartPreview();
   flashAddButton(item.id);
@@ -49,14 +56,18 @@ function addToCart(item,distanceKm=0){
 function updateCartPreview(){
   if(!cartPreview) return;
   cartPreview.innerHTML="";
-  if(window.cart.length===0){ cartPreview.innerHTML="<p class='empty-msg'>🛒 Your cart is empty.</p>"; return; }
+  if(window.cart.length===0){ 
+    cartPreview.innerHTML="<p class='empty-msg'>🛒 Your cart is empty.</p>"; 
+    return; 
+  }
 
-  let subtotal=0,totalDelivery=0;
+  let subtotal=0, totalDelivery=0;
   window.cart.forEach(item=>{
-    subtotal += item.price*item.qty - item.deliveryFee*item.qty;
+    subtotal += item.price*item.qty;
     totalDelivery += item.deliveryFee*item.qty;
+
     const div=document.createElement("div");
-    div.classList.add("item");
+    div.classList.add("cart-item");
     div.innerHTML=`
       <span class="name">${item.name}</span>
       <div class="controls">
@@ -64,31 +75,43 @@ function updateCartPreview(){
         <span class="qty">${item.qty}</span>
         <button class="qty-btn" data-action="plus" data-id="${item.id}">+</button>
       </div>
-      <span class="price">${item.price*item.qty} UGX</span>
-      <p class="delivery-fee">Delivery: ${item.deliveryFee*item.qty} UGX</p>
+      <span class="price">${formatUGX(item.price*item.qty)}</span>
+      <p class="delivery-fee">Delivery: ${formatUGX(item.deliveryFee*item.qty)}</p>
+      <span class="cart-item-remove" data-id="${item.id}">&times;</span>
     `;
     cartPreview.appendChild(div);
   });
 
-  const total=subtotal+totalDelivery;
+  const total = subtotal + totalDelivery;
   const summary=document.createElement("div");
-  summary.classList.add("summary");
+  summary.classList.add("cart-total");
   summary.innerHTML=`
     <hr>
-    <p>Subtotal: <strong>${subtotal} UGX</strong></p>
-    <p>Total Delivery Fee: <strong>${totalDelivery} UGX</strong></p>
-    <p>Total Amount to Pay: <strong>${total} UGX</strong></p>
+    <p>Subtotal: <strong>${formatUGX(subtotal)}</strong></p>
+    <p>Total Delivery Fee: <strong>${formatUGX(totalDelivery)}</strong></p>
+    <p>Total Amount to Pay: <strong>${formatUGX(total)}</strong></p>
   `;
   cartPreview.appendChild(summary);
 
   cartPreview.querySelectorAll(".qty-btn").forEach(btn=>{
     btn.addEventListener("click",e=>{
-      const action = e.target.dataset.action;
-      const id = e.target.dataset.id;
+      const action = e.dataset.action;
+      const id = e.dataset.id;
       const item = window.cart.find(i=>i.id==id);
       if(!item) return;
       if(action==="plus") item.qty++;
-      else{ item.qty--; if(item.qty<=0) window.cart = window.cart.filter(i=>i.id!=id);}
+      else{ 
+        item.qty--; 
+        if(item.qty<=0) window.cart = window.cart.filter(i=>i.id!=id);
+      }
+      updateCartPreview();
+    });
+  });
+
+  cartPreview.querySelectorAll(".cart-item-remove").forEach(btn=>{
+    btn.addEventListener("click", e=>{
+      const id = e.dataset.id;
+      window.cart = window.cart.filter(i=>i.id!=id);
       updateCartPreview();
     });
   });
@@ -108,13 +131,13 @@ function generateCartMessage(name,location){
   else{
     let subtotal=0,delivery=0;
     window.cart.forEach((item,i)=>{
-      msg+=`${i+1}. ${item.name} x${item.qty} - ${item.price*item.qty} UGX\n`;
-      subtotal+=item.price*item.qty-item.deliveryFee*item.qty;
+      msg+=`${i+1}. ${item.name} x${item.qty} - ${formatUGX(item.price*item.qty)}\n`;
+      subtotal+=item.price*item.qty;
       delivery+=item.deliveryFee*item.qty;
     });
-    msg+=`\n💰 Subtotal: ${subtotal} UGX`;
-    msg+=`\n🚚 Delivery Fee: +${delivery} UGX`;
-    msg+=`\n📦 Total: ${subtotal+delivery} UGX`;
+    msg+=`\n💰 Subtotal: ${formatUGX(subtotal)}`;
+    msg+=`\n🚚 Delivery Fee: +${formatUGX(delivery)}`;
+    msg+=`\n📦 Total: ${formatUGX(subtotal+delivery)}`;
   }
   msg+="\n\n💵 Payment before delivery required.";
   msg+="\n☕ Coffee Life — Crafted with Passion, Served with Care.";
@@ -142,8 +165,6 @@ function renderMenu(category){
     const card=document.createElement("div");
     card.classList.add("menu-item");
     card.dataset.id=item.id;
-    card.dataset.name=item.name;
-    card.dataset.price=item.price;
     card.innerHTML=`
       <div class="menu-media"><img src="${item.img}" alt="${item.name}"></div>
       <div class="menu-body">

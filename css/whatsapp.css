@@ -19,7 +19,7 @@
     cursor: pointer;
     z-index: 999;
     transition: all 0.4s ease;
-    animation: floatPulse 3s infinite ease-in-out, shakeBtn 6s infinite, glowBtn 4s infinite;
+    animation: floatPulse 3s infinite ease-in-out, shakeBtn 5s infinite, glowBtn 4s infinite;
 }
 
 .whatsapp-float:hover {
@@ -38,14 +38,14 @@
 
 @keyframes shakeBtn {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    50% { transform: translateX(3px); }
-    75% { transform: translateX(-3px); }
+    25% { transform: translateX(-4px) rotate(-1deg); }
+    50% { transform: translateX(4px) rotate(1deg); }
+    75% { transform: translateX(-4px) rotate(-1deg); }
 }
 
 @keyframes glowBtn {
     0%, 100% { box-shadow: 0 0 0 #b28e00; }
-    50% { box-shadow: 0 0 10px #b28e00, 0 0 20px #b28e00; }
+    50% { box-shadow: 0 0 12px #b28e00, 0 0 24px #b28e00; }
 }
 
 /* ===== WhatsApp Modal ===== */

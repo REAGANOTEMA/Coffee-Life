@@ -85,7 +85,7 @@
     let total=0;
     if(window.cart.length===0){ 
       cartItemsContainer.innerHTML=`<p class="cart-empty">Your cart is empty.</p>`; 
-      cartTotalEl&&(cartTotalEl.textContent=`Total: UGX 0`); 
+      if(cartTotalEl) cartTotalEl.textContent=`Total: UGX 0`; 
       return; 
     }
     window.cart.forEach(item=>{
@@ -95,7 +95,7 @@
         <img src="${item.img||'menu-images/placeholder.jpg'}" alt="${item.name}">
         <div class="cart-item-info">
           <h4>${item.name}</h4>
-          <p>${formatUGX(item.price*item.qty)} x ${item.qty}</p>
+          <p>${formatUGX(item.price)} x ${item.qty} = ${formatUGX(item.price*item.qty)}</p>
         </div>
         <div class="cart-controls">
           <button class="qty-btn small" data-action="minus" data-id="${item.id}">-</button>
@@ -111,8 +111,9 @@
       div.querySelector(".cart-item-remove")?.addEventListener("click",e=>removeFromCart(e.currentTarget.dataset.id));
       cartItemsContainer.appendChild(div);
     });
+
     const grandTotal = total + (DELIVERY_FEE || 0);
-    if(cartTotalEl) cartTotalEl.textContent=`Total: ${formatUGX(grandTotal)}`;
+    if(cartTotalEl) cartTotalEl.textContent=`Total: ${formatUGX(grandTotal)} (Including delivery: ${formatUGX(DELIVERY_FEE)})`;
   }
 
   // ===== UPDATE DELIVERY FEE =====
@@ -124,14 +125,16 @@
   deliverySelect?.addEventListener("change", updateDeliveryFee);
 
   // ===== UNIVERSAL ORDER HANDLER =====
-  function handleOrderButton(btnType){
+  function handleOrderButton(){
     if(window.cart.length===0){ alert("Please add items to your cart before proceeding."); return; }
     if(!deliverySelect?.value){ alert("Please select a delivery area."); return; }
-    const name = prompt("Enter your full name:")?.trim(); if(!name){ alert("Name required"); return; }
+
+    const name = prompt("Enter your full name:")?.trim(); 
+    if(!name){ alert("Name required"); return; }
     const area = deliverySelect.value;
 
     let message = `✨ *Coffee Life Order* ✨\n\n👤 Customer: ${name}\n📍 Delivery Area: ${area}\n\n🛒 Order Details:\n`;
-    message += window.cart.map((it,i)=>`${i+1}. ${it.name} x${it.qty} - ${formatUGX(it.price*it.qty)}`).join("\n");
+    message += window.cart.map((it,i)=>`${i+1}. ${it.name} x${it.qty} = ${formatUGX(it.price*it.qty)}`).join("\n");
     message += `\n\n🧾 Subtotal: ${formatUGX(calcTotal())}\n🚚 Delivery Fee: ${formatUGX(DELIVERY_FEE)}\n💰 Grand Total: ${formatUGX(calcTotal()+DELIVERY_FEE)}`;
     message += `\n\n💵 Payment before delivery required.\n☕ Coffee Life — Crafted with Passion, Served with Care.`;
 

@@ -1,5 +1,5 @@
-/* ============================
-   COFFEE LIFE Premium CSS Bundle
+/* ============================ 
+   COFFEE LIFE Premium CSS Bundle (FINAL 2025)
    Menu + Cart + WhatsApp + Chat + Animations + MTN/Airtel
    ============================ */
 
@@ -191,9 +191,11 @@
 .cart-item-info{flex:1;}
 .cart-item-info h4{margin:0;font-size:1rem;color:var(--dark);}
 .cart-item-info p{margin:0;font-size:0.9rem;color:#777;}
+.cart-item-info .subtotal{color:var(--gold);font-weight:600;margin-top:3px;}
 .cart-item-remove{color:#c0392b;cursor:pointer;transition:transform 0.3s,color 0.3s;font-size:1.2rem;}
 .cart-item-remove:hover{transform:scale(1.3);color:#e74c3c;}
 .cart-total{padding:1rem 1.5rem;text-align:right;font-weight:bold;color:var(--coffee);border-top:1px solid #eee;font-size:1.1rem;}
+.cart-total .delivery-fee{display:block;color:#a8844f;font-size:0.9rem;margin-top:3px;}
 .cart-order-btn{
     display:block;
     width:90%;

@@ -1,47 +1,56 @@
 // ============================
 // COFFEE LIFE WhatsApp + Cart + Chatbot (Professional Final 2025)
+// All WhatsApp buttons (except removed header) shake & glow, work only after cart items
 // ============================
 
 const WA_PHONE = "256772514889"; // Coffee Life WhatsApp
 const DELIVERY_AREAS = {
-    "Jinja Town": 2000,
-    "Milo Mbili": 2000,
-    "Walukuba West": 2000,
-    "Walukuba East": 3000,
-    "Mafubira": 3000,
-    "Mpumudde": 3000,
-    "Bugembe": 3000,
-    "Nile": 3000,
-    "Makerere": 3000,
-    "Kira Road": 3000,
-    "Masese": 4000,
-    "Wakitaka": 4000,
+    "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
+    "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000,
+    "Bugembe": 3000, "Nile": 3000, "Makerere": 3000,
+    "Kira Road": 3000, "Masese": 4000, "Wakitaka": 4000,
     "Namuleesa": 4000
 };
-let DELIVERY_FEE = 0;
 
+let DELIVERY_FEE = 0;
 let cart = window.cart || [];
 const cartPreview = document.querySelector(".whatsapp-cart-preview");
 const deliverySelect = document.getElementById("delivery-zone");
 const orderNowBtn = document.getElementById("orderNow");
 const footerOrderBtn = document.getElementById("orderWhatsApp");
+const whatsappBtn = document.querySelector(".whatsapp-float");
+const allWAButtons = document.querySelectorAll(".btn-whatsapp, .payment-btn, .btn-whatsapp-send");
+
+// ===== REMOVE HEADER WhatsApp Buttons =====
+document.querySelectorAll(".header-whatsapp, a.whatsapp-link").forEach(el => el.remove());
 
 // ===== ADD TO CART =====
 document.querySelectorAll(".btn-add, .add-to-cart-btn").forEach(btn => {
     btn.addEventListener("click", e => {
         const itemEl = e.target.closest(".menu-item, .menu-card");
-        if(!itemEl) return;
+        if (!itemEl) return;
         const name = itemEl.dataset.name;
         const price = parseInt(itemEl.dataset.price) || 0;
-        addToCart(name, price);
+        addToCart(name, price, itemEl);
     });
 });
 
-function addToCart(name, price){
-    if(!name) return;
+function addToCart(name, price, el = null){
+    if (!name) return;
     const existing = cart.find(i => i.name === name);
-    if(existing) existing.qty++;
+    if (existing) existing.qty++;
     else cart.push({ name, price, qty: 1 });
+
+    // Flash animation on add button
+    if(el){
+        const btn = el.querySelector(".btn-add");
+        if(btn){
+            btn.classList.add("shake","glow");
+            setTimeout(()=>btn.classList.remove("shake"),600);
+            setTimeout(()=>btn.classList.remove("glow"),1400);
+        }
+    }
+
     updateCartPreview();
 }
 
@@ -49,8 +58,10 @@ function addToCart(name, price){
 function updateCartPreview(){
     if(!cartPreview) return;
     cartPreview.innerHTML = "";
+
     if(cart.length === 0){
         cartPreview.innerHTML = "<p class='empty-msg'>🛒 Your cart is empty.</p>";
+        updateWhatsAppState();
         return;
     }
 
@@ -97,19 +108,21 @@ function updateCartPreview(){
             updateCartPreview();
         });
     });
+
+    updateWhatsAppState();
 }
 
 // ===== GENERATE WHATSAPP MESSAGE =====
 function generateCartMessage(name, location){
-    let subtotal = cart.reduce((acc, i) => acc + i.price * i.qty, 0);
+    let subtotal = cart.reduce((acc,i)=>acc + i.price*i.qty,0);
     let total = subtotal + DELIVERY_FEE;
     let message = `✨ *Coffee Life Order* ✨\n\n`;
     message += `👤 *Customer Name:* ${name || "[Your Name]"}\n`;
     message += `📍 *Delivery Area:* ${location || "[Your Location]"}\n\n`;
     message += `🛒 *Order Details:*\n`;
 
-    cart.forEach((item,i) => {
-        message += `${i+1}. ${item.name} x${item.qty} - ${item.price * item.qty} UGX\n`;
+    cart.forEach((item,i)=>{
+        message += `${i+1}. ${item.name} x${item.qty} - ${item.price*item.qty} UGX\n`;
     });
 
     message += `\n💰 Subtotal: ${subtotal} UGX`;
@@ -128,69 +141,65 @@ function handleOrderNow(){
     if(!name) return alert("Name is required!");
     const area = deliverySelect.value;
     const msg = generateCartMessage(name, area);
-    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
+    window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`,"_blank");
+    cart = [];
+    updateCartPreview();
 }
 
-// Bind buttons
-orderNowBtn?.addEventListener("click", handleOrderNow);
-footerOrderBtn?.addEventListener("click", handleOrderNow);
+// Bind all order buttons that should work
+[orderNowBtn, footerOrderBtn].forEach(btn=>{
+    btn?.addEventListener("click", handleOrderNow);
+});
 
-// ===== AUTO-WHATSAPP NOTIFICATIONS AFTER PAYMENT =====
-document.querySelectorAll(".pay-btn.mtn, .pay-btn.airtel").forEach(btn => {
-    btn.addEventListener("click", e => {
+// Bind all “menu WhatsApp” buttons
+allWAButtons.forEach(btn=>{
+    btn.classList.add("shake","glow"); // always attract attention
+    btn.addEventListener("click", e=>{
+        if(cart.length === 0){
+            e.preventDefault();
+            alert("Please add items to your cart before contacting us on WhatsApp!");
+        } else handleOrderNow();
+    });
+});
+
+// ===== PAYMENT BUTTONS =====
+document.querySelectorAll(".payment-btn.mtn, .payment-btn.airtel").forEach(btn=>{
+    btn.classList.add("shake","glow"); // attract attention
+    btn.addEventListener("click", e=>{
         if(cart.length === 0) return alert("Add items to cart first!");
         const paymentMethod = e.target.classList.contains("mtn") ? "MTN Mobile Money" : "Airtel Money";
         const name = prompt("Confirm your full name for the order:")?.trim();
         if(!name) return alert("Name is required!");
         const area = deliverySelect.value || "N/A";
         const msg = generateCartMessage(name, area) + `\n💳 Payment Method: ${paymentMethod}`;
-        // send WhatsApp automatically
-        window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
-        alert(`✅ Your order of ${cart.length} item(s) has been sent to Coffee Life via WhatsApp!`);
-        cart = []; updateCartPreview();
+        window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`,"_blank");
+        alert(`✅ Your order of ${cart.length} item(s) has been sent via WhatsApp!`);
+        cart = [];
+        updateCartPreview();
     });
 });
 
-// ===== ENSURE ALL WHATSAPP LINKS STRICTLY ORDER =====
-document.querySelectorAll("a.whatsapp-link").forEach(link => {
-    link.addEventListener("click", e => {
-        if(cart.length === 0) { e.preventDefault(); alert("Add items to your cart before using WhatsApp!"); }
-        else handleOrderNow();
-    });
+// ===== WHATSAPP BUTTON STATE =====
+function updateWhatsAppState(){
+    if(!whatsappBtn) return;
+    if(cart.length === 0){
+        whatsappBtn.classList.add("disabled","shake","glow");
+        whatsappBtn.style.pointerEvents = "none";
+        whatsappBtn.title = "Add items to your cart first!";
+    } else {
+        whatsappBtn.classList.remove("disabled");
+        whatsappBtn.style.pointerEvents = "auto";
+        whatsappBtn.title = "Chat on WhatsApp";
+    }
+}
+
+// Optional alert for clicking disabled WhatsApp
+whatsappBtn?.addEventListener("click", e=>{
+    if(whatsappBtn.classList.contains("disabled")){
+        e.preventDefault();
+        alert("Please add items to your cart before contacting us on WhatsApp!");
+    }
 });
 
 // ===== INIT =====
 updateCartPreview();
-// ==================== BLOCK WHATSAPP UNTIL CART HAS ITEMS ====================
-const whatsappBtn = document.querySelector(".whatsapp-float");
-const cartContainer = document.querySelector(".cart-container");
-
-function updateWhatsAppState() {
-  const cartItems = cartContainer.querySelectorAll(".cart-item");
-  if (cartItems.length === 0) {
-    // Block WhatsApp
-    whatsappBtn.classList.add("disabled");
-    whatsappBtn.style.pointerEvents = "none";
-    whatsappBtn.title = "Add items to your cart first!";
-  } else {
-    // Enable WhatsApp
-    whatsappBtn.classList.remove("disabled");
-    whatsappBtn.style.pointerEvents = "auto";
-    whatsappBtn.title = "Chat on WhatsApp";
-  }
-}
-
-// Initial check
-updateWhatsAppState();
-
-// Observe cart for dynamic changes
-const cartObserver = new MutationObserver(updateWhatsAppState);
-cartObserver.observe(cartContainer, { childList: true, subtree: true });
-
-// Optional alert for users who try clicking while disabled
-whatsappBtn.addEventListener("click", e => {
-  if (whatsappBtn.classList.contains("disabled")) {
-    e.preventDefault();
-    alert("Please add items to your cart before contacting us on WhatsApp!");
-  }
-});
