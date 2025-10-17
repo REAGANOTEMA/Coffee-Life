@@ -311,32 +311,89 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   </div>
 
   <!-- CART SUMMARY -->
-<aside class="cart card" id="cart">
-  <h3>Your Order</h3>
+  <aside class="cart card" id="cart">
+    <h3>Your Order</h3>
 
-  <!-- Cart Items Container -->
-  <div id="cartItems" class="cart-items">
-    <p class="cart-empty">No items yet — add something delicious!</p>
-  </div>
+    <!-- Cart Items Container -->
+    <div id="cartItems" class="cart-items">
+      <p class="cart-empty">No items yet — add something delicious!</p>
+    </div>
 
-  <!-- Payment Buttons -->
-  <div class="payment-section">
-    <button class="payment-btn mtn">Pay with MTN</button>
-    <button class="payment-btn airtel">Pay with Airtel</button>
-  </div>
+    <!-- PAYMENT OPTIONS SECTION -->
+    <div class="payment-section">
+      <h4>💳 Pay Now</h4>
 
-  <!-- Cart Summary -->
-  <div class="cart-summary">
-    <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
-    <div class="cart-delivery">Delivery Fee: <span id="deliveryFee">0</span> UGX</div>
-    <button id="orderNow" class="btn-order" data-whatsapp-number="+256772514889">
-      <i class="fab fa-whatsapp"></i> Order Now on WhatsApp
-    </button>
-  </div>
-</aside>
+      <!-- MTN PAYMENT -->
+      <div class="payment-option">
+        <h5>MTN Mobile Money</h5>
+        <p>To pay using MTN Mobile Money, tap the button below (works on mobile) or dial manually.</p>
+        <a 
+          href="tel:*165*3*4393386*AMOUNT%23"
+          class="ussd-link mtn"
+        >
+          📱 Pay with MTN MoMo (Merchant: 4393386)
+        </a>
+        <p class="note">
+          Replace <strong>AMOUNT</strong> with your total amount before pressing call.<br>
+          Example: <code>*165*3*4393386*15000#</code>
+        </p>
+      </div>
+
+      <!-- AIRTEL PAYMENT (PRIMARY MERCHANT) -->
+      <div class="payment-option">
+        <h5>Airtel Money (Option 1)</h5>
+        <p>Use this Airtel Money merchant code to make your payment.</p>
+        <a 
+          href="tel:*185*9*971714*AMOUNT%23"
+          class="ussd-link airtel"
+        >
+          📱 Pay with Airtel Money (Merchant: 971714)
+        </a>
+        <p class="note">
+          Replace <strong>AMOUNT</strong> with your total amount before pressing call.<br>
+          Example: <code>*185*9*971714*15000#</code>
+        </p>
+      </div>
+
+      <!-- AIRTEL PAYMENT (SECOND MERCHANT) -->
+      <div class="payment-option">
+        <h5>Airtel Money (Option 2)</h5>
+        <p>Alternate Airtel merchant code for some users.</p>
+        <a 
+          href="tel:*185*9*4393386*AMOUNT%23"
+          class="ussd-link airtel"
+        >
+          📱 Pay with Airtel Money (Merchant: 4393386)
+        </a>
+        <p class="note">
+          Replace <strong>AMOUNT</strong> with your total amount before pressing call.<br>
+          Example: <code>*185*9*4393386*15000#</code>
+        </p>
+      </div>
+
+      <!-- WHATSAPP CONFIRM -->
+      <div class="confirm-section">
+        <p>✅ After completing your payment, tap below to notify Coffee Life Café:</p>
+        <a 
+          href="https://wa.me/256772514889?text=Hello%20Coffee%20Life%20Cafe%2C%20I%20have%20completed%20my%20payment%20for%20my%20order.%20Please%20confirm%20my%20order.%20Thank%20you!"
+          class="whatsapp-confirm"
+          target="_blank"
+        >
+          ☕ Notify Coffee Life on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- CART SUMMARY -->
+    <div class="cart-summary">
+      <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
+      <div class="cart-delivery">Delivery Fee: <span id="deliveryFee">0</span> UGX</div>
+      <button id="orderNow" class="btn-order" data-whatsapp-number="+256772514889">
+        <i class="fab fa-whatsapp"></i> Order Now on WhatsApp
+      </button>
+    </div>
+  </aside>
 </section>
-
-
 
             <!-- ===== FOOD CATEGORIES & ITEMS (each item includes image slot, description, price, add/remove) ===== -->
 
