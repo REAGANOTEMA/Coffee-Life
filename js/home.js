@@ -59,7 +59,7 @@ setInterval(() => {
     });
 }, 6000);
 
-/* ===== 7. RESPONSIVE HERO FONT SIZES (OPTIONAL IF YOU HAVE HERO TEXT) ===== */
+/* ===== 7. RESPONSIVE HERO FONT SIZES ===== */
 function adjustHeroFonts(){
     const heroTitle = document.querySelector(".hero-title-text");
     const heroSubtitle = document.querySelector(".hero-subtitle");
@@ -79,3 +79,51 @@ function adjustHeroFonts(){
 }
 window.addEventListener("resize", adjustHeroFonts);
 adjustHeroFonts();
+
+/* ===== 8. CART & WHATSAPP INTEGRATION ===== */
+window.cart = window.cart || [];
+const whatsappBtn = document.querySelector('.whatsapp-btn, .whatsapp-float');
+
+function updateWhatsAppButton() {
+    if (!whatsappBtn) return;
+    if (window.cart.length === 0) {
+        whatsappBtn.classList.add('disabled');
+        whatsappBtn.style.pointerEvents = 'none';
+        whatsappBtn.title = "Add items to your cart first!";
+    } else {
+        whatsappBtn.classList.remove('disabled');
+        whatsappBtn.style.pointerEvents = 'auto';
+        whatsappBtn.title = "Chat on WhatsApp";
+        whatsappBtn.classList.add('highlight');
+    }
+}
+
+if (whatsappBtn) {
+    whatsappBtn.addEventListener('click', e => {
+        if (window.cart.length === 0) {
+            e.preventDefault();
+            alert("Please add items to your cart before contacting us on WhatsApp!");
+            return;
+        }
+        const phone = '2567XXXXXXXX'; // Replace with your WhatsApp number
+        const message = encodeURIComponent("Hello CoffeeLife, I want to place an order.");
+        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    });
+}
+
+/* ===== 9. ADD TO CART HOOK ===== */
+function addToCart(item) {
+    const itemWithTransport = { ...item, price: item.price + 4000 };
+    const existing = window.cart.find(i => i.id === item.id);
+    if (existing) existing.qty++;
+    else window.cart.push({ ...itemWithTransport, qty: 1 });
+
+    alert(`${item.name} added to cart (+4000 delivery)`);
+    updateWhatsAppButton();
+    if (window.renderCart) window.renderCart();
+}
+
+window.globalAddToCart = addToCart;
+
+// Initialize WhatsApp button on page load
+document.addEventListener("DOMContentLoaded", updateWhatsAppButton);

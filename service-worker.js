@@ -4,7 +4,7 @@ const urlsToCache = [
   '/index.html',
   '/menu.json',
   '/css/hero.css',
-  '/images/logo.jpg',           // Your main logo (onaksy, sharp, high-quality)
+  '/images/logo.jpg',
   '/images/menu/food1.jpg',
   '/images/menu/food2.jpg',
   '/images/menu/food3.jpg',
@@ -21,73 +21,81 @@ const urlsToCache = [
   '/images/menu/special2.jpg',
   '/images/menu/coffee1.jpg',
   '/images/menu/coffee2.jpg',
-  '/js/menu.js',               // Make sure menu.js is included
-  '/js/cart.js'                // Make sure cart.js is included
+  '/js/menu.js',
+  '/js/cart.js'
 ];
 
-// Install event - cache all essential assets
+// ===== Install Event =====
 self.addEventListener('install', event => {
-  console.log('[ServiceWorker] Installing Coffee Life Cafe PWA...');
+  console.log('[SW] Installing Coffee Life Cafe PWA...');
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('[ServiceWorker] Caching all essential files...');
+      console.log('[SW] Caching essential files...');
       return cache.addAll(urlsToCache);
     })
   );
-  self.skipWaiting(); // Activate immediately
+  self.skipWaiting();
 });
 
-// Activate event - remove old caches
+// ===== Activate Event =====
 self.addEventListener('activate', event => {
-  console.log('[ServiceWorker] Activating...');
+  console.log('[SW] Activating...');
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
+    caches.keys().then(cacheNames =>
+      Promise.all(
         cacheNames.map(name => {
           if (name !== CACHE_NAME) {
-            console.log('[ServiceWorker] Removing old cache:', name);
+            console.log('[SW] Removing old cache:', name);
             return caches.delete(name);
           }
         })
-      );
-    })
+      )
+    )
   );
   self.clients.claim();
 });
 
-// Fetch event - serve from cache first, then network fallback
+// ===== Fetch Event =====
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      if (response) return response;
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) return cachedResponse;
 
-      return fetch(event.request).then(fetchResponse => {
-        // Cache new GET requests dynamically
-        if (event.request.method === 'GET') {
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, fetchResponse.clone());
-          });
-        }
-        return fetchResponse;
-      }).catch(() => {
-        // Offline fallback
-        if (event.request.destination === 'image') {
-          return caches.match('/images/logo.jpg'); // High-quality fallback logo
-        } else if (event.request.destination === 'document') {
-          return caches.match('/index.html'); // Fallback to homepage
-        }
-      });
+      return fetch(event.request)
+        .then(networkResponse => {
+          // Cache dynamic GET requests
+          if (event.request.method === 'GET') {
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, networkResponse.clone());
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // Offline fallback
+          if (event.request.destination === 'image') {
+            return caches.match('/images/logo.jpg');
+          } else if (event.request.destination === 'document') {
+            return caches.match('/index.html');
+          }
+        });
     })
   );
 });
 
-// Optional: Periodic cache update (for long-term freshness)
+// ===== Periodic Cache Update =====
 self.addEventListener('periodicsync', event => {
   if (event.tag === 'update-cache') {
     event.waitUntil(
-      caches.open(CACHE_NAME).then(cache => {
-        return cache.addAll(urlsToCache);
-      })
+      caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
     );
   }
 });
+
+// ===== Push Notification & Message Handling (Optional) =====
+// self.addEventListener('push', event => {
+//   const data = event.data.json();
+//   event.waitUntil(
+//     self.registration.showNotification(data.title, { body: data.body, icon: '/images/logo.jpg' })
+//   );
+// });

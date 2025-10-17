@@ -1,5 +1,5 @@
 /* ============================
-   COFFEE LIFE WhatsApp + Chat Styles (Final)
+   COFFEE LIFE WhatsApp + Cart + Chat Styles (Final 2025)
    ============================ */
 
 /* ===== Floating WhatsApp Button ===== */
@@ -19,7 +19,7 @@
     cursor: pointer;
     z-index: 999;
     transition: all 0.4s ease;
-    animation: floatPulse 3s infinite ease-in-out, shakeBtn 6s infinite;
+    animation: floatPulse 3s infinite ease-in-out, shakeBtn 6s infinite, glowBtn 4s infinite;
 }
 
 .whatsapp-float:hover {
@@ -41,6 +41,11 @@
     25% { transform: translateX(-3px); }
     50% { transform: translateX(3px); }
     75% { transform: translateX(-3px); }
+}
+
+@keyframes glowBtn {
+    0%, 100% { box-shadow: 0 0 0 #b28e00; }
+    50% { box-shadow: 0 0 10px #b28e00, 0 0 20px #b28e00; }
 }
 
 /* ===== WhatsApp Modal ===== */
@@ -131,9 +136,12 @@
 
 .whatsapp-cart-preview .item button.qty-btn:hover { background: #b28e00; }
 
-@keyframes glowBtn {
-    0%, 100% { box-shadow: 0 0 0 #b28e00; }
-    50% { box-shadow: 0 0 10px #b28e00, 0 0 20px #b28e00; }
+/* ===== Cart Summary ===== */
+.whatsapp-cart-preview .summary {
+    font-weight: 600;
+    border-top: 1px solid #eee;
+    padding-top: 8px;
+    margin-top: 4px;
 }
 
 /* ===== Send Button ===== */
@@ -250,10 +258,44 @@
 
 .chat-input-container button:hover { background: #1EBE5D; }
 
+/* ===== Cart & Menu Buttons ===== */
+.menu-item .btn-add,
+.menu-item .btn-whatsapp {
+    width: 100%;
+    margin-top: 6px;
+    padding: 0.6rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.menu-item .btn-add {
+    background: #d4af37;
+    color: #fff;
+    animation: shakeBtn 5s infinite, glowBtn 4s infinite;
+}
+
+.menu-item .btn-add:hover { background: #b28e00; }
+
+.menu-item .btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    animation: shakeBtn 5s infinite, glowBtn 4s infinite;
+}
+
+.menu-item .btn-whatsapp:hover { background: #1EBE5D; }
+
 /* ===== Responsive Adjustments ===== */
 @media (max-width: 768px) {
     .whatsapp-float { width: 55px; height: 55px; bottom: 20px; right: 20px; }
     .whatsapp-float i { font-size: 1.7rem; }
     .whatsapp-modal { width: 90%; right: 5%; bottom: 80px; padding: 1rem 1.2rem; }
     .chat-messages { max-height: 250px; }
+    .menu-item { font-size: 0.95rem; }
 }

@@ -1,5 +1,5 @@
 /* ============================
-   location.css — COFFEE LIFE Location & Delivery (Final Premium)
+   location.css — COFFEE LIFE CAFE Location & Delivery (Final Premium)
    ============================ */
 
 /* ===== Banner / Distance Info ===== */
@@ -125,7 +125,29 @@
 }
 .leaflet-popup-tip { background: #b47b3a; }
 
+/* Popup links (Get Directions) */
+.leaflet-popup-content a {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 8px;
+    background: #b47b3a;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+.leaflet-popup-content a:hover {
+    background: #4b2e1e;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 1024px) { .map-preview { height: 200px; } }
-@media (max-width: 768px) { .map-preview { height: 170px; } .btn-locate { font-size: 0.85rem; } }
-@media (max-width: 480px) { .map-preview { height: 140px; } .btn-locate { width: 100%; } }
+@media (max-width: 768px) { 
+    .map-preview { height: 170px; } 
+    .btn-locate { font-size: 0.85rem; }
+}
+@media (max-width: 480px) { 
+    .map-preview { height: 140px; } 
+    .btn-locate { width: 100%; }
+}

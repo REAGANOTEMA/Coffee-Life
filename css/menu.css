@@ -1,6 +1,6 @@
 /* ============================
    COFFEE LIFE Final Premium CSS Bundle
-   Includes Menu + Cart + WhatsApp + Chat + Animations
+   Menu + Cart + WhatsApp + Chat + Animations
    ============================ */
 
 /* === ROOT VARIABLES === */
@@ -51,9 +51,7 @@
     justify-items: center;
     align-items: stretch;
 }
-@media(max-width:1200px){#menu-container{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:900px){#menu-container{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:600px){#menu-container{grid-template-columns:1fr;}}
+@media(max-width:1024px){ #menu-container { grid-template-columns: repeat(2,1fr); } }
 
 /* === MENU ITEM CARD === */
 .menu-item {
@@ -70,16 +68,19 @@
     transform:translateY(20px);
     animation:fadeInUp 0.8s forwards;
 }
-.menu-item:hover{transform:translateY(-8px);box-shadow:0 14px 35px rgba(0,0,0,0.15),0 8px 20px rgba(180,123,58,0.25);}
+.menu-item:hover{
+    transform:translateY(-8px);
+    box-shadow:0 14px 35px rgba(0,0,0,0.15),0 8px 20px rgba(180,123,58,0.25);
+}
 
-.menu-item img,.menu-item video{
+.menu-item img, .menu-item video{
     width:100%;
     height:220px;
     object-fit:cover;
     border-radius:18px 18px 0 0;
     transition:transform 0.4s ease;
 }
-.menu-item:hover img,.menu-item:hover video{transform:scale(1.05);}
+.menu-item:hover img, .menu-item:hover video{ transform:scale(1.05); }
 
 .menu-body {
     padding:0.8rem 1rem 1.2rem;
@@ -96,7 +97,7 @@
     margin-bottom:0.3rem;
     transition: color 0.3s ease, transform 0.3s ease;
 }
-.menu-body h4:hover{color:var(--gold);transform:scale(1.03);}
+.menu-body h4:hover{ color:var(--gold); transform:scale(1.03); }
 
 .menu-body .desc{
     font-size:0.85rem;
@@ -145,12 +146,12 @@
     color:var(--dark);
     transform:translateY(-2px) scale(1.03);
 }
-.menu-body .btn-whatsapp i{margin-right:5px;}
+.menu-body .btn-whatsapp i{ margin-right:5px; }
 
 /* === ANIMATIONS === */
-@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
-@keyframes shakeBtn{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-3px);}40%,80%{transform:translateX(3px);}}
-@keyframes glowBtn{0%,100%{box-shadow:0 0 0 var(--gold);}50%{box-shadow:0 0 10px var(--gold),0 0 20px var(--gold);}}
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);} }
+@keyframes shakeBtn{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-3px);}40%,80%{transform:translateX(3px);} }
+@keyframes glowBtn{0%,100%{box-shadow:0 0 0 var(--gold);}50%{box-shadow:0 0 10px var(--gold),0 0 20px var(--gold);} }
 
 /* === SMALL ITEM CARDS === */
 .menu-item--small{
@@ -176,7 +177,7 @@
     padding:0.4rem 0.8rem;
 }
 
-/* === WHATSAPP FLOATING BUTTON === */
+/* === WHATSAPP FLOATING BUTTON & MODAL === */
 .whatsapp-float{
     position:fixed;
     bottom:25px;
@@ -200,10 +201,9 @@
     transform:scale(1.1) rotate(5deg);
     box-shadow:0 10px 25px rgba(37,211,102,0.5);
 }
-.whatsapp-float i{font-size:2rem;}
-@keyframes floatPulse{0%,100%{transform:scale(1);box-shadow:0 8px 20px rgba(37,211,102,0.3);}50%{transform:scale(1.05);box-shadow:0 12px 28px rgba(37,211,102,0.5);}}
+.whatsapp-float i{ font-size:2rem; }
+@keyframes floatPulse{0%,100%{transform:scale(1);box-shadow:0 8px 20px rgba(37,211,102,0.3);}50%{transform:scale(1.05);box-shadow:0 12px 28px rgba(37,211,102,0.5);} }
 
-/* === WHATSAPP MODAL === */
 .whatsapp-modal{
     display:none;
     position:fixed;
@@ -225,7 +225,7 @@
 .close-whatsapp{position:absolute;top:10px;right:15px;cursor:pointer;font-size:1.2rem;color:#b85c38;}
 .close-whatsapp:hover{color:#25D366;}
 
-/* === CART PREVIEW === */
+/* === CART PREVIEW INSIDE MODAL === */
 .whatsapp-cart-preview{
     max-height:220px;
     overflow-y:auto;
@@ -276,7 +276,7 @@
 }
 .btn-whatsapp-send:hover{background:#1EBE5D;transform:translateY(-2px);}
 
-/* === PAYMENT OPTIONS === */
+/* === PAYMENT BUTTONS === */
 .payment-options{display:flex;gap:8px;margin-top:8px;}
 .payment-btn{
     flex:1;
@@ -293,7 +293,7 @@
 .payment-btn.manual{background:#6c757d;}
 .payment-note{margin-top:10px;font-size:0.9rem;color:#444;background:#fff8e6;border:1px dashed #d4af37;padding:8px;border-radius:8px;}
 
-/* === CHAT MESSAGES === */
+/* === CHAT INTERFACE === */
 .chat-messages{
     max-height:220px;
     overflow-y:auto;
@@ -311,7 +311,6 @@
 .chat-messages .msg.bot{background:#f1f1f1;color:#333;align-self:flex-start;}
 .chat-messages .msg.user{background:#25D366;color:#fff;align-self:flex-end;}
 
-/* === CHAT INPUT === */
 .chat-input-container{display:flex;gap:8px;margin-top:6px;}
 .chat-input-container input{
     flex:1;
@@ -334,7 +333,11 @@
 .chat-input-container button:hover{background:#1EBE5D;}
 
 /* === RESPONSIVE === */
-@media(max-width:1024px){.menu-body h4{font-size:1.05rem;}.menu-body .desc{font-size:0.82rem;}}
+@media(max-width:1024px){
+    #menu-container{grid-template-columns:repeat(2,1fr);}
+    .menu-body h4{font-size:1.05rem;}
+    .menu-body .desc{font-size:0.82rem;}
+}
 @media(max-width:768px){
     .menu-section h2{font-size:1.9rem;}
     .menu-item img{height:190px;}

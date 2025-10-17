@@ -156,3 +156,35 @@ setInterval(shakeSubtitle, 5000);
 
 // Slide continuously every 2s
 setInterval(slideSubtitle, 2000);
+// ==================== WhatsApp Blocking Until Cart Has Items ====================
+const whatsappBtn = document.querySelector(".whatsapp-float");
+const cartContainer = document.querySelector(".cart-container");
+
+// Function to check cart items
+function checkCartForWhatsApp() {
+  const cartItems = cartContainer.querySelectorAll(".cart-item");
+  if (cartItems.length === 0) {
+    whatsappBtn.classList.add("disabled");
+    whatsappBtn.style.pointerEvents = "none"; // block clicks
+    whatsappBtn.title = "Add items to cart first!";
+  } else {
+    whatsappBtn.classList.remove("disabled");
+    whatsappBtn.style.pointerEvents = "auto";
+    whatsappBtn.title = "Chat on WhatsApp";
+  }
+}
+
+// Initial check
+checkCartForWhatsApp();
+
+// Monitor cart changes (if you add/remove items dynamically)
+const observer = new MutationObserver(checkCartForWhatsApp);
+observer.observe(cartContainer, { childList: true, subtree: true });
+
+// Optional: add alert if clicked while disabled
+whatsappBtn.addEventListener("click", e => {
+  if (whatsappBtn.classList.contains("disabled")) {
+    e.preventDefault();
+    alert("Please add items to your cart before contacting us on WhatsApp!");
+  }
+});

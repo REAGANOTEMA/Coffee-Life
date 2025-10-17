@@ -295,6 +295,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                     </button>
                 </div>
             </aside>
+            <!-- CART SUMMARY (interactive — JS will populate) -->
+<aside class="cart card" id="cart">
+    <h3>Your Order</h3>
+    <div id="cartItems" class="cart-items">
+        <p class="empty">No items yet add something delicious!</p>
+    </div>
+
+    <!-- ===== DELIVERY AREA SELECTION ===== -->
+    <div class="delivery-area">
+        <label for="delivery-zone">Select Delivery Area:</label>
+        <select id="delivery-zone">
+            <option value="">-- Choose your area --</option>
+            <option value="Jinja Town">Jinja Town - UGX 2,000</option>
+            <option value="Milo Mbili">Milo Mbili - UGX 2,000</option>
+            <option value="Walukuba West">Walukuba West - UGX 2,000</option>
+            <option value="Walukuba East">Walukuba East - UGX 3,000</option>
+            <option value="Mafubira">Mafubira - UGX 3,000</option>
+            <option value="Mpumudde">Mpumudde - UGX 3,000</option>
+            <option value="Bugembe">Bugembe - UGX 3,000</option>
+            <option value="Nile">Nile - UGX 3,000</option>
+            <option value="Makerere">Makerere - UGX 3,000</option>
+            <option value="Kira Road">Kira Road - UGX 3,000</option>
+            <option value="Masese">Masese - UGX 4,000</option>
+            <option value="Wakitaka">Wakitaka - UGX 4,000</option>
+            <option value="Namuleesa">Namuleesa - UGX 4,000</option>
+        </select>
+    </div>
+
+    <div class="cart-summary">
+        <div class="cart-total">Total: <span id="cartTotal">0</span> UGX</div>
+        <button id="orderNow" class="btn-order" data-whatsapp-number="+256772514889">
+            <i class="fab fa-whatsapp"></i> Order Now
+        </button>
+    </div>
+</aside>
+
 
             <!-- ===== FOOD CATEGORIES & ITEMS (each item includes image slot, description, price, add/remove) ===== -->
 
@@ -2345,55 +2381,61 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   </div>
 </section>
 
-     <!-- ===== CONTACT & LOCATIONS ===== -->
+   <!-- ===== CONTACT & LOCATIONS ===== -->
 <section id="contact" class="contact container">
-    <h2>Contact & Locations</h2>
-    <div class="contact-grid">
+  <h2>Contact & Locations</h2>
+  <div class="contact-grid">
 
-        <!-- Contact Info -->
-        <div class="contact-card">
-            <h4>Contact Us</h4>
-            <p><strong>Phone:</strong> 0746 888 730 / 0784 305 795</p>
-            <p><strong>Email:</strong> 
-                <a href="mailto:coffeeliferestaurant@gmail.com">coffeeliferestaurant@gmail.com</a>
-            </p>
-            <p><strong>WhatsApp:</strong> 
-                <a href="https://wa.me/256772514889" target="_blank">+256 772 514 889</a>
-            </p>
-            <p class="muted">
-                For deliveries, press <strong>Order Now</strong> or build your order in the cart and then press "Order Now on WhatsApp".
-            </p>
-            <div class="contact-actions">
-                <a class="btn" href="https://wa.me/256772514889" target="_blank">
-                    Chat on WhatsApp
-                </a>
-                <a class="btn btn-outline" href="tel:0746888730">Call Us</a>
-            </div>
-        </div>
-
-        <!-- Locations -->
-        <div class="contact-card">
-            <h4>Locations (Food Deliveries)</h4>
-            <ol class="locations">
-                <li>Total Energies — Opposite Gadhafi Police Barracks, Jinja Roundabout</li>
-                <li>Total Lakeview — Mailombili</li>
-                <li>Gabba Road — Opposite University of East Africa</li>
-            </ol>
-            <p class="muted">Opening hours: Daily 06:30 — 22:00</p>
-        </div>
-
-        <!-- Map & Delivery Info -->
-        <div class="contact-card map-card">
-            <h4>Find Us</h4>
-            <div id="map" class="map-preview"></div>
-            <div class="map-controls">
-                <button id="btnUseLocation" class="btn-locate">Use my location</button>
-                <p id="mapLocationStatus" class="muted">Location not shared</p>
-            </div>
-        </div>
-
+    <!-- Contact Info -->
+    <div class="contact-card">
+      <h4>Contact Us</h4>
+      <p><strong>Phone:</strong> 0746 888 730 / 0784 305 795</p>
+      <p><strong>Email:</strong>
+        <a href="mailto:coffeeliferestaurant@gmail.com">coffeeliferestaurant@gmail.com</a>
+      </p>
+      <p><strong>WhatsApp:</strong>
+        <a href="https://wa.me/256772514889" target="_blank">+256 772 514 889</a>
+      </p>
+      <p class="muted">
+        For deliveries, press <strong>Order Now</strong> or build your order in the cart and then press
+        "Order Now on WhatsApp".
+      </p>
+      <div class="contact-actions">
+        <a class="btn" href="https://wa.me/256772514889" target="_blank">
+          Chat on WhatsApp
+        </a>
+        <a class="btn btn-outline" href="tel:0746888730">Call Us</a>
+      </div>
     </div>
+
+    <!-- Locations -->
+    <div class="contact-card">
+      <h4>Locations (Food Deliveries)</h4>
+      <ol class="locations">
+        <li>Total Energies — Opposite Gadhafi Police Barracks, Jinja Roundabout</li>
+        <li>Total Lakeview — Mailombili</li>
+        <li>Gabba Road — Opposite University of East Africa</li>
+      </ol>
+      <p class="muted">Opening hours: Daily 06:30 — 22:00</p>
+    </div>
+
+    <!-- Map & Delivery Info -->
+    <div class="contact-card map-card">
+      <h4>Find Us</h4>
+      <div id="map" class="map-preview"></div>
+      <p class="muted">📍 COFFEE LIFE CAFE — Jinja, Uganda</p>
+    </div>
+
+  </div>
 </section>
+
+<!-- ===== GOOGLE MAPS & SCRIPTS ===== -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/location.css') }}">
+<script src="{{ url_for('static', filename='js/location.js') }}"></script>
+<script async
+  src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_KEY }}&callback=initMap">
+</script>
+
 
 
 
