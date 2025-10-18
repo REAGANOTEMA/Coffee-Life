@@ -4,7 +4,6 @@
 
 /* ===== 1. HEADER SCROLL EFFECT ===== */
 const header = document.querySelector("header.site-header");
-
 function handleHeaderScroll() {
     if (window.scrollY > 30) {
         header.classList.add("scrolled");
@@ -16,7 +15,6 @@ function handleHeaderScroll() {
         header.style.boxShadow = "0 12px 40px rgba(0,0,0,0.5)";
     }
 }
-
 window.addEventListener("scroll", handleHeaderScroll);
 handleHeaderScroll();
 
@@ -27,14 +25,14 @@ const mobileMenu = document.querySelector(".mobile-menu");
 hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("active");
+
     hamburger.querySelectorAll('.bar').forEach(bar => {
         bar.style.backgroundColor = hamburger.classList.contains('active') ? 'var(--gold)' : 'var(--royal-blue)';
     });
 });
 
 /* ===== 3. CLOSE MOBILE MENU ON LINK CLICK ===== */
-const mobileLinks = document.querySelectorAll(".mobile-link");
-mobileLinks.forEach(link => {
+document.querySelectorAll(".mobile-link").forEach(link => {
     link.addEventListener("click", () => {
         hamburger.classList.remove("active");
         mobileMenu.classList.remove("active");
@@ -55,16 +53,16 @@ function adjustHeroFonts() {
     const heroSubtitle = document.querySelector(".hero-subtitle");
     const heroNote = document.querySelector(".hero-note");
 
-    if (heroTitle && heroSubtitle && heroNote) {
-        if (window.innerWidth < 768) {
-            heroTitle.style.fontSize = "3.2rem";
-            heroSubtitle.style.fontSize = "1.4rem";
-            heroNote.style.fontSize = "0.95rem";
-        } else {
-            heroTitle.style.fontSize = "4.8rem";
-            heroSubtitle.style.fontSize = "2rem";
-            heroNote.style.fontSize = "1.2rem";
-        }
+    if (!heroTitle || !heroSubtitle || !heroNote) return;
+
+    if (window.innerWidth < 768) {
+        heroTitle.style.fontSize = "3.2rem";
+        heroSubtitle.style.fontSize = "1.4rem";
+        heroNote.style.fontSize = "0.95rem";
+    } else {
+        heroTitle.style.fontSize = "4.8rem";
+        heroSubtitle.style.fontSize = "2rem";
+        heroNote.style.fontSize = "1.2rem";
     }
 }
 window.addEventListener("resize", adjustHeroFonts);
@@ -76,7 +74,6 @@ const whatsappBtn = document.querySelector('.whatsapp-btn, .whatsapp-float');
 
 function updateWhatsAppButton() {
     if (!whatsappBtn) return;
-
     if (window.cart.length === 0) {
         whatsappBtn.classList.add('disabled');
         whatsappBtn.style.pointerEvents = 'none';
@@ -115,13 +112,12 @@ function addToCart(item) {
     updateWhatsAppButton();
     if (window.renderCart) window.renderCart();
 }
-
 window.globalAddToCart = addToCart;
 
 /* ===== 8. INITIALIZE ON PAGE LOAD ===== */
 document.addEventListener("DOMContentLoaded", updateWhatsAppButton);
 
-/* ===== 9. OPTIONAL PREMIUM ANIMATIONS ===== */
+/* ===== 9. PREMIUM NAV ANIMATION ===== */
 // Subtle nav link glow every 8 seconds
 setInterval(() => {
     navLinks.forEach(link => {

@@ -5,12 +5,17 @@
     "contact": {
       "phone": "+256772514889",
       "email": "food@coffeelife.cafe",
-      "website": "https://coffeelife.cafe""address": "Plot 45 Coffee Street, Jinja, Uganda"
+      "website": "https://coffeelife.cafe",
+      "address": "Plot 45 Coffee Street, Jinja, Uganda"
     },
     "socials": {
       "instagram": "@coffeelifecafe",
       "facebook": "https://www.facebook.com/share/1BGUixCgi8/?mibextid=wwXIfr"
     }
+  },
+  "layout": {
+    "gridColumns": 4,
+    "note": "Render menu items in a 4-column responsive grid below the payment & location section."
   },
   "menu": [
     {
@@ -18,128 +23,112 @@
       "category": "food",
       "name": "Grilled Chicken Sandwich",
       "description": "Tender grilled chicken breast with fresh lettuce, tomatoes, and house sauce on artisan bread",
-      "price": 18500,
-      "img": "images/menu/food1.jpg"
+      "price": 18500
     },
     {
       "id": "food2",
       "category": "food",
       "name": "Classic Beef Burger",
       "description": "Juicy beef patty with cheddar, crisp lettuce, tomato, and golden fries",
-      "price": 20500,
-      "img": "images/menu/food2.jpg"
+      "price": 20500
     },
     {
       "id": "food3",
       "category": "food",
       "name": "Veggie Wrap",
       "description": "Fresh seasonal vegetables, hummus, and herbs wrapped in a soft tortilla",
-      "price": 15500,
-      "img": "images/menu/food3.jpg"
+      "price": 15500
     },
     {
       "id": "food4",
       "category": "food",
       "name": "Spicy Chicken Wings",
       "description": "Crispy fried chicken wings tossed in signature spicy sauce",
-      "price": 17500,
-      "img": "images/menu/food4.jpg"
+      "price": 17500
     },
     {
       "id": "drink1",
       "category": "drinks",
       "name": "Cappuccino",
       "description": "Rich espresso topped with steamed milk and velvety foam",
-      "price": 8500,
-      "img": "images/menu/drink1.jpg"
+      "price": 8500
     },
     {
       "id": "drink2",
       "category": "drinks",
       "name": "Latte",
       "description": "Smooth blend of espresso and milk, perfect for any time of day",
-      "price": 9200,
-      "img": "images/menu/drink2.jpg"
+      "price": 9200
     },
     {
       "id": "drink3",
       "category": "drinks",
       "name": "Cold Brew Coffee",
       "description": "Slow-brewed coffee served chilled for a refreshing taste",
-      "price": 10200,
-      "img": "images/menu/drink3.jpg"
+      "price": 10200
     },
     {
       "id": "drink4",
       "category": "drinks",
       "name": "Fresh Orange Juice",
       "description": "Cold-pressed, 100% natural orange juice, no added sugar",
-      "price": 7200,
-      "img": "images/menu/drink4.jpg"
+      "price": 7200
     },
     {
       "id": "drink5",
       "category": "drinks",
       "name": "Green Tea Latte",
       "description": "Premium matcha green tea with frothed milk and light sweetness",
-      "price": 9700,
-      "img": "images/menu/drink5.jpg"
+      "price": 9700
     },
     {
       "id": "dessert1",
       "category": "desserts",
       "name": "Chocolate Lava Cake",
       "description": "Decadent chocolate cake with a gooey molten center, served warm",
-      "price": 12200,
-      "img": "images/menu/dessert1.jpg"
+      "price": 12200
     },
     {
       "id": "dessert2",
       "category": "desserts",
       "name": "Cheesecake",
       "description": "Creamy baked cheesecake with fresh strawberry topping",
-      "price": 13200,
-      "img": "images/menu/dessert2.jpg"
+      "price": 13200
     },
     {
       "id": "dessert3",
       "category": "desserts",
       "name": "Tiramisu",
       "description": "Classic Italian dessert with espresso-soaked layers and mascarpone cream",
-      "price": 14200,
-      "img": "images/menu/dessert3.jpg"
+      "price": 14200
     },
     {
       "id": "special1",
       "category": "specials",
       "name": "Chef’s Special Breakfast",
       "description": "Fluffy scrambled eggs, smoked salmon, avocado toast, and seasonal fruits",
-      "price": 22500,
-      "img": "images/menu/special1.jpg"
+      "price": 22500
     },
     {
       "id": "special2",
       "category": "specials",
       "name": "Afternoon Coffee Combo",
       "description": "Choice of coffee served with a slice of cake or a pastry of the day",
-      "price": 15200,
-      "img": "images/menu/special2.jpg"
+      "price": 15200
     },
     {
       "id": "coffee1",
       "category": "coffeeBeans",
       "name": "Arabica Blend",
       "description": "Premium Arabica coffee beans with a smooth, aromatic flavor",
-      "price": 40500,
-      "img": "images/menu/coffee1.jpg"
+      "price": 40500
     },
     {
       "id": "coffee2",
       "category": "coffeeBeans",
       "name": "Espresso Roast",
       "description": "Bold and dark roasted espresso beans for the perfect home brew",
-      "price": 38500,
-      "img": "images/menu/coffee2.jpg"
+      "price": 38500
     }
   ]
 }

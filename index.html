@@ -191,11 +191,20 @@
             <a href="#contact" class="mobile-link">Contact</a>
             </ul>
             </nav>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <!-- Hamburger -->
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#menu" class="mobile-link">Menu</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#contact" class="mobile-link">Contact</a>
         </div>
 
     </header>
@@ -238,9 +247,9 @@
                             <span class="work">WORK.</span>
                         </p>
                         <p class="hero-note">
-                            Experience the essence of Coffee Life Cafe, where every cup tells a story, every meal
-                            celebrates flavor, and every moment feels unforgettable.
+                            Coffee Life Cafe: every cup, every meal, every moment unforgettable.
                         </p>
+
 
 
                         <div class="hero-ctas">
@@ -278,6 +287,8 @@
         </main>
         <!-- ===== COFFEE LIFE MENU + CART ===== -->
         <section id="menu" class="menu-section container" aria-labelledby="menu-title">
+
+            <!-- MENU HEADER -->
             <div class="menu-header">
                 <h2 id="menu-title">FOOD MENU FOR FOOD DELIVERIES</h2>
                 <p class="menu-intro"><strong>COFFEE LIFE CAFÉ</strong></p>
@@ -298,7 +309,6 @@
             <div class="delivery-controls" aria-label="Delivery selection">
                 <div class="form-row">
                     <label for="location-group"><strong>Choose Location Group:</strong></label>
-                    <!-- Each option holds comma-separated numbers for WhatsApp notifications (no + sign) -->
                     <select id="location-group" aria-describedby="location-hint">
                         <option value="">-- Select Location --</option>
                         <option value="jinja-highway" data-notify="256752746763,256749958799,256751054138"
@@ -323,7 +333,7 @@
                     <select id="delivery-zone" aria-label="Delivery area for selected location">
                         <option value="">-- Select Area --</option>
 
-                        <!-- JINJA common areas (JS should show/hide or filter them based on location-group) -->
+                        <!-- Jinja Highway -->
                         <option value="Jinja Town" data-fee="2000" data-location="jinja-highway">Jinja Town (2,000 UGX)
                         </option>
                         <option value="Milo Mbili" data-fee="2000" data-location="jinja-highway">Milo Mbili (2,000 UGX)
@@ -345,13 +355,13 @@
                         <option value="Namuleesa" data-fee="4000" data-location="jinja-highway">Namuleesa (4,000 UGX)
                         </option>
 
-                        <!-- JINJA LAKEVIEW specific (same fees, but JS can filter when location-group is jinja-lakeview) -->
+                        <!-- Jinja Lakeview -->
                         <option value="Lakeview Central" data-fee="2000" data-location="jinja-lakeview">Lakeview Central
                             (2,000 UGX)</option>
                         <option value="Mailombili" data-fee="2000" data-location="jinja-lakeview">Mailombili (2,000 UGX)
                         </option>
 
-                        <!-- KAMPALA options -->
+                        <!-- Kampala Kasangalinke -->
                         <option value="Makerere" data-fee="3000" data-location="kampala-kasangalinke">Makerere (3,000
                             UGX)</option>
                         <option value="Kira Road" data-fee="3000" data-location="kampala-kasangalinke">Kira Road (3,000
@@ -365,24 +375,11 @@
             </div>
 
             <!-- ===== MENU ITEMS (JS will inject real items) ===== -->
-            <div id="menu-container" class="menu-items" aria-live="polite">
-                <!-- Example item structure for JS to clone/populate:
-      <article class="menu-item" data-name="Americano" data-price="5000">
-        <h4 class="item-name">Americano</h4>
-        <p class="item-desc">Rich single-origin espresso pulled with hot water.</p>
-        <div class="item-meta">
-          <span class="price">5,000 UGX</span>
-          <button class="btn-add" data-name="Americano" data-price="5000" aria-pressed="false">Add to cart</button>
-        </div>
-      </article>
-    -->
-            </div>
+            <div id="menu-container" class="menu-items" aria-live="polite"></div>
 
             <!-- ===== CART SUMMARY ===== -->
             <aside class="cart card" id="cart" aria-labelledby="cart-heading">
                 <h3 id="cart-heading">Your Order <small id="cartCount" class="badge">0</small></h3>
-
-                <!-- Cart Items Container (populated by cart.js) -->
                 <div id="cartItems" class="cart-items" aria-live="polite">
                     <p class="cart-empty">No items yet — add something delicious!</p>
                 </div>
@@ -390,7 +387,6 @@
                 <!-- PAYMENT OPTIONS SECTION -->
                 <div class="payment-section" id="payment-section">
                     <h4>💳 Pay Now</h4>
-
                     <div class="payment-grid">
                         <div class="payment-option">
                             <h5>MTN Mobile Money</h5>
@@ -417,7 +413,6 @@
                         </div>
                     </div>
 
-                    <!-- After payment confirm (JS may change link to include order info) -->
                     <div class="confirm-section">
                         <p class="small">After payment, notify us on WhatsApp to confirm your payment and finalize the
                             order.</p>
@@ -435,13 +430,10 @@
                     <div class="cart-row total"><span>Total</span><strong id="cartTotal">0</strong> UGX</div>
 
                     <div class="actions">
-                        <!-- orderNow will be handled by whatsapp.js; JS should replace/open multiple wa.me links from selected location notify numbers -->
                         <button id="orderNow" class="btn btn-order" data-whatsapp-default="256772514889"
                             aria-live="polite">
                             <i class="fab fa-whatsapp" aria-hidden="true"></i> Order Now via WhatsApp
                         </button>
-
-                        <!-- call support: JS will pick primary number for current location-group -->
                         <button id="callSupport" class="btn btn-call" aria-label="Call support">
                             📞 Call Support
                         </button>
@@ -2635,12 +2627,12 @@
 
                     <div class="footer-qr">
                         <h4>Menu QR Code</h4>
-                        <a href="https://reaganotema.github.io/Coffee-Life/#menu" target="_blank" class="qr-btn"
-                            rel="noopener">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://reaganotema.github.io/Coffee-Life/#menu"
+                        <a href="https://cofeelife.cafe/#menu" target="_blank" class="qr-btn" rel="noopener">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cofeelife.cafe/#menu"
                                 alt="Scan to view Coffee Life menu" />
                         </a>
                     </div>
+
 
                     <div class="newsletter">
                         <h4>Stay Updated</h4>
