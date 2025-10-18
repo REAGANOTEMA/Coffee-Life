@@ -138,3 +138,15 @@ document.querySelector(".btn-order")?.addEventListener("click", () => {
 
 // Initial render
 document.addEventListener("DOMContentLoaded", () => { renderMenu(); renderCart(); });
+function normalizeMenuHeights() {
+  const items = document.querySelectorAll('.menu-item');
+  let maxHeight = 0;
+  items.forEach(item => {
+    item.style.height = 'auto';
+    maxHeight = Math.max(maxHeight, item.offsetHeight);
+  });
+  items.forEach(item => item.style.height = maxHeight + 'px');
+}
+
+window.addEventListener('load', normalizeMenuHeights);
+window.addEventListener('resize', normalizeMenuHeights);

@@ -378,3 +378,126 @@ small {
 .glow {
   box-shadow: 0 0 8px var(--gold);
 }
+
+/* ============================
+   COFFEE LIFE MENU — GRID & ITEMS
+   ============================ */
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 items per row */
+  gap: 1.4rem;
+  margin: 1.2rem 0;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  background: #fff7e6;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.menu-media {
+  width: 100%;
+  padding-top: 75%;
+  /* 4:3 aspect ratio */
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-media img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-bottom: 2px solid #b47b3a;
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover .menu-media img {
+  transform: scale(1.05);
+}
+
+.menu-body {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-body h4 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.05rem;
+  color: #4b2e1e;
+  font-weight: 600;
+}
+
+.menu-body .desc {
+  font-size: 0.88rem;
+  color: #5a3a28;
+  margin-bottom: 0.5rem;
+  flex-grow: 1;
+}
+
+.menu-body .meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-body .price {
+  font-weight: 700;
+  color: #b47b3a;
+  font-size: 1rem;
+}
+
+.menu-body .actions .btn-add,
+.menu-body .actions .btn-whatsapp {
+  background: #4b2e1e;
+  color: #f5e6d3;
+  border: none;
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.menu-body .actions .btn-add:hover,
+.menu-body .actions .btn-whatsapp:hover {
+  background: #b47b3a;
+  color: #2c1b0e;
+  transform: scale(1.05);
+}
+
+/* Responsive Layouts */
+@media (max-width: 1200px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}

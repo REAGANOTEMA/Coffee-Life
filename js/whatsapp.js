@@ -233,7 +233,7 @@
       paymentContainer.innerHTML = ''; // clear existing
 
       const payments = [
-        { type: 'mtn', label: 'Pay with MTN', icon: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/MTN_logo.svg' },
+        { type: 'mtn', label: 'Pay with MTN', icon: './images/mtn-logo.jpg' },
         { type: 'airtel', label: 'Pay with Airtel', icon: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Airtel_Logo.svg' }
       ];
 
