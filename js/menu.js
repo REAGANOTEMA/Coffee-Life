@@ -3,18 +3,6 @@
    Fully Compatible with your CSS
 ============================ */
 
-const HQ_LAT = 1.2921; // Coffee shop latitude
-const HQ_LNG = 36.8219; // Coffee shop longitude
-const deliveryRatePerKm = 0.5; // Example: $0.5 per km
-
-// Sample menu items
-const menuItems = [
-  { id: 1, name: "Espresso", desc: "Strong & bold", price: 2.5, img: "espresso.jpg" },
-  { id: 2, name: "Cappuccino", desc: "Frothy delight", price: 3.0, img: "cappuccino.jpg" },
-  { id: 3, name: "Latte", desc: "Smooth & creamy", price: 3.2, img: "latte.jpg" },
-  { id: 4, name: "Mocha", desc: "Chocolatey coffee", price: 3.5, img: "mocha.jpg" },
-];
-
 // Cart
 let cart = [];
 
@@ -26,34 +14,41 @@ function createEl(tag, className, innerHTML) {
   return el;
 }
 
-// Render menu
+// Render menu from your real menu.json items
 function renderMenu() {
   const container = document.getElementById("menu-container");
   container.innerHTML = "";
+
+  // Replace with your real menu array
+  const menuItems = window.MENU_ITEMS || []; // assume MENU_ITEMS is loaded from menu.json
+
   menuItems.forEach(item => {
     const card = createEl("div", "menu-item");
     card.innerHTML = `
-      <div class="menu-media"><img src="${item.img}" alt="${item.name}"></div>
+      <div class="menu-media"><img src="${item.img || 'placeholder.jpg'}" alt="${item.name}"></div>
       <div class="menu-body">
         <h4>${item.name}</h4>
-        <p class="desc">${item.desc}</p>
-        <p class="price">$${item.price.toFixed(2)}</p>
+        <p class="desc">${item.description}</p>
+        <p class="price">UGX ${item.price.toLocaleString()}</p>
         <div class="actions">
           <button class="btn-add">Add</button>
           <button class="btn-whatsapp">WhatsApp</button>
         </div>
       </div>
     `;
+
     // Add to cart
     card.querySelector(".btn-add").addEventListener("click", () => {
       addToCart(item);
       card.querySelector(".btn-add").classList.add("shake");
       setTimeout(() => card.querySelector(".btn-add").classList.remove("shake"), 600);
     });
+
     // Quick WhatsApp order for this item
     card.querySelector(".btn-whatsapp").addEventListener("click", () => {
-      window.open(`https://wa.me/?text=I want ${item.name} ($${item.price.toFixed(2)})`);
+      window.open(`https://wa.me/?text=I want ${item.name} (UGX ${item.price.toLocaleString()})`);
     });
+
     container.appendChild(card);
   });
 }
@@ -73,7 +68,7 @@ function renderCart() {
   cart.forEach(item => {
     const cartItem = createEl("div", "cart-item");
     cartItem.innerHTML = `
-      <img src="${item.img}" alt="${item.name}">
+      <img src="${item.img || 'placeholder.jpg'}" alt="${item.name}">
       <div class="cart-item-info">
         <span>${item.name}</span>
         <div class="cart-controls">
@@ -84,7 +79,7 @@ function renderCart() {
         </div>
       </div>
     `;
-    // Quantity controls
+
     const [btnMinus, , btnPlus, removeBtn] = cartItem.querySelectorAll(".qty-btn, .remove");
     btnMinus.addEventListener("click", () => {
       if (item.qty > 1) item.qty--;
@@ -93,60 +88,43 @@ function renderCart() {
     });
     btnPlus.addEventListener("click", () => { item.qty++; renderCart(); });
     removeBtn.addEventListener("click", () => { cart = cart.filter(ci => ci.id !== item.id); renderCart(); });
+
     container.appendChild(cartItem);
   });
   updateCartTotals();
 }
 
-// Calculate distance (Haversine formula)
-function getDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-}
-
 // Update totals
 function updateCartTotals() {
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  document.getElementById("subtotal").textContent = subtotal.toLocaleString();
+
   const deliveryFeeEl = document.getElementById("deliveryFee");
-  let deliveryFee = 0;
-  if (navigator.geolocation && deliveryFeeEl) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const dist = getDistance(HQ_LAT, HQ_LNG, pos.coords.latitude, pos.coords.longitude);
-      deliveryFee = dist * deliveryRatePerKm;
-      deliveryFeeEl.textContent = deliveryFee.toFixed(2);
-      document.getElementById("grandTotal").textContent = (subtotal + deliveryFee).toFixed(2);
-    }, () => { deliveryFeeEl.textContent = "0"; document.getElementById("grandTotal").textContent = subtotal.toFixed(2); });
-  }
-  document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+  if (deliveryFeeEl) deliveryFeeEl.textContent = "0"; // optional: keep delivery static
+  const grandTotalEl = document.getElementById("grandTotal");
+  if (grandTotalEl) grandTotalEl.textContent = subtotal.toLocaleString();
 }
 
 // Quick WhatsApp full cart
 document.querySelector(".btn-order")?.addEventListener("click", () => {
   if (!cart.length) return alert("Cart is empty!");
   let msg = "Order:%0A";
-  cart.forEach(item => { msg += `${item.name} x${item.qty} = $${(item.price * item.qty).toFixed(2)}%0A`; });
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const deliveryFee = parseFloat(document.getElementById("deliveryFee")?.textContent || "0");
-  const total = subtotal + deliveryFee;
-  msg += `Delivery: $${deliveryFee.toFixed(2)}%0ATotal: $${total.toFixed(2)}`;
+  cart.forEach(item => {
+    msg += `${item.name} x${item.qty} = UGX ${(item.price * item.qty).toLocaleString()}%0A`;
+  });
+  msg += `Total: UGX ${cart.reduce((s, i) => s + i.price * i.qty, 0).toLocaleString()}`;
   window.open(`https://wa.me/?text=${msg}`);
 });
 
-// Initial render
-document.addEventListener("DOMContentLoaded", () => { renderMenu(); renderCart(); });
+// Normalize menu heights
 function normalizeMenuHeights() {
   const items = document.querySelectorAll('.menu-item');
   let maxHeight = 0;
-  items.forEach(item => {
-    item.style.height = 'auto';
-    maxHeight = Math.max(maxHeight, item.offsetHeight);
-  });
+  items.forEach(item => { item.style.height = 'auto'; maxHeight = Math.max(maxHeight, item.offsetHeight); });
   items.forEach(item => item.style.height = maxHeight + 'px');
 }
 
+// Initial render
+document.addEventListener("DOMContentLoaded", () => { renderMenu(); renderCart(); });
 window.addEventListener('load', normalizeMenuHeights);
 window.addEventListener('resize', normalizeMenuHeights);
