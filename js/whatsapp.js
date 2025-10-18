@@ -236,12 +236,12 @@
         {
           type: 'mtn',
           label: 'Pay with MTN Mobile Money',
-          icon: 'https://upload.wikimedia.org/wikipedia/commons/0/08/MTN_Group_logo.svg'
+          icon: './images/mtn.jpg' // local file path
         },
         {
           type: 'airtel',
           label: 'Pay with Airtel Money',
-          icon: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Airtel_Logo.svg'
+          icon: './images/' // local file path
         }
       ];
 

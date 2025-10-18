@@ -515,3 +515,40 @@ small {
     grid-template-columns: 1fr;
   }
 }
+
+/* === FIX: Remove space between image and buttons === */
+.menu-media {
+  padding-top: 0;
+  /* remove extra top padding */
+  height: auto;
+  /* allow natural height */
+}
+
+.menu-media img {
+  position: relative;
+  /* make image part of flow */
+  width: 100%;
+  height: auto;
+  /* fully visible */
+  border-bottom: none;
+  /* remove gold border if it causes spacing */
+}
+
+.menu-body {
+  padding: 0.4rem 0.6rem;
+  /* reduce padding to minimize gap */
+  gap: 0.15rem;
+  /* smaller gap between title/desc/price/actions */
+}
+
+.menu-body .actions {
+  margin-top: 0;
+  /* remove extra spacing from actions */
+  gap: 0.25rem;
+  /* smaller gap between buttons */
+}
+
+.menu-body .desc {
+  margin-bottom: 0.25rem;
+  /* reduce gap below description */
+}
