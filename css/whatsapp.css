@@ -1,319 +1,242 @@
-/* ============================
-   COFFEE LIFE WhatsApp + Cart + Chat Styles (Final 2025)
-   ============================ */
+/* ============================ */
+/* COFFEE LIFE WhatsApp + Cart */
+/* Final 2025 */
+/* ============================ */
 
-/* ===== Floating WhatsApp Button ===== */
-.whatsapp-float {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background-color: #25D366;
-    color: #fff;
-    border-radius: 50%;
-    width: 65px;
-    height: 65px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    cursor: pointer;
-    z-index: 999;
-    transition: all 0.4s ease;
-    animation: floatPulse 3s infinite ease-in-out, shakeBtn 5s infinite, glowBtn 4s infinite;
-}
-
-.whatsapp-float:hover {
-    background-color: #1EBE5D;
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 10px 25px rgba(37,211,102,0.5);
-}
-
-.whatsapp-float i { font-size: 2rem; }
-
-/* ===== Pulse & Shake Animations ===== */
-@keyframes floatPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
-    50% { transform: scale(1.05); box-shadow: 0 12px 28px rgba(37,211,102,0.5); }
-}
-
-@keyframes shakeBtn {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px) rotate(-1deg); }
-    50% { transform: translateX(4px) rotate(1deg); }
-    75% { transform: translateX(-4px) rotate(-1deg); }
-}
-
-@keyframes glowBtn {
-    0%, 100% { box-shadow: 0 0 0 #b28e00; }
-    50% { box-shadow: 0 0 12px #b28e00, 0 0 24px #b28e00; }
-}
-
-/* ===== WhatsApp Modal ===== */
-.whatsapp-modal {
-    display: none;
-    position: fixed;
-    bottom: 100px;
-    right: 30px;
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.35);
-    padding: 1.5rem 2rem;
-    width: 360px;
-    z-index: 998;
-    font-family: 'Playfair Display', serif;
-    animation: slideUp 0.6s ease forwards;
-    flex-direction: column;
-}
-
-.whatsapp-modal.active { display: flex; }
-
-.whatsapp-modal h4 {
-    color: #b85c38;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-}
-
-.whatsapp-modal p {
+/* ===== GENERAL STYLES ===== */
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
     color: #333;
-    font-size: 0.95rem;
-    text-align: center;
-    margin-bottom: 1rem;
+    background-color: #fefefe;
 }
 
-.close-whatsapp {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #b85c38;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
 }
 
-.close-whatsapp:hover { color: #25D366; }
-
-/* ===== Cart Preview ===== */
+/* ===== MENU / CART PREVIEW ===== */
+.menu-items,
+.cart-items,
 .whatsapp-cart-preview {
-    max-height: 220px;
-    overflow-y: auto;
-    margin-bottom: 0.8rem;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    padding: 0.6rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.whatsapp-cart-preview .item {
+.menu-item,
+.cart-item,
+.item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.95rem;
-    margin: 6px 0;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #fff;
 }
 
-.whatsapp-cart-preview .item span.name {
-    flex: 1;
+.menu-item h4,
+.cart-item span.name {
     font-weight: 600;
-    color: #333;
 }
 
-.whatsapp-cart-preview .item span.qty {
-    font-weight: 600;
-    color: #b28e00;
-    margin: 0 6px;
-}
-
-.whatsapp-cart-preview .item button.qty-btn {
-    background: #d4af37;
-    border: none;
-    color: #fff;
-    padding: 2px 6px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: 0.2s;
-    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
-}
-
-.whatsapp-cart-preview .item button.qty-btn:hover { background: #b28e00; }
-
-/* ===== Cart Summary ===== */
-.whatsapp-cart-preview .summary {
-    font-weight: 600;
-    border-top: 1px solid #eee;
-    padding-top: 8px;
-    margin-top: 4px;
-}
-
-/* ===== Send Button ===== */
-.btn-whatsapp-send {
-    background: #25D366;
-    color: #fff;
-    font-weight: 600;
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    box-shadow: 0 5px 15px rgba(37,211,102,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
-}
-
-.btn-whatsapp-send:hover {
-    background: #1EBE5D;
-    transform: translateY(-2px);
-}
-
-/* ===== Payment Options ===== */
-.payment-options {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.payment-btn {
-    flex: 1;
-    padding: 0.6rem;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-    color: #fff;
-    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
-}
-
-.payment-btn.mtn { background: #ffcd00; color: #1e1e1e; }
-.payment-btn.airtel { background: #e60000; }
-.payment-btn.manual { background: #6c757d; }
-
-.payment-note {
-    margin-top: 10px;
+.menu-item p,
+.cart-item span.price,
+.item .price {
     font-size: 0.9rem;
-    color: #444;
-    background: #fff8e6;
-    border: 1px dashed #d4af37;
-    padding: 8px;
+    color: #555;
+}
+
+/* ===== CART SUMMARY ===== */
+.cart-summary,
+.summary {
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid #ddd;
+    margin-top: 0.5rem;
+}
+
+.cart-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem 0;
+}
+
+.cart-row.total {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* ===== BUTTONS ===== */
+.btn,
+button {
+    padding: 0.5rem 1rem;
+    border: none;
     border-radius: 8px;
-}
-
-/* ===== Chat Messages Styling ===== */
-.chat-messages {
-    max-height: 220px;
-    overflow-y: auto;
-    padding: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.chat-messages .msg {
-    padding: 0.5rem 0.8rem;
-    border-radius: 12px;
-    max-width: 85%;
-    word-wrap: break-word;
-}
-
-.chat-messages .msg.bot {
-    background: #f1f1f1;
-    color: #333;
-    align-self: flex-start;
-}
-
-.chat-messages .msg.user {
-    background: #25D366;
-    color: #fff;
-    align-self: flex-end;
-}
-
-/* ===== Chat Input Styling ===== */
-.chat-input-container {
-    display: flex;
-    gap: 8px;
-    margin-top: 6px;
-}
-
-.chat-input-container input {
-    flex: 1;
-    padding: 0.6rem 1rem;
-    border-radius: 50px;
-    border: 1px solid #ccc;
-    outline: none;
-    font-size: 0.95rem;
-}
-
-.chat-input-container button {
-    padding: 0.6rem 1rem;
-    border-radius: 50px;
-    border: none;
-    background: #25D366;
-    color: #fff;
     cursor: pointer;
-    font-weight: 600;
-    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
+    transition: all 0.2s ease;
 }
 
-.chat-input-container button:hover { background: #1EBE5D; }
+.btn:hover,
+button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-/* ===== Cart & Menu Buttons ===== */
-.menu-item .btn-add,
-.menu-item .btn-whatsapp {
+.btn-add {
+    background-color: #6f4e37;
+    color: #fff;
+}
+
+.btn-order {
+    background-color: #25d366;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-call {
+    background-color: #128c7e;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* ===== WHATSAPP FLOATING BUTTON ===== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background-color: #25d366;
+    color: #fff;
+    font-size: 1.5rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+/* ===== DELIVERY CONTROLS ===== */
+.delivery-controls {
+    margin: 1rem 0;
+}
+
+.delivery-controls select {
     width: 100%;
-    margin-top: 6px;
-    padding: 0.6rem;
-    border-radius: 12px;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.delivery-controls label {
     font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: 0.3s;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.muted {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* ===== CART ITEM CONTROLS ===== */
+.item .controls {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    gap: 0.25rem;
 }
 
-.menu-item .btn-add {
-    background: #d4af37;
+.qty-btn {
+    background-color: #eee;
+    color: #333;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.qty-btn:hover {
+    background-color: #ddd;
+}
+
+/* ===== PAYMENT BUTTONS ===== */
+.payment-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
     color: #fff;
-    animation: shakeBtn 5s infinite, glowBtn 4s infinite;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    cursor: pointer;
 }
 
-.menu-item .btn-add:hover { background: #b28e00; }
+.payment-btn.mtn {
+    background-color: #f7d132;
+    color: #333;
+}
 
-.menu-item .btn-whatsapp {
-    background: #25D366;
+.payment-btn.airtel {
+    background-color: #d61a2d;
     color: #fff;
-    animation: shakeBtn 5s infinite, glowBtn 4s infinite;
 }
 
-.menu-item .btn-whatsapp:hover { background: #1EBE5D; }
+/* ===== ANIMATIONS ===== */
+.shake {
+    animation: shake 0.4s ease;
+}
 
-/* ===== Responsive Adjustments ===== */
+.glow {
+    box-shadow: 0 0 8px #25d366;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-5px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .whatsapp-float { width: 55px; height: 55px; bottom: 20px; right: 20px; }
-    .whatsapp-float i { font-size: 1.7rem; }
-    .whatsapp-modal { width: 90%; right: 5%; bottom: 80px; padding: 1rem 1.2rem; }
-    .chat-messages { max-height: 250px; }
-    .menu-item { font-size: 0.95rem; }
-    .cart-container { width: 100%; right: -100%; }
-    .cart-order-btn { width: 95%; font-size: 1rem; }
-    .cart-item img { width: 50px; height: 50px; }
-    .menu-item img { height: 160px; }
-    .payment-btn { width: 90%; font-size: 0.95rem; margin: 0.3rem 0; }
-}
+    .actions {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
 
-/* ===== Touch Friendly Buttons ===== */
-button, select {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* ===== Responsive Menu Grid ===== */
-#menu-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
 }

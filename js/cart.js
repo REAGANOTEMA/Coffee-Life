@@ -99,7 +99,7 @@
 
   // ----- RENDER CART -----
   function renderCart() {
-    if (!cartItemsContainer) return; 
+    if (!cartItemsContainer) return;
     cartItemsContainer.innerHTML = "";
     let total = 0;
     if (window.cart.length === 0) {
