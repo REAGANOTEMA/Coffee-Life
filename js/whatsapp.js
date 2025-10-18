@@ -241,7 +241,7 @@
         {
           type: 'airtel',
           label: 'Pay with Airtel Money',
-          icon: './images/' // local file path
+          icon: './images/airtel.png' // local file path
         }
       ];
 
