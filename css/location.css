@@ -1,199 +1,160 @@
-/* ============================
-   location.css — COFFEE LIFE CAFE Location & Delivery (Final Premium)
-   ============================ */
-
-/* ===== Banner / Distance Info ===== */
-.location-banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(90deg, #fdf8f3, #fff);
-    border: 2px solid rgba(180, 123, 58, 0.2);
-    border-radius: 14px;
-    padding: 0.8rem 1.4rem;
-    margin: 1rem 0;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease;
-}
-
-.location-banner p {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #4b2e1e;
-    font-weight: 500;
-}
-
-.location-banner .distance {
-    font-weight: 700;
-    color: #b47b3a;
-    font-size: 1rem;
-    text-align: right;
-}
-
-/* ===== Locate Me Button ===== */
-.btn-locate {
-    background: #4b2e1e;
-    color: #f5e6d3;
-    border: none;
-    border-radius: 50px;
-    padding: 0.55rem 1.3rem;
-    font-weight: 600;
-    font-size: 0.92rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
-}
-
-.btn-locate:hover {
-    background: #b47b3a;
-    color: #2c1b0e;
-    transform: translateY(-2px) scale(1.05);
-}
-
-/* ===== Distance / Delivery Info ===== */
-.location-info {
+/* ===== Coffee Life Map & Contact Section Final CSS ===== */
+.contact {
     display: flex;
     flex-direction: column;
-    background: #fff7e6;
-    border: 1px dashed #d4af37;
-    border-radius: 14px;
-    padding: 0.85rem 1rem;
-    margin-top: 0.8rem;
-    font-size: 0.9rem;
-    color: #4b2e1e;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    font-family: "Arial", sans-serif;
+    color: #333;
 }
 
-.location-info span {
-    display: block;
-    margin: 4px 0;
-}
-
-.location-info .fee {
-    font-weight: 700;
-    color: #b47b3a;
-}
-
-/* ===== Loading / Error States ===== */
-.location-loading,
-.location-error {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff8e6;
-    border: 1px dashed #d4af37;
-    border-radius: 14px;
-    padding: 0.7rem 1rem;
-    font-size: 0.9rem;
-    color: #b85c38;
-    margin-top: 0.8rem;
+.contact h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    color: #6b4226;
+    /* Coffee brown */
 }
 
-/* ===== Map Preview ===== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.contact-card {
+    background: #fff8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.contact-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #6b4226;
+}
+
+.contact-card p,
+.contact-card a {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+.contact-card a {
+    color: #d2691e;
+    /* Coffee orange */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-card a:hover {
+    text-decoration: underline;
+}
+
+.muted {
+    color: #666;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.locations {
+    padding-left: 1.2rem;
+    list-style-type: decimal;
+    font-size: 0.95rem;
+}
+
+.map-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .map-preview {
     width: 100%;
-    height: 220px;
-    margin-top: 1rem;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(180, 123, 58, 0.15);
-    transition: all 0.3s ease;
-}
-
-/* ===== Pins Styling ===== */
-.leaflet-marker-icon.hq-pin {
-    border-radius: 50%;
-    border: 2px solid #b47b3a;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.leaflet-marker-icon.user-pin {
-    border-radius: 50%;
-    border: 2px solid #4b90e2;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.leaflet-marker-icon.delivery-pin {
-    border-radius: 50%;
-    border: 2px solid #e69f2c;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.25s;
-}
-
-.leaflet-marker-icon.delivery-pin:hover {
-    transform: scale(1.15);
-}
-
-/* ===== Popup Styling ===== */
-.leaflet-popup-content-wrapper {
+    height: 350px;
     border-radius: 12px;
-    background: #fff7e6;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    transition: all 0.25s;
-}
-
-.leaflet-popup-content {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.9rem;
-    color: #4b2e1e;
-    line-height: 1.3;
-}
-
-.leaflet-popup-tip {
-    background: #b47b3a;
-}
-
-/* Popup links (Get Directions / Select Area) */
-.leaflet-popup-content a,
-.select-location-btn {
-    display: inline-block;
-    margin-top: 6px;
-    padding: 6px 10px;
-    background: #b47b3a;
-    color: #fff;
-    font-weight: 600;
-    border-radius: 6px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.leaflet-popup-content a:hover,
-.select-location-btn:hover {
-    background: #4b2e1e;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 1024px) {
-    .map-preview {
-        height: 200px;
-    }
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 768px) {
     .map-preview {
-        height: 170px;
-    }
-
-    .btn-locate {
-        font-size: 0.85rem;
-        padding: 0.5rem 1.1rem;
+        height: 300px;
     }
 }
 
 @media (max-width: 480px) {
     .map-preview {
-        height: 140px;
+        height: 250px;
+    }
+}
+
+/* WhatsApp and Call Buttons */
+.whatsapp-confirm,
+.btn,
+.btn-outline {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.whatsapp-confirm {
+    background-color: #25d366;
+    color: #fff;
+}
+
+.whatsapp-confirm:hover {
+    background-color: #1ebe57;
+}
+
+.btn {
+    background-color: #6b4226;
+    color: #fff;
+}
+
+.btn:hover {
+    background-color: #5a361e;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid #6b4226;
+    color: #6b4226;
+}
+
+.btn-outline:hover {
+    background-color: #6b4226;
+    color: #fff;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+    .contact h2 {
+        font-size: 1.75rem;
     }
 
-    .btn-locate {
-        width: 100%;
-        font-size: 0.82rem;
-        padding: 0.5rem;
+    .contact-card h4 {
+        font-size: 1.1rem;
+    }
+
+    .contact-card p,
+    .contact-card a,
+    .locations {
+        font-size: 0.9rem;
     }
 }
