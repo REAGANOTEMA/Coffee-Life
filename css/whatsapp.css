@@ -507,3 +507,10 @@ small {
         font-size: .88rem
     }
 }
+
+.payment-option img {
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+    margin-right: 10px;
+}

@@ -233,9 +233,18 @@
       paymentContainer.innerHTML = ''; // clear existing
 
       const payments = [
-        { type: 'mtn', label: 'Pay with MTN', icon: './images/mtn-logo.jpg' },
-        { type: 'airtel', label: 'Pay with Airtel', icon: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Airtel_Logo.svg' }
+        {
+          type: 'mtn',
+          label: 'Pay with MTN Mobile Money',
+          icon: 'https://upload.wikimedia.org/wikipedia/commons/0/08/MTN_Group_logo.svg'
+        },
+        {
+          type: 'airtel',
+          label: 'Pay with Airtel Money',
+          icon: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Airtel_Logo.svg'
+        }
       ];
+
 
       payments.forEach(p => {
         const btn = document.createElement('button');
