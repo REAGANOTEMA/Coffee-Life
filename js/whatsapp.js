@@ -311,3 +311,55 @@
     };
   });
 })();
+// ===== GET CONTACTS FOR SELECTED LOCATION =====
+function getContactsForLocationGroup() {
+  const locationGroup = document.getElementById("location-group").value;
+  const LOCATION_CONTACTS = {
+    "jinja-highway": ["256752746763", "256749958799", "256751054138"],
+    "jinja-lakeview": ["256750038032"],
+    "kampala-kasangalinke": ["256783070102"]
+  };
+  return LOCATION_CONTACTS[locationGroup] || [];
+}
+
+// ===== HANDLE ORDER =====
+function handleOrderNow(paymentMethod = "Cash") {
+  if (window.cart.length === 0) return alert("Add items to your cart!");
+  const deliverySelect = document.getElementById("delivery-zone");
+  if (!deliverySelect.value) return alert("Select a delivery area!");
+  const locationGroupSelect = document.getElementById("location-group");
+  if (!locationGroupSelect.value) return alert("Select a location group!");
+
+  const customerName = prompt("Enter your full name:")?.trim();
+  if (!customerName) return alert("Name required!");
+
+  const area = deliverySelect.value;
+  const subtotal = window.cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const DELIVERY_FEE = parseInt(deliverySelect.selectedOptions[0].dataset.fee) || 0;
+  const total = subtotal + DELIVERY_FEE;
+
+  let message = `✨ *Coffee Life Order* ✨\n\n`;
+  message += `👤 Customer: ${customerName}\n`;
+  message += `📍 Delivery Area: ${area}\n`;
+  message += `💰 Payment: ${paymentMethod}\n\n🛒 Order Details:\n`;
+  window.cart.forEach((item, i) => {
+    message += `${i + 1}. ${item.name} x${item.qty} - ${item.price * item.qty} UGX\n`;
+  });
+  message += `\n💰 Subtotal: ${subtotal} UGX\n🚚 Delivery Fee: ${DELIVERY_FEE} UGX\n📦 Total: ${total} UGX\n\n`;
+  message += `☕ Coffee Life — Crafted with Passion, Served with Care`;
+
+  const contacts = getContactsForLocationGroup();
+  if (contacts.length === 0) return alert("No WhatsApp contacts for selected location.");
+
+  contacts.forEach(number => {
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, "_blank");
+  });
+
+  // Clear cart after ordering
+  window.cart = [];
+  localStorage.setItem("coffee_life_cart", JSON.stringify([]));
+  updateCartDisplay();
+}
+
+// ===== BIND WHATSAPP BUTTON =====
+document.getElementById("whatsapp-confirm")?.addEventListener("click", () => handleOrderNow("Cash"));
