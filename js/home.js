@@ -1,5 +1,5 @@
 /* =========================================
-   HOME.JS - FINAL ULTRA-LUXURY HEADER
+   HOME.JS - ULTRA-LUXURY HEADER & MOBILE MENU
    ========================================= */
 
 /* ===== 1. HEADER SCROLL EFFECT ===== */
@@ -22,21 +22,31 @@ handleHeaderScroll();
 const hamburger = document.querySelector(".hamburger");
 const mobileMenu = document.querySelector(".mobile-menu");
 
-hamburger.addEventListener("click", () => {
+function toggleMenu() {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("active");
 
-    hamburger.querySelectorAll('.bar').forEach(bar => {
-        bar.style.backgroundColor = hamburger.classList.contains('active') ? 'var(--gold)' : 'var(--royal-blue)';
+    // Animate bars into X
+    hamburger.querySelectorAll('.bar').forEach((bar, index) => {
+        if (hamburger.classList.contains('active')) {
+            bar.style.backgroundColor = 'var(--gold)';
+            if (index === 0) bar.style.transform = 'rotate(45deg) translate(5px, 5px)';
+            if (index === 1) bar.style.opacity = '0';
+            if (index === 2) bar.style.transform = 'rotate(-45deg) translate(6px, -6px)';
+        } else {
+            bar.style.backgroundColor = 'var(--royal-blue)';
+            bar.style.transform = 'rotate(0) translate(0,0)';
+            if (index === 1) bar.style.opacity = '1';
+        }
     });
-});
+}
+
+hamburger.addEventListener("click", toggleMenu);
 
 /* ===== 3. CLOSE MOBILE MENU ON LINK CLICK ===== */
 document.querySelectorAll(".mobile-link").forEach(link => {
     link.addEventListener("click", () => {
-        hamburger.classList.remove("active");
-        mobileMenu.classList.remove("active");
-        hamburger.querySelectorAll('.bar').forEach(bar => bar.style.backgroundColor = 'var(--royal-blue)');
+        if (hamburger.classList.contains('active')) toggleMenu();
     });
 });
 
@@ -118,7 +128,6 @@ window.globalAddToCart = addToCart;
 document.addEventListener("DOMContentLoaded", updateWhatsAppButton);
 
 /* ===== 9. PREMIUM NAV ANIMATION ===== */
-// Subtle nav link glow every 8 seconds
 setInterval(() => {
     navLinks.forEach(link => {
         link.style.transition = "all 0.5s ease";
