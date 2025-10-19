@@ -1,4 +1,4 @@
-// COFFEE LIFE — Complete JS (Cart + WhatsApp + Payments + Hamburger)
+// COFFEE LIFE — Complete JS (Cart + WhatsApp + Payments + Hamburger + Merchants)
 (function () {
   "use strict";
 
@@ -8,8 +8,7 @@
   }
 
   onReady(() => {
-
-    // ===== 1. HEADER SCROLL =====
+    // ===== HEADER SCROLL =====
     const header = document.querySelector("header.site-header");
     function handleHeaderScroll() {
       if (window.scrollY > 30) {
@@ -25,10 +24,9 @@
     window.addEventListener("scroll", handleHeaderScroll);
     handleHeaderScroll();
 
-    // ===== 2. HAMBURGER MENU =====
+    // ===== HAMBURGER MENU =====
     const hamburger = document.querySelector(".hamburger");
     const mobileMenu = document.querySelector(".mobile-menu");
-
     function toggleMenu() {
       hamburger.classList.toggle("active");
       mobileMenu.classList.toggle("active");
@@ -50,7 +48,7 @@
       if (hamburger.classList.contains('active')) toggleMenu();
     }));
 
-    // ===== 3. CART LOGIC =====
+    // ===== CART LOGIC =====
     window.cart = JSON.parse(localStorage.getItem("coffee_life_cart") || "[]");
     const cartItemsContainer = document.getElementById("cartItems");
     const cartSubtotalEl = document.getElementById("cartSubtotal");
@@ -136,18 +134,16 @@
       };
     });
 
-    // ===== 4. WHATSAPP + ORDER =====
+    // ===== WHATSAPP + ORDER =====
     const LOCATION_CONTACTS = {
       "jinja-highway": ["256752746763", "256749958799", "256751054138"],
       "jinja-lakeview": ["256750038032"],
       "kampala-kasangalinke": ["256783070102"]
     };
-
     function getContactsForLocationGroup() {
       if (!locationGroupSelect) return [];
       return LOCATION_CONTACTS[locationGroupSelect.value] || [];
     }
-
     function generateCartMessage(customerName, area, paymentMethod = "Cash") {
       const subtotal = calcCartSubtotal(), total = subtotal + DELIVERY_FEE;
       let msg = `✨ *Coffee Life Order* ✨\n\n👤 Customer: ${customerName || "[Your Name]"}\n📍 Delivery Area: ${area || "[Your Location]"}\n💰 Payment: ${paymentMethod}\n\n🛒 Order Details:\n`;
@@ -155,7 +151,6 @@
       msg += `\n💰 Subtotal: ${formatUGX(subtotal)}\n🚚 Delivery Fee: ${formatUGX(DELIVERY_FEE)}\n📦 Total: ${formatUGX(total)}\n\n☕ Coffee Life — Crafted with Passion, Served with Care`;
       return msg;
     }
-
     function handleOrderNow(paymentMethod = "Cash") {
       if (!window.cart.length) return alert("Add items to your cart!");
       if (!deliverySelect.value) return alert("Select a delivery area!");
@@ -166,10 +161,9 @@
       contacts.forEach(number => { window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, "_blank"); });
       window.cart = []; persistCart(); updateCartDisplay();
     }
-
     document.getElementById("whatsapp-confirm")?.addEventListener("click", () => handleOrderNow("Cash"));
 
-    // ===== 5. PAYMENT BUTTONS =====
+    // ===== PAYMENT BUTTONS (CLEAR, ANIMATED, MERCHANT CODE) =====
     const PAYMENT_MERCHANTS = { mtn: "4393386", airtel1: "971714" };
     const USSD_PATTERNS = { mtn: "*165*3*{merchant}*{amount}%23", airtel: "*185*9*{merchant}*{amount}%23" };
 
@@ -189,23 +183,33 @@
     function addPaymentButtons() {
       if (!paymentContainer) return;
       paymentContainer.innerHTML = "";
-      const payments = [{ type: "mtn", label: "Pay with MTN Mobile Money", icon: "./images/mtn.jpg" }, { type: "airtel", label: "Pay with Airtel Money", icon: "./images/airtel.png" }];
+      const payments = [
+        { type: "mtn", label: "MTN Mobile Money", icon: "./images/mtn.jpg", merchant: PAYMENT_MERCHANTS.mtn },
+        { type: "airtel", label: "Airtel Money", icon: "./images/el.jpg", merchant: PAYMENT_MERCHANTS.airtel1 }
+      ];
       payments.forEach(p => {
-        const btn = document.createElement("button"); btn.className = `payment-btn ${p.type}`;
-        btn.innerHTML = `<img src="${p.icon}" alt="${escapeHtml(p.type)} icon" loading="lazy" /> <span>${escapeHtml(p.label)}</span>`;
+        const btn = document.createElement("button");
+        btn.className = `payment-btn ${p.type}`;
+        btn.innerHTML = `
+          <img src="${p.icon}" alt="${escapeHtml(p.type)} icon" loading="lazy" />
+          <div class="payment-label">
+            <span>${escapeHtml(p.label)}</span>
+            <small>Merchant Code: ${p.merchant}</small>
+          </div>
+        `;
         btn.addEventListener("click", () => handlePayment(p.type));
         paymentContainer.appendChild(btn);
       });
     }
 
-    // ===== 6. WHATSAPP FLOAT STATE =====
+    // ===== WHATSAPP FLOAT STATE =====
     function updateWhatsAppState() {
       if (!whatsappBtn) return;
       if (!window.cart.length) { whatsappBtn.classList.add("disabled"); whatsappBtn.style.pointerEvents = "none"; }
       else { whatsappBtn.classList.remove("disabled"); whatsappBtn.style.pointerEvents = "auto"; }
     }
 
-    // ===== 7. DELIVERY / LOCATION CHANGE =====
+    // ===== DELIVERY / LOCATION CHANGE =====
     if (deliverySelect) deliverySelect.addEventListener("change", () => { DELIVERY_FEE = getSelectedDeliveryFee(); updateCartDisplay(); });
     if (locationGroupSelect && deliverySelect) {
       locationGroupSelect.addEventListener("change", () => {
