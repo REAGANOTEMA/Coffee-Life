@@ -164,7 +164,7 @@
     document.getElementById("whatsapp-confirm")?.addEventListener("click", () => handleOrderNow("Cash"));
 
     // ===== PAYMENT BUTTONS (CLEAR, ANIMATED, MERCHANT CODE) =====
-    const PAYMENT_MERCHANTS = { mtn: "4393386", airtel1: "971714" };
+    const PAYMENT_MERCHANTS = { mtn: "971714", airtel1: "4393386" };
     const USSD_PATTERNS = { mtn: "*165*3*{merchant}*{amount}%23", airtel: "*185*9*{merchant}*{amount}%23" };
 
     function handlePayment(type) {

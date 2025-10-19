@@ -43,6 +43,13 @@
   const formatUGX = v => Number(v).toLocaleString() + " UGX";
   const calcTotal = () => window.cart.reduce((s, it) => s + (it.price * it.qty), 0);
 
+  // ----- CART COUNTER -----
+  function updateCartCount() {
+    const cartCountEl = document.getElementById("cart-count");
+    const totalItems = window.cart.reduce((sum, item) => sum + item.qty, 0);
+    if (cartCountEl) cartCountEl.textContent = totalItems;
+  }
+
   // ----- CART MODAL -----
   cartBtn?.addEventListener("click", () => cartContainer?.classList.toggle("active"));
   cartClose?.addEventListener("click", () => cartContainer?.classList.remove("active"));
@@ -62,6 +69,7 @@
 
     persistCart();
     renderCart();
+    updateCartCount(); // ✅ update header count
     flashAddButton(item.id);
   }
   window.cartAdd = addToCart;
@@ -94,8 +102,21 @@
   }
 
   // ----- REMOVE / UPDATE QTY -----
-  function removeFromCart(id) { window.cart = window.cart.filter(i => i.id !== id); persistCart(); renderCart(); }
-  function updateQty(id, qty) { const it = window.cart.find(i => i.id === id); if (!it) return; it.qty = qty; if (it.qty <= 0) removeFromCart(id); persistCart(); renderCart(); }
+  function removeFromCart(id) {
+    window.cart = window.cart.filter(i => i.id !== id);
+    persistCart();
+    renderCart();
+    updateCartCount(); // ✅ update header count
+  }
+  function updateQty(id, qty) {
+    const it = window.cart.find(i => i.id === id);
+    if (!it) return;
+    it.qty = qty;
+    if (it.qty <= 0) removeFromCart(id);
+    persistCart();
+    renderCart();
+    updateCartCount(); // ✅ update header count
+  }
 
   // ----- RENDER CART -----
   function renderCart() {
@@ -145,6 +166,7 @@
     const area = deliverySelect?.value || "";
     DELIVERY_FEE = DELIVERY_AREAS[area] || 0;
     renderCart();
+    updateCartCount(); // ✅ update header count
   }
   deliverySelect?.addEventListener("change", updateDeliveryFee);
 
@@ -164,7 +186,7 @@
 
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
 
-    window.cart = []; persistCart(); renderCart();
+    window.cart = []; persistCart(); renderCart(); updateCartCount(); // ✅ clear and update
   }
 
   // ----- PAYMENT BUTTONS -----
@@ -190,47 +212,55 @@
   wireStaticAddButtons();
   addPaymentButtons();
   renderCart();
+  updateCartCount(); // ✅ show count on page load
 
-  // ----- STYLING (Professional Crystal White Background + Menu Lines) -----
+  // ----- STYLING -----
   const style = document.createElement("style");
   style.textContent = `
-    body {
-      background-color: #fefefe; /* Pure crystal white */
-      font-family: Arial, sans-serif;
-      color: #333;
-    }
-    .menu-item {
-      border-bottom: 1px solid #ccc;
-      padding: 12px 0;
-    }
-    .menu-item:last-child {
-      border-bottom: none;
-    }
-    .cart-container {
-      background-color: #ffffffdd;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .payment-section {
-      margin-top: 15px;
-    }
-    .payment-btn {
-      margin-right: 10px;
-      margin-bottom: 10px;
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-    }
+    body { background-color: #fefefe; font-family: Arial, sans-serif; color: #333; }
+    .menu-item { border-bottom: 1px solid #ccc; padding: 12px 0; }
+    .menu-item:last-child { border-bottom: none; }
+    .cart-container { background-color: #ffffffdd; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 12px; padding: 20px; }
+    .payment-section { margin-top: 15px; }
+    .payment-btn { margin-right: 10px; margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer; }
     .payment-btn.mtn { background-color: #fcd116; color: #000; }
     .payment-btn.airtel { background-color: #e60000; color: #fff; }
-    .cart-item {
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #eee;
-    }
+    .cart-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #eee; }
   `;
   document.head.appendChild(style);
 
 })();
+// ----- CART COUNTER WITH BOUNCE -----
+function updateCartCount() {
+  const cartCountEl = document.getElementById("cart-count");
+  const totalItems = window.cart.reduce((sum, item) => sum + item.qty, 0);
+  if (cartCountEl) {
+    cartCountEl.textContent = totalItems;
+
+    // Add bounce animation
+    cartCountEl.classList.remove("bounce"); // reset animation
+    void cartCountEl.offsetWidth; // trigger reflow
+    cartCountEl.classList.add("bounce");
+  }
+}
+
+// ----- BOUNCE ANIMATION STYLING -----
+const cartStyle = document.createElement("style");
+cartStyle.textContent = `
+  #cart-count {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+  #cart-count.bounce {
+    transform: scale(1.4);
+  }
+  #cart-count.bounce {
+    animation: bounceAnimation 0.3s ease;
+  }
+  @keyframes bounceAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+  }
+`;
+document.head.appendChild(cartStyle);

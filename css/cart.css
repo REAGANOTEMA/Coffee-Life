@@ -552,3 +552,158 @@ body {
         box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
     }
 }
+
+.cart-count-badge {
+    background: var(--danger);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+    left: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================ 
+   COFFEE LIFE Premium CSS Bundle (FINAL 2025)
+   Menu + Cart + WhatsApp + Chat + Animations + MTN/Airtel + Luxurious + Cart Count
+   ============================ */
+
+/* === ROOT VARIABLES === */
+:root {
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --coffee: #4b2e1e;
+    --gold: #b47b3a;
+    --cream: #f5e6d3;
+    --dark: #2c1b0e;
+    --lux-glow: 0 0 20px #FFD700, 0 0 40px #FFD700 inset;
+    --danger: #c0392b;
+}
+
+/* ===================== BODY ===================== */
+body {
+    background-color: #fefefe;
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    margin: 0;
+    padding: 0;
+}
+
+/* ===================== MENU STYLES ===================== */
+/* ... existing menu styles unchanged ... */
+
+/* ===================== CART STYLES ===================== */
+/* ... existing cart styles unchanged ... */
+
+/* ================= MTN/AIRTEL PAYMENT BUTTONS ================= */
+/* ... existing payment button styles unchanged ... */
+
+/* ================= FLOATING WHATSAPP BUTTON ================= */
+/* ... existing WhatsApp button styles unchanged ... */
+
+/* ================= CART COUNT BADGE ================= */
+#cart-count {
+    display: inline-block;
+    background: var(--danger);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+    pointer-events: none;
+}
+
+/* === BOUNCE ANIMATION ON ADD ITEM === */
+#cart-count.bounce {
+    animation: bounceAnimation 0.3s ease;
+}
+
+@keyframes bounceAnimation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* === BUTTON & CART ANIMATIONS === */
+@keyframes fadeInCart {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes shakeBtn {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-3px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(3px);
+    }
+}
+
+@keyframes glowBtn {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 var(--gold);
+    }
+
+    50% {
+        box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+    }
+}
