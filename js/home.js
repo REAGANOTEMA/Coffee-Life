@@ -1,9 +1,25 @@
 /* =========================================
-   ULTRA-LUXURY CINEMATIC HEADER - JS
+   ULTRA-LUXURY CINEMATIC HEADER - JS (SIDE LOGO PERFECTLY FILLED)
    ========================================= */
 
-// Header scroll blur and shadow effect
+// ====== GLOBAL ELEMENTS ======
 const header = document.getElementById("mainHeader");
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
+const cartCount = document.getElementById("cart-count");
+
+// ====== LOGO + SLOGAN INJECT (SIDE, FULLY CONTAINED) ======
+const logoWrapper = document.createElement('div');
+logoWrapper.id = "luxury-logo-wrapper";
+logoWrapper.innerHTML = `
+    <div class="luxury-logo-circle">
+        <img src="images/logo.jpg" alt="Logo" class="luxury-logo-img" />
+    </div>
+    <div class="luxury-slogan">eat. meat. work.</div>
+`;
+header.appendChild(logoWrapper);
+
+// ====== HEADER SCROLL EFFECT ======
 function handleHeaderScroll() {
     const scrollY = window.scrollY;
     header.style.backdropFilter = `blur(${16 + scrollY / 20}px)`;
@@ -12,17 +28,14 @@ function handleHeaderScroll() {
 window.addEventListener("scroll", handleHeaderScroll);
 handleHeaderScroll();
 
-// Hamburger menu toggle
-const hamburger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobileMenu");
-hamburger.addEventListener("click", () => {
+// ====== HAMBURGER MENU ======
+hamburger?.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("active");
 });
 
-// Cart count
+// ====== CART SYSTEM ======
 window.cart = window.cart || [];
-const cartCount = document.getElementById("cart-count");
 function updateCartCount() {
     if (cartCount) {
         const totalQty = window.cart.reduce((sum, item) => sum + item.qty, 0);
@@ -39,17 +52,10 @@ function addToCart(item) {
 window.globalAddToCart = addToCart;
 document.addEventListener("DOMContentLoaded", updateCartCount);
 
-// Cinematic header background animation
+// ====== BACKGROUND ANIMATION ======
 const headerBg = document.createElement('div');
-headerBg.style.position = 'absolute';
-headerBg.style.top = 0;
-headerBg.style.left = 0;
-headerBg.style.width = '100%';
-headerBg.style.height = '100%';
-headerBg.style.background = 'url("images/coffee-hero-hd.jpg") center/cover no-repeat';
-headerBg.style.filter = 'brightness(0.6) contrast(1.25) saturate(1.4)';
-headerBg.style.zIndex = '-2';
-headerBg.style.transition = 'transform 0.05s linear';
+headerBg.classList.add('header-bg-anim');
+headerBg.style.backgroundImage = 'url("images/hero.jpg")';
 header.appendChild(headerBg);
 
 let scale = 1;
@@ -62,37 +68,100 @@ function animateHeader() {
 }
 animateHeader();
 
-// Floating luxury gold particles
+// ====== FLOATING GOLD PARTICLES ======
 const particleContainer = document.createElement('div');
-particleContainer.style.position = 'absolute';
-particleContainer.style.top = 0;
-particleContainer.style.left = 0;
-particleContainer.style.width = '100%';
-particleContainer.style.height = '100%';
-particleContainer.style.pointerEvents = 'none';
-particleContainer.style.overflow = 'hidden';
-particleContainer.style.zIndex = '-1';
+particleContainer.classList.add('luxury-particle-container');
 header.appendChild(particleContainer);
 
 for (let i = 0; i < 15; i++) {
     const p = document.createElement('div');
-    p.style.position = 'absolute';
-    p.style.width = '2px';
-    p.style.height = '2px';
-    p.style.background = 'gold';
-    p.style.borderRadius = '50%';
-    p.style.opacity = Math.random() * 0.8;
+    p.classList.add('gold-particle');
     p.style.top = Math.random() * 100 + '%';
     p.style.left = Math.random() * 100 + '%';
-    p.style.animation = `floatParticle ${5 + Math.random() * 5}s infinite alternate ease-in-out`;
+    p.style.animationDuration = `${5 + Math.random() * 5}s`;
     particleContainer.appendChild(p);
 }
 
+// ====== STYLES (APPENDED) ======
 const style = document.createElement('style');
 style.innerHTML = `
+#luxury-logo-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+.luxury-logo-circle {
+    width: 120px;
+    height: 120px;
+    border: 4px solid gold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 50px rgba(212,175,55,0.7), 0 0 60px rgba(0,0,0,0.6);
+    overflow: hidden; /* ensure logo stays fully inside */
+}
+.luxury-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* fill the circle perfectly */
+}
+.luxury-slogan {
+    margin-top: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: gold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(212,175,55,0.9);
+    white-space: nowrap;
+    text-align: center;
+}
+.header-bg-anim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    filter: brightness(0.6) contrast(1.25) saturate(1.4);
+    z-index: -2;
+    transition: transform 0.05s linear;
+}
+.luxury-particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+.gold-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: gold;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation-name: floatParticle;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
 @keyframes floatParticle {
-  0% { transform: translate(0,0) scale(1);}
-  50% { transform: translate(${Math.random() * 20 - 10}px,${Math.random() * 20 - 10}px) scale(1.2);}
-  100% { transform: translate(0,0) scale(1);}
-}`;
+    0% { transform: translate(0,0) scale(1);}
+    50% { transform: translate(10px,-15px) scale(1.3);}
+    100% { transform: translate(0,0) scale(1);}
+}
+`;
 document.head.appendChild(style);

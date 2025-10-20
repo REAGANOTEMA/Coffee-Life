@@ -125,19 +125,14 @@
     </head>
 
 <body>
-    <!-- ===== FINAL STATIC LUXURY CINEMATIC HEADER HTML ===== -->
+    <!-- ===== FINAL STATIC LUXURY CINEMATIC HEADER HTML (FIXED) ===== -->
     <header class="site-header" id="mainHeader" role="banner">
         <div class="container nav-inner">
-            <!-- BRAND / LOGO -->
-            <a class="logo" href="#home" aria-label="Coffee Life home">
-                <img src="images/logo.jpg" alt="Coffee Life Logo">
-                <span class="brand-text">
-                    <strong>COFFEE LIFE CAFE</strong>
-                    <p>Eat. Meet. Work.</p>
-                </span>
-            </a>
 
-            <!-- NAVIGATION -->
+            <!-- BRAND / LOGO (your JS adds the circle logo image here) -->
+            <a class="logo" href="#home" aria-label="Coffee Life home"></a>
+
+            <!-- NAVIGATION & ACTIONS WRAPPER -->
             <nav class="nav" role="navigation" aria-label="Main navigation">
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home" class="nav-link active">Home</a></li>
@@ -146,10 +141,14 @@
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
 
-                <!-- ACTIONS -->
+                <!-- ACTIONS (CTA + BURGER + CART) -->
                 <div class="nav-actions">
-                    <!-- CTA Button -->
                     <a href="#order" class="btn-cta">Order Now</a>
+
+                    <!-- CART ICON -->
+                    <div class="cart-icon" aria-label="Shopping cart">
+                        🛒 <span id="cart-count" class="cart-count-badge">0</span>
+                    </div>
 
                     <!-- Hamburger for mobile -->
                     <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -167,13 +166,10 @@
             <a href="#menu" class="mobile-link">Menu</a>
             <a href="#gallery" class="mobile-link">Gallery</a>
             <a href="#contact" class="mobile-link">Contact</a>
-        </div>
-
-        <!-- CART ICON -->
-        <div class="cart-icon">
-            🛒 Cart <span id="cart-count" class="cart-count-badge">0</span>
+            <a href="#order" class="mobile-link">Order Now</a>
         </div>
     </header>
+
     <!-- ===== END FINAL CINEMATIC HEADER HTML ===== -->
 
     <body>
@@ -246,7 +242,9 @@
             <div class="menu-header">
                 <h2 id="menu-title">FOOD MENU FOR FOOD DELIVERIES</h2>
                 <p class="menu-intro"><strong>COFFEE LIFE CAFÉ</strong></p>
-                <p class="menu-sub">EAT. MEET. WORK! Choose multiple items and place one order on WhatsApp. All order
+                <p class="menu-sub">EAT. MEET. WORK!</p>
+                <p> Choose multiple items and place one order on WhatsApp. All
+                    order
                     buttons connect to our WhatsApp ordering system.</p>
 
                 <!-- Category filters -->
