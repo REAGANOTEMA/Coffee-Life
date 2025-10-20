@@ -1,4 +1,6 @@
-/* ===== Coffee Life Map & Contact Section Final CSS ===== */
+/* contact-style.css */
+
+/* Container */
 .contact {
     display: flex;
     flex-direction: column;
@@ -8,20 +10,22 @@
     color: #333;
 }
 
+/* Section heading */
 .contact h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center;
     color: #6b4226;
-    /* Coffee brown */
 }
 
+/* Grid layout for cards */
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
 }
 
+/* Contact card */
 .contact-card {
     background: #fff8f0;
     border-radius: 12px;
@@ -35,12 +39,14 @@
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
+/* Card headings */
 .contact-card h4 {
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
     color: #6b4226;
 }
 
+/* Text and links inside cards */
 .contact-card p,
 .contact-card a {
     font-size: 0.95rem;
@@ -50,7 +56,6 @@
 
 .contact-card a {
     color: #d2691e;
-    /* Coffee orange */
     text-decoration: none;
     font-weight: 600;
 }
@@ -59,32 +64,37 @@
     text-decoration: underline;
 }
 
+/* Muted text */
 .muted {
     color: #666;
     font-size: 0.85rem;
     margin-top: 0.5rem;
 }
 
+/* Locations list */
 .locations {
     padding-left: 1.2rem;
     list-style-type: decimal;
     font-size: 0.95rem;
 }
 
+/* Map card styling */
 .map-card {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
+/* Map preview styling */
 .map-preview {
     width: 100%;
-    height: 350px;
+    height: 400px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
+/* Responsive adjustments for map */
 @media (max-width: 768px) {
     .map-preview {
         height: 300px;
@@ -97,7 +107,7 @@
     }
 }
 
-/* WhatsApp and Call Buttons */
+/* Buttons */
 .whatsapp-confirm,
 .btn,
 .btn-outline {
@@ -113,6 +123,7 @@
     text-decoration: none;
 }
 
+/* WhatsApp button */
 .whatsapp-confirm {
     background-color: #25d366;
     color: #fff;
@@ -122,6 +133,7 @@
     background-color: #1ebe57;
 }
 
+/* Standard button */
 .btn {
     background-color: #6b4226;
     color: #fff;
@@ -131,6 +143,7 @@
     background-color: #5a361e;
 }
 
+/* Outline button */
 .btn-outline {
     background-color: transparent;
     border: 2px solid #6b4226;
@@ -142,7 +155,7 @@
     color: #fff;
 }
 
-/* Responsive typography */
+/* Responsive adjustments for text inside cards */
 @media (max-width: 768px) {
     .contact h2 {
         font-size: 1.75rem;
