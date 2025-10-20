@@ -1,8 +1,7 @@
 // ==================== Hero Videos ====================
 const videoFiles = [
-  "videos/hero-welcome.mp4",
-  "videos/capcut-hero0.mp4",
-  "videos/hero-cap2.mp4"
+  "videos/hero-food.mp4",
+  "videos/hero2.mp4",
 ];
 
 const videos = document.querySelectorAll(".hero-video");
@@ -26,7 +25,7 @@ function playVideo(i) {
   videos.forEach((v, j) => {
     if (i === j) {
       v.style.opacity = 1;
-      v.play().catch(() => {}); // prevent autoplay errors
+      v.play().catch(() => { }); // prevent autoplay errors
     } else {
       v.style.opacity = 0;
       v.pause();
