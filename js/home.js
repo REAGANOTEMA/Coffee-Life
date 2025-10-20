@@ -1,9 +1,9 @@
-/* =========================================
-   HOME.JS - ULTRA-LUXURY HEADER & MOBILE MENU
+/* ========================================= 
+   HOME.JS - ULTRA-LUXURY CINEMATIC HEADER & CART
    ========================================= */
 
 /* ===== 1. HEADER SCROLL EFFECT ===== */
-const header = document.querySelector("header.site-header");
+const header = document.getElementById("mainHeader");
 function handleHeaderScroll() {
     if (window.scrollY > 30) {
         header.classList.add("scrolled");
@@ -19,42 +19,29 @@ window.addEventListener("scroll", handleHeaderScroll);
 handleHeaderScroll();
 
 /* ===== 2. HAMBURGER MENU TOGGLE ===== */
-const hamburger = document.querySelector(".hamburger");
-const mobileMenu = document.querySelector(".mobile-menu");
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
 
 function toggleMenu() {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("active");
-
-    // Animate bars into X
-    hamburger.querySelectorAll('.bar').forEach((bar, index) => {
-        if (hamburger.classList.contains('active')) {
-            bar.style.backgroundColor = 'var(--gold)';
-            if (index === 0) bar.style.transform = 'rotate(45deg) translate(5px, 5px)';
-            if (index === 1) bar.style.opacity = '0';
-            if (index === 2) bar.style.transform = 'rotate(-45deg) translate(6px, -6px)';
-        } else {
-            bar.style.backgroundColor = 'var(--royal-blue)';
-            bar.style.transform = 'rotate(0) translate(0,0)';
-            if (index === 1) bar.style.opacity = '1';
-        }
-    });
+    const expanded = hamburger.getAttribute("aria-expanded") === "true";
+    hamburger.setAttribute("aria-expanded", !expanded);
 }
-
 hamburger.addEventListener("click", toggleMenu);
 
 /* ===== 3. CLOSE MOBILE MENU ON LINK CLICK ===== */
 document.querySelectorAll(".mobile-link").forEach(link => {
     link.addEventListener("click", () => {
-        if (hamburger.classList.contains('active')) toggleMenu();
+        if (hamburger.classList.contains("active")) toggleMenu();
     });
 });
 
 /* ===== 4. NAV LINK HOVER EFFECT ===== */
 const navLinks = document.querySelectorAll(".nav-link");
 navLinks.forEach(link => {
-    link.addEventListener("mouseenter", () => link.style.color = "var(--gold)");
-    link.addEventListener("mouseleave", () => link.style.color = "var(--royal-blue)");
+    link.addEventListener("mouseenter", () => link.style.color = "var(--primary-gold)");
+    link.addEventListener("mouseleave", () => link.style.color = "var(--white)");
 });
 
 /* ===== 5. RESPONSIVE HERO FONT SIZES ===== */
@@ -78,36 +65,15 @@ function adjustHeroFonts() {
 window.addEventListener("resize", adjustHeroFonts);
 adjustHeroFonts();
 
-/* ===== 6. CART & WHATSAPP INTEGRATION ===== */
+/* ===== 6. CART INTEGRATION ===== */
 window.cart = window.cart || [];
-const whatsappBtn = document.querySelector('.whatsapp-btn, .whatsapp-float');
+const cartCount = document.getElementById("cart-count");
 
-function updateWhatsAppButton() {
-    if (!whatsappBtn) return;
-    if (window.cart.length === 0) {
-        whatsappBtn.classList.add('disabled');
-        whatsappBtn.style.pointerEvents = 'none';
-        whatsappBtn.style.opacity = 0.5;
-        whatsappBtn.title = "Add items to your cart first!";
-    } else {
-        whatsappBtn.classList.remove('disabled');
-        whatsappBtn.style.pointerEvents = 'auto';
-        whatsappBtn.style.opacity = 1;
-        whatsappBtn.title = "Chat on WhatsApp";
+function updateCartCount() {
+    if (cartCount) {
+        const totalQty = window.cart.reduce((sum, item) => sum + item.qty, 0);
+        cartCount.textContent = totalQty;
     }
-}
-
-if (whatsappBtn) {
-    whatsappBtn.addEventListener('click', e => {
-        if (window.cart.length === 0) {
-            e.preventDefault();
-            alert("Please add items to your cart before contacting us on WhatsApp!");
-            return;
-        }
-        const phone = '2567XXXXXXXX'; // Replace with your WhatsApp number
-        const message = encodeURIComponent("Hello CoffeeLife, I want to place an order.");
-        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-    });
 }
 
 /* ===== 7. ADD TO CART FUNCTION ===== */
@@ -119,19 +85,48 @@ function addToCart(item) {
     else window.cart.push({ ...itemWithTransport, qty: 1 });
 
     alert(`${item.name} added to cart (+4000 delivery)`);
-    updateWhatsAppButton();
-    if (window.renderCart) window.renderCart();
+    updateCartCount();
 }
 window.globalAddToCart = addToCart;
 
 /* ===== 8. INITIALIZE ON PAGE LOAD ===== */
-document.addEventListener("DOMContentLoaded", updateWhatsAppButton);
+document.addEventListener("DOMContentLoaded", updateCartCount);
 
 /* ===== 9. PREMIUM NAV ANIMATION ===== */
 setInterval(() => {
     navLinks.forEach(link => {
         link.style.transition = "all 0.5s ease";
-        link.style.color = "var(--gold)";
-        setTimeout(() => link.style.color = "var(--royal-blue)", 500);
+        link.style.color = "var(--primary-gold)";
+        setTimeout(() => link.style.color = "var(--white)", 500);
     });
 }, 8000);
+
+/* ===== 10. CINEMATIC HERO BACKGROUND ANIMATION ===== */
+const headerBg = document.createElement('div');
+headerBg.style.position = 'absolute';
+headerBg.style.top = 0;
+headerBg.style.left = 0;
+headerBg.style.width = '100%';
+headerBg.style.height = '100%';
+headerBg.style.background = 'url("images/coffee-hero-hd.jpg") center/cover no-repeat';
+headerBg.style.filter = 'brightness(0.5) contrast(1.2) saturate(1.3)';
+headerBg.style.zIndex = '-2';
+headerBg.style.transition = 'transform 30s linear';
+header.appendChild(headerBg);
+
+let scale = 1;
+setInterval(() => {
+    scale = scale >= 1.05 ? 1 : scale + 0.0005;
+    headerBg.style.transform = `scale(${scale})`;
+}, 16); // ~60fps
+
+// Subtle radial haze overlay
+const overlay = document.createElement('div');
+overlay.style.position = 'absolute';
+overlay.style.top = 0;
+overlay.style.left = 0;
+overlay.style.width = '100%';
+overlay.style.height = '100%';
+overlay.style.background = 'radial-gradient(circle at center, rgba(255,255,255,0.03), transparent 70%)';
+overlay.style.zIndex = '-1';
+header.appendChild(overlay);

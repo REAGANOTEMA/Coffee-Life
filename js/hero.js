@@ -11,13 +11,13 @@ let currentVideo = 0;
 videos.forEach((v, i) => {
   v.src = videoFiles[i];
   v.load();
-  v.muted = true; // required for mobile autoplay
-  v.playsInline = true; // ensures in-page mobile playback
+  v.muted = true;
+  v.playsInline = true;
   v.style.opacity = i === 0 ? 1 : 0;
   v.style.transition = "opacity 2s ease-in-out";
   v.style.width = "100%";
   v.style.height = "100%";
-  v.style.objectFit = "cover"; // cover container
+  v.style.objectFit = "cover";
 });
 
 // Play video and fade others
@@ -25,7 +25,7 @@ function playVideo(i) {
   videos.forEach((v, j) => {
     if (i === j) {
       v.style.opacity = 1;
-      v.play().catch(() => { }); // prevent autoplay errors
+      v.play().catch(() => { });
     } else {
       v.style.opacity = 0;
       v.pause();
@@ -105,54 +105,68 @@ document.addEventListener("mousemove", e => {
 if (heroTitle) {
   heroTitle.style.fontSize = "clamp(2rem, 5vw, 4rem)";
   heroTitle.style.fontWeight = "900";
-  heroTitle.style.color = "#6f4e37"; // coffee color
+  heroTitle.style.color = "#6f4e37";
 }
 
-const subtitleWords = document.querySelectorAll(".hero-subtitle");
+// Cinematic subtitles
+const subtitleWords = document.querySelectorAll(".hero-subtitle span");
 subtitleWords.forEach(w => {
   w.style.fontSize = "clamp(1.5rem, 4vw, 3rem)";
   w.style.fontWeight = "700";
-  w.style.color = "#6f4e37";
   w.style.display = "inline-block";
   w.style.whiteSpace = "nowrap";
-  w.style.transition = "transform 0.6s ease-in-out, background 1.5s linear";
+  w.style.transition = "all 1s ease-in-out";
 });
 
-// Gradient animation
-function animateSubtitle() {
+// Gradient animation for subtitles
+function animateSubtitleGradient() {
   subtitleWords.forEach(w => {
-    w.style.background = `linear-gradient(45deg, #6f4e37, #ffffff)`;
+    w.style.background = `linear-gradient(90deg, #ffb347, #ffcc33, #ff6b6b, #6b5b95)`;
     w.style.webkitBackgroundClip = "text";
     w.style.color = "transparent";
   });
 }
+setInterval(animateSubtitleGradient, 2000);
 
-// Shake animation
-function shakeSubtitle() {
-  subtitleWords.forEach(w => {
-    w.style.transition = "transform 0.2s";
-    w.style.transform = "translateX(5px)";
-    setTimeout(() => { w.style.transform = "translateX(-5px)"; }, 100);
-    setTimeout(() => { w.style.transform = "translateX(0)"; }, 200);
-  });
-}
-
-// Slide animation
-let slideDirection = 1;
+// Slide / shake animation for cinematic feel
+let slideDir = 1;
 function slideSubtitle() {
   subtitleWords.forEach(w => {
     const currentX = w.dataset.offset ? parseFloat(w.dataset.offset) : 0;
-    let newX = currentX + 10 * slideDirection;
-    if (Math.abs(newX) > 20) slideDirection *= -1;
+    let newX = currentX + 5 * slideDir;
+    if (Math.abs(newX) > 15) slideDir *= -1;
     w.dataset.offset = newX;
     w.style.transform = `translateX(${newX}px)`;
   });
 }
+setInterval(slideSubtitle, 2500);
 
-// Animations intervals
-setInterval(animateSubtitle, 1500);
-setInterval(shakeSubtitle, 5000);
-setInterval(slideSubtitle, 2000);
+// ==================== Hero Note Text Rotator ====================
+const heroNotes = [
+  "Indulge in the perfect cup, delight in every dessert, and cherish every moment.",
+  "Savor handcrafted pastries, premium coffee, and moments that inspire.",
+  "Every sip, every bite, every smile – Coffee Life Cafe awaits you.",
+  "Relax, connect, and enjoy gourmet treats in a cozy atmosphere."
+];
+
+const heroNoteEl = document.querySelector(".hero-note");
+let currentNote = 0;
+
+function showNextHeroNote() {
+  if (!heroNoteEl) return;
+  heroNoteEl.style.opacity = 0;
+  setTimeout(() => {
+    heroNoteEl.textContent = heroNotes[currentNote];
+    heroNoteEl.style.opacity = 1;
+    currentNote = (currentNote + 1) % heroNotes.length;
+  }, 600);
+}
+
+if (heroNoteEl) {
+  heroNoteEl.style.transition = "opacity 0.6s ease-in-out";
+  heroNoteEl.style.opacity = 1;
+  setInterval(showNextHeroNote, 10000);
+}
 
 // ==================== WhatsApp Blocking Until Cart Has Items ====================
 const whatsappBtn = document.querySelector(".whatsapp-float");
@@ -172,7 +186,6 @@ function checkCartForWhatsApp() {
 }
 
 checkCartForWhatsApp();
-
 const observer = new MutationObserver(checkCartForWhatsApp);
 observer.observe(cartContainer, { childList: true, subtree: true });
 
@@ -182,3 +195,49 @@ whatsappBtn.addEventListener("click", e => {
     alert("Please add items to your cart before contacting us on WhatsApp!");
   }
 });
+// ==================== Mobile View Adjustments ====================
+function adjustHeroForMobile() {
+  const width = window.innerWidth;
+
+  // Adjust hero title
+  if (heroTitle) {
+    if (width < 480) {
+      heroTitle.style.fontSize = "2rem";
+    } else if (width < 768) {
+      heroTitle.style.fontSize = "3rem";
+    } else {
+      heroTitle.style.fontSize = "clamp(2rem, 5vw, 4rem)";
+    }
+  }
+
+  // Adjust subtitle words
+  subtitleWords.forEach(w => {
+    if (width < 480) {
+      w.style.fontSize = "1.2rem";
+    } else if (width < 768) {
+      w.style.fontSize = "1.8rem";
+    } else {
+      w.style.fontSize = "clamp(1.5rem, 4vw, 3rem)";
+    }
+  });
+
+  // Adjust hero note
+  if (heroNoteEl) {
+    if (width < 480) {
+      heroNoteEl.style.fontSize = "0.9rem";
+      heroNoteEl.style.lineHeight = "1.2rem";
+    } else if (width < 768) {
+      heroNoteEl.style.fontSize = "1.2rem";
+      heroNoteEl.style.lineHeight = "1.5rem";
+    } else {
+      heroNoteEl.style.fontSize = "1.4rem";
+      heroNoteEl.style.lineHeight = "1.8rem";
+    }
+  }
+}
+
+// Initial adjustment
+adjustHeroForMobile();
+
+// Re-adjust on window resize
+window.addEventListener("resize", adjustHeroForMobile);
