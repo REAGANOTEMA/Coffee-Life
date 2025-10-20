@@ -56,52 +56,27 @@
         <link rel="stylesheet" href="/css/whatsapp.css">
 
 
-        <!-- Service Worker Registration -->
-        <script>
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js')
-                        .then(reg => console.log('Service Worker registered successfully:', reg))
-                        .catch(err => console.error('Service Worker registration failed:', err));
-                });
-            }
-        </script>
-
-        <!-- PWA Install Prompt (Automatic after 3s, optional button) -->
         <script>
             let deferredPrompt;
+
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
 
-                // Optional: automatic popup after 3 seconds
-                setTimeout(() => {
-                    if (deferredPrompt) deferredPrompt.prompt();
-                }, 3000);
-
-                // Optional: Add a manual install button
-                const installBtn = document.createElement('button');
-                installBtn.textContent = 'Install CoffeeLife App';
-                installBtn.className = 'btn-install';
-                installBtn.style.position = 'fixed';
-                installBtn.style.bottom = '80px';
-                installBtn.style.right = '20px';
-                installBtn.style.zIndex = '1000';
-                installBtn.style.display = 'none';
-                document.body.appendChild(installBtn);
-
-                installBtn.style.display = 'block';
-                installBtn.addEventListener('click', async () => {
-                    installBtn.style.display = 'none';
+                // Auto-show prompt after a short delay on first visit
+                setTimeout(async () => {
                     if (deferredPrompt) {
                         deferredPrompt.prompt();
                         const choice = await deferredPrompt.userChoice;
-                        console.log('User choice:', choice.outcome);
-                        deferredPrompt = null;
+                        if (choice.outcome === 'accepted') {
+                            console.log('App Installed');
+                        }
+                        deferredPrompt = null; // Clear it
                     }
-                });
+                }, 2000); // Show after 2 seconds
             });
         </script>
+
 
         <!-- Optional: Smooth scroll JS fallback -->
         <script>
@@ -2803,6 +2778,15 @@
                     }
 
                 }); // DOMContentLoaded
+            </script>
+            <script>
+                if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', () => {
+                        navigator.serviceWorker.register('/sw.js')
+                            .then(reg => console.log('✅ Service Worker registered:', reg))
+                            .catch(err => console.error('❌ Service Worker failed:', err));
+                    });
+                }
             </script>
 
         </body>

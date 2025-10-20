@@ -19,31 +19,23 @@ const urlsToCache = [
   '/css/whatsapp.css',
   '/js/location.js',
   '/js/menu.js'
-  // Add more assets if needed
 ];
 
-// Install Service Worker & cache assets
+// Install Service Worker
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('[ServiceWorker] Caching app shell and content');
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
   self.skipWaiting();
 });
 
-// Activate Service Worker and clean old caches
+// Activate Service Worker
 self.addEventListener('activate', event => {
-  console.log('[ServiceWorker] Activated');
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
         keys.map(key => {
-          if (key !== CACHE_NAME) {
-            console.log('[ServiceWorker] Removing old cache:', key);
-            return caches.delete(key);
-          }
+          if (key !== CACHE_NAME) return caches.delete(key);
         })
       )
     )
@@ -51,18 +43,18 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch assets from cache first, then network fallback
+// Fetch from cache, fallback to network
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request).then(fetchResponse => {
-        return caches.open(CACHE_NAME).then(cache => {
+    caches.match(event.request).then(response =>
+      response ||
+      fetch(event.request).then(fetchResponse =>
+        caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, fetchResponse.clone());
           return fetchResponse;
-        });
-      });
-    }).catch(() => {
-      // Offline fallback: return index.html for navigation requests
+        })
+      )
+    ).catch(() => {
       if (event.request.mode === 'navigate') {
         return caches.match('/index.html');
       }
