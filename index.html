@@ -14,7 +14,10 @@
         <!-- =========================
      COFFEE LIFE CAFE - Head Section
      Premium PWA, Fonts, Styles, Service Worker
-     ========================= -->
+========================= -->
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- PWA / Installable App -->
         <link rel="manifest" href="/manifest.json">
@@ -26,8 +29,6 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
         <!-- SEO & Author -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description"
             content="COFFEE LIFE CAFE — finest coffee and meals in Jinja & Kampala. View menu, gallery, order via WhatsApp.">
         <meta name="author" content="Mr. Reagan Otema">
@@ -36,8 +37,9 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-            crossorigin="anonymous" referrerpolicy="no-referrer">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        jax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 
         <!-- Styles -->
         <link rel="stylesheet" href="/css/hero.css">
@@ -2445,56 +2447,68 @@
         </section>
 
 
-        <section id="contact" class="contact container">
-            <h2>Contact & Locations</h2>
-            <div class="contact-grid">
+        <section id="contact" class="contact container"
+            style="padding:2rem; max-width:1200px; margin:0 auto; font-family:system-ui, sans-serif;">
+            <h2 style="color:#fff; text-align:center; margin-bottom:2rem;">Contact & Locations</h2>
+            <div class="contact-grid"
+                style="display:grid; gap:2rem; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));">
 
                 <!-- Contact Info -->
-                <div class="contact-card">
-                    <h4>Contact Us</h4>
-                    <p><strong>Phone:</strong> 0746 888 730 / 0784 305 795</p>
-                    <p><strong>Email:</strong>
-                        <a href="mailto:food@coffeelife.cafe">food@coffeelife.cafe</a>
+                <div class="contact-card"
+                    style="background:rgba(255,255,255,0.05); padding:1.5rem; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.15);">
+                    <h4 style="font-size:1.2rem; margin-bottom:1rem; color:#fff;">Contact Us</h4>
+                    <p style="color:#eee; font-size:0.95rem;"><strong>Phone:</strong> 0746 888 730 / 0784 305 795</p>
+                    <p style="color:#eee; font-size:0.95rem;"><strong>Email:</strong>
+                        <a href="mailto:food@coffeelife.cafe"
+                            style="color:#FFD66B; text-decoration:none;">food@coffeelife.cafe</a>
                     </p>
-                    <p><strong>WhatsApp:</strong>
-                        <a href="https://wa.me/+256709691395" target="_blank">+256709691395</a>
+                    <p style="color:#eee; font-size:0.95rem;"><strong>WhatsApp:</strong>
+                        <a href="https://wa.me/+256709691395" target="_blank"
+                            style="color:#FFD66B; text-decoration:none;">+256709691395</a>
                     </p>
-                    <p class="muted">
+                    <p class="muted" style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">
                         For deliveries, press <strong>Order Now</strong> or build your order in the cart and then press
                         "Order Now on WhatsApp".
                     </p>
                     <a href="https://wa.me/256709691395" id="whatsapp-confirm" class="whatsapp-confirm btn subtle"
-                        target="_blank" rel="noopener noreferrer">
-                        ☕ Notify Coffee Life on WhatsApp
-                    </a>
-                    <a class="btn btn-outline" href="tel:0746888730">Call Us</a>
+                        target="_blank" rel="noopener noreferrer"
+                        style="display:inline-block;margin-top:0.5rem;padding:0.5rem 1rem;border-radius:8px;background:#FFD66B;color:#111;text-decoration:none;font-weight:600;">☕
+                        Notify Coffee Life on WhatsApp</a>
+                    <a class="btn btn-outline" href="tel:0746888730"
+                        style="display:inline-block;margin-top:0.5rem;margin-left:0.5rem;padding:0.5rem 1rem;border-radius:8px;border:1px solid #FFD66B;color:#FFD66B;text-decoration:none;font-weight:600;">Call
+                        Us</a>
                 </div>
 
                 <!-- Locations List -->
-                <div class="contact-card">
-                    <h4>Locations For Our Cafe</h4>
-                    <ol class="locations">
+                <div class="contact-card"
+                    style="background:rgba(255,255,255,0.05); padding:1.5rem; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.15);">
+                    <h4 style="font-size:1.2rem; margin-bottom:1rem; color:#fff;">Locations For Our Cafe</h4>
+                    <ol class="locations" style="padding-left:1.2rem; margin:0; color:#eee; font-size:0.95rem;">
                         <li>Total Energies, Opposite Gadhafi Police Barracks, Jinja Roundabout</li>
                         <li>Total Lakeview, Mailo Mbili, Jinja</li>
                         <li>Ggaba Road, Opposite University of East Africa, Kansanga</li>
                     </ol>
-                    <p class="muted">Opening hours: Daily 06:30 — 22:00</p>
+                    <p class="muted" style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Opening
+                        hours: Daily 06:30 — 22:00</p>
                 </div>
 
                 <!-- Embedded Live Map -->
-                <div class="contact-card map-card">
-                    <h4>Find Us on Map</h4>
+                <div class="contact-card map-card"
+                    style="background:rgba(255,255,255,0.05); padding:1.5rem; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.15);">
+                    <h4 style="font-size:1.2rem; margin-bottom:1rem; color:#fff;">Find Us on Map</h4>
                     <div class="map-preview" style="width:100%; height:400px; border-radius:12px; overflow:hidden;">
                         <iframe
                             src="https://www.google.com/maps/d/u/0/embed?mid=1HN9VOGBe2X2V1YV5x94yE2lF9rhhMQc&ehbc=2E312F"
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
                         </iframe>
                     </div>
-                    <p class="muted">📍 All Coffee Life branches are pinned with directions enabled.</p>
+                    <p class="muted" style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">📍 All
+                        Coffee Life branches are pinned with directions enabled.</p>
                 </div>
 
             </div>
         </section>
+
 
 
         <!-- ===== FOOTER ===== -->
@@ -2544,7 +2558,7 @@
                     <p><i class="fas fa-phone"></i> +256 746 888 730</p>
                     <p><i class="fas fa-phone"></i> +256 784 305 795</p>
                     <p><i class="fas fa-envelope"></i>
-                        <a href="mailto:coffeeliferestaurant@gmail.com">coffeeliferestaurant@gmail.com</a>
+                        <a href="mailto:food@coffeelife.cafe">food@coffeelife.cafe</a>
                     </p>
                     <p><i class="fas fa-map-marker-alt"></i> <strong>Locations:</strong> Total Roundabout • Total
                         Lakeview • Gabba Road</p>
@@ -2635,12 +2649,13 @@
 
 
             <!-- ==============================
-     COFFEE LIFE CAFE — GLOBAL CART & WHATSAPP ORDER + PWA
-     ============================== -->
+     <!-- ✅ COFFEE LIFE CAFE — GLOBAL CART, WHATSAPP ORDER & PWA -->
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
 
-                    // ===== GLOBAL CART =====
+                    /* ======================
+                       🌐 GLOBAL CART SYSTEM
+                    ======================= */
                     let cart = [];
 
                     function addToCart(name, price) {
@@ -2648,22 +2663,18 @@
                         if (existing) existing.qty += 1;
                         else cart.push({ name, price, qty: 1 });
 
-                        // Shake cart button feedback
                         const cartBtn = document.querySelector('.cart-btn');
                         if (cartBtn) {
                             cartBtn.classList.add('shake');
                             setTimeout(() => cartBtn.classList.remove('shake'), 600);
                         }
 
-                        // Toast notification (if Toastify.js is available)
                         if (window.Toastify) {
                             Toastify({
                                 text: `✅ "${name}" added to cart!`,
                                 duration: 3000,
                                 gravity: "top",
                                 position: "right",
-                                backgroundColor: "#b85c38",
-                                stopOnFocus: true
                             }).showToast();
                         } else {
                             alert(`✅ "${name}" added to cart!`);
@@ -2676,56 +2687,56 @@
 
                     function generateOrderMessage(name, location, notes) {
                         if (cart.length === 0) return "No items selected.";
-                        let message = `*☕ COFFEE LIFE ORDER*%0A`;
-                        message += `👤 Name: ${name}%0A📍 Location: ${location}%0A%0A`;
-                        message += `🛒 *Items Ordered:*%0A`;
-                        cart.forEach(item => {
-                            message += `- ${item.name} (x${item.qty}) — UGX ${item.price * item.qty}%0A`;
-                        });
-                        message += `%0A💰 *Total:* UGX ${getTotal()}%0A`;
-                        message += `%0A🗒️ Notes: ${notes || "None"}`;
-                        return message;
+                        let msg = `*☕ COFFEE LIFE ORDER*%0A`;
+                        msg += `👤 Name: ${name}%0A📍 Location: ${location}%0A%0A🛒 *Items Ordered:*%0A`;
+                        cart.forEach(item => msg += `- ${item.name} (x${item.qty}) — UGX ${item.price * item.qty}%0A`);
+                        msg += `%0A💰 *Total:* UGX ${getTotal()}%0A🗒️ Notes: ${notes || "None"}`;
+                        return msg;
                     }
 
-                    // ===== HANDLE WHATSAPP ORDER FORM =====
+                    /* ======================
+                       📦 WHATSAPP ORDER FORM
+                    ======================= */
                     const form = document.getElementById("whatsapp-order-form");
                     if (form) {
                         form.addEventListener("submit", (e) => {
                             e.preventDefault();
                             const name = document.getElementById("custName").value.trim();
                             const location = document.getElementById("custLocation").value.trim();
-                            const orderNote = document.getElementById("custOrder").value.trim();
-
+                            const notes = document.getElementById("custOrder").value.trim();
                             const whatsappNumber = "+256772514889";
-                            const message = generateOrderMessage(name, location, orderNote);
-                            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-                            window.open(whatsappURL, "_blank");
+                            const url = `https://wa.me/${whatsappNumber}?text=${generateOrderMessage(name, location, notes)}`;
+                            window.open(url, "_blank");
                         });
                     }
 
-                    // ===== SMOOTH SCROLL =====
+                    /* ======================
+                       🧭 SMOOTH SCROLL LINKS
+                    ======================= */
                     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                        anchor.addEventListener('click', function (e) {
+                        anchor.addEventListener('click', e => {
                             e.preventDefault();
-                            const target = document.querySelector(this.getAttribute('href'));
+                            const target = document.querySelector(anchor.getAttribute('href'));
                             if (target) target.scrollIntoView({ behavior: 'smooth' });
                         });
                     });
 
-                    // ===== FLOATING WHATSAPP BUTTON =====
+                    /* ======================
+                       📞 FLOATING WHATSAPP BUTTON
+                    ======================= */
                     const whatsappBtn = document.querySelector('.whatsapp-btn');
                     if (whatsappBtn) {
                         whatsappBtn.addEventListener('click', () => {
-                            const phone = '+256772514889';
+                            const phone = '+256709691395';
                             const message = encodeURIComponent('Hello CoffeeLife, I would like to place an order!');
                             window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
                         });
                     }
 
-                    // ===== PWA INSTALL PROMPT (AUTO + MANUAL BUTTON) =====
+                    /* ======================
+                       📲 PWA INSTALL HANDLER
+                    ======================= */
                     let deferredPrompt;
-
-                    // Create floating install button
                     const installBtn = document.createElement('button');
                     installBtn.textContent = 'Install CoffeeLife App';
                     installBtn.className = 'btn-install';
@@ -2746,60 +2757,33 @@
                     });
                     document.body.appendChild(installBtn);
 
-                    // Capture beforeinstallprompt
                     window.addEventListener('beforeinstallprompt', (e) => {
                         e.preventDefault();
                         deferredPrompt = e;
-
-                        // Show install button immediately
-                        installBtn.style.display = 'block';
-
-                        // Auto-prompt after 1 second
-                        setTimeout(() => {
-                            if (deferredPrompt) deferredPrompt.prompt();
-                        }, 1000);
+                        installBtn.style.display = 'block'; // Show button
+                        setTimeout(() => deferredPrompt?.prompt(), 1000); // Auto prompt
                     });
 
-                    // Handle install button click
                     installBtn.addEventListener('click', async () => {
                         installBtn.style.display = 'none';
-                        if (deferredPrompt) {
-                            deferredPrompt.prompt();
-                            const choice = await deferredPrompt.userChoice;
-                            console.log('User choice:', choice.outcome);
-                            deferredPrompt = null;
-                        }
+                        deferredPrompt.prompt();
+                        await deferredPrompt.userChoice;
+                        deferredPrompt = null;
                     });
 
-                    // Optional: log app installed
                     window.addEventListener('appinstalled', () => {
-                        console.log('✅ CoffeeLife App installed');
+                        console.log('✅ CoffeeLife App installed successfully!');
                     });
 
-                    // ===== SERVICE WORKER — PWA OFFLINE SUPPORT =====
+                    /* ======================
+                       🔧 SERVICE WORKER
+                    ======================= */
                     if ('serviceWorker' in navigator) {
-                        window.addEventListener('load', () => {
-                            navigator.serviceWorker.register('/sw.js')
-                                .then(reg => console.log('✅ Service Worker Registered:', reg))
-                                .catch(err => console.error('❌ Service Worker registration failed:', err));
-                        });
-                    }
-
-                }); // DOMContentLoaded
-            </script>
-            <script>
-                if ('serviceWorker' in navigator) {
-                    window.addEventListener('load', () => {
                         navigator.serviceWorker.register('/sw.js')
-                            .then(reg => console.log('✅ Service Worker registered:', reg))
-                            .catch(err => console.error('❌ Service Worker failed:', err));
-                    });
-                }
+                            .then(reg => console.log('✅ Service Worker Registered:', reg))
+                            .catch(err => console.error('❌ Service Worker Registration Failed:', err));
+                    }
+                });
             </script>
-
-        </body>
-
-</html>
-
 
 </html>

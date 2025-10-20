@@ -2,7 +2,7 @@ const CACHE_NAME = 'coffee-life-cache-v1';
 const urlsToCache = [
   '/index.html',
   '/manifest.json',
-  '/coffee-life/images/logo.jpg',
+  '/images/logo.jpg',
   '/css/hero.css',
   '/css/location.css',
   '/css/global.css',
@@ -34,9 +34,7 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) return caches.delete(key);
-        })
+        keys.map(key => key !== CACHE_NAME && caches.delete(key))
       )
     )
   );
@@ -47,8 +45,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response =>
-      response ||
-      fetch(event.request).then(fetchResponse =>
+      response || fetch(event.request).then(fetchResponse =>
         caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, fetchResponse.clone());
           return fetchResponse;
