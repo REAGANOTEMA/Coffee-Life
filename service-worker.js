@@ -1,13 +1,25 @@
 const CACHE_NAME = 'coffee-life-cache-v1';
 const urlsToCache = [
   '/index.html',
-  '/menu#',
   '/manifest.json',
-  '/coffee life/images/logo.jpg',
-  '/styles/location.css', // your CSS
-  '/scripts/location.js', // your JS
-  '/scripts/menu.js',     // your menu/cart JS
-  // Add any other assets (images, fonts, etc.) you need offline
+  '/coffee-life/images/logo.jpg',
+  '/css/hero.css',
+  '/css/location.css',
+  '/css/global.css',
+  '/css/home.css',
+  '/css/responsive.css',
+  '/css/gallery.css',
+  '/css/apps.css',
+  '/css/qr.css',
+  '/css/footer.css',
+  '/css/contact.css',
+  '/css/payments.css',
+  '/css/menu.css',
+  '/css/cart.css',
+  '/css/whatsapp.css',
+  '/js/location.js',
+  '/js/menu.js'
+  // Add more assets if needed
 ];
 
 // Install Service Worker & cache assets
@@ -18,25 +30,25 @@ self.addEventListener('install', event => {
       return cache.addAll(urlsToCache);
     })
   );
-  self.skipWaiting(); // Activate worker immediately
+  self.skipWaiting();
 });
 
-// Activate Service Worker
+// Activate Service Worker and clean old caches
 self.addEventListener('activate', event => {
   console.log('[ServiceWorker] Activated');
   event.waitUntil(
-    caches.keys().then(keyList => {
-      return Promise.all(
-        keyList.map(key => {
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(key => {
           if (key !== CACHE_NAME) {
             console.log('[ServiceWorker] Removing old cache:', key);
             return caches.delete(key);
           }
         })
-      );
-    })
+      )
+    )
   );
-  self.clients.claim(); // Take control of pages immediately
+  self.clients.claim();
 });
 
 // Fetch assets from cache first, then network fallback
@@ -44,14 +56,13 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
       return response || fetch(event.request).then(fetchResponse => {
-        // Optional: cache new requests dynamically
         return caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, fetchResponse.clone());
           return fetchResponse;
         });
       });
     }).catch(() => {
-      // Optional: fallback page for offline
+      // Offline fallback: return index.html for navigation requests
       if (event.request.mode === 'navigate') {
         return caches.match('/index.html');
       }

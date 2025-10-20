@@ -2652,8 +2652,8 @@
 
 
             <!-- ==============================
-         COFFEE LIFE CAFE — GLOBAL CART & WHATSAPP ORDER
-         ============================== -->
+     COFFEE LIFE CAFE — GLOBAL CART & WHATSAPP ORDER + PWA
+     ============================== -->
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
 
@@ -2739,46 +2739,58 @@
                         });
                     }
 
-                    // ===== PWA INSTALL PROMPT =====
+                    // ===== PWA INSTALL PROMPT (AUTO + MANUAL BUTTON) =====
                     let deferredPrompt;
+
+                    // Create floating install button
+                    const installBtn = document.createElement('button');
+                    installBtn.textContent = 'Install CoffeeLife App';
+                    installBtn.className = 'btn-install';
+                    Object.assign(installBtn.style, {
+                        position: 'fixed',
+                        bottom: '80px',
+                        right: '20px',
+                        zIndex: '1000',
+                        background: 'linear-gradient(45deg, #b85c38, #d8a35f)',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '10px',
+                        padding: '10px 18px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+                        display: 'none'
+                    });
+                    document.body.appendChild(installBtn);
+
+                    // Capture beforeinstallprompt
                     window.addEventListener('beforeinstallprompt', (e) => {
                         e.preventDefault();
                         deferredPrompt = e;
 
-                        // Auto popup after 3 seconds
+                        // Show install button immediately
+                        installBtn.style.display = 'block';
+
+                        // Auto-prompt after 1 second
                         setTimeout(() => {
                             if (deferredPrompt) deferredPrompt.prompt();
-                        }, 3000);
+                        }, 1000);
+                    });
 
-                        // Manual install button
-                        const installBtn = document.createElement('button');
-                        installBtn.textContent = 'Install CoffeeLife App';
-                        installBtn.className = 'btn-install';
-                        Object.assign(installBtn.style, {
-                            position: 'fixed',
-                            bottom: '80px',
-                            right: '20px',
-                            zIndex: '1000',
-                            background: 'linear-gradient(45deg, #b85c38, #d8a35f)',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '10px',
-                            padding: '10px 18px',
-                            fontWeight: 'bold',
-                            cursor: 'pointer',
-                            boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                        });
-                        document.body.appendChild(installBtn);
+                    // Handle install button click
+                    installBtn.addEventListener('click', async () => {
+                        installBtn.style.display = 'none';
+                        if (deferredPrompt) {
+                            deferredPrompt.prompt();
+                            const choice = await deferredPrompt.userChoice;
+                            console.log('User choice:', choice.outcome);
+                            deferredPrompt = null;
+                        }
+                    });
 
-                        installBtn.addEventListener('click', async () => {
-                            installBtn.style.display = 'none';
-                            if (deferredPrompt) {
-                                deferredPrompt.prompt();
-                                const choice = await deferredPrompt.userChoice;
-                                console.log('User choice:', choice.outcome);
-                                deferredPrompt = null;
-                            }
-                        });
+                    // Optional: log app installed
+                    window.addEventListener('appinstalled', () => {
+                        console.log('✅ CoffeeLife App installed');
                     });
 
                     // ===== SERVICE WORKER — PWA OFFLINE SUPPORT =====
