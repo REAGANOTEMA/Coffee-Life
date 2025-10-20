@@ -128,3 +128,41 @@ function normalizeMenuHeights() {
 document.addEventListener("DOMContentLoaded", () => { renderMenu(); renderCart(); });
 window.addEventListener('load', normalizeMenuHeights);
 window.addEventListener('resize', normalizeMenuHeights);
+// ===== SHOW MENU HEADER AND ITEM DESCRIPTIONS AFTER RENDER =====
+(function () {
+  // Make menu header fully visible
+  const menuHeader = document.querySelector('.menu-header');
+  if (menuHeader) {
+    menuHeader.style.display = 'block';
+    menuHeader.style.visibility = 'visible';
+    menuHeader.style.opacity = '1';
+    menuHeader.style.height = 'auto';
+    menuHeader.style.maxHeight = 'none';
+    menuHeader.style.overflow = 'visible';
+    menuHeader.style.color = '#000';
+
+    menuHeader.querySelectorAll('h2, p').forEach(el => {
+      el.style.display = 'block';
+      el.style.visibility = 'visible';
+      el.style.opacity = '1';
+      el.style.color = '#000';
+    });
+  }
+
+  // Make all menu item descriptions fully visible
+  const menuDescriptions = document.querySelectorAll('.menu-item .desc');
+  menuDescriptions.forEach(desc => {
+    desc.style.display = 'block';
+    desc.style.visibility = 'visible';
+    desc.style.opacity = '1';
+    desc.style.height = 'auto';
+    desc.style.maxHeight = 'none';
+    desc.style.overflow = 'visible';
+    desc.style.whiteSpace = 'normal';
+  });
+
+  // Adjust item heights after rendering
+  if (typeof normalizeMenuHeights === 'function') {
+    normalizeMenuHeights();
+  }
+})();
