@@ -129,7 +129,7 @@
     <header class="site-header" id="mainHeader" role="banner">
         <div class="container nav-inner">
 
-            <!-- BRAND / LOGO (your JS adds the circle logo image here) -->
+            <!-- BRAND / LOGO (JS injects circle logo + slogan here) -->
             <a class="logo" href="#home" aria-label="Coffee Life home"></a>
 
             <!-- NAVIGATION & ACTIONS WRAPPER -->
@@ -143,14 +143,16 @@
 
                 <!-- ACTIONS (CTA + BURGER + CART) -->
                 <div class="nav-actions">
-                    <a href="#order" class="btn-cta">Order Now</a>
+                    <!-- CTA BUTTON -->
+                    <a href="#order" class="btn-cta" onclick="globalAddToCart({id:1,name:'Steak',price:50})">Order
+                        Now</a>
 
                     <!-- CART ICON -->
                     <div class="cart-icon" aria-label="Shopping cart">
                         🛒 <span id="cart-count" class="cart-count-badge">0</span>
                     </div>
 
-                    <!-- Hamburger for mobile -->
+                    <!-- HAMBURGER FOR MOBILE -->
                     <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
                         <span class="bar"></span>
                         <span class="bar"></span>
@@ -169,6 +171,14 @@
             <a href="#order" class="mobile-link">Order Now</a>
         </div>
     </header>
+
+
+    <!-- Optional: Background hero animation -->
+    <div class="header-bg-anim"></div>
+
+    <!-- Floating gold particles -->
+    <div class="luxury-particle-container"></div>
+
 
     <!-- ===== END FINAL CINEMATIC HEADER HTML ===== -->
 

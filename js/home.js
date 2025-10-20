@@ -1,5 +1,5 @@
 /* =========================================
-   ULTRA-LUXURY CINEMATIC HEADER - JS (SIDE LOGO PERFECTLY FILLED)
+   ULTRA-LUXURY CINEMATIC HEADER - FINAL JS
    ========================================= */
 
 // ====== GLOBAL ELEMENTS ======
@@ -15,7 +15,6 @@ logoWrapper.innerHTML = `
     <div class="luxury-logo-circle">
         <img src="images/logo.jpg" alt="Logo" class="luxury-logo-img" />
     </div>
-    <div class="luxury-slogan">eat. meat. work.</div>
 `;
 header.appendChild(logoWrapper);
 
@@ -32,6 +31,17 @@ handleHeaderScroll();
 hamburger?.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("active");
+    // Update aria-expanded
+    hamburger.setAttribute("aria-expanded", hamburger.classList.contains("active"));
+});
+
+// Close mobile menu when a link is clicked
+document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        hamburger.setAttribute("aria-expanded", "false");
+    });
 });
 
 // ====== CART SYSTEM ======
@@ -82,7 +92,7 @@ for (let i = 0; i < 15; i++) {
     particleContainer.appendChild(p);
 }
 
-// ====== STYLES (APPENDED) ======
+// ====== STYLES (INJECTED) ======
 const style = document.createElement('style');
 style.innerHTML = `
 #luxury-logo-wrapper {
@@ -106,12 +116,12 @@ style.innerHTML = `
     background: rgba(0,0,0,0.65);
     backdrop-filter: blur(10px);
     box-shadow: 0 0 50px rgba(212,175,55,0.7), 0 0 60px rgba(0,0,0,0.6);
-    overflow: hidden; /* ensure logo stays fully inside */
+    overflow: hidden;
 }
 .luxury-logo-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* fill the circle perfectly */
+    object-fit: cover;
 }
 .luxury-slogan {
     margin-top: 8px;
@@ -159,9 +169,9 @@ style.innerHTML = `
     animation-timing-function: ease-in-out;
 }
 @keyframes floatParticle {
-    0% { transform: translate(0,0) scale(1);}
-    50% { transform: translate(10px,-15px) scale(1.3);}
-    100% { transform: translate(0,0) scale(1);}
+    0% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(10px,-15px) scale(1.3); }
+    100% { transform: translate(0,0) scale(1); }
 }
 `;
 document.head.appendChild(style);
