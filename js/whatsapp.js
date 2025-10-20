@@ -136,9 +136,9 @@
 
     // ===== WHATSAPP + ORDER =====
     const LOCATION_CONTACTS = {
-      "jinja-highway": ["256752746763", "256749958799", "256751054138"],
-      "jinja-lakeview": ["256750038032"],
-      "kampala-kasangalinke": ["256783070102"]
+      "jinja-highway": ["+256752746763", "+256749958799", "+256751054138"],
+      "jinja-lakeview": ["+256750038032"],
+      "kampala-kasangalinke": ["+256783070102"]
     };
     function getContactsForLocationGroup() {
       if (!locationGroupSelect) return [];

@@ -129,7 +129,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 const whatsappBtn = document.querySelector('.whatsapp-btn');
 if (whatsappBtn) {
     whatsappBtn.addEventListener('click', () => {
-        const phone = '2567XXXXXXXX'; // Replace with your WhatsApp number
+        const phone = '+256709691395'; // Replace with your WhatsApp number
         const message = encodeURIComponent('Hello CoffeeLife, I want to place an order.');
         window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
     });
