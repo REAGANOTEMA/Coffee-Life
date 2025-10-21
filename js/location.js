@@ -12,7 +12,7 @@
       desc: "Experience World-Class Coffee at the Heart of Jinja Roundabout",
       lat: 0.4356,
       lng: 33.2039,
-      highlight: true, // This is our main branch
+      highlight: true, // Main branch
       contacts: ["256746888730", "256784305795"],
       color: "yellow"
     },
@@ -41,9 +41,9 @@
     const mapEl = document.querySelector(".map-preview");
     if (!mapEl) return console.error("Map container (.map-preview) not found!");
 
-    // Use default world map style
+    // Initialize Google Map
     map = new google.maps.Map(mapEl, {
-      zoom: 5,
+      zoom: 12,
       center: { lat: locations[0].lat, lng: locations[0].lng },
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       streetViewControl: false,
@@ -62,7 +62,7 @@
         icon: `https://maps.google.com/mapfiles/ms/icons/${loc.color}-dot.png`
       });
 
-      // WhatsApp links
+      // WhatsApp links for each branch
       const contactsHTML = loc.contacts
         .map(c => `<a href="https://wa.me/${c}" target="_blank" style="color:#0a7f00;font-weight:bold;">+${c}</a>`)
         .join("<br>");
@@ -70,33 +70,32 @@
       const infoWindow = new google.maps.InfoWindow({
         content: `
           <div style="font-family:Arial; font-size:14px; line-height:1.4;">
-            <h3 style="margin:0; color:#b8860b; font-size:16px;">${loc.name}</h3>
+            <h3 style="margin:0; color:#FFD66B; font-size:16px;">${loc.name}</h3>
             <p>${loc.desc}</p>
             <strong>Contact / WhatsApp:</strong><br>${contactsHTML}
             <br><br>
             <button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}','_blank')" 
-              style="padding:6px 12px; background-color:#b8860b; color:white; border:none; border-radius:4px; cursor:pointer;">
+              style="padding:6px 12px; background-color:#FFD66B; color:#111; border:none; border-radius:4px; cursor:pointer;">
               Get Directions
             </button>
           </div>`
       });
 
-      marker.addListener("click", () => {
-        infoWindow.open(map, marker);
-      });
+      marker.addListener("click", () => infoWindow.open(map, marker));
 
+      // Auto-show info window for HQ on load
       if (loc.highlight) {
         setTimeout(() => {
           infoWindow.open(map, marker);
-          marker.setAnimation(null); // stop bouncing after attention is gained
-        }, 3000);
+          marker.setAnimation(null); // stop bouncing after attention
+        }, 1500);
       }
 
       markers.push({ marker, infoWindow });
       bounds.extend(marker.position);
     });
 
-    // Auto-fit all branches into view
+    // Fit all branches into view
     map.fitBounds(bounds);
     window.addEventListener("resize", () => map.fitBounds(bounds));
   };

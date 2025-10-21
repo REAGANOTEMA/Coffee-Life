@@ -1,4 +1,4 @@
-/* contact-style.css */
+/* contact-style.css | Coffee Life Cafe - Final Version */
 
 /* Container */
 .contact {
@@ -8,6 +8,8 @@
     padding: 2rem 1rem;
     font-family: "Arial", sans-serif;
     color: #333;
+    background-color: #1a1a1a;
+    /* dark background for contrast */
 }
 
 /* Section heading */
@@ -15,7 +17,9 @@
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center;
-    color: #6b4226;
+    color: #FFD66B;
+    /* golden accent */
+    font-weight: 700;
 }
 
 /* Grid layout for cards */
@@ -27,23 +31,23 @@
 
 /* Contact card */
 .contact-card {
-    background: #fff8f0;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .contact-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
 
 /* Card headings */
 .contact-card h4 {
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
-    color: #6b4226;
+    color: #FFD66B;
 }
 
 /* Text and links inside cards */
@@ -51,11 +55,11 @@
 .contact-card a {
     font-size: 0.95rem;
     line-height: 1.5;
-    color: #333;
+    color: #eee;
 }
 
 .contact-card a {
-    color: #d2691e;
+    color: #FFD66B;
     text-decoration: none;
     font-weight: 600;
 }
@@ -66,7 +70,7 @@
 
 /* Muted text */
 .muted {
-    color: #666;
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.85rem;
     margin-top: 0.5rem;
 }
@@ -76,6 +80,12 @@
     padding-left: 1.2rem;
     list-style-type: decimal;
     font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.locations li:hover {
+    color: #FFD66B;
+    font-weight: 600;
 }
 
 /* Map card styling */
@@ -91,7 +101,7 @@
     height: 400px;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 /* Responsive adjustments for map */
@@ -135,24 +145,24 @@
 
 /* Standard button */
 .btn {
-    background-color: #6b4226;
-    color: #fff;
+    background-color: #FFD66B;
+    color: #111;
 }
 
 .btn:hover {
-    background-color: #5a361e;
+    background-color: #e6c358;
 }
 
 /* Outline button */
 .btn-outline {
     background-color: transparent;
-    border: 2px solid #6b4226;
-    color: #6b4226;
+    border: 2px solid #FFD66B;
+    color: #FFD66B;
 }
 
 .btn-outline:hover {
-    background-color: #6b4226;
-    color: #fff;
+    background-color: #FFD66B;
+    color: #111;
 }
 
 /* Responsive adjustments for text inside cards */

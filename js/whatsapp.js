@@ -58,6 +58,7 @@
     const locationGroupSelect = document.getElementById("location-group");
     const whatsappBtn = document.querySelector(".whatsapp-float");
     const paymentContainer = document.getElementById("payment-section");
+    const callSupportBtn = document.getElementById("callSupport");
 
     const DELIVERY_AREAS = {
       "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
@@ -67,6 +68,13 @@
       "Makerere": 3000, "Kira Road": 3000, "Gabba Road": 3500, "Other Kampala": 4000
     };
     let DELIVERY_FEE = 0;
+
+    const LOCATION_CONTACTS = {
+      "jinja-highway": ["+256752746763", "+256749958799", "+256751054138"],
+      "jinja-lakeview": ["+256750038032"],
+      "kampala-kasangalinke": ["+256783070102"]
+    };
+    const SUPPORT_NUMBER = "+256709691395";
 
     function persistCart() { localStorage.setItem("coffee_life_cart", JSON.stringify(window.cart)); }
     function formatUGX(amount) { return Number(amount || 0).toLocaleString() + " UGX"; }
@@ -134,16 +142,12 @@
       };
     });
 
-    // ===== WHATSAPP + ORDER =====
-    const LOCATION_CONTACTS = {
-      "jinja-highway": ["+256752746763", "+256749958799", "+256751054138"],
-      "jinja-lakeview": ["+256750038032"],
-      "kampala-kasangalinke": ["+256783070102"]
-    };
+    // ===== WHATSAPP ORDER =====
     function getContactsForLocationGroup() {
       if (!locationGroupSelect) return [];
       return LOCATION_CONTACTS[locationGroupSelect.value] || [];
     }
+
     function generateCartMessage(customerName, area, paymentMethod = "Cash") {
       const subtotal = calcCartSubtotal(), total = subtotal + DELIVERY_FEE;
       let msg = `✨ *Coffee Life Order* ✨\n\n👤 Customer: ${customerName || "[Your Name]"}\n📍 Delivery Area: ${area || "[Your Location]"}\n💰 Payment: ${paymentMethod}\n\n🛒 Order Details:\n`;
@@ -151,19 +155,22 @@
       msg += `\n💰 Subtotal: ${formatUGX(subtotal)}\n🚚 Delivery Fee: ${formatUGX(DELIVERY_FEE)}\n📦 Total: ${formatUGX(total)}\n\n☕ Coffee Life — Crafted with Passion, Served with Care`;
       return msg;
     }
+
     function handleOrderNow(paymentMethod = "Cash") {
       if (!window.cart.length) return alert("Add items to your cart!");
       if (!deliverySelect.value) return alert("Select a delivery area!");
       if (!locationGroupSelect.value) return alert("Select a location group!");
       const customerName = prompt("Enter your full name:")?.trim(); if (!customerName) return alert("Name required!");
-      const area = deliverySelect.value; const message = generateCartMessage(customerName, area, paymentMethod);
-      const contacts = getContactsForLocationGroup(); if (!contacts.length) return alert("No WhatsApp contacts for selected location.");
+      const area = deliverySelect.value;
+      const message = generateCartMessage(customerName, area, paymentMethod);
+      const contacts = getContactsForLocationGroup();
+      if (!contacts.length) return alert("No WhatsApp contacts for selected location.");
       contacts.forEach(number => { window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, "_blank"); });
       window.cart = []; persistCart(); updateCartDisplay();
     }
     document.getElementById("whatsapp-confirm")?.addEventListener("click", () => handleOrderNow("Cash"));
 
-    // ===== PAYMENT BUTTONS (CLEAR, ANIMATED, MERCHANT CODE) =====
+    // ===== PAYMENT BUTTONS =====
     const PAYMENT_MERCHANTS = { mtn: "971714", airtel1: "4393386" };
     const USSD_PATTERNS = { mtn: "*165*3*{merchant}*{amount}%23", airtel: "*185*9*{merchant}*{amount}%23" };
 
@@ -219,9 +226,13 @@
       });
     }
 
+    // ===== CALL SUPPORT BUTTON =====
+    if (callSupportBtn) callSupportBtn.addEventListener("click", () => {
+      window.location.href = `tel:${SUPPORT_NUMBER}`;
+    });
+
     // ===== INIT =====
     addPaymentButtons(); updateCartDisplay();
-
     window.coffeeLife = { updateCartDisplay, handlePayment, handleOrderNow };
   });
 })();
