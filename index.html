@@ -2726,20 +2726,48 @@
                     }
 
                     /* ======================
-                       📦 WHATSAPP ORDER FORM
-                    ======================= */
+               /* 📦 WHATSAPP ORDER FORM ======================= */
+                    const LOCATION_CONTACTS = {
+                        "jinja-highway": "+256752746763",
+                        "jinja-lakeview": "+256750038032",
+                        "kampala-kasangalinke": "+256783070102"
+                    };
+
+                    // Function to generate WhatsApp message
+                    function generateOrderMessage(name, location, notes) {
+                        return encodeURIComponent(
+                            `Hello, my name is ${name}. I'm from ${location}. Order/Notes: ${notes}`
+                        );
+                    }
+
+                    // Function to send WhatsApp message
+                    function sendWhatsAppMessage() {
+                        const name = document.getElementById("custName")?.value.trim();
+                        const location = document.getElementById("custLocation")?.value.trim();
+                        const notes = document.getElementById("custOrder")?.value.trim();
+
+                        if (!name) return alert("Please enter your name.");
+                        if (!location) return alert("Please select a location.");
+
+                        const whatsappNumber = LOCATION_CONTACTS[location];
+                        if (!whatsappNumber) return alert("No WhatsApp number available for this location.");
+
+                        const url = `https://wa.me/${whatsappNumber}?text=${generateOrderMessage(name, location, notes)}`;
+                        window.open(url, "_blank");
+                    }
+
+                    // Attach event listener if form exists
                     const form = document.getElementById("whatsapp-order-form");
                     if (form) {
                         form.addEventListener("submit", (e) => {
                             e.preventDefault();
-                            const name = document.getElementById("custName").value.trim();
-                            const location = document.getElementById("custLocation").value.trim();
-                            const notes = document.getElementById("custOrder").value.trim();
-                            const whatsappNumber = "+256772514889";
-                            const url = `https://wa.me/${whatsappNumber}?text=${generateOrderMessage(name, location, notes)}`;
-                            window.open(url, "_blank");
+                            sendWhatsAppMessage();
                         });
                     }
+
+                    // Optional: auto-send on location change (mobile-friendly)
+                    // document.getElementById("custLocation")?.addEventListener("change", sendWhatsAppMessage);
+
 
                     /* ======================
                        🧭 SMOOTH SCROLL LINKS
