@@ -166,3 +166,39 @@ window.addEventListener('resize', normalizeMenuHeights);
     normalizeMenuHeights();
   }
 })();
+(function tightenAddButtonSpacingMore() {
+  const style = document.createElement("style");
+  style.textContent = `
+    /* Minimize gap under image */
+    .menu-item .menu-media img {
+      margin-bottom: 2px !important;
+    }
+
+    /* Bring description closer */
+    .menu-item .desc, 
+    .menu-item p.desc {
+      margin-bottom: 2px !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* Pull Add button directly under text */
+    .menu-item .actions,
+    .menu-item .meta,
+    .menu-item .menu-body .actions,
+    .menu-item .menu-body .meta {
+      margin-top: 1px !important;
+      padding-top: 0 !important;
+    }
+
+    /* Compact button styling */
+    .btn-add, .add-to-cart-btn, .menu-item .meta button {
+      display: inline-block;
+      margin-top: 1px !important;
+      padding: 5px 10px !important;
+      font-size: 13.5px;
+      line-height: 1.1;
+      border-radius: 5px;
+    }
+  `;
+  document.head.appendChild(style);
+})();

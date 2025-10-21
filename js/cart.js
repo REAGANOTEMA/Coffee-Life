@@ -264,3 +264,17 @@ cartStyle.textContent = `
   }
 `;
 document.head.appendChild(cartStyle);
+// ✅ AUTO-FIX LEGACY BUTTONS (ensures all menu items have working Add buttons)
+(function fixLegacyButtons() {
+  document.querySelectorAll('.menu-item').forEach(item => {
+    const btn = item.querySelector('button');
+    if (btn && !btn.classList.contains('btn-add')) {
+      btn.classList.add('btn-add');
+      btn.removeAttribute('onclick'); // Remove old inline JS
+    }
+  });
+  // Re-wire all buttons with new system
+  if (typeof wireStaticAddButtons === 'function') {
+    wireStaticAddButtons();
+  }
+})();
