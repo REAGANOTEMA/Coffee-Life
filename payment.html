@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coffee Life — Payment</title>
+    <meta name="description" content="Coffee Life — Order, WhatsApp, Payments & Pickup Locations" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/payment.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/whatsapp.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+    <style>
+        body,
+        html {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f8f8;
+        }
+
+        .container {
+            padding: 1rem;
+        }
+
+        header.site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            background: #000;
+            color: #fff;
+            font-weight: 700;
+            padding: 0.5rem 0.7rem;
+            border-radius: 5px;
+        }
+
+        nav.desktop {
+            display: none;
+        }
+
+        .hamburger {
+            display: block;
+            cursor: pointer;
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        aside,
+        section {
+            width: 100%;
+        }
+
+        .card {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.3rem 0 1rem 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.7rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .cart-summary {
+            margin-top: 1rem;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .total {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .payment-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-option {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-option.selected {
+            border: 2px solid #000;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .qty-controls {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .whatsapp-float.disabled {
+            display: none;
+        }
+
+        @media(min-width:768px) {
+            nav.desktop {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .grid {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            section,
+            aside {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="brand">
+            <div class="logo">CL</div>
+            <div>
+                <div class="brand-name">Coffee Life</div>
+                <div class="brand-tagline small">Freshly brewed — Local delivery</div>
+            </div>
+        </div>
+        <nav class="desktop">
+            <a class="btn" href="index.html#menu">Back to Menu</a>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <div class="grid">
+
+            <!-- BRANCH & DELIVERY -->
+            <section>
+                <div class="card">
+                    <h3>Select Branch & Delivery Area</h3>
+                    <label for="location-group">Branch:</label>
+                    <select id="location-group">
+                        <option value="">-- Select branch --</option>
+                        <option value="jinja-highway">Jinja Highway</option>
+                        <option value="jinja-lakeview">Jinja Lakeview</option>
+                        <option value="kampala-kansanga">Kansanga Kampala</option>
+                    </select>
+
+                    <label for="delivery-zone">Delivery Area:</label>
+                    <select id="delivery-zone">
+                        <option value="">-- Select delivery area --</option>
+                    </select>
+                    <div class="small">Delivery fee: <strong id="deliveryFee">0 UGX</strong></div>
+                </div>
+            </section>
+
+            <!-- CART & PAYMENT -->
+            <aside>
+                <div class="card">
+                    <h3>Your Cart</h3>
+                    <div id="cartItems" class="cart-items"></div>
+
+                    <div class="cart-summary">
+                        <div class="row"><span>Subtotal</span><span id="cartSubtotal">0 UGX</span></div>
+                        <div class="row"><span>Delivery</span><span id="deliveryFeeSummary">0 UGX</span></div>
+                        <div class="row total"><span>Total</span><span id="cartTotal">0 UGX</span></div>
+                    </div>
+
+                    <div class="card" id="payment-section">
+                        <h3>Choose Payment Method</h3>
+                        <div class="payment-options">
+                            <div class="payment-option" data-provider="mtn">MTN</div>
+                            <div class="payment-option" data-provider="airtel">Airtel</div>
+                        </div>
+                        <input type="text" id="paymentNumber" placeholder="Enter your payment number" />
+                    </div>
+
+                    <button class="btn" id="whatsapp-confirm">Confirm & Send via WhatsApp</button>
+                    <button class="btn" id="callSupport">Call Support</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- WhatsApp Floating CTA -->
+    <div class="whatsapp-float disabled" id="waFloat">Order on WhatsApp</div>
+
+    <!-- SCRIPT -->
+    <script>
+        (() => {
+            const WA_PHONE = "+2567096991395";
+            const BRANCHES = {
+                "jinja-highway": { name: "Jinja Highway", contacts: ["+256752746763", "+256749958799", "+256751054138"], deliveryAreas: { "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000, "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000, "Bugembe": 3000, "Nile": 3000 } },
+                "jinja-lakeview": { name: "Jinja Lakeview", contacts: ["+256750038032"], deliveryAreas: { "Lakeview Central": 2000, "Mailombili": 2000, "Makerere": 3000, "Kira Road": 3000, "Gabba Road": 3500, "Other Kampala": 4000 } },
+                "kampala-kansanga": { name: "Kansanga Kampala", contacts: ["+256783070102"], deliveryAreas: { "Namuleesa": 4000, "Masese": 4000, "Wakitaka": 4000 } }
+            };
+
+            let DELIVERY_FEE = 0;
+            const locationSelect = document.getElementById("location-group");
+            const deliverySelect = document.getElementById("delivery-zone");
+            const whatsappBtn = document.getElementById("whatsapp-confirm");
+            const callSupportBtn = document.getElementById("callSupport");
+            const cartItemsEl = document.getElementById("cartItems");
+            const cartSubtotalEl = document.getElementById("cartSubtotal");
+            const deliveryFeeEl = document.getElementById("deliveryFee");
+            const cartTotalEl = document.getElementById("cartTotal");
+            const waFloat = document.getElementById("waFloat");
+            let cart = JSON.parse(localStorage.getItem("coffee_life_cart") || "[]");
+            let selectedPayment = null;
+
+            const formatUGX = v => Number(v || 0).toLocaleString() + " UGX";
+
+            const updateDeliveryOptions = () => {
+                deliverySelect.innerHTML = `<option value="">-- Select delivery area --</option>`;
+                const branchKey = locationSelect.value;
+                if (!branchKey) return;
+                Object.entries(BRANCHES[branchKey].deliveryAreas).forEach(([area, fee]) => {
+                    const opt = document.createElement("option");
+                    opt.value = area;
+                    opt.dataset.fee = fee;
+                    opt.textContent = `${area} — ${formatUGX(fee)}`;
+                    deliverySelect.appendChild(opt);
+                });
+                renderCart();
+            };
+
+            const renderCart = () => {
+                cartItemsEl.innerHTML = "";
+                if (!cart.length) { cartItemsEl.innerHTML = '<p class="small">Cart empty.</p>'; waFloat.classList.add("disabled"); return; }
+                waFloat.classList.remove("disabled");
+                let subtotal = 0;
+                cart.forEach((item, i) => {
+                    const div = document.createElement("div"); div.className = "cart-item";
+                    const left = document.createElement("div"); left.textContent = `${item.name}`;
+                    const right = document.createElement("div"); right.className = "qty-controls";
+                    const btnMinus = document.createElement("button"); btnMinus.textContent = "-"; btnMinus.onclick = () => { if (item.qty > 1) item.qty--; saveCart(); }
+                    const qty = document.createElement("span"); qty.textContent = item.qty;
+                    const btnPlus = document.createElement("button"); btnPlus.textContent = "+"; btnPlus.onclick = () => { item.qty++; saveCart(); }
+                    right.append(btnMinus, qty, btnPlus);
+                    div.append(left, right);
+                    cartItemsEl.appendChild(div);
+                    subtotal += item.price * item.qty;
+                });
+                cartSubtotalEl.textContent = formatUGX(subtotal);
+                DELIVERY_FEE = deliverySelect.selectedOptions[0] ? parseInt(deliverySelect.selectedOptions[0].dataset.fee) : 0;
+                deliveryFeeEl.textContent = formatUGX(DELIVERY_FEE);
+                cartTotalEl.textContent = formatUGX(subtotal + DELIVERY_FEE);
+            };
+
+            const saveCart = () => { localStorage.setItem("coffee_life_cart", JSON.stringify(cart)); renderCart(); };
+
+            document.querySelectorAll(".payment-option").forEach(opt => {
+                opt.addEventListener("click", () => {
+                    document.querySelectorAll(".payment-option").forEach(o => o.classList.remove("selected"));
+                    opt.classList.add("selected");
+                    selectedPayment = opt.dataset.provider;
+                });
+            });
+
+            whatsappBtn.addEventListener("click", () => {
+                if (!cart.length) { alert("Cart empty"); return; }
+                if (!locationSelect.value || !deliverySelect.value) { alert("Select branch & delivery area"); return; }
+                const customerName = prompt("Enter your name")?.trim(); if (!customerName) return alert("Name required");
+                let subtotal = 0, message = `✨ Coffee Life Order ✨\n👤 ${customerName}\n🏬 Branch: ${BRANCHES[locationSelect.value].name}\n📍 ${deliverySelect.value}\n🛒 Order:\n`;
+                cart.forEach((item, i) => { message += `${i + 1}. ${item.name} x${item.qty} = ${formatUGX(item.price * item.qty)}\n`; subtotal += item.price * item.qty; });
+                const grandTotal = subtotal + DELIVERY_FEE;
+                message += `\n💵 Subtotal: ${formatUGX(subtotal)}\n🚚 Delivery: ${formatUGX(DELIVERY_FEE)}\n💰 Total: ${formatUGX(grandTotal)}`;
+                if (selectedPayment) message += `\n💳 Payment Method: ${selectedPayment}\n📱 Number: ${document.getElementById("paymentNumber").value || ''}`;
+                message += `\n\n☕ Coffee Life — Crafted with Passion`;
+                const contact = BRANCHES[locationSelect.value].contacts[0] || WA_PHONE;
+                window.open(`https://wa.me/${contact}?text=${encodeURIComponent(message)}`, "_blank");
+                cart = []; saveCart();
+            });
+
+            callSupportBtn.addEventListener("click", () => window.open(`https://wa.me/${WA_PHONE}`, "_blank"));
+            locationSelect.addEventListener("change", updateDeliveryOptions);
+            deliverySelect.addEventListener("change", renderCart);
+
+            renderCart();
+        })();
+    </script>
+</body>
+
+</html>

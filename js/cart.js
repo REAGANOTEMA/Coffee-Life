@@ -1,10 +1,9 @@
 (() => {
   // ==========================
-  // COFFEE LIFE Cart + WhatsApp + Payments (FINAL 2025)
+  // COFFEE LIFE Cart + WhatsApp + Payments + Header Cart (FINAL 2025)
   // ==========================
 
-  // ----- CONFIGURATION -----
-  const WA_PHONE = "256772514889";
+  const WA_PHONE = "+2567096991395";
   const DELIVERY_AREAS = {
     "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
     "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000,
@@ -41,13 +40,18 @@
   window.cart = JSON.parse(localStorage.getItem("coffee_life_cart") || "[]");
   const persistCart = () => localStorage.setItem("coffee_life_cart", JSON.stringify(window.cart));
   const formatUGX = v => Number(v).toLocaleString() + " UGX";
-  const calcTotal = () => window.cart.reduce((s, it) => s + (it.price * it.qty), 0);
+  const calcTotal = () => (window.cart || []).reduce((s, it) => s + (it.price * it.qty), 0);
 
   // ----- CART COUNTER -----
   function updateCartCount() {
     const cartCountEl = document.getElementById("cart-count");
     const totalItems = window.cart.reduce((sum, item) => sum + item.qty, 0);
-    if (cartCountEl) cartCountEl.textContent = totalItems;
+    if (cartCountEl) {
+      cartCountEl.textContent = totalItems;
+      cartCountEl.classList.remove("bounce");
+      void cartCountEl.offsetWidth;
+      cartCountEl.classList.add("bounce");
+    }
   }
 
   // ----- CART MODAL -----
@@ -69,7 +73,7 @@
 
     persistCart();
     renderCart();
-    updateCartCount(); // ✅ update header count
+    updateCartCount();
     flashAddButton(item.id);
   }
   window.cartAdd = addToCart;
@@ -93,8 +97,7 @@
 
   // ----- BUTTON ANIMATION -----
   function flashAddButton(itemId) {
-    const btn = document.querySelector(`.menu-item[data-id="${itemId}"] .btn-add`)
-      || document.querySelector(`.add-to-cart-btn[data-id="${itemId}"]`);
+    const btn = document.querySelector(`.menu-item[data-id="${itemId}"] .btn-add`) || document.querySelector(`.add-to-cart-btn[data-id="${itemId}"]`);
     if (!btn) return;
     btn.classList.add("shake", "glow");
     setTimeout(() => btn.classList.remove("shake"), 600);
@@ -106,7 +109,7 @@
     window.cart = window.cart.filter(i => i.id !== id);
     persistCart();
     renderCart();
-    updateCartCount(); // ✅ update header count
+    updateCartCount();
   }
   function updateQty(id, qty) {
     const it = window.cart.find(i => i.id === id);
@@ -115,7 +118,7 @@
     if (it.qty <= 0) removeFromCart(id);
     persistCart();
     renderCart();
-    updateCartCount(); // ✅ update header count
+    updateCartCount();
   }
 
   // ----- RENDER CART -----
@@ -166,12 +169,12 @@
     const area = deliverySelect?.value || "";
     DELIVERY_FEE = DELIVERY_AREAS[area] || 0;
     renderCart();
-    updateCartCount(); // ✅ update header count
+    updateCartCount();
   }
   deliverySelect?.addEventListener("change", updateDeliveryFee);
 
-  // ----- ORDER HANDLER (WHATSAPP) -----
-  function handleOrderButton(paymentMethod = "Cash") {
+  // ----- WHATSAPP ORDER & SUPPORT -----
+  function handleWhatsAppOrder(paymentMethod = "Cash") {
     if (window.cart.length === 0) { alert("Please add items to your cart before proceeding."); return; }
     if (!deliverySelect?.value) { alert("Please select a delivery area."); return; }
 
@@ -185,9 +188,14 @@
     message += `\n\n☕ Coffee Life — Crafted with Passion, Served with Care.`;
 
     window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
-
-    window.cart = []; persistCart(); renderCart(); updateCartCount(); // ✅ clear and update
+    window.cart = []; persistCart(); renderCart(); updateCartCount();
   }
+
+  const whatsappConfirmBtn = document.getElementById("whatsapp-confirm");
+  const callSupportBtn = document.getElementById("callSupport");
+
+  whatsappConfirmBtn?.addEventListener("click", () => handleWhatsAppOrder("Cash"));
+  callSupportBtn?.addEventListener("click", () => window.open(`https://wa.me/${WA_PHONE}`, "_blank"));
 
   // ----- PAYMENT BUTTONS -----
   function addPaymentButtons() {
@@ -196,7 +204,7 @@
       const btn = document.createElement("button");
       btn.className = `payment-btn ${type}`;
       btn.textContent = type === "mtn" ? "Pay with MTN" : "Pay with Airtel";
-      btn.addEventListener("click", () => handleOrderButton(type === "mtn" ? "MTN Mobile Money" : "Airtel Money"));
+      btn.addEventListener("click", () => handleWhatsAppOrder(type === "mtn" ? "MTN Mobile Money" : "Airtel Money"));
       paymentContainer.appendChild(btn);
     });
     const note = document.createElement("div");
@@ -205,76 +213,101 @@
     paymentContainer.appendChild(note);
   }
 
-  // ----- FLOATING WHATSAPP BUTTON -----
-  whatsappFloat.addEventListener("click", () => handleOrderButton("Cash"));
+  // ----- FLOATING WHATSAPP -----
+  whatsappFloat.addEventListener("click", () => handleWhatsAppOrder("Cash"));
 
   // ----- INITIALIZATION -----
   wireStaticAddButtons();
   addPaymentButtons();
   renderCart();
-  updateCartCount(); // ✅ show count on page load
+  updateCartCount();
 
-  // ----- STYLING -----
+  // ----- GLOBAL STYLING -----
   const style = document.createElement("style");
   style.textContent = `
-    body { background-color: #fefefe; font-family: Arial, sans-serif; color: #333; }
+    body { background-color: #fefefe; font-family: Poppins, sans-serif; color: #333; }
     .menu-item { border-bottom: 1px solid #ccc; padding: 12px 0; }
-    .menu-item:last-child { border-bottom: none; }
-    .cart-container { background-color: #ffffffdd; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 12px; padding: 20px; }
-    .payment-section { margin-top: 15px; }
-    .payment-btn { margin-right: 10px; margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer; }
-    .payment-btn.mtn { background-color: #fcd116; color: #000; }
-    .payment-btn.airtel { background-color: #e60000; color: #fff; }
-    .cart-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #eee; }
+    .cart-container { width: 420px; background-color: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.2); border-radius: 16px; padding: 20px; position: fixed; top: 0; right: -450px; transition: right 0.5s ease; z-index: 9999; }
+    .cart-container.active { right: 0; }
+    .cart-total { font-weight: bold; color: #4b2e1e; margin-top: 12px; text-align: right; }
+    #cart-count { background: #c0392b; font-size: 0.7rem; padding: 3px 6px; border-radius: 50%; position: absolute; top: -6px; right: -6px; color: #fff; }
+    #cart-count.bounce { animation: bounceAnimation 0.3s ease; }
+    @keyframes bounceAnimation { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+    .payment-btn { padding: 0.6rem 1rem; border-radius: 50px; font-weight: bold; cursor: pointer; margin: 4px 0; }
+    .payment-btn.mtn { background: #fcd116; color: #000; }
+    .payment-btn.airtel { background: #e60000; color: #fff; }
   `;
   document.head.appendChild(style);
 
+  // ----- AUTO-FIX LEGACY BUTTONS -----
+  (function fixLegacyButtons() {
+    document.querySelectorAll('.menu-item').forEach(item => {
+      const btn = item.querySelector('button');
+      if (btn && !btn.classList.contains('btn-add')) {
+        btn.classList.add('btn-add');
+        btn.removeAttribute('onclick');
+      }
+    });
+    if (typeof wireStaticAddButtons === 'function') wireStaticAddButtons();
+  })();
+
 })();
-// ----- CART COUNTER WITH BOUNCE -----
-function updateCartCount() {
-  const cartCountEl = document.getElementById("cart-count");
-  const totalItems = window.cart.reduce((sum, item) => sum + item.qty, 0);
-  if (cartCountEl) {
-    cartCountEl.textContent = totalItems;
-
-    // Add bounce animation
-    cartCountEl.classList.remove("bounce"); // reset animation
-    void cartCountEl.offsetWidth; // trigger reflow
-    cartCountEl.classList.add("bounce");
-  }
-}
-
-// ----- BOUNCE ANIMATION STYLING -----
-const cartStyle = document.createElement("style");
-cartStyle.textContent = `
-  #cart-count {
-    display: inline-block;
-    transition: transform 0.2s ease;
-  }
-  #cart-count.bounce {
-    transform: scale(1.4);
-  }
-  #cart-count.bounce {
-    animation: bounceAnimation 0.3s ease;
-  }
-  @keyframes bounceAnimation {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.4); }
-    100% { transform: scale(1); }
-  }
-`;
-document.head.appendChild(cartStyle);
-// ✅ AUTO-FIX LEGACY BUTTONS (ensures all menu items have working Add buttons)
-(function fixLegacyButtons() {
-  document.querySelectorAll('.menu-item').forEach(item => {
-    const btn = item.querySelector('button');
-    if (btn && !btn.classList.contains('btn-add')) {
-      btn.classList.add('btn-add');
-      btn.removeAttribute('onclick'); // Remove old inline JS
+(() => {
+  // ----- CART RENDER WITH IMAGES AND CONTROLS -----
+  function renderCartWithImages() {
+    if (!cartItemsContainer) return;
+    cartItemsContainer.innerHTML = "";
+    let total = 0;
+    if (window.cart.length === 0) {
+      cartItemsContainer.innerHTML = `<p class="cart-empty">Your cart is empty. <a href="index.html#menu">Add items</a>.</p>`;
+      if (cartTotalEl) cartTotalEl.textContent = `Total: UGX 0`;
+      return;
     }
-  });
-  // Re-wire all buttons with new system
-  if (typeof wireStaticAddButtons === 'function') {
-    wireStaticAddButtons();
+
+    window.cart.forEach(item => {
+      total += item.price * item.qty;
+      const div = document.createElement("div");
+      div.className = "cart-item flex";
+
+      div.innerHTML = `
+        <img src="${item.img || 'menu-images/placeholder.jpg'}" alt="${item.name}" class="cart-item-img" style="width:60px; height:60px; object-fit:cover; border-radius:8px;">
+        <div class="cart-item-info" style="flex:1; margin-left:10px;">
+          <h4>${item.name}</h4>
+          <p>${formatUGX(item.price)} x ${item.qty}</p>
+          <span class="subtotal">${formatUGX(item.price * item.qty)}</span>
+        </div>
+        <div class="cart-item-controls" style="display:flex; flex-direction:column; gap:5px;">
+          <div style="display:flex; gap:5px; justify-content:center;">
+            <button class="qty-btn" data-action="minus" data-id="${item.id}">-</button>
+            <span class="qty">${item.qty}</span>
+            <button class="qty-btn" data-action="plus" data-id="${item.id}">+</button>
+          </div>
+          <button class="cart-item-remove" data-id="${item.id}" style="color:red; font-weight:bold;">&times;</button>
+        </div>
+      `;
+
+      div.querySelectorAll(".qty-btn").forEach(b => b.addEventListener("click", e => {
+        const action = e.currentTarget.dataset.action, id = e.currentTarget.dataset.id;
+        const it = window.cart.find(i => i.id === id);
+        if (!it) return;
+        if (action === "plus") updateQty(id, it.qty + 1);
+        else updateQty(id, it.qty - 1);
+      }));
+
+      div.querySelector(".cart-item-remove")?.addEventListener("click", e => removeFromCart(e.currentTarget.dataset.id));
+
+      cartItemsContainer.appendChild(div);
+    });
+
+    const grandTotal = total + (DELIVERY_FEE || 0);
+    if (cartTotalEl) cartTotalEl.innerHTML = `
+      Total: ${formatUGX(grandTotal)}
+      <span class="delivery-fee" style="display:block; font-size:0.9rem;">Delivery: ${formatUGX(DELIVERY_FEE)}</span>
+      <a href="index.html#menu" class="btn" style="margin-top:5px; display:block;">Add More Items</a>
+    `;
   }
+
+  // ----- HOOK INTO EXISTING FUNCTIONS -----
+  window.renderCart = renderCartWithImages;
+  renderCartWithImages(); // initial render
 })();

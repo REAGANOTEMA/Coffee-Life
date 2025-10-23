@@ -12,9 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (entry.isIntersecting) {
           entry.target.classList.add("reveal");
           const video = entry.target.querySelector("video");
-          if (video) {
-            video.play().catch(() => {}); // auto-play when visible
-          }
+          if (video) video.play().catch(() => { });
         }
       });
     },
@@ -26,10 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =============================
      2. LIGHTBOX FUNCTIONALITY
   ==============================*/
-  const allGalleryMedia = document.querySelectorAll(
-    ".gallery-item img, .gallery-item video"
-  );
-
+  const allGalleryMedia = document.querySelectorAll(".gallery-item img, .gallery-item video");
   const lightbox = document.createElement("div");
   lightbox.classList.add("lightbox");
   lightbox.innerHTML = `
@@ -44,12 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
   allGalleryMedia.forEach(media => {
     media.addEventListener("click", () => {
       lightbox.classList.add("open");
-
       if (media.tagName === "IMG") {
         lightboxContent.innerHTML = `<img src="${media.src}" alt="Expanded view">`;
       } else if (media.tagName === "VIDEO") {
-        const src =
-          media.querySelector("source")?.src || media.currentSrc || media.src;
+        const src = media.querySelector("source")?.src || media.currentSrc || media.src;
         lightboxContent.innerHTML = `<video src="${src}" controls autoplay loop playsinline></video>`;
       }
     });
@@ -61,9 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   lightboxClose.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", e => {
-    if (e.target === lightbox) closeLightbox();
-  });
+  lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
 
   /* =============================
      3. MOVING VIDEO TEXT EFFECT
@@ -85,16 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
     video.autoplay = true;
     video.playsInline = true;
     video.style.opacity = "1";
+    video.addEventListener("canplay", () => video.play().catch(() => { }));
 
-    // Play automatically once loaded
-    video.addEventListener("canplay", () => video.play().catch(() => {}));
-
-    // Café ambience sound
     const audio = new Audio("assets/cafe-ambience.mp3");
     audio.loop = true;
     audio.volume = 0.15;
 
-    video.addEventListener("mouseenter", () => audio.play().catch(() => {}));
+    video.addEventListener("mouseenter", () => audio.play().catch(() => { }));
     video.addEventListener("mouseleave", () => audio.pause());
   });
 
@@ -114,14 +102,28 @@ document.addEventListener("DOMContentLoaded", () => {
   ==============================*/
   lightboxContent.addEventListener("wheel", e => {
     e.preventDefault();
-    lightboxContent.scrollBy({
-      top: e.deltaY,
-      behavior: "smooth"
-    });
+    lightboxContent.scrollBy({ top: e.deltaY, behavior: "smooth" });
   });
 
   /* =============================
      7. MOBILE TOUCH SUPPORT
   ==============================*/
-  document.addEventListener("touchstart", () => {}, { passive: true });
+  document.addEventListener("touchstart", () => { }, { passive: true });
+
+  /* =============================
+     8. FILTERABLE GALLERY
+  ==============================*/
+  const filterButtons = document.querySelectorAll(".filter-buttons button");
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter;
+      document.querySelectorAll(".gallery-item").forEach(item => {
+        if (filter === "all") item.style.display = "block";
+        else if (item.classList.contains(filter)) item.style.display = "block";
+        else item.style.display = "none";
+      });
+      filterButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
 });

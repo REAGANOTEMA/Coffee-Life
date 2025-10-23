@@ -236,3 +236,117 @@
     window.coffeeLife = { updateCartDisplay, handlePayment, handleOrderNow };
   });
 })();
+const LOCATION_CONTACTS = {
+  "jinja-highway": [
+    "+256752746763",
+    "+256749958799",
+    "+256751054138",
+    "+256701234567",
+    "+256702345678"
+  ],
+  "jinja-lakeview": [
+    "+256750038032",
+    "+256703456789",
+    "+256704567890",
+    "+256705678901",
+    "+256706789012"
+  ],
+  "kampala-kansanga": [
+    "+256783070102",
+    "+256707890123",
+    "+256708901234",
+    "+256709012345",
+    "+256709123456"
+  ]
+};
+// ===== WHATSAPP ORDER =====
+function handleOrderNow(paymentMethod = "Cash") {
+  if (!window.cart.length) return alert("🛒 Please add items to your cart.");
+  if (!deliverySelect.value) return alert("📍 Please select your delivery area.");
+  if (!locationGroupSelect.value) return alert("🏬 Please select branch/location.");
+
+  const customerName = prompt("Enter your full name:")?.trim();
+  if (!customerName) return alert("⚠ Name is required to continue.");
+
+  const area = deliverySelect.value;
+  const contacts = LOCATION_CONTACTS[locationGroupSelect.value] || [];
+
+  if (!contacts.length) {
+    return alert("❌ No WhatsApp contact is available for this branch. Please call support.");
+  }
+
+  // Use the first number OR random selection:
+  const waNumber = contacts[Math.floor(Math.random() * contacts.length)];
+
+  const subtotal = calcCartSubtotal();
+  const total = subtotal + DELIVERY_FEE;
+
+  let message = `✨ *Coffee Life Order* ✨\n`;
+  message += `\n👤 Name: ${customerName}`;
+  message += `\n📍 Area: ${area}`;
+  message += `\n💰 Payment Method: ${paymentMethod}`;
+  message += `\n\n🛒 *Items:* \n`;
+
+  window.cart.forEach((item, index) => {
+    message += `${index + 1}. ${item.name} (x${item.qty}) - ${formatUGX(item.price * item.qty)}\n`;
+  });
+
+  message += `\n💵 Subtotal: ${formatUGX(subtotal)}`;
+  message += `\n🚚 Delivery Fee: ${formatUGX(DELIVERY_FEE)}`;
+  message += `\n📦 Total: ${formatUGX(total)}`;
+  message += `\n\n☕ _Coffee Life — Crafted with Passion_`;
+
+  // WhatsApp link
+  window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, "_blank");
+
+  // Optionally clear the cart after sending
+  window.cart = [];
+  persistCart();
+  updateCartDisplay();
+}
+
+// ===== ON CLICK =====
+document.getElementById("whatsapp-confirm")?.addEventListener("click", () => handleOrderNow("Cash"));
+(() => {
+  const WA_PHONE = "+2567096991395";
+
+  // ----- GET BUTTONS -----
+  const whatsappBtn = document.getElementById("whatsapp-confirm");
+  const callBtn = document.getElementById("callSupport");
+
+  // ----- HELPER -----
+  const formatUGX = v => Number(v).toLocaleString() + " UGX";
+  const calcTotal = () => (window.cart || []).reduce((s, it) => s + (it.price * it.qty), 0);
+  const DELIVERY_FEE = 0; // optional default if you want static here
+
+  // ----- ORDER MESSAGE -----
+  function buildWhatsAppMessage(paymentMethod = "Cash") {
+    const cart = window.cart || [];
+    if (!cart.length) return null;
+
+    const name = prompt("Enter your full name:")?.trim();
+    if (!name) { alert("Name required"); return null; }
+
+    let message = `✨ *Coffee Life Order* ✨\n\n👤 Customer: ${name}\n💰 Payment: ${paymentMethod}\n\n🛒 Order Details:\n`;
+    cart.forEach((it, i) => {
+      message += `${i + 1}. ${it.name} x${it.qty} = ${formatUGX(it.price * it.qty)}\n`;
+    });
+    message += `\n🧾 Subtotal: ${formatUGX(calcTotal())}`;
+    message += `\n💰 Grand Total: ${formatUGX(calcTotal() + DELIVERY_FEE)}`;
+    message += `\n\n☕ Coffee Life — Crafted with Passion, Served with Care.`;
+    return message;
+  }
+
+  // ----- EVENT LISTENERS -----
+  whatsappBtn?.addEventListener("click", () => {
+    const message = buildWhatsAppMessage();
+    if (message) window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`, "_blank");
+  });
+
+  callBtn?.addEventListener("click", () => {
+    // Open WhatsApp chat
+    window.open(`https://wa.me/${WA_PHONE}`, "_blank");
+    // Or uncomment the next line to make it a direct call
+    // window.location.href = `tel:${WA_PHONE}`;
+  });
+})();
