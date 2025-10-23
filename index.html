@@ -131,10 +131,10 @@
     <header class="site-header" id="mainHeader" role="banner">
         <div class="container nav-inner">
 
-            <!-- BRAND / LOGO (JS injects circle logo + slogan here) -->
+            <!-- BRAND / LOGO (JS will inject circle logo + slogan here) -->
             <a class="logo" href="#home" aria-label="Coffee Life home"></a>
 
-            <!-- NAVIGATION & ACTIONS WRAPPER -->
+            <!-- NAVIGATION -->
             <nav class="nav" role="navigation" aria-label="Main navigation">
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home" class="nav-link active">Home</a></li>
@@ -143,12 +143,8 @@
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
 
-                <!-- ACTIONS (CTA + BURGER + CART) -->
+                <!-- ACTIONS (CART + HAMBURGER) -->
                 <div class="nav-actions">
-                    <!-- CTA BUTTON -->
-                    <a href="#order" class="btn-cta" onclick="globalAddToCart({id:1,name:'Steak',price:50})">Order
-                        Now</a>
-
                     <!-- CART ICON -->
                     <div class="cart-icon" aria-label="Shopping cart">
                         🛒 <span id="cart-count" class="cart-count-badge">0</span>
@@ -170,9 +166,9 @@
             <a href="#menu" class="mobile-link">Menu</a>
             <a href="#gallery" class="mobile-link">Gallery</a>
             <a href="#contact" class="mobile-link">Contact</a>
-            <a href="#order" class="mobile-link">Order Now</a>
         </div>
     </header>
+
 
 
     <!-- Optional: Background hero animation -->
