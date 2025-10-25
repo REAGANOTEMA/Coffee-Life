@@ -193,22 +193,52 @@
 </head>
 
 <body>
-    <!-- HEADER -->
-    <header class="site-header">
-        <div class="brand">
-            <div class="logo">CL</div>
-            <div>
-                <div class="brand-name">Coffee Life</div>
-                <div class="brand-tagline small">Freshly brewed — Local delivery</div>
-            </div>
+    <!-- ===== FINAL STATIC LUXURY CINEMATIC HEADER HTML (FIXED) ===== -->
+    <header class="site-header" id="mainHeader" role="banner">
+        <div class="container nav-inner">
+
+            <!-- BRAND / LOGO -->
+            <a class="logo" href="index.html" aria-label="Coffee Life home">
+                <img src="images/logo.jpg" alt="Coffee Life Logo" style="height:50px; width:auto; border-radius:50%;">
+            </a>
+
+            <!-- NAVIGATION -->
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+                    <li><a href="index.html#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                    <li><a href="form.html" class="nav-link active">Complaints</a></li>
+                </ul>
+
+                <!-- ACTIONS (CART + HAMBURGER) -->
+                <div class="nav-actions">
+                    <!-- CART ICON -->
+                    <div class="cart-icon" aria-label="Shopping cart">
+                        🛒 <span id="cart-count" class="cart-count-badge">0</span>
+                    </div>
+
+                    <!-- HAMBURGER FOR MOBILE -->
+                    <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                </div>
+            </nav>
         </div>
-        <nav class="desktop">
-            <a class="btn" href="index.html#menu">Back to Menu</a>
-        </nav>
-        <div class="hamburger" id="hamburger">
-            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="index.html#menu" class="mobile-link">Menu</a>
+            <a href="index.html#gallery" class="mobile-link">Gallery</a>
+            <a href="index.html#contact" class="mobile-link">Contact</a>
+            <a href="form.html" class="mobile-link active">Complaints</a>
         </div>
     </header>
+
 
     <!-- MAIN CONTENT -->
     <main class="container">
