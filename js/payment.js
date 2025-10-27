@@ -3,7 +3,7 @@
     // COFFEE LIFE CART + PAYMENT + WHATSAPP (FINAL 2025)
     // ==========================
 
-    const WA_PHONE = "+2567096991395";
+    const WA_PHONE = "+256709691395";
     const DELIVERY_AREAS = {
         "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
         "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000,
