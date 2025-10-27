@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Coffee Life Cafe, Elite Payment Experience</title>
+    <title>Coffee Life Cafe — Elite Payment Experience</title>
     <meta name="description" content="Coffee Life — The Most Exclusive Coffee Checkout Experience" />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,22 +26,18 @@
     <!-- HEADER -->
     <header class="site-header luxurious-header">
         <div class="container nav-inner">
-            <a class="brand" href="index.html">
-                <img class="logo-img" src="images/logo.jpg" alt="Coffee Life logo">
-                <div class="brand-text">
-                    <span class="brand-name">Coffee Life</span>
-                    <small class="brand-tagline">The Pinnacle of Coffee and Food Luxury</small>
-                </div>
+            <img class="logo-img" src="images/logo.jpg" alt="Coffee Life logo">
+            <div class="brand-text">
+                <span class="brand-name">Coffee Life</span>
+                <small class="brand-tagline">The Pinnacle of Coffee and Food Luxury</small>
+            </div>
             </a>
             <nav class="nav">
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="form.html" class="nav-link active">An complaints</a></li>
-                </ul>
                 <div class="nav-actions">
-                    <button class="cart-button" id="openCart" aria-label="Open cart">
+                    <button class="cart-button shaking" id="openCart" aria-label="Open cart">
                         🛒<span id="cart-count" class="cart-count-badge">0</span>
                     </button>
-                    <button id="hamburger" class="hamburger" aria-label="Toggle menu">
+                    <button id="hamburger" class="hamburger shaking" aria-label="Toggle menu">
                         <span class="bar"></span>
                         <span class="bar"></span>
                         <span class="bar"></span>
@@ -54,29 +50,26 @@
     <!-- MAIN CONTENT -->
     <main class="container ultra-luxury">
         <section class="hero-section">
-            <h1 class="hero-title">Elite Checkout Experience</h1>
-            <p class="hero-sub">Seamless • Premium • Exclusive</p>
+            <h1 class="hero-title shaking">Elite Checkout Experience</h1>
+            <p class="hero-sub shaking">Seamless • Premium • Exclusive</p>
         </section>
 
         <div class="grid">
             <!-- Branch & Delivery -->
             <section class="panel">
-                <div class="card">
+                <div class="card shaking">
                     <h2>Select Branch & Delivery Area</h2>
 
-                    <!-- Branch selector -->
                     <label for="location-group">Branch:</label>
-                    <select id="location-group" class="select">
-                        <option value="jinja-highway" selected>Coffee Life Cafe — Jinja Highway (Opposite Gadafi Bar)
+                    <select id="location-group" class="select shaking">
+                        <option value="jinja-highway" selected>Coffee Life Cafe, Jinja Highway (Opposite Gadafi Bar)
                         </option>
-                        <option value="kampala">Coffee Life Cafe — Kampala (TBD)</option>
-                        <option value="jinja-lakeview">Coffee Life Cafe — Jinja Lakeview (TBD)</option>
+                        <option value="kampala">Coffee Life Cafe, Kampala Kansanga</option>
+                        <option value="jinja-lakeview">Coffee Life Cafe, Jinja Lakeview (TBD)</option>
                     </select>
 
-                    <!-- Delivery Area selector -->
                     <label for="delivery-zone">Delivery Area:</label>
-                    <select id="delivery-zone" class="select">
-                        <!-- Jinja Highway areas -->
+                    <select id="delivery-zone" class="select shaking">
                         <option value="jinja-town">Jinja Town — 2,000 UGX</option>
                         <option value="milo-mbili">Milo Mbili — 2,000 UGX</option>
                         <option value="walukuba-west">Walukuba West — 2,000 UGX</option>
@@ -92,10 +85,8 @@
                         <option value="namuleesa">Namuleesa — 4,000 UGX</option>
                     </select>
 
-                    <div class="small">Delivery fee: <strong id="deliveryFee">0 UGX</strong></div>
-
-                    <!-- Contact info -->
-                    <div class="small contact-info">
+                    <div class="small shaking">Delivery fee: <strong id="deliveryFee">0 UGX</strong></div>
+                    <div class="small contact-info shaking">
                         For inquiries, call <a href="tel:+256709691395">+256709691395</a> or WhatsApp <a
                             href="https://wa.me/+256709691395" target="_blank">+256709691395</a>
                     </div>
@@ -104,7 +95,7 @@
 
             <!-- Cart & Payment -->
             <aside class="panel">
-                <div class="card">
+                <div class="card shaking">
                     <h2>Your Cart</h2>
                     <div id="cartItems" class="cart-items"></div>
                     <div class="cart-summary">
@@ -112,16 +103,23 @@
                         <div class="row"><span>Delivery</span><span id="deliveryFeeSummary">0 UGX</span></div>
                         <div class="row total"><span>Total</span><span id="cartTotal">0 UGX</span></div>
                     </div>
-                    <div class="card nested" id="payment-section">
+
+                    <div class="card nested shaking" id="payment-section">
                         <h3>Choose Payment Method</h3>
-                        <div class="payment-options">
-                            <button class="payment-option" data-provider="mtn">MTN</button>
-                            <button class="payment-option" data-provider="airtel">Airtel</button>
+                        <div class="payment-options shaking">
+                            <button class="payment-option shaking" data-provider="mtn">
+                                <img src="images/mtn.jpg" alt="MTN" style="height:24px; vertical-align:middle;"> MTN
+                            </button>
+                            <button class="payment-option shaking" data-provider="airtel">
+                                <img src="images/el.jpg" alt="Airtel" style="height:24px; vertical-align:middle;">
+                                Airtel
+                            </button>
                         </div>
-                        <input type="text" id="paymentNumber" placeholder="Enter your payment number" />
+                        <input type="text" id="paymentNumber" class="shaking" placeholder="Enter your payment number" />
                         <div class="actions">
-                            <button class="btn primary" id="whatsapp-confirm">Confirm &amp; Send via WhatsApp</button>
-                            <button class="btn secondary" id="callSupport">Call Support</button>
+                            <button class="btn primary shaking" id="whatsapp-confirm">Confirm & Send via
+                                WhatsApp</button>
+                            <button class="btn secondary shaking" id="callSupport">Call Support</button>
                         </div>
                     </div>
                 </div>
@@ -129,10 +127,13 @@
         </div>
     </main>
 
-    <!-- WhatsApp Floating Button -->
-    <div class="whatsapp-float disabled" id="waFloat">
-        <img src="assets/images/whatsapp-icon.png" alt="WhatsApp" class="wa-icon">
-        <span>Order on WhatsApp</span>
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <a href="form.html" class="floating-btn shaking">💬 Comment</a>
+        <div class="whatsapp-float shaking" id="waFloat">
+            <img src="images/whatsapp.webp" alt="WhatsApp" class="wa-icon">
+            <span>Order on WhatsApp</span>
+        </div>
     </div>
 
     <noscript>
