@@ -1,12 +1,12 @@
 :root {
-    --white: #ffffff;
+    --white: #ffffff !important;
     --black: #111111;
-    --yellow: #d4af37;
-    /* dark yellow for slogans */
+    --yellow: #eeedea;
+    /* Light luxury gold-tint */
 }
 
 /* =========================
-   HEADER
+   SITE HEADER
 ========================= */
 .site-header {
     position: fixed;
@@ -19,7 +19,10 @@
     justify-content: space-between;
     padding: 0 5%;
     z-index: 9999;
-    background: var(--white);
+    background: var(--white) !important;
+    opacity: 1 !important;
+    filter: none !important;
+    backdrop-filter: none !important;
     border-bottom: 2px solid var(--black);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     font-family: 'Poppins', sans-serif;
@@ -73,32 +76,48 @@
 }
 
 /* =========================
-   NAVIGATION
+   NAVIGATION LINKS
 ========================= */
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
-    /* balanced spacing */
-    font-weight: 700;
+    gap: 3rem;
+    font-weight: 900;
+    margin-left: auto;
+    /* pushes nav to right */
+    justify-content: flex-end;
 }
 
 .nav-link {
     color: var(--black);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
     position: relative;
+    padding: 12px 20px;
+    border-radius: 14px;
+    transition: all 0.3s ease-in-out;
+    transform: translateZ(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    background: var(--yellow);
+    color: var(--black);
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -6px;
     left: 50%;
     width: 0;
-    height: 3px;
+    height: 4px;
     background: var(--black);
-    border-radius: 2px;
+    border-radius: 4px;
     transform: translateX(-50%);
     transition: width 0.3s ease;
 }
@@ -108,10 +127,11 @@
 }
 
 /* =========================
-   REMOVE ORDER NOW BUTTONS
+   REMOVE LEGACY / HERO BUTTONS
 ========================= */
 .site-header .btn-cta,
-.mobile-menu a[href*="order"] {
+.mobile-menu a[href*="order"],
+.hero-cta {
     display: none !important;
 }
 
@@ -146,6 +166,7 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     padding: 10px 0;
     z-index: 999;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
 }
 
 .mobile-menu.active {
@@ -185,18 +206,6 @@
     position: absolute;
     top: -10px;
     right: -10px;
-}
-
-/* Hide checkout / actions in cart drawer */
-.cart-drawer .cart-actions {
-    display: none;
-}
-
-/* =========================
-   HERO CTA REMOVED
-========================= */
-.hero-cta {
-    display: none;
 }
 
 /* =========================

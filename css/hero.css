@@ -5,10 +5,10 @@
 
 /* --------- Palette & globals --------- */
 :root {
-    --coffee-1: #5a382d;
-    --coffee-2: #4b2e2b;
-    --gold-1: #d4af37;
-    --gold-2: #cfaf2b;
+    --coffee-1: #8f2020;
+    --coffee-2: #671107;
+    --gold-1: #fefefe;
+    --gold-2: #410d0d;
     --white: #ffffff;
     --transition-fast: 220ms;
     --transition-med: 400ms;
@@ -233,7 +233,7 @@
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(212, 175, 55, 0.85));
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
     animation: heroSparkle 3s ease-in-out infinite;
     mix-blend-mode: screen;
     opacity: 0;

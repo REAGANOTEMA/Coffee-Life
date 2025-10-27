@@ -1,199 +1,177 @@
-// ===== GLOBAL JS (Final Premium Version) =====
+// ===== GLOBAL JS (Luxury Header + PWA Ready) =====
+(function () {
+    // ===== Config =====
+    const NAV_ITEMS = [
+        { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: '#home' },
+        { id: 'menu', label: { en: 'Menu', ar: 'القائمة' }, href: '#menu' },
+        { id: 'about', label: { en: 'About', ar: 'عنّا' }, href: '#about' },
+        { id: 'contact', label: { en: 'Contact', ar: 'تواصل' }, href: '#contact' }
+    ];
 
-// Select elements
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const siteHeader = document.querySelector('.site-header');
-const navLinkItems = document.querySelectorAll('.nav-links a');
-const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    const SOCIALS = [
+        { id: 'instagram', label: 'Instagram', href: 'https://instagram.com', icon: '📸' },
+        { id: 'whatsapp', label: 'WhatsApp', href: 'https://wa.me/', icon: '💬' },
+        { id: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com', icon: '🎵' },
+        { id: 'facebook', label: 'Facebook', href: 'https://facebook.com', icon: 'f' }
+    ];
 
-// ===== Hamburger Toggle =====
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
+    const DEFAULT_LANG = localStorage.getItem('luxury_lang') || 'en';
 
-// ===== Sticky Header on Scroll =====
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        siteHeader.classList.add('scrolled');
-    } else {
-        siteHeader.classList.remove('scrolled');
-    }
-});
+    // ===== Element References =====
+    const header = document.querySelector('.site-header');
+    const navLinks = document.querySelector('.nav-links');
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const siteHeader = document.querySelector('.site-header');
+    const navLinkItems = document.querySelectorAll('.nav-links a');
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
 
-// ===== Highlight Active Navigation Link =====
-const sections = document.querySelectorAll('section[id]');
+    // ===== Hamburger / Mobile Menu Toggle =====
+    if (hamburger && mobileMenu) {
+        const openMobileMenu = () => {
+            mobileMenu.classList.add('active');
+            mobileMenu.style.display = 'flex';
+            mobileMenu.style.flexDirection = 'column';
+            mobileMenu.style.position = 'absolute';
+            mobileMenu.style.top = '100%';
+            mobileMenu.style.left = '0';
+            mobileMenu.style.width = '100%';
+            mobileMenu.style.backgroundColor = '#fff';
+            mobileMenu.style.transition = 'max-height 0.4s ease, opacity 0.4s ease';
+            mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+            mobileMenu.style.opacity = '1';
+            hamburger.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
 
-window.addEventListener('scroll', () => {
-    const scrollY = window.pageYOffset;
-
-    sections.forEach(current => {
-        const sectionHeight = current.offsetHeight;
-        const sectionTop = current.offsetTop - 80;
-        const sectionId = current.getAttribute('id');
-
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            document.querySelector('.nav-links a[href*=' + sectionId + ']').classList.add('active');
-        } else {
-            document.querySelector('.nav-links a[href*=' + sectionId + ']').classList.remove('active');
-        }
-    });
-});
-
-// ===== Scroll Reveal Animations =====
-const elementInView = (el, dividend = 1) => {
-    const elementTop = el.getBoundingClientRect().top;
-    return elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend;
-};
-
-const displayScrollElement = (element) => {
-    element.classList.add('visible');
-};
-
-const hideScrollElement = (element) => {
-    element.classList.remove('visible');
-};
-
-const handleScrollAnimation = () => {
-    scrollElements.forEach((el) => {
-        if (elementInView(el, 1.2)) {
-            displayScrollElement(el);
-        } else {
-            hideScrollElement(el);
-        }
-    });
-};
-
-window.addEventListener('scroll', handleScrollAnimation);
-
-// ===== Smooth Scroll for Navigation Links =====
-navLinkItems.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-
-        // Close mobile menu if open
-        if (navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
+        const closeMobileMenu = () => {
+            mobileMenu.classList.remove('active');
+            mobileMenu.style.maxHeight = '0';
+            mobileMenu.style.opacity = '0';
             hamburger.classList.remove('active');
-        }
-    });
-});
-// ============================
-// global.js — CoffeeLife Cafe PWA
-// ============================
+            document.body.style.overflow = '';
+        };
 
-// ===== Service Worker Registration =====
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js', { scope: './' })
-        .then(() => console.log('Service Worker Registered'))
-        .catch(err => console.error('SW registration failed:', err));
-}
+        hamburger.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) closeMobileMenu();
+            else openMobileMenu();
+        });
 
-// ===== PWA Install Prompt =====
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault(); // Prevent automatic prompt
-    deferredPrompt = e;
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
 
-    // Create custom install button
-    const btn = document.createElement('button');
-    btn.textContent = 'Install CoffeeLife App';
-    btn.className = 'btn-install';
-    btn.style.position = 'fixed';
-    btn.style.bottom = '80px';
-    btn.style.right = '20px';
-    btn.style.zIndex = '1000';
-    btn.style.padding = '15px 25px';
-    btn.style.backgroundColor = '#b85c38';
-    btn.style.color = '#fff';
-    btn.style.border = 'none';
-    btn.style.borderRadius = '12px';
-    btn.style.fontWeight = 'bold';
-    btn.style.cursor = 'pointer';
-    document.body.appendChild(btn);
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) closeMobileMenu();
+        });
 
-    btn.addEventListener('click', async () => {
-        btn.style.display = 'none';
-        deferredPrompt.prompt(); // Show browser install prompt
-        const choice = await deferredPrompt.userChoice;
-        console.log('User choice:', choice.outcome);
-        deferredPrompt = null;
-    });
-});
-
-// ===== WhatsApp Floating Button =====
-const whatsappBtn = document.querySelector('.whatsapp-btn');
-if (whatsappBtn) {
-    whatsappBtn.addEventListener('click', () => {
-        const phone = '+256709691395'; // Replace with your WhatsApp number
-        const message = encodeURIComponent('Hello CoffeeLife, I want to place an order.');
-        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-    });
-}
-
-// ===== Utility Function: Format UGX =====
-function formatUGX(amount) {
-    return "UGX " + Number(amount).toLocaleString();
-}
-
-// ===== Menu Rendering Hooks =====
-function addToCart(item) {
-    // Add 4000 transport charge
-    const itemWithTransport = { ...item, price: item.price + 4000 };
-    console.log(`Added to cart: ${item.name} (+4000 transport)`);
-
-    if (window.cartAdd) {
-        window.cartAdd(itemWithTransport);
-    } else {
-        // fallback if cartAdd is not defined
-        window.cart = window.cart || [];
-        const existing = window.cart.find(i => i.id === item.id);
-        if (existing) existing.qty++;
-        else window.cart.push({ ...itemWithTransport, qty: 1 });
-        alert(`${item.name} added to cart (+4000 delivery)`);
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) closeMobileMenu();
+        });
     }
-}
 
-// Optional: Expose globally for menu.js
-window.globalAddToCart = addToCart;
-
-// ===== Responsive Adjustments =====
-window.addEventListener("resize", () => {
-    const menuContainer = document.getElementById("menu-container");
-    if (!menuContainer) return;
-
-    if (window.innerWidth <= 600) menuContainer.style.gridTemplateColumns = "1fr";
-    else if (window.innerWidth <= 900) menuContainer.style.gridTemplateColumns = "repeat(2, 1fr)";
-    else if (window.innerWidth <= 1200) menuContainer.style.gridTemplateColumns = "repeat(3, 1fr)";
-    else menuContainer.style.gridTemplateColumns = "repeat(4, 1fr)";
-});
-document.addEventListener("DOMContentLoaded", () => {
-    const hamburger = document.getElementById("hamburger");
-    const navMenu = document.querySelector(".nav-menu");
-
-    // Toggle Menu
-    hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
+    // ===== Sticky Header =====
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) siteHeader.classList.add('scrolled');
+        else siteHeader.classList.remove('scrolled');
     });
 
-    // Close menu when link clicked
-    document.querySelectorAll(".nav-menu a").forEach(link => {
-        link.addEventListener("click", () => {
-            hamburger.classList.remove("active");
-            navMenu.classList.remove("active");
+    // ===== Smooth Scroll & Highlight Active =====
+    const sections = document.querySelectorAll('section[id]');
+    navLinkItems.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+            if (mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
         });
     });
 
-    // Optional: Close menu on outside click
-    document.addEventListener("click", (e) => {
-        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-            hamburger.classList.remove("active");
-            navMenu.classList.remove("active");
-        }
+    window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset;
+        sections.forEach(section => {
+            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop - 80;
+            const sectionId = section.getAttribute('id');
+            const link = document.querySelector('.nav-links a[href*=' + sectionId + ']');
+            if (!link) return;
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) link.classList.add('active');
+            else link.classList.remove('active');
+        });
     });
-});
+
+    // ===== Scroll Reveal =====
+    const elementInView = (el, dividend = 1) => el.getBoundingClientRect().top <= (window.innerHeight / dividend);
+    const handleScrollAnimation = () => {
+        scrollElements.forEach(el => {
+            if (elementInView(el, 1.2)) el.classList.add('visible');
+            else el.classList.remove('visible');
+        });
+    };
+    window.addEventListener('scroll', handleScrollAnimation);
+
+
+    // ===== Responsive Menu Grid =====
+    const adjustMenuGrid = () => {
+        const menuContainer = document.getElementById("menu-container");
+        if (!menuContainer) return;
+        if (window.innerWidth <= 600) menuContainer.style.gridTemplateColumns = "1fr";
+        else if (window.innerWidth <= 900) menuContainer.style.gridTemplateColumns = "repeat(2, 1fr)";
+        else if (window.innerWidth <= 1200) menuContainer.style.gridTemplateColumns = "repeat(3, 1fr)";
+        else menuContainer.style.gridTemplateColumns = "repeat(4, 1fr)";
+    };
+    window.addEventListener("resize", adjustMenuGrid);
+    window.addEventListener("DOMContentLoaded", adjustMenuGrid);
+
+    // ===== Service Worker =====
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+            .then(() => console.log('Service Worker Registered'))
+            .catch(err => console.error('SW registration failed:', err));
+    }
+
+    // ===== PWA Install =====
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        const btn = document.createElement('button');
+        btn.textContent = 'Install CoffeeLife App';
+        btn.className = 'btn-install';
+        Object.assign(btn.style, {
+            position: 'fixed',
+            bottom: '80px',
+            right: '20px',
+            zIndex: '1000',
+            padding: '15px 25px',
+            backgroundColor: '#b85c38',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '12px',
+            fontWeight: 'bold',
+            cursor: 'pointer'
+        });
+        document.body.appendChild(btn);
+        btn.addEventListener('click', async () => {
+            btn.style.display = 'none';
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+        });
+    });
+
+    // ===== WhatsApp Button =====
+    const whatsappBtn = document.querySelector('.whatsapp-btn');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', () => {
+            const phone = '+256709691395';
+            const message = encodeURIComponent('Hello CoffeeLife, I want to place an order.');
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        });
+    }
+
+})();
