@@ -6,59 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Coffee Life Cafe — Elite Payment Experience</title>
     <meta name="description" content="Coffee Life — The Most Exclusive Coffee Checkout Experience">
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@400;600&family=Cinzel:wght@400;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/payment.css">
-    <link rel="stylesheet" href="css/cart.css">
-    <link rel="stylesheet" href="css/whatsapp.css">
-    <link rel="stylesheet" href="css/responsive.css">
     <link rel="icon" href="images/logo.jpg" type="image/x-icon">
 </head>
 
 <body>
-    <!-- MAIN CONTENT -->
-    <main class="container ultra-luxury">
+    <!-- HERO -->
+    <main class="container">
         <section class="hero-section" aria-labelledby="hero-title">
-            <h1 id="hero-title" class="hero-title">Elite Checkout Experience</h1>
-            <p class="hero-sub">Seamless • Premium • Exclusive</p>
+            <h1 id="hero-title">Elite Checkout Experience</h1>
+            <p>Seamless • Premium • Exclusive</p>
         </section>
 
-        <!-- Back to Home Button -->
+        <!-- Back to Home -->
         <div style="text-align:center; margin-top:20px;">
-            <a href="index.html" class="btn primary" style="padding:10px 20px; border-radius:12px;">← Back to Home</a>
+            <a href="index.html" class="btn">← Back to Home</a>
         </div>
 
         <div class="grid" role="region" aria-label="Checkout grid">
+
             <!-- Branch & Delivery -->
             <section class="panel" aria-labelledby="branch-title">
                 <div class="card" role="group" aria-labelledby="branch-title">
                     <h2 id="branch-title">Select Branch & Delivery Area</h2>
                     <label for="location-group">Branch:</label>
-                    <select id="location-group" class="select">
+                    <select id="location-group">
                         <option value="jinja-highway" selected>Coffee Life Cafe Jinja Highway</option>
-                        <option value="kampala">Coffee Life Cafe Kampala Kansanga</option>
-                        <option value="jinja-lakeview">Coffee Life Cafe Jinja Lakeview</option>
+                        <option value="kampala" disabled>Coffee Life Cafe Kampala (Coming Soon)</option>
+                        <option value="jinja-lakeview" disabled>Coffee Life Cafe Jinja Lakeview (Coming Soon)</option>
                     </select>
 
                     <label for="delivery-zone">Delivery Area:</label>
-                    <select id="delivery-zone" class="select">
+                    <select id="delivery-zone">
                         <option value="jinja-town">Jinja Town — 2,000 UGX</option>
-                        <option value="milo-mbili">Milo Mbili — 2,000 UGX</option>
-                        <option value="walukuba-west">Walukuba West — 2,000 UGX</option>
-                        <option value="walukuba-east">Walukuba East — 3,000 UGX</option>
-                        <option value="mafubira">Mafubira — 3,000 UGX</option>
-                        <option value="mpumudde">Mpumudde — 3,000 UGX</option>
-                        <option value="bugembe">Bugembe — 3,000 UGX</option>
-                        <option value="nile">Nile — 3,000 UGX</option>
-                        <option value="makerere">Makerere — 3,000 UGX</option>
-                        <option value="kira-road">Kira Road — 3,000 UGX</option>
-                        <option value="masese">Masese — 4,000 UGX</option>
-                        <option value="wakitaka">Wakitaka — 4,000 UGX</option>
-                        <option value="namuleesa">Namuleesa — 4,000 UGX</option>
                     </select>
 
                     <div class="small">Delivery fee: <strong id="deliveryFee">0 UGX</strong></div>
@@ -69,28 +48,22 @@
             <aside class="panel" aria-labelledby="cart-title">
                 <div class="card">
                     <h2 id="cart-title">Your Cart</h2>
-                    <!-- Cart Items will be dynamically loaded -->
-                    <div id="cartItems" class="cart-items" aria-live="polite"></div>
-
+                    <div id="cartItems" aria-live="polite"></div>
                     <div class="cart-summary">
-                        <div class="row"><span>Subtotal</span><span id="cartSubtotal">0 UGX</span></div>
-                        <div class="row"><span>Delivery</span><span id="deliveryFeeSummary">0 UGX</span></div>
-                        <div class="row total"><span>Total</span><span id="cartTotal">0 UGX</span></div>
+                        <div><span>Subtotal</span> <span id="cartSubtotal">0 UGX</span></div>
+                        <div><span>Delivery</span> <span id="deliveryFeeSummary">0 UGX</span></div>
+                        <div><strong>Total</strong> <strong id="cartTotal">0 UGX</strong></div>
                     </div>
 
-                    <div class="card nested" id="payment-section" aria-labelledby="payment-title">
+                    <div id="payment-section" aria-labelledby="payment-title">
                         <h3 id="payment-title">Choose Payment Method</h3>
                         <div class="payment-options" role="tablist">
-                            <button class="payment-option" data-provider="mtn" aria-pressed="false">
-                                <img src="images/mtn.jpg" alt="MTN" style="height:24px;"> MTN
-                            </button>
-                            <button class="payment-option" data-provider="airtel" aria-pressed="false">
-                                <img src="images/el.jpg" alt="Airtel" style="height:24px;"> Airtel
-                            </button>
+                            <button class="payment-option" data-provider="mtn" aria-pressed="false">MTN</button>
+                            <button class="payment-option" data-provider="airtel" aria-pressed="false">Airtel</button>
                         </div>
 
-                        <div id="merchantCard" class="merchant-card" aria-live="polite">
-                            <div style="display:flex;justify-content:space-between;">
+                        <div id="merchantCard" aria-live="polite">
+                            <div>
                                 <div>
                                     <strong>Selected Provider:</strong>
                                     <div id="merchantProvider">None</div>
@@ -101,25 +74,23 @@
                                 </div>
                             </div>
 
-                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
-                                <button id="copyMerchant" class="btn small">Copy Code</button>
-                                <button id="showUSSD" class="btn small" style="background:#444;color:#fff;">Show
-                                    Instructions</button>
-                                <button class="copy-individual btn small" data-code="971714" data-network="MTN">Copy
-                                    MTN</button>
-                                <button class="copy-individual btn small" data-code="4393386" data-network="Airtel">Copy
+                            <div>
+                                <button id="copyMerchant">Copy Code</button>
+                                <button id="showUSSD">Show Instructions</button>
+                                <button class="copy-individual" data-code="971714" data-network="MTN">Copy MTN</button>
+                                <button class="copy-individual" data-code="4393386" data-network="Airtel">Copy
                                     Airtel</button>
                             </div>
 
-                            <div style="margin-top:10px;font-size:0.9rem;color:#666;">
+                            <div>
                                 Tip: After sending payment, tap <strong>Confirm & Send via WhatsApp</strong>.
                             </div>
                         </div>
 
                         <input type="text" id="paymentNumber" placeholder="Enter your payment number">
-                        <div class="actions" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-                            <button class="btn primary" id="whatsapp-confirm">Confirm & Send via WhatsApp</button>
-                            <button class="btn secondary" id="callSupport">Call Support</button>
+                        <div class="actions">
+                            <button id="whatsapp-confirm">Confirm & Send via WhatsApp</button>
+                            <button id="callSupport">Call Support</button>
                         </div>
                     </div>
                 </div>
@@ -127,22 +98,18 @@
         </div>
     </main>
 
-    <!-- Floating Buttons -->
+    <!-- Only WhatsApp Floating Button -->
     <div class="floating-buttons">
-        <a href="form.html" class="floating-btn">💬 Comment</a>
-        <a href="https://wa.me/256709691395" class="whatsapp-float" id="waFloat" target="_blank" rel="noopener">
-            <img src="images/whatsapp.webp" alt="WhatsApp" style="height:20px;"> Order on WhatsApp
+        <a href="https://wa.me/256709691395" target="_blank" rel="noopener" id="waFloat">
+            Order on WhatsApp
         </a>
     </div>
 
-    <div id="toast" aria-live="assertive" style="position:fixed;bottom:24px;left:24px;display:none;"></div>
+    <div id="toast" aria-live="assertive"></div>
 
     <noscript>
-        <div class="noscript-warning">JavaScript is required for full functionality.</div>
+        <div>JavaScript is required for full functionality.</div>
     </noscript>
-
-    <script src="js/cart.js" defer></script>
-    <script src="js/payment.js" defer></script>
 </body>
 
 </html>

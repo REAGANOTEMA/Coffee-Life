@@ -71,7 +71,6 @@
     s.style.objectFit = "cover";
     s.style.opacity = "0";
     s.style.transition = "opacity 1s ease-in-out, transform 12s ease-in-out";
-    s.style.willChange = "opacity, transform";
     s.dataset.slideIndex = i;
     s.setAttribute("aria-hidden", "true");
     const imgPreload = new Image();
@@ -180,7 +179,7 @@
   });
   function animateSubtitleGradient() {
     subtitleWords.forEach(w => {
-      w.style.background = `linear-gradient(90deg,#ffb347,#ffcc33,#ff6b6b,#6b5b95)`;
+      w.style.background = `linear-gradient(90deg,#ffffff,#ffffff)`; // pure white for "order. savor. enjoy"
       w.style.webkitBackgroundClip = "text";
       w.style.backgroundClip = "text";
       w.style.color = "transparent";
@@ -219,14 +218,15 @@
   }
   if (heroNoteEl) setInterval(showNextHeroNote, 10000);
 
-  // ==================== ORDER NOW BUTTON ANIMATION ====================
+  // ==================== ORDER NOW BUTTON ====================
   if (heroBtn) {
+    // Link to menu section on index.html
     heroBtn.setAttribute("href", "index.html#menu");
 
-    // Shake every 3s
+    // Shake animation
     setInterval(() => addThenRemove(heroBtn, "btn-shake", SHAKE_DURATION), SHAKE_INTERVAL);
 
-    // Glow/Light every 5s
+    // Glow animation
     setInterval(() => addThenRemove(heroBtn, "btn-light", 1200), LIGHT_INTERVAL);
   }
 
