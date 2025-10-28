@@ -1,43 +1,55 @@
-/* ==========================
-   payment.css — Coffee Life (final)
-   Luxury + Attention Animations
-   ========================== */
+/* ============================================================
+   payment.css — Coffee Life (FINAL: Gold Obsidian theme)
+   Ultra-luxury, polished animations, responsive
+   Works with the provided HTML + payment.js
+   ============================================================ */
 
-/* --------------------------
-   GLOBAL / THEME
--------------------------- */
+/* ---------- Root theme variables ---------- */
 :root {
-  --bg: #fffaf5;
-  --card: #fff;
-  --muted: #7a6b61;
-  --accent: #d2691e;
-  /* Coffee Life brand accent (rust/gold) */
-  --gold: #b8915b;
+  --bg-dark: #0f0c0b;
+  --bg-ivory: #fff8f1;
+  --panel: #0f0c0b;
+  /* dark panels */
+  --card: #121010;
+  /* card background */
+  --muted: #b9a68a;
+  --accent: #d6a85a;
+  /* gold accent */
+  --accent-dark: #b8843f;
+  --glass: rgba(255, 255, 255, 0.04);
+  --shadow-xl: 0 30px 80px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 8px 22px rgba(0, 0, 0, 0.34);
+  --radius: 14px;
+  --trans-fast: 180ms cubic-bezier(.2, .9, .2, 1);
+  --trans-med: 320ms cubic-bezier(.2, .9, .2, 1);
+  --glass-border: rgba(255, 255, 255, 0.04);
   --mtn: #fcd116;
   --airtel: #e60000;
-  --glass: rgba(255, 255, 255, 0.6);
-  --shadow-lg: 0 12px 30px rgba(11, 9, 7, 0.12);
-  --shadow-md: 0 8px 18px rgba(11, 9, 7, 0.09);
-  --radius: 14px;
-  --transition: 240ms cubic-bezier(.2, .9, .2, 1);
 }
 
+/* ---------- Base / Reset ---------- */
 * {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
 body {
-  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  margin: 0;
-  background: var(--bg);
-  color: #232323;
-  line-height: 1.45;
-  -webkit-touch-callout: none;
+  height: 100%;
 }
 
-/* Links */
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg-ivory), #fbf6ef);
+  color: #f3efe9;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.45;
+}
+
+/* anchor default */
 a {
   color: var(--accent);
   text-decoration: none;
@@ -47,26 +59,25 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Basic headings */
+/* headings */
 h1,
 h2,
 h3,
 h4 {
   font-family: 'Playfair Display', serif;
+  color: #f7efe6;
   margin: 0;
-  color: #3a2b24;
 }
 
-/* --------------------------
-   LAYOUT
--------------------------- */
+/* ---------- Layout container ---------- */
 .container {
-  width: 92%;
+  width: 94%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 0 60px;
+  padding: 28px 0 80px;
 }
 
+/* ---------- Grid ---------- */
 .grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -74,99 +85,91 @@ h4 {
   align-items: start;
 }
 
-/* Cards */
+/* Panels & Cards */
 .card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--card));
+  background: linear-gradient(180deg, rgba(18, 16, 15, 0.98), rgba(15, 12, 11, 0.98));
   border-radius: var(--radius);
   padding: 20px;
   box-shadow: var(--shadow-md);
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  transition: transform var(--transition), box-shadow var(--transition);
+  border: 1px solid var(--glass-border);
+  transition: transform var(--trans-med), box-shadow var(--trans-med);
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
 
-/* nested (sub-card) */
 .card.nested {
-  margin-top: 16px;
+  margin-top: 14px;
   padding: 16px;
 }
 
-/* --------------------------
-   HERO
--------------------------- */
+/* ---------- Hero ---------- */
 .hero-section {
   text-align: center;
-  margin: 36px 0;
+  margin: 34px 0;
 }
 
 .hero-title {
-  font-size: 2.6rem;
-  color: #8a5a3f;
-  letter-spacing: -0.01em;
-  margin-bottom: 6px;
   display: inline-block;
-  animation: luxuryFloat 6s ease-in-out infinite;
+  font-size: 2.6rem;
+  color: #f7e9d6;
+  letter-spacing: -0.01em;
+  text-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+  animation: luxuryFloat 6.4s ease-in-out infinite;
 }
 
 .hero-sub {
   color: var(--muted);
   font-size: 1.05rem;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
-/* --------------------------
-   SELECTORS & SMALL UI
--------------------------- */
+/* ---------- Select and small UI ---------- */
 .select {
   width: 100%;
   padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(20, 20, 20, 0.06);
-  background: linear-gradient(180deg, #fff, #fffaf5);
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  color: #f3efe9;
   font-weight: 600;
-  color: #333;
-  transition: box-shadow var(--transition), transform var(--transition);
+  transition: box-shadow var(--trans-fast), transform var(--trans-fast);
 }
 
 .select:focus {
   outline: none;
-  box-shadow: 0 6px 20px rgba(138, 90, 60, 0.06);
-  transform: translateY(-1px);
+  box-shadow: 0 14px 40px rgba(184, 136, 70, 0.06);
+  transform: translateY(-2px);
 }
 
-/* small muted text */
+/* small helper text */
 .small {
   color: var(--muted);
   font-size: 0.95rem;
 }
 
-/* --------------------------
-   CART ITEMS
--------------------------- */
+/* ---------- Cart list ---------- */
 .cart-items {
-  max-height: 320px;
+  max-height: 340px;
   overflow-y: auto;
-  padding-right: 6px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  padding-right: 6px;
 }
 
-/* individual cart item */
+/* cart item */
 .cart-item {
   display: flex;
+  gap: 12px;
   align-items: center;
-  gap: 10px;
-  padding: 10px;
+  padding: 12px;
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.95));
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  transition: transform var(--transition), box-shadow var(--transition), opacity 220ms;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast), opacity 200ms;
 }
 
 .cart-item-img {
@@ -183,87 +186,86 @@ h4 {
 
 .cart-item-info h4 {
   font-size: 1rem;
-  margin-bottom: 4px;
-  color: #2f231d;
+  color: #f7e6d3;
+  margin: 0 0 6px;
 }
 
 .cart-item-info p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-weight: 600;
 }
 
+/* controls */
 .cart-item-controls {
   display: flex;
   flex-direction: column;
-  gap: 6px;
   align-items: center;
+  gap: 8px;
 }
 
-/* qty buttons */
 .qty-controls {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
 }
 
 .qty-btn {
-  padding: 6px 10px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  color: #f9efe0;
   border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 160ms ease;
+  transition: transform var(--trans-fast);
 }
 
 .qty-btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 }
 
-/* remove button */
+/* remove */
 .cart-item-remove {
   background: transparent;
   border: none;
-  color: #d9534f;
+  color: #ff6b6b;
   font-weight: 700;
   font-size: 1.1rem;
   cursor: pointer;
 }
 
-/* add/remove animation classes for JS to toggle */
+/* animations for add/remove */
 .cart-item.added {
-  animation: popIn 360ms cubic-bezier(.2, .9, .2, 1);
+  animation: popIn 420ms cubic-bezier(.2, .9, .2, 1);
 }
 
 .cart-item.removed {
   animation: popOut 300ms ease forwards;
 }
 
-/* --------------------------
-   PAYMENT OPTIONS (buttons)
--------------------------- */
+/* ---------- Payment options ---------- */
 .payment-options {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
-.payment-option,
-.payment-btn {
-  display: flex;
+.payment-option {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  background: linear-gradient(180deg, #ffffff, #fff6ea);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  transition: transform var(--transition), box-shadow var(--transition), box-shadow 200ms;
   min-width: 140px;
   justify-content: center;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
+  color: #f6eedd;
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast), background var(--trans-fast);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .payment-option img {
@@ -273,202 +275,196 @@ h4 {
   border-radius: 4px;
 }
 
-/* provider colors */
+/* provider-specific subtle tints */
 .payment-option[data-provider="mtn"] {
-  background: linear-gradient(180deg, #fff7d9, #fff2c0);
-  border-color: rgba(250, 200, 30, 0.15);
+  background: linear-gradient(180deg, rgba(255, 246, 210, 0.03), rgba(255, 246, 210, 0.01));
   color: #111;
 }
 
 .payment-option[data-provider="airtel"] {
-  background: linear-gradient(180deg, #ffecec, #ffdcdc);
-  border-color: rgba(230, 0, 0, 0.12);
+  background: linear-gradient(180deg, rgba(255, 220, 220, 0.03), rgba(255, 220, 220, 0.01));
   color: #fff;
 }
 
-/* selected provider */
+/* selected provider style (gold glow) */
 .payment-option.selected {
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.14), 0 0 18px rgba(255, 200, 110, 0.08) inset;
-  transform: translateY(-6px) scale(1.01);
-  position: relative;
-  z-index: 2;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 28px 70px rgba(184, 136, 70, 0.14), inset 0 0 22px rgba(255, 220, 150, 0.02);
+  outline: none;
 }
 
-.payment-option.selected::after {
-  content: "";
-  position: absolute;
-  inset: auto -8px -8px auto;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  box-shadow: 0 0 18px rgba(218, 160, 80, 0.18);
-}
-
-/* provider hover attention effect */
 .payment-option:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px) scale(1.01);
   animation: pulseFast 900ms infinite ease-in-out;
 }
 
-.payment-option:active {
-  transform: translateY(-2px) scale(0.99);
-}
-
-/* smaller copy-button style within payment area */
-.btn.small {
-  padding: 8px 10px;
-  font-size: 0.9rem;
-  border-radius: 10px;
-}
-
-/* --------------------------
-   MERCHANT CARD
--------------------------- */
+/* ---------- Merchant card ---------- */
 .merchant-card {
   margin-top: 12px;
   border-radius: 12px;
-  padding: 12px;
-  background: linear-gradient(180deg, #fff, #fffaf5);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(20, 18, 17, 0.96), rgba(18, 16, 15, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.02);
   box-shadow: var(--shadow-md);
 }
 
 #merchantCode {
-  font-size: 1.05rem;
-  color: #2b1f17;
-  letter-spacing: 0.02em;
   display: inline-block;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.75), rgba(250, 245, 240, 0.95));
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
   font-weight: 800;
+  font-size: 1.05rem;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  color: #f7e9d6;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* individual copy network buttons */
+/* copy individual buttons */
 .copy-individual {
-  background: linear-gradient(90deg, #fff, #f7f3ef);
-  color: #222;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  color: #f6eedd;
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* copy success microstate (will be toggled by JS) */
+/* copy success state */
 .copied {
-  animation: glowCopy 800ms ease forwards;
+  animation: glowCopy 700ms ease forwards;
 }
 
-/* --------------------------
-   INPUT
--------------------------- */
+/* ---------- Inputs ---------- */
 #paymentNumber {
   width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  background: linear-gradient(180deg, #fff, #fffaf5);
-  margin-top: 10px;
-  font-weight: 600;
+  margin-top: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.008));
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  color: #f6eedd;
+  font-weight: 700;
 }
 
 #paymentNumber:focus {
   outline: none;
-  box-shadow: 0 10px 30px rgba(138, 90, 60, 0.06);
+  box-shadow: 0 16px 40px rgba(184, 136, 70, 0.06);
   transform: translateY(-2px);
 }
 
-/* --------------------------
-   ACTION BUTTONS
--------------------------- */
+/* ---------- Buttons ---------- */
 .btn {
-  background: linear-gradient(180deg, var(--accent), #b85a2a);
-  color: #fff;
-  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 10px 14px;
-  font-weight: 700;
-  box-shadow: 0 8px 18px rgba(184, 90, 46, 0.12);
-  border: none;
+  border-radius: 12px;
+  font-weight: 800;
   cursor: pointer;
-  transition: transform 220ms cubic-bezier(.2, .9, .2, 1), box-shadow 200ms;
+  border: none;
+  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+  color: #0f0c0b;
+  box-shadow: 0 12px 34px rgba(184, 136, 70, 0.12);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.btn.small {
+  padding: 8px 10px;
+  font-weight: 700;
+  border-radius: 10px;
 }
 
 .btn.secondary {
-  background: linear-gradient(180deg, #444, #2b2b2b);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  color: #fff;
+  background: linear-gradient(180deg, #2b2b2b, #171515);
+  color: #f3efe9;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .btn:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 26px 60px rgba(184, 136, 70, 0.18);
 }
 
 .btn:active {
-  transform: translateY(-2px) scale(0.98);
+  transform: translateY(-2px) scale(.99);
 }
 
-/* --------------------------
-   FLOATING BUTTONS
--------------------------- */
+/* ---------- Floating buttons (WhatsApp swing) ---------- */
 .floating-buttons {
   position: fixed;
-  right: 18px;
+  right: 20px;
   bottom: 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  z-index: 1200;
+  z-index: 1400;
 }
 
-.floating-btn {
-  background: linear-gradient(180deg, var(--accent), #b85a2a);
-  color: #fff;
+.floating-btn,
+.whatsapp-float {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   padding: 12px 16px;
   border-radius: 999px;
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-  transition: transform 240ms var(--transition), box-shadow 240ms;
+  font-weight: 800;
+  text-decoration: none;
+  color: #0f0c0b;
+  cursor: pointer;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast), filter var(--trans-fast);
+}
+
+/* comment button uses gold accent */
+.floating-btn {
+  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+  color: #0f0c0b;
 }
 
 .floating-btn:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 26px 55px rgba(0, 0, 0, 0.28);
+  transform: translateY(-10px) scale(1.03);
+  filter: drop-shadow(0 22px 48px rgba(184, 136, 70, 0.18));
 }
 
+/* WhatsApp float: green with gold rim + swinging animation */
 .whatsapp-float {
-  background: linear-gradient(180deg, #28d17b, #11b85c);
+  background: linear-gradient(180deg, #29d37a, #1fb05b);
   color: #fff;
   padding: 12px 16px;
   border-radius: 999px;
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+  position: relative;
+  border: 2px solid rgba(255, 215, 150, 0.06);
 }
 
-.whatsapp-float:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 26px 55px rgba(0, 0, 0, 0.22);
+.whatsapp-float.swing-enabled {
+  /* base when swing supported */
 }
 
-/* --------------------------
-   TOAST / NOTIFICATIONS
--------------------------- */
+.whatsapp-float.swinging {
+  animation: swing 2200ms ease-in-out infinite, glowPulse 2000ms ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+/* small icon style */
+.whatsapp-float .wa-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+/* ---------- Toast ---------- */
 #toast {
-  min-width: 220px;
-  max-width: 360px;
+  min-width: 240px;
+  max-width: 420px;
   padding: 12px 14px;
-  border-radius: 10px;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+  border-radius: 12px;
+  color: #0f0c0b;
+  background: linear-gradient(90deg, rgba(255, 230, 180, 0.98), rgba(255, 220, 140, 0.98));
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.48);
   position: fixed;
   left: 24px;
   bottom: 24px;
   display: none;
-  z-index: 1400;
+  z-index: 1500;
 }
 
 .toast-show {
@@ -476,68 +472,171 @@ h4 {
   animation: toastIn 360ms cubic-bezier(.2, .9, .2, 1);
 }
 
-/* --------------------------
-   ANIMATIONS
--------------------------- */
-/* luxury float: slow soft movement for hero/title and merchant card */
+/* ---------- QR modal ---------- */
+#qrModal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2200;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 0.64), rgba(3, 3, 3, 0.85));
+  padding: 20px;
+}
+
+#qrModal .qr-box {
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(180deg, #0f0c0b, #121010);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+#qrModal .qr-close {
+  float: right;
+  background: transparent;
+  border: none;
+  color: #f3efe9;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ---------- Small utilities & microstates ---------- */
+.hidden {
+  display: none !important;
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.total {
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: #fff1dd;
+}
+
+/* cart count badge */
+.cart-count-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #0f0c0b;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  box-shadow: 0 12px 40px rgba(184, 136, 70, 0.14);
+}
+
+.cart-count-badge.bounce {
+  animation: popIn 420ms cubic-bezier(.2, .9, .2, 1);
+}
+
+/* copied micro */
+.copy-individual.copied,
+#merchantCode.copied {
+  transform: translateY(-6px);
+  animation: copyPulse 720ms ease both;
+}
+
+/* focus styles for accessibility */
+button:focus,
+.payment-option:focus,
+a:focus {
+  outline: 3px solid rgba(214, 168, 90, 0.12);
+  outline-offset: 4px;
+}
+
+/* ---------- Animations (keyframes) ---------- */
+/* luxury float for hero */
 @keyframes luxuryFloat {
   0% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
 
   50% {
-    transform: translateY(-6px) rotate(-0.15deg);
-    filter: drop-shadow(0 6px 20px rgba(186, 150, 100, 0.06));
+    transform: translateY(-6px) rotate(-0.12deg);
+    filter: drop-shadow(0 12px 48px rgba(184, 136, 70, 0.06));
   }
 
   100% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
 }
 
-/* subtle pop for cart items */
-@keyframes popIn {
+/* attention pulse */
+@keyframes pulseFast {
   0% {
-    transform: scale(.98) translateY(6px);
-    opacity: 0;
+    transform: translateY(0) scale(1);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+  }
+
+  50% {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+  }
+}
+
+/* swing for whatsapp */
+@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  15% {
+    transform: rotate(8deg);
+  }
+
+  30% {
+    transform: rotate(-6deg);
+  }
+
+  45% {
+    transform: rotate(4deg);
   }
 
   60% {
-    transform: scale(1.02) translateY(-2px);
-    opacity: 1;
+    transform: rotate(-2deg);
+  }
+
+  75% {
+    transform: rotate(1deg);
   }
 
   100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
+    transform: rotate(0deg);
   }
 }
 
-@keyframes popOut {
+/* glow pulse for whatsapp */
+@keyframes glowPulse {
   0% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-8px) scale(.98);
-  }
-}
-
-/* attention pulse for hover */
-@keyframes pulseFast {
-  0% {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 30px rgba(17, 176, 91, 0.12);
+    filter: drop-shadow(0 10px 30px rgba(17, 176, 91, 0.06));
   }
 
   50% {
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
-    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 26px 64px rgba(17, 176, 91, 0.20);
+    filter: drop-shadow(0 26px 64px rgba(214, 168, 90, 0.08));
+    transform: translateY(-4px) scale(1.01);
   }
 
   100% {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 30px rgba(17, 176, 91, 0.12);
     transform: translateY(0) scale(1);
   }
 }
@@ -545,22 +644,22 @@ h4 {
 /* copy glow */
 @keyframes glowCopy {
   0% {
-    box-shadow: 0 4px 14px rgba(180, 140, 90, 0.08);
+    box-shadow: 0 6px 22px rgba(184, 136, 70, 0.06);
     transform: translateY(0);
   }
 
   50% {
-    box-shadow: 0 22px 48px rgba(180, 140, 90, 0.18);
-    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 28px 60px rgba(184, 136, 70, 0.18);
+    transform: translateY(-6px) scale(1.02);
   }
 
   100% {
-    box-shadow: 0 6px 20px rgba(180, 140, 90, 0.09);
+    box-shadow: 0 10px 28px rgba(184, 136, 70, 0.08);
     transform: translateY(0);
   }
 }
 
-/* shake for invalid/attention */
+/* shake (used by .shaking) */
 @keyframes shake {
   0% {
     transform: translateX(0);
@@ -591,46 +690,74 @@ h4 {
   animation: shake 620ms cubic-bezier(.36, .07, .19, .97);
 }
 
-/* toast */
-@keyframes toastIn {
+/* pop in/out for cart items & badge */
+@keyframes popIn {
   0% {
-    transform: translateY(18px);
+    transform: scale(.96) translateY(6px);
     opacity: 0;
   }
 
+  60% {
+    transform: scale(1.02) translateY(-2px);
+    opacity: 1;
+  }
+
   100% {
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
     opacity: 1;
   }
 }
 
-/* copy success pulse/glow */
+@keyframes popOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-8px) scale(.98);
+  }
+}
+
+/* toast in */
+@keyframes toastIn {
+  0% {
+    transform: translateY(10px);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1
+  }
+}
+
+/* copy pulse */
 @keyframes copyPulse {
   0% {
     transform: scale(1);
-    box-shadow: none;
   }
 
   50% {
-    transform: scale(1.03);
-    box-shadow: 0 20px 44px rgba(186, 150, 100, 0.12);
+    transform: scale(1.04);
+    box-shadow: 0 22px 56px rgba(184, 136, 70, 0.18);
   }
 
   100% {
     transform: scale(1);
-    box-shadow: none;
   }
 }
 
-/* --------------------------
-   MICRO-STATES & UTILITIES
--------------------------- */
-.hidden {
-  display: none !important;
+/* ---------- Toast classes ---------- */
+.toast-show {
+  display: block;
+  animation: toastIn 360ms cubic-bezier(.2, .9, .2, 1);
 }
 
-.flex {
-  display: flex;
+/* ---------- Micro states ---------- */
+.hidden {
+  display: none !important;
 }
 
 .center {
@@ -639,38 +766,8 @@ h4 {
   justify-content: center;
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 0;
-}
-
-.total {
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: #2e1f19;
-}
-
-/* little bounce for cart count */
-.cart-count-badge {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-weight: 700;
-  margin-left: 6px;
-  box-shadow: 0 6px 18px rgba(216, 105, 30, 0.12);
-}
-
-.cart-count-badge.bounce {
-  animation: popIn 420ms cubic-bezier(.2, .9, .2, 1);
-}
-
-/* small responsive tweaks */
-@media (max-width: 900px) {
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
   .grid {
     grid-template-columns: 1fr;
   }
@@ -690,51 +787,28 @@ h4 {
 
 @media (max-width: 480px) {
   .floating-buttons {
-    right: 10px;
-    bottom: 10px;
-  }
-
-  .hero-title {
-    font-size: 1.8rem;
+    right: 12px;
+    bottom: 12px;
   }
 
   #merchantCode {
     font-size: 0.95rem;
   }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
 }
 
-/* --------------------------
-   BRAND-SPECIFIC TINTS (MTN / AIRTEL)
-   (for small visual badges or explicit coloring)
--------------------------- */
-.badge-mtn {
-  background: linear-gradient(90deg, #fff7d9, #fff2c0);
-  color: #1f1f1f;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-weight: 700;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-}
-
-.badge-airtel {
-  background: linear-gradient(90deg, #ffecec, #ffdcdc);
-  color: #7a0e0e;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-weight: 700;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-}
-
-/* --------------------------
-   SMALL ACCESSIBILITY
--------------------------- */
+/* ---------- Accessibility focus ---------- */
 button:focus,
-.payment-option:focus {
-  outline: 3px solid rgba(218, 160, 80, 0.12);
+.payment-option:focus,
+a:focus {
+  outline: 3px solid rgba(214, 168, 90, 0.12);
   outline-offset: 4px;
 }
 
-/* ==========================
-   END OF FILE
-   Drop this as css/payment.css
-   ========================== */
+/* ============================================================
+   End of payment.css
+   Drop this file into css/payment.css — pairs with your HTML + payment.js
+   ============================================================ */

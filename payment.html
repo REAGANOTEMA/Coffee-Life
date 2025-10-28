@@ -24,23 +24,32 @@
 
 <body>
     <!-- HEADER -->
-    <header class="site-header luxurious-header">
+    <header class="site-header luxurious-header" role="banner">
         <div class="container nav-inner">
-            <img class="logo-img" src="images/logo.jpg" alt="Coffee Life logo">
-            <div class="brand-text">
-                <span class="brand-name">Coffee Life</span>
-                <small class="brand-tagline">The Pinnacle of Coffee and Food Luxury</small>
-            </div>
-
-            <nav class="nav">
+            <a class="brand" href="index.html">
+                <img class="logo-img" src="images/logo.jpg" alt="Coffee Life logo">
+                <div class="brand-text">
+                    <span class="brand-name">Coffee Life</span>
+                    <small class="brand-tagline">The Pinnacle of Coffee and Food Luxury</small>
+                </div>
+            </a>
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <div class="nav-links">
+                    <a class="nav-link" href="index.html#menu">Menu</a>
+                    <a class="nav-link" href="index.html#about">About</a>
+                    <a class="nav-link" href="form.html">Complaints</a>
+                </div>
                 <div class="nav-actions">
-                    <button class="cart-button shaking" id="openCart" aria-label="Open cart">
-                        🛒<span id="cart-count" class="cart-count-badge">0</span>
+                    <a class="btn small" href="tel:+256709691395">📞 +256 709 691 395</a>
+                    <a class="btn small" href="https://wa.me/256709691395" target="_blank" rel="noopener">💬
+                        WhatsApp</a>
+                    <button class="cart-button" id="openCart" aria-label="Open cart">🛒
+                        <span id="cart-count" class="cart-count-badge">0</span>
                     </button>
-                    <button id="hamburger" class="hamburger shaking" aria-label="Toggle menu">
-                        <span class="index.html"> Go back </span>
-                        <span class="form.html">send us </span>
-                        <span class="index.html#menu">Ba ck to menu</span>
+                    <button id="hamburger" class="hamburger" aria-label="Toggle menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
                     </button>
                 </div>
             </nav>
@@ -49,27 +58,26 @@
 
     <!-- MAIN CONTENT -->
     <main class="container ultra-luxury">
-        <section class="hero-section">
-            <h1 class="hero-title shaking">Elite Checkout Experience</h1>
-            <p class="hero-sub shaking">Seamless • Premium • Exclusive</p>
+        <section class="hero-section" aria-labelledby="hero-title">
+            <h1 id="hero-title" class="hero-title">Elite Checkout Experience</h1>
+            <p class="hero-sub">Seamless • Premium • Exclusive</p>
         </section>
 
-        <div class="grid">
+        <div class="grid" role="region" aria-label="Checkout grid">
             <!-- Branch & Delivery -->
-            <section class="panel">
-                <div class="card shaking">
-                    <h2>Select Branch & Delivery Area</h2>
-
+            <section class="panel" aria-labelledby="branch-title">
+                <div class="card" role="group" aria-labelledby="branch-title">
+                    <h2 id="branch-title">Select Branch & Delivery Area</h2>
                     <label for="location-group">Branch:</label>
-                    <select id="location-group" class="select shaking">
-                        <option value="jinja-highway" selected>Coffee Life Cafe, Jinja Highway (Opposite Gadafi Bar)
+                    <select id="location-group" class="select">
+                        <option value="jinja-highway" selected>Coffee Life Cafe — Jinja Highway (Opposite Gadafi Bar)
                         </option>
-                        <option value="kampala">Coffee Life Cafe, Kampala Kansanga</option>
-                        <option value="jinja-lakeview">Coffee Life Cafe, Jinja Lakeview (TBD)</option>
+                        <option value="kampala">Coffee Life Cafe — Kampala Kansanga</option>
+                        <option value="jinja-lakeview">Coffee Life Cafe — Jinja Lakeview (TBD)</option>
                     </select>
 
                     <label for="delivery-zone">Delivery Area:</label>
-                    <select id="delivery-zone" class="select shaking">
+                    <select id="delivery-zone" class="select">
                         <option value="jinja-town">Jinja Town — 2,000 UGX</option>
                         <option value="milo-mbili">Milo Mbili — 2,000 UGX</option>
                         <option value="walukuba-west">Walukuba West — 2,000 UGX</option>
@@ -85,20 +93,22 @@
                         <option value="namuleesa">Namuleesa — 4,000 UGX</option>
                     </select>
 
-                    <div class="small shaking">Delivery fee: <strong id="deliveryFee">0 UGX</strong></div>
-                    <div class="small contact-info shaking">
-                        For inquiries, call <a href="tel:+256709691395">+256709691395</a> or WhatsApp <a
-                            href="https://wa.me/+256709691395" target="_blank">+256709691395</a>
+                    <div class="small">Delivery fee: <strong id="deliveryFee">0 UGX</strong></div>
+
+                    <div class="small contact-info">
+                        <a class="btn small" href="tel:+256709691395">📞 Call us</a>
+                        <a class="btn small" href="https://wa.me/256709691395" target="_blank" rel="noopener">💬
+                            WhatsApp</a>
+                        <a class="btn small" href="mailto:info@coffeelife.example">✉️ Email</a>
                     </div>
                 </div>
             </section>
 
             <!-- Cart & Payment -->
-            <aside class="panel">
-                <div class="card shaking">
-                    <h2>Your Cart</h2>
-
-                    <div id="cartItems" class="cart-items"></div>
+            <aside class="panel" aria-labelledby="cart-title">
+                <div class="card">
+                    <h2 id="cart-title">Your Cart</h2>
+                    <div id="cartItems" class="cart-items" aria-live="polite"></div>
 
                     <div class="cart-summary">
                         <div class="row"><span>Subtotal</span><span id="cartSubtotal">0 UGX</span></div>
@@ -106,63 +116,49 @@
                         <div class="row total"><span>Total</span><span id="cartTotal">0 UGX</span></div>
                     </div>
 
-                    <div class="card nested shaking" id="payment-section">
-                        <h3>Choose Payment Method</h3>
-
-                        <div class="payment-options shaking" role="tablist" aria-label="Payment providers">
-                            <button class="payment-option shaking" data-provider="mtn" aria-pressed="false">
-                                <img src="images/mtn.jpg" alt="MTN" style="height:24px; vertical-align:middle;"> MTN
+                    <div class="card nested" id="payment-section" aria-labelledby="payment-title">
+                        <h3 id="payment-title">Choose Payment Method</h3>
+                        <div class="payment-options" role="tablist">
+                            <button class="payment-option" data-provider="mtn" aria-pressed="false">
+                                <img src="images/mtn.jpg" alt="MTN" style="height:24px;"> MTN
                             </button>
-
-                            <button class="payment-option shaking" data-provider="airtel" aria-pressed="false">
-                                <img src="images/el.jpg" alt="Airtel" style="height:24px; vertical-align:middle;">
-                                Airtel
+                            <button class="payment-option" data-provider="airtel" aria-pressed="false">
+                                <img src="images/el.jpg" alt="Airtel" style="height:24px;"> Airtel
                             </button>
                         </div>
 
-                        <!-- Merchant card (visible, copy, instructions) -->
-                        <div id="merchantCard" class="merchant-card" aria-live="polite"
-                            style="margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#fffaf5);box-shadow:0 6px 18px rgba(0,0,0,0.06);">
-                            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-                                <div style="flex:1;">
-                                    <strong style="display:block;font-size:0.95rem;color:#333;">Selected
-                                        Provider:</strong>
-                                    <div id="merchantProvider" style="margin-top:6px;color:#555">None</div>
+                        <div id="merchantCard" class="merchant-card" aria-live="polite">
+                            <div style="display:flex;justify-content:space-between;">
+                                <div>
+                                    <strong>Selected Provider:</strong>
+                                    <div id="merchantProvider">None</div>
                                 </div>
-                                <div style="text-align:right;">
-                                    <strong style="display:block;font-size:0.95rem;color:#333;">Merchant Code</strong>
-                                    <!-- This will be updated by JS when a provider is selected -->
-                                    <div id="merchantCode" style="margin-top:6px;color:#111;font-weight:700;">MTN:
-                                        971714 • Airtel: 4393386</div>
+                                <div>
+                                    <strong>Merchant Code:</strong>
+                                    <div id="merchantCode">MTN: 971714 • Airtel: 4393386</div>
                                 </div>
                             </div>
 
-                            <div style="display:flex;gap:8px;margin-top:10px;">
-                                <button id="copyMerchant" class="btn small" type="button"
-                                    aria-label="Copy merchant code">Copy Code</button>
-                                <button id="showUSSD" class="btn small" type="button"
-                                    style="background:#444;color:#fff;">Show Instructions</button>
-                                <!-- quick individual copy buttons for each network -->
-                                <button class="copy-individual btn small" data-code="971714" data-network="MTN"
-                                    type="button">Copy MTN</button>
-                                <button class="copy-individual btn small" data-code="4393386" data-network="Airtel"
-                                    type="button">Copy Airtel</button>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+                                <button id="copyMerchant" class="btn small">Copy Code</button>
+                                <button id="showUSSD" class="btn small" style="background:#444;color:#fff;">Show
+                                    Instructions</button>
+                                <button class="copy-individual btn small" data-code="971714" data-network="MTN">Copy
+                                    MTN</button>
+                                <button class="copy-individual btn small" data-code="4393386" data-network="Airtel">Copy
+                                    Airtel</button>
                             </div>
 
                             <div style="margin-top:10px;font-size:0.9rem;color:#666;">
-                                Tip: After sending payment, tap <strong>Confirm & Send via WhatsApp</strong> so we can
-                                verify and dispatch your order quickly.
+                                Tip: After sending payment, tap <strong>Confirm & Send via WhatsApp</strong>.
                             </div>
                         </div>
 
-                        <input type="text" id="paymentNumber" class="shaking"
-                            placeholder="Enter your payment number (e.g. 0772XXXXXX)"
-                            aria-label="Your payment phone number" />
+                        <input type="text" id="paymentNumber" placeholder="Enter your payment number">
 
                         <div class="actions" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-                            <button class="btn primary shaking" id="whatsapp-confirm" type="button">Confirm & Send via
-                                WhatsApp</button>
-                            <button class="btn secondary shaking" id="callSupport" type="button">Call Support</button>
+                            <button class="btn primary" id="whatsapp-confirm">Confirm & Send via WhatsApp</button>
+                            <button class="btn secondary" id="callSupport">Call Support</button>
                         </div>
                     </div>
                 </div>
@@ -171,23 +167,19 @@
     </main>
 
     <!-- Floating Buttons -->
-    <div class="floating-buttons" aria-hidden="false">
-        <a href="form.html" class="floating-btn shaking" role="button" aria-label="Leave a comment">💬 Comment</a>
-        <div class="whatsapp-float shaking" id="waFloat" role="button" aria-label="Order on WhatsApp">
-            <img src="images/whatsapp.webp" alt="WhatsApp" class="wa-icon" style="height:20px;">
-            <span>Order on WhatsApp</span>
-        </div>
+    <div class="floating-buttons">
+        <a href="form.html" class="floating-btn">💬 Comment</a>
+        <a href="https://wa.me/256709691395" class="whatsapp-float" id="waFloat" target="_blank" rel="noopener">
+            <img src="images/whatsapp.webp" alt="WhatsApp" style="height:20px;"> Order on WhatsApp
+        </a>
     </div>
 
-    <!-- Toast / notification area (for future JS to use) -->
-    <div id="toast" aria-live="assertive" style="position:fixed;bottom:24px;left:24px;z-index:1200;display:none;"></div>
+    <div id="toast" aria-live="assertive" style="position:fixed;bottom:24px;left:24px;display:none;"></div>
 
     <noscript>
         <div class="noscript-warning">JavaScript is required for full functionality.</div>
     </noscript>
 
-    <!-- JS Scripts -->
-    <!-- your final JS will wire interactions: copy buttons, merchant selection, WhatsApp send, cart rendering -->
     <script src="js/home.js" defer></script>
     <script src="js/menu.js" defer></script>
     <script src="js/cart.js" defer></script>
