@@ -101,11 +101,27 @@ h4 {
 .hero-title {
   display: inline-block;
   font-size: 2.6rem;
-  color: #f7e9d6;
-  letter-spacing: -0.01em;
-  text-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
-  animation: luxuryFloat 6.4s ease-in-out infinite;
+  color: #0f0c0b;
+  /* Black text */
   font-weight: 900;
+  /* Bold */
+  letter-spacing: -0.01em;
+  font-family: 'Playfair Display', serif;
+  text-shadow: 0 3px 12px rgba(214, 168, 90, 0.28);
+  /* subtle golden glow */
+  animation: luxuryFloat 6.4s ease-in-out infinite;
+  position: relative;
+}
+
+.hero-title::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 3px;
+  margin: 6px auto 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+  border-radius: 2px;
+  animation: underlinePulse 2s infinite ease-in-out;
 }
 
 .hero-sub {
@@ -354,126 +370,30 @@ h4 {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #29d37a, #1fb05b);
+  background: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
-  transition: transform 0.22s ease;
-  border: 2px solid rgba(255, 215, 150, 0.06);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  border: none;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .whatsapp-float img {
   width: 28px;
   height: 28px;
+  display: block;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.12);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42);
 }
 
 .whatsapp-float.swinging {
   animation: swing 2200ms ease-in-out infinite, glowPulse 2000ms ease-in-out infinite;
   transform-origin: 50% 50%;
-}
-
-/* ---------- Toast ---------- */
-#toast {
-  min-width: 240px;
-  max-width: 420px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  color: #0f0c0b;
-  background: linear-gradient(90deg, rgba(255, 230, 180, 0.98), rgba(255, 220, 140, 0.98));
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.48);
-  position: fixed;
-  left: 24px;
-  bottom: 24px;
-  display: none;
-  z-index: 1500;
-}
-
-.toast-show {
-  display: block;
-  animation: toastIn 360ms cubic-bezier(.2, .9, .2, 1);
-}
-
-/* ---------- QR Modal ---------- */
-#qrModal {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2200;
-  background: linear-gradient(180deg, rgba(3, 3, 3, 0.64), rgba(3, 3, 3, 0.85));
-  padding: 20px;
-}
-
-#qrModal .qr-box {
-  width: 100%;
-  max-width: 480px;
-  background: linear-gradient(180deg, #0f0c0b, #121010);
-  padding: 18px;
-  border-radius: 12px;
-  box-shadow: var(--shadow-xl);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-#qrModal .qr-close {
-  float: right;
-  background: transparent;
-  border: none;
-  color: #f3efe9;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* ---------- Utility Classes ---------- */
-.hidden {
-  display: none !important;
-}
-
-.flex {
-  display: flex;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-}
-
-.total {
-  font-weight: 900;
-  font-size: 1.05rem;
-  color: #fff1dd;
-}
-
-.cart-count-badge {
-  display: inline-block;
-  background: var(--accent);
-  color: #0f0c0b;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-weight: 900;
-  box-shadow: 0 12px 40px rgba(184, 136, 70, 0.14);
-}
-
-.cart-count-badge.bounce {
-  animation: popIn 420ms cubic-bezier(.2, .9, .2, 1);
-}
-
-.copy-individual.copied,
-#merchantCode.copied {
-  transform: translateY(-6px);
-  animation: copyPulse 720ms ease both;
-}
-
-button:focus,
-.payment-option:focus,
-a:focus {
-  outline: 3px solid rgba(214, 168, 90, 0.12);
-  outline-offset: 4px;
 }
 
 /* ---------- Animations ---------- */
@@ -630,6 +550,20 @@ a:focus {
   }
 }
 
+@keyframes underlinePulse {
+
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scaleX(1.05);
+    opacity: 1;
+  }
+}
+
 /* ---------- Responsive ---------- */
 @media(max-width:980px) {
   .grid {
@@ -662,42 +596,4 @@ a:focus {
   .hero-title {
     font-size: 1.75rem;
   }
-}
-
-/* ---------- Floating WhatsApp (icon-only) ---------- */
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: transparent;
-  /* removed green gradient */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-  /* subtle shadow for depth */
-  border: none;
-  /* remove border */
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-}
-
-.whatsapp-float img {
-  width: 28px;
-  height: 28px;
-  display: block;
-}
-
-.whatsapp-float:hover {
-  transform: scale(1.12);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42);
-  /* subtle hover effect */
-}
-
-.whatsapp-float.swinging {
-  animation: swing 2200ms ease-in-out infinite, glowPulse 2000ms ease-in-out infinite;
-  transform-origin: 50% 50%;
 }

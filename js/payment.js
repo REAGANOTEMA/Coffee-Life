@@ -5,6 +5,7 @@
    - Toasts, animations, remove/edit items
    - Persistent localStorage cart
    - Starts empty every session, luxury UX/UI
+   - Fully synced with menu.js
 */
 
 (() => {
@@ -16,7 +17,7 @@
     const WA_NUMBER = '256709691395';
     const MTN_MERCHANT = '971714';
     const AIRTEL_MERCHANT = '4393386';
-    const STORAGE_KEY = 'coffee_life_cart_v1';
+    const STORAGE_KEY = 'COFFEE_CART'; // unified with menu.js
 
     const USSD_TEMPLATES = {
         mtn: (amount) => `*165*3*${MTN_MERCHANT}*${amount}#`,
@@ -56,22 +57,17 @@
     =========================== */
     let DELIVERY_FEE = 0;
     let selectedProvider = null;
-
-    // Start with empty cart for every session
-    window.cart = [];
-    localStorage.removeItem(STORAGE_KEY);
+    let cart = [];
 
     /* ===========================
        UTILS
     =========================== */
     const formatUGX = v => (Number(v) || 0).toLocaleString() + ' UGX';
 
-    const persistCart = () => {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(window.cart));
-        } catch (e) {
-            console.warn('Cart save failed:', e);
-        }
+    const persistCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+    const loadCart = () => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        cart = saved ? JSON.parse(saved) : [];
     };
 
     const showToast = (text, duration = 2500) => {
@@ -85,7 +81,7 @@
         }, duration);
     };
 
-    const copyToClipboard = async (text) => {
+    const copyToClipboard = async text => {
         try {
             await navigator.clipboard.writeText(text);
             return true;
@@ -103,13 +99,13 @@
     /* ===========================
        CART FUNCTIONS
     =========================== */
-    const calcSubtotal = () => window.cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+    const calcSubtotal = () => cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
     const renderCart = () => {
         if (!cartItemsContainer) return;
-
         cartItemsContainer.innerHTML = '';
-        if (!window.cart.length) {
+
+        if (!cart.length) {
             cartItemsContainer.innerHTML = `
                 <p style="padding:12px;color:#7a6b61;">Your cart is empty.</p>
                 <button class="btn small" onclick="window.location.href='index.html#menu'">Add Items</button>
@@ -120,12 +116,10 @@
             return;
         }
 
-        let subtotal = 0;
-        window.cart.forEach(item => {
-            subtotal += item.price * item.qty;
-            const itemWrap = document.createElement('div');
-            itemWrap.className = 'cart-item added';
-            itemWrap.innerHTML = `
+        cart.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'cart-item added';
+            div.innerHTML = `
                 <img src="${item.img || 'images/logo.jpg'}" alt="${item.name}" class="cart-item-img">
                 <div class="cart-item-info">
                     <h4>${item.name}</h4>
@@ -133,49 +127,50 @@
                 </div>
                 <div class="cart-item-controls">
                     <div class="qty-controls">
-                        <button class="qty-btn" data-action="minus" data-id="${item.id}">-</button>
+                        <button class="qty-btn minus" data-id="${item.id}">-</button>
                         <span class="qty">${item.qty}</span>
-                        <button class="qty-btn" data-action="plus" data-id="${item.id}">+</button>
+                        <button class="qty-btn plus" data-id="${item.id}">+</button>
                     </div>
                     <button class="cart-item-remove" data-id="${item.id}">&times;</button>
                 </div>
             `.trim();
 
-            // Quantity buttons
-            itemWrap.querySelectorAll('.qty-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const target = window.cart.find(x => x.id === btn.dataset.id);
-                    if (!target) return;
-                    if (btn.dataset.action === 'plus') target.qty += 1;
-                    else target.qty -= 1;
-                    if (target.qty <= 0) window.cart = window.cart.filter(i => i.id !== target.id);
-                    persistCart();
-                    renderCart();
-                });
+            // Quantity controls
+            div.querySelector('.minus').addEventListener('click', () => {
+                const target = cart.find(i => i.id === item.id);
+                if (!target) return;
+                target.qty -= 1;
+                if (target.qty <= 0) cart = cart.filter(i => i.id !== target.id);
+                persistCart(); renderCart();
             });
 
-            // Remove button
-            itemWrap.querySelector('.cart-item-remove')?.addEventListener('click', () => {
-                window.cart = window.cart.filter(i => i.id !== item.id);
-                persistCart();
-                renderCart();
+            div.querySelector('.plus').addEventListener('click', () => {
+                const target = cart.find(i => i.id === item.id);
+                if (!target) return;
+                target.qty += 1;
+                persistCart(); renderCart();
+            });
+
+            div.querySelector('.cart-item-remove').addEventListener('click', () => {
+                cart = cart.filter(i => i.id !== item.id);
+                persistCart(); renderCart();
                 showToast('Item removed');
             });
 
-            cartItemsContainer.appendChild(itemWrap);
+            cartItemsContainer.appendChild(div);
         });
 
+        const subtotal = calcSubtotal();
         cartSubtotalEl.textContent = formatUGX(subtotal);
         deliveryFeeSummaryEl.textContent = formatUGX(DELIVERY_FEE);
         cartTotalEl.textContent = formatUGX(subtotal + DELIVERY_FEE);
     };
 
-    const addToCart = (item) => {
+    const addToCart = item => {
         if (!item || !item.id) return;
-        const exists = window.cart.find(x => x.id === item.id);
-        if (!exists) window.cart.push({ ...item, qty: 1 });
-        persistCart();
-        renderCart();
+        const exists = cart.find(i => i.id === item.id);
+        if (!exists) cart.push({ ...item, qty: 1 });
+        persistCart(); renderCart();
         showToast(`${item.name} added`);
     };
 
@@ -200,7 +195,7 @@
     /* ===========================
        PAYMENT PROVIDER
     =========================== */
-    const setSelectedProvider = (provider) => {
+    const setSelectedProvider = provider => {
         selectedProvider = provider || null;
         merchantProviderEl.textContent = selectedProvider ? selectedProvider.toUpperCase() : 'None';
         merchantCodeEl.textContent = selectedProvider === 'mtn' ? `MTN: ${MTN_MERCHANT}` :
@@ -214,9 +209,11 @@
     copyMerchantBtn?.addEventListener('click', async () => {
         if (await copyToClipboard(merchantCodeEl.textContent)) showToast('Merchant code copied');
     });
+
     copyIndividualBtns.forEach(b => b.addEventListener('click', async () => {
         if (await copyToClipboard(b.dataset.code)) showToast(`${b.dataset.network} code copied`);
     }));
+
     showUSSDBtn?.addEventListener('click', () => {
         const tmpl = selectedProvider === 'mtn' ? USSD_TEMPLATES.mtn('AMOUNT') :
             selectedProvider === 'airtel' ? USSD_TEMPLATES.airtel('AMOUNT') :
@@ -228,37 +225,8 @@
        WHATSAPP SEND FLOW
     =========================== */
     const buildWhatsAppMessage = (customerName, paymentNumber, paymentMethodLabel) => {
-        const itemsText = window.cart.map((it, i) => `${i + 1}. ${it.name} x${it.qty} = ${formatUGX(it.price * it.qty)}`).join('\n') || '—';
+        const itemsText = cart.map((it, i) => `${i + 1}. ${it.name} x${it.qty} = ${formatUGX(it.price * it.qty)}`).join('\n') || '—';
         const subtotal = calcSubtotal();
         const grand = subtotal + DELIVERY_FEE;
         const merchant = selectedProvider === 'mtn' ? MTN_MERCHANT : selectedProvider === 'airtel' ? AIRTEL_MERCHANT : '';
-        return `✨ Coffee Life Order ✨\n\n👤 Customer: ${customerName}\n📱 Phone: ${paymentNumber || 'N/A'}\n📍 Delivery area: ${deliverySelect.selectedOptions[0].text}\n💳 Payment: ${paymentMethodLabel}${merchant ? ` (${merchant})` : ''}\n\n🛒 Items:\n${itemsText}\n\n🧾 Subtotal: ${formatUGX(subtotal)}\n🚚 Delivery: ${formatUGX(DELIVERY_FEE)}\n💰 TOTAL: ${formatUGX(grand)}\n\nThank you — Coffee Life ☕️`;
-    };
-
-    whatsappBtn?.addEventListener('click', () => {
-        if (!window.cart.length) return showToast('Cart is empty');
-        const customerName = prompt('Enter your full name for delivery:');
-        if (!customerName) return showToast('Name required');
-        const paymentNum = paymentNumberInput.value.trim();
-        const methodLabel = selectedProvider === 'mtn' ? 'MTN Mobile Money' :
-            selectedProvider === 'airtel' ? 'Airtel Money' : 'Cash';
-        const msg = buildWhatsAppMessage(customerName, paymentNum, methodLabel);
-        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-        window.cart = [];
-        persistCart();
-        renderCart();
-        showToast('WhatsApp opened — we received your order.');
-    });
-
-    callSupportBtn?.addEventListener('click', () => {
-        window.location.href = `tel:+256${WA_NUMBER}`;
-        setTimeout(() => window.open(`https://wa.me/${WA_NUMBER}`, '_blank'), 400);
-    });
-
-    /* ===========================
-       INIT
-    =========================== */
-    renderCart();
-    setSelectedProvider(null);
-
-})();
+        return `✨ Coffee Life Order ✨\n\n👤 Customer: ${customerName}\n📱 Phone: ${paymentNumber || 'N/A'}\n📍 Delivery area: ${deliverySelect.selectedOptions[0].text}\n💳 Payment: ${paymentMethodLabel}${merchant ? ` (${merchant})` : ''}\n\n🛒 Items:\n${itemsText}\n\n🧾 Subtotal: ${formatUGX(subtotal)}\n🚚 Delivery: ${formatUGX(DELIVERY_FEE)}\n💰 TOTAL:
