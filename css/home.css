@@ -220,3 +220,78 @@
         display: flex;
     }
 }
+
+/* ---------- Hamburger Icon ---------- */
+.hamburger {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.hamburger span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: all 0.35s cubic-bezier(.2, .9, .2, 1);
+}
+
+/* ---------- Hamburger to X animation ---------- */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(10px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-10px);
+}
+
+/* ---------- Overlay Menu ---------- */
+.nav-overlay {
+    position: fixed;
+    inset: 0;
+    /* top, right, bottom, left 0 */
+    background: rgba(15, 12, 11, 0.96);
+    /* premium obsidian */
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+    /* below hamburger but above content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    /* hidden by default */
+    transition: transform 0.36s cubic-bezier(.2, .9, .2, 1);
+}
+
+.nav-overlay.active {
+    transform: translateX(0);
+}
+
+/* ---------- Menu Links ---------- */
+.nav-overlay a {
+    color: #f6eedd;
+    /* golden ivory */
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin: 18px 0;
+    transition: color 0.25s ease;
+}
+
+.nav-overlay a:hover {
+    color: var(--accent);
+}
