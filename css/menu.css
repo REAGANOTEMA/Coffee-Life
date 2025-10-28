@@ -208,3 +208,193 @@ body,
 .cart-item-remove:hover {
   color: #e74c3c;
 }
+
+/* ============================ 
+   COFFEE LIFE FINAL MENU 2025
+   Centered layout, fully visible images, compact texts, pure white backgrounds
+============================ */
+
+/* Center everything inside menu header */
+.menu-header {
+  max-width: 900px;
+  margin: 0 auto;
+  /* center horizontally */
+  text-align: center;
+  padding: 20px 15px;
+}
+
+.menu-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.menu-intro {
+  font-size: 1.2rem;
+  margin: 4px 0;
+}
+
+.menu-sub {
+  font-size: 1rem;
+  color: #b47b3a;
+  margin-bottom: 12px;
+}
+
+.menu-desc {
+  font-size: 0.85rem;
+  line-height: 1.3rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Category Filters */
+.menu-cats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.menu-cats .menu-cat {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #f5e6d3;
+  color: #4b2e1e;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.menu-cats .menu-cat:hover {
+  background-color: #4b2e1e;
+  color: #f5e6d3;
+}
+
+/* Menu Grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  justify-items: center;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Menu Item Cards */
+.menu-item {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.menu-media {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 14px 14px 0 0;
+  background: #fefefe;
+}
+
+.menu-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 14px 14px 0 0;
+  transition: transform 0.2s ease;
+}
+
+.menu-media img:hover {
+  transform: scale(1.03);
+}
+
+/* Menu Body Compact */
+.menu-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px;
+}
+
+.menu-body h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 2px 0;
+}
+
+.menu-body .desc {
+  font-size: 0.7rem;
+  color: #555;
+  margin: 2px 0;
+  line-height: 1rem;
+}
+
+.menu-body .price {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b47b3a;
+  margin: 4px 0;
+}
+
+.menu-body .actions {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.menu-body .actions .btn-add,
+.menu-body .actions .btn-whatsapp {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.menu-body .actions .btn-add {
+  background-color: #4b2e1e;
+  color: #f5e6d3;
+}
+
+.menu-body .actions .btn-whatsapp {
+  background-color: #25D366;
+  color: #fff;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .menu-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .menu-intro {
+    font-size: 1rem;
+  }
+
+  .menu-sub {
+    font-size: 0.9rem;
+  }
+
+  .menu-desc {
+    font-size: 0.75rem;
+  }
+
+  .menu-grid {
+    gap: 10px;
+  }
+}
