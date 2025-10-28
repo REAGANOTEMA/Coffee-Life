@@ -1,10 +1,8 @@
 /* ============================================================
-   payment.css — Coffee Life (FINAL: Gold Obsidian theme)
-   Ultra-luxury, polished animations, responsive
-   Works with HTML + payment.js
+   payment.css — Coffee Life (FINAL: GOLD OBSIDIAN THEME ULTRA-PREMIUM)
+   Designed for readability, clarity, and luxury UX/UI
    ============================================================ */
 
-/* ---------- Root theme variables ---------- */
 :root {
     --bg-dark: #0f0c0b;
     --bg-ivory: #fff8f1;
@@ -36,13 +34,12 @@ html,
 body {
     height: 100%;
     margin: 0;
-    font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     line-height: 1.45;
     background: linear-gradient(180deg, var(--bg-ivory), #fbf6ef);
     color: #f3efe9;
 }
 
-/* anchor default */
 a {
     color: var(--accent);
     text-decoration: none;
@@ -52,7 +49,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* headings */
 h1,
 h2,
 h3,
@@ -62,7 +58,7 @@ h4 {
     margin: 0;
 }
 
-/* ---------- Layout container ---------- */
+/* ---------- Layout ---------- */
 .container {
     width: 94%;
     max-width: 1200px;
@@ -70,7 +66,6 @@ h4 {
     padding: 28px 0 80px;
 }
 
-/* ---------- Grid ---------- */
 .grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -78,7 +73,6 @@ h4 {
     align-items: start;
 }
 
-/* Panels & Cards */
 .card {
     background: linear-gradient(180deg, rgba(18, 16, 15, 0.98), rgba(15, 12, 11, 0.98));
     border-radius: var(--radius);
@@ -111,39 +105,17 @@ h4 {
     letter-spacing: -0.01em;
     text-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
     animation: luxuryFloat 6.4s ease-in-out infinite;
+    font-weight: 900;
 }
 
 .hero-sub {
     color: var(--muted);
     font-size: 1.05rem;
     margin-top: 8px;
+    font-style: italic;
 }
 
-/* ---------- Select and small UI ---------- */
-.select {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    color: #f3efe9;
-    font-weight: 600;
-    transition: box-shadow var(--trans-fast), transform var(--trans-fast);
-}
-
-.select:focus {
-    outline: none;
-    box-shadow: 0 14px 40px rgba(184, 136, 70, 0.06);
-    transform: translateY(-2px);
-}
-
-/* small helper text */
-.small {
-    color: var(--muted);
-    font-size: 0.95rem;
-}
-
-/* ---------- Cart list ---------- */
+/* ---------- Cart ---------- */
 .cart-items {
     max-height: 340px;
     overflow-y: auto;
@@ -153,7 +125,6 @@ h4 {
     padding-right: 6px;
 }
 
-/* cart item */
 .cart-item {
     display: flex;
     gap: 12px;
@@ -181,15 +152,16 @@ h4 {
     font-size: 1rem;
     color: #f7e6d3;
     margin: 0 0 6px;
+    font-weight: 700;
 }
 
 .cart-item-info p {
     margin: 0;
     color: var(--muted);
     font-weight: 600;
+    font-size: 0.95rem;
 }
 
-/* controls */
 .cart-item-controls {
     display: flex;
     flex-direction: column;
@@ -226,7 +198,6 @@ h4 {
     cursor: pointer;
 }
 
-/* animations for add/remove */
 .cart-item.added {
     animation: popIn 420ms cubic-bezier(.2, .9, .2, 1);
 }
@@ -267,16 +238,6 @@ h4 {
     border-radius: 4px;
 }
 
-.payment-option[data-provider="mtn"] {
-    background: linear-gradient(180deg, rgba(255, 246, 210, 0.03), rgba(255, 246, 210, 0.01));
-    color: #111;
-}
-
-.payment-option[data-provider="airtel"] {
-    background: linear-gradient(180deg, rgba(255, 220, 220, 0.03), rgba(255, 220, 220, 0.01));
-    color: #fff;
-}
-
 .payment-option.selected {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 28px 70px rgba(184, 136, 70, 0.14), inset 0 0 22px rgba(255, 220, 150, 0.02);
@@ -288,7 +249,17 @@ h4 {
     animation: pulseFast 900ms infinite ease-in-out;
 }
 
-/* ---------- Merchant card ---------- */
+.payment-option[data-provider="mtn"] {
+    background: linear-gradient(180deg, rgba(255, 246, 210, 0.03), rgba(255, 246, 210, 0.01));
+    color: #111;
+}
+
+.payment-option[data-provider="airtel"] {
+    background: linear-gradient(180deg, rgba(255, 220, 220, 0.03), rgba(255, 220, 220, 0.01));
+    color: #fff;
+}
+
+/* ---------- Merchant & Inputs ---------- */
 .merchant-card {
     margin-top: 12px;
     border-radius: 12px;
@@ -320,7 +291,6 @@ h4 {
     animation: glowCopy 700ms ease forwards;
 }
 
-/* ---------- Inputs ---------- */
 #paymentNumber {
     width: 100%;
     padding: 12px 14px;
@@ -376,7 +346,7 @@ h4 {
     transform: translateY(-2px) scale(.99);
 }
 
-/* ---------- Floating WhatsApp button (image-only) ---------- */
+/* ---------- Floating WhatsApp ---------- */
 .whatsapp-float {
     position: fixed;
     bottom: 20px;
@@ -397,7 +367,6 @@ h4 {
 .whatsapp-float img {
     width: 28px;
     height: 28px;
-    display: block;
 }
 
 .whatsapp-float.swinging {
@@ -426,7 +395,7 @@ h4 {
     animation: toastIn 360ms cubic-bezier(.2, .9, .2, 1);
 }
 
-/* ---------- QR modal ---------- */
+/* ---------- QR Modal ---------- */
 #qrModal {
     position: fixed;
     inset: 0;
@@ -457,7 +426,7 @@ h4 {
     cursor: pointer;
 }
 
-/* ---------- Small utilities & microstates ---------- */
+/* ---------- Utility Classes ---------- */
 .hidden {
     display: none !important;
 }
@@ -500,7 +469,6 @@ h4 {
     animation: copyPulse 720ms ease both;
 }
 
-/* focus styles for accessibility */
 button:focus,
 .payment-option:focus,
 a:focus {
@@ -508,7 +476,7 @@ a:focus {
     outline-offset: 4px;
 }
 
-/* ---------- Animations (keyframes) ---------- */
+/* ---------- Animations ---------- */
 @keyframes luxuryFloat {
     0% {
         transform: translateY(0);
@@ -606,32 +574,6 @@ a:focus {
     }
 }
 
-@keyframes shake {
-    0% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-6px);
-    }
-
-    40% {
-        transform: translateX(6px);
-    }
-
-    60% {
-        transform: translateX(-4px);
-    }
-
-    80% {
-        transform: translateX(4px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-
 @keyframes popIn {
     0% {
         transform: scale(.96) translateY(6px);
@@ -688,6 +630,7 @@ a:focus {
     }
 }
 
+/* ---------- Responsive ---------- */
 @media(max-width:980px) {
     .grid {
         grid-template-columns: 1fr;
@@ -719,4 +662,42 @@ a:focus {
     .hero-title {
         font-size: 1.75rem;
     }
+}
+
+/* ---------- Floating WhatsApp (icon-only) ---------- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: transparent;
+    /* removed green gradient */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    /* subtle shadow for depth */
+    border: none;
+    /* remove border */
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.whatsapp-float img {
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.12);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42);
+    /* subtle hover effect */
+}
+
+.whatsapp-float.swinging {
+    animation: swing 2200ms ease-in-out infinite, glowPulse 2000ms ease-in-out infinite;
+    transform-origin: 50% 50%;
 }
