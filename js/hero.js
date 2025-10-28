@@ -1,9 +1,9 @@
 // ==================== LUXURY HERO - FINAL PRODUCTION JS ====================
 (() => {
   const VIDEO_FILES = ["videos/hero-welcome.mp4"];
-  const SLIDE_INTERVAL = 6000;       // slide images change every 6s
+  const SLIDE_INTERVAL = 9000;       // slide images change every 6s
   const SHAKE_INTERVAL = 3000;       // shake every 3s
-  const SHAKE_DURATION = 600;
+  const SHAKE_DURATION = 900;
   const LIGHT_INTERVAL = 5000;       // glow every 5s
   const SPARKLE_COUNT = 35;
   const FOOD_ICON_COUNT = 20;

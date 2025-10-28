@@ -8,9 +8,12 @@
     <meta name="description" content="Coffee Life — The Most Exclusive Coffee Checkout Experience">
     <link rel="icon" href="images/logo.jpg" type="image/x-icon">
 
-    <!-- CSS Link -->
+    <!-- CSS Links -->
     <link rel="stylesheet" href="css/payment.css">
     <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 
 <body>
@@ -23,8 +26,16 @@
 
         <!-- Back to Home -->
         <div style="text-align:center; margin-top:20px;">
-            <a href="index.html" class="btn">← Back to Home</a>
+            <a href="index.html" class="btn btn-3d">← Back to Home</a>
         </div>
+
+        <!-- Menu Items will be dynamically loaded here by menu.js -->
+        <section id="menuItemsContainer" class="menu-section">
+            <h2>Menu</h2>
+            <div class="menu-grid" id="menuGrid">
+                <!-- JS will populate menu items here -->
+            </div>
+        </section>
 
         <div class="grid" role="region" aria-label="Checkout grid">
 
@@ -33,15 +44,27 @@
                 <div class="card" role="group" aria-labelledby="branch-title">
                     <h2 id="branch-title">Select Branch & Delivery Area</h2>
                     <label for="location-group">Branch:</label>
-                    <select id="location-group">
+                    <select id="location-group" onchange="checkBranch(this.value)">
                         <option value="jinja-highway" selected>Coffee Life Cafe Jinja Highway</option>
-                        <option value="kampala" disabled>Coffee Life Cafe Kampala (Coming Soon)</option>
-                        <option value="jinja-lakeview" disabled>Coffee Life Cafe Jinja Lakeview (Coming Soon)</option>
+                        <option value="kampala">Coffee Life Cafe Kampala (Coming Soon)</option>
+                        <option value="jinja-lakeview">Coffee Life Cafe Jinja Lakeview (Coming Soon)</option>
                     </select>
 
                     <label for="delivery-zone">Delivery Area:</label>
                     <select id="delivery-zone">
                         <option value="jinja-town">Jinja Town — 2,000 UGX</option>
+                        <option value="milo-mbili">Milo Mbili — 2,000 UGX</option>
+                        <option value="walukuba-west">Walukuba West — 2,000 UGX</option>
+                        <option value="walukuba-east">Walukuba East — 3,000 UGX</option>
+                        <option value="mafubira">Mafubira — 3,000 UGX</option>
+                        <option value="mpumudde">Mpumudde — 3,000 UGX</option>
+                        <option value="bugembe">Bugembe — 3,000 UGX</option>
+                        <option value="nile">Nile — 3,000 UGX</option>
+                        <option value="makerere">Makerere — 3,000 UGX</option>
+                        <option value="kira-road">Kira Road — 3,000 UGX</option>
+                        <option value="masese">Masese — 4,000 UGX</option>
+                        <option value="wakitaka">Wakitaka — 4,000 UGX</option>
+                        <option value="namuleesa">Namuleesa — 4,000 UGX</option>
                     </select>
 
                     <div class="small">Delivery fee: <strong id="deliveryFee">0 UGX</strong></div>
@@ -52,7 +75,9 @@
             <aside class="panel" aria-labelledby="cart-title">
                 <div class="card">
                     <h2 id="cart-title">Your Cart</h2>
-                    <div id="cartItems" aria-live="polite"></div>
+                    <div id="cartItems" aria-live="polite">
+                        <!-- JS will populate cart items here -->
+                    </div>
                     <div class="cart-summary">
                         <div><span>Subtotal</span> <span id="cartSubtotal">0 UGX</span></div>
                         <div><span>Delivery</span> <span id="deliveryFeeSummary">0 UGX</span></div>
@@ -62,8 +87,10 @@
                     <div id="payment-section" aria-labelledby="payment-title">
                         <h3 id="payment-title">Choose Payment Method</h3>
                         <div class="payment-options" role="tablist">
-                            <button class="payment-option" data-provider="mtn" aria-pressed="false">MTN</button>
-                            <button class="payment-option" data-provider="airtel" aria-pressed="false">Airtel</button>
+                            <button class="btn btn-3d payment-option" data-provider="mtn"
+                                aria-pressed="false">MTN</button>
+                            <button class="btn btn-3d payment-option" data-provider="airtel"
+                                aria-pressed="false">Airtel</button>
                         </div>
 
                         <div id="merchantCard" aria-live="polite">
@@ -79,11 +106,12 @@
                             </div>
 
                             <div>
-                                <button id="copyMerchant">Copy Code</button>
-                                <button id="showUSSD">Show Instructions</button>
-                                <button class="copy-individual" data-code="971714" data-network="MTN">Copy MTN</button>
-                                <button class="copy-individual" data-code="4393386" data-network="Airtel">Copy
-                                    Airtel</button>
+                                <button class="btn btn-3d" id="copyMerchant">Copy Code</button>
+                                <button class="btn btn-3d" id="showUSSD">Show Instructions</button>
+                                <button class="btn btn-3d copy-individual" data-code="971714" data-network="MTN">Copy
+                                    MTN</button>
+                                <button class="btn btn-3d copy-individual" data-code="4393386"
+                                    data-network="Airtel">Copy Airtel</button>
                             </div>
 
                             <div>
@@ -91,10 +119,10 @@
                             </div>
                         </div>
 
-                        <input type="text" id="paymentNumber" placeholder="Enter your payment number">
+                        <input type="text" class="btn-input" id="paymentNumber" placeholder="Enter your payment number">
                         <div class="actions">
-                            <button id="whatsapp-confirm">Confirm & Send via WhatsApp</button>
-                            <button id="callSupport">Call Support</button>
+                            <button class="btn btn-3d" id="whatsapp-confirm">Confirm & Send via WhatsApp</button>
+                            <button class="btn btn-3d" id="callSupport">Call Support</button>
                         </div>
                     </div>
                 </div>
@@ -102,9 +130,9 @@
         </div>
     </main>
 
-    <!-- Only WhatsApp Floating Button -->
+    <!-- WhatsApp Floating Button -->
     <div class="floating-buttons">
-        <a href="https://wa.me/256709691395" target="_blank" rel="noopener" id="waFloat">
+        <a href="https://wa.me/256709691395" target="_blank" rel="noopener" class="btn btn-3d" id="waFloat">
             Order on WhatsApp
         </a>
     </div>
@@ -115,9 +143,21 @@
         <div>JavaScript is required for full functionality.</div>
     </noscript>
 
-    <!-- JS Link -->
+    <!-- JS Links -->
+    <script src="js/home.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/menu.js" defer></script>
     <script src="js/payment.js" defer></script>
     <script src="js/form.js" defer></script>
+
+    <script>
+        function checkBranch(value) {
+            if (value !== 'jinja-highway') {
+                alert('File not provided');
+                document.getElementById('location-group').value = 'jinja-highway';
+            }
+        }
+    </script>
 </body>
 
 </html>

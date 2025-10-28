@@ -94,19 +94,22 @@
         cartItemsContainer.innerHTML = '';
 
         if (!cart.length) {
-            cartItemsContainer.innerHTML = `<p style="padding:12px;color:#444;">Your cart is empty.</p>`;
+            cartItemsContainer.innerHTML = `<p style="padding:12px;color:#444;">Your cart is empty. <a href="index.html#menu">Add items</a></p>`;
         }
 
         cart.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'cart-item added';
+            div.className = 'cart-item';
             div.innerHTML = `
-                <div>
-                    <strong>${item.name}</strong> - ${formatUGX(item.price)} x ${item.qty}
+                <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+                <div class="cart-item-info">
+                    <strong>${item.name}</strong>
+                    <p>${formatUGX(item.price)} x ${item.qty}</p>
                 </div>
-                <div>
-                    <button class="minus" data-id="${item.id}">-</button>
-                    <button class="plus" data-id="${item.id}">+</button>
+                <div class="cart-item-controls">
+                    <button class="qty-btn minus" data-id="${item.id}">-</button>
+                    <span class="qty">${item.qty}</span>
+                    <button class="qty-btn plus" data-id="${item.id}">+</button>
                     <button class="remove" data-id="${item.id}">Remove</button>
                 </div>
             `;
@@ -210,6 +213,46 @@
         const message = encodeURIComponent(`Hello, I have paid ${formatUGX(total)} via ${provider}. My number: ${number}`);
         window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
     });
+
+    /* ===========================
+       COMPLAINT BOX
+    =========================== */
+    const createComplaintBox = () => {
+        if (qs('#complaint-box')) return; // avoid duplicates
+
+        const box = document.createElement('div');
+        box.id = 'complaint-box';
+        box.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #fff;
+            border: 2px solid #c0392b;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 9999;
+            width: 250px;
+            font-family: Poppins, sans-serif;
+        `;
+        box.innerHTML = `
+            <h4 style="margin:0 0 10px 0;color:#c0392b;">Complaint / Feedback</h4>
+            <p style="margin:0 0 10px 0;font-size:0.9rem;">Have an issue or suggestion? Let us know!</p>
+            <a href="form.html" target="_blank" style="
+                display:inline-block;
+                padding:8px 12px;
+                background:#c0392b;
+                color:#fff;
+                border-radius:8px;
+                text-decoration:none;
+                font-weight:bold;
+                text-align:center;
+            ">Submit Complaint</a>
+        `;
+        document.body.appendChild(box);
+    };
+
+    createComplaintBox();
 
     /* ===========================
        INITIALIZATION
