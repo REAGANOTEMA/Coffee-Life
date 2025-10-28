@@ -1,7 +1,7 @@
 /* ============================================================
    payment.css — Coffee Life (FINAL: Gold Obsidian theme)
    Ultra-luxury, polished animations, responsive
-   Works with the provided HTML + payment.js
+   Works with HTML + payment.js
    ============================================================ */
 
 /* ---------- Root theme variables ---------- */
@@ -9,12 +9,9 @@
   --bg-dark: #0f0c0b;
   --bg-ivory: #fff8f1;
   --panel: #0f0c0b;
-  /* dark panels */
   --card: #121010;
-  /* card background */
   --muted: #b9a68a;
   --accent: #d6a85a;
-  /* gold accent */
   --accent-dark: #b8843f;
   --glass: rgba(255, 255, 255, 0.04);
   --shadow-xl: 0 30px 80px rgba(0, 0, 0, 0.6);
@@ -38,15 +35,11 @@
 html,
 body {
   height: 100%;
-}
-
-body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  line-height: 1.45;
   background: linear-gradient(180deg, var(--bg-ivory), #fbf6ef);
   color: #f3efe9;
-  -webkit-text-size-adjust: 100%;
-  line-height: 1.45;
 }
 
 /* anchor default */
@@ -224,7 +217,6 @@ h4 {
   transform: translateY(-4px);
 }
 
-/* remove */
 .cart-item-remove {
   background: transparent;
   border: none;
@@ -254,18 +246,18 @@ h4 {
 .payment-option {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   padding: 10px 14px;
   min-width: 140px;
-  justify-content: center;
   border-radius: 12px;
   font-weight: 800;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.04);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
   color: #f6eedd;
-  transition: transform var(--trans-fast), box-shadow var(--trans-fast), background var(--trans-fast);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast), background var(--trans-fast);
 }
 
 .payment-option img {
@@ -275,7 +267,6 @@ h4 {
   border-radius: 4px;
 }
 
-/* provider-specific subtle tints */
 .payment-option[data-provider="mtn"] {
   background: linear-gradient(180deg, rgba(255, 246, 210, 0.03), rgba(255, 246, 210, 0.01));
   color: #111;
@@ -286,7 +277,6 @@ h4 {
   color: #fff;
 }
 
-/* selected provider style (gold glow) */
 .payment-option.selected {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 0 28px 70px rgba(184, 136, 70, 0.14), inset 0 0 22px rgba(255, 220, 150, 0.02);
@@ -320,14 +310,12 @@ h4 {
   border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* copy individual buttons */
 .copy-individual {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
   color: #f6eedd;
   border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* copy success state */
 .copied {
   animation: glowCopy 700ms ease forwards;
 }
@@ -388,67 +376,33 @@ h4 {
   transform: translateY(-2px) scale(.99);
 }
 
-/* ---------- Floating buttons (WhatsApp swing) ---------- */
-.floating-buttons {
+/* ---------- Floating WhatsApp button (image-only) ---------- */
+.whatsapp-float {
   position: fixed;
+  bottom: 20px;
   right: 20px;
-  bottom: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  z-index: 1400;
-}
-
-.floating-btn,
-.whatsapp-float {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: 999px;
-  font-weight: 800;
-  text-decoration: none;
-  color: #0f0c0b;
-  cursor: pointer;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
-  transition: transform var(--trans-fast), box-shadow var(--trans-fast), filter var(--trans-fast);
-}
-
-/* comment button uses gold accent */
-.floating-btn {
-  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
-  color: #0f0c0b;
-}
-
-.floating-btn:hover {
-  transform: translateY(-10px) scale(1.03);
-  filter: drop-shadow(0 22px 48px rgba(184, 136, 70, 0.18));
-}
-
-/* WhatsApp float: green with gold rim + swinging animation */
-.whatsapp-float {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   background: linear-gradient(180deg, #29d37a, #1fb05b);
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 999px;
-  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
+  transition: transform 0.22s ease;
   border: 2px solid rgba(255, 215, 150, 0.06);
 }
 
-.whatsapp-float.swing-enabled {
-  /* base when swing supported */
+.whatsapp-float img {
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 
 .whatsapp-float.swinging {
   animation: swing 2200ms ease-in-out infinite, glowPulse 2000ms ease-in-out infinite;
   transform-origin: 50% 50%;
-}
-
-/* small icon style */
-.whatsapp-float .wa-icon {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
 }
 
 /* ---------- Toast ---------- */
@@ -526,7 +480,6 @@ h4 {
   color: #fff1dd;
 }
 
-/* cart count badge */
 .cart-count-badge {
   display: inline-block;
   background: var(--accent);
@@ -541,7 +494,6 @@ h4 {
   animation: popIn 420ms cubic-bezier(.2, .9, .2, 1);
 }
 
-/* copied micro */
 .copy-individual.copied,
 #merchantCode.copied {
   transform: translateY(-6px);
@@ -557,7 +509,6 @@ a:focus {
 }
 
 /* ---------- Animations (keyframes) ---------- */
-/* luxury float for hero */
 @keyframes luxuryFloat {
   0% {
     transform: translateY(0);
@@ -573,7 +524,6 @@ a:focus {
   }
 }
 
-/* attention pulse */
 @keyframes pulseFast {
   0% {
     transform: translateY(0) scale(1);
@@ -591,7 +541,6 @@ a:focus {
   }
 }
 
-/* swing for whatsapp */
 @keyframes swing {
   0% {
     transform: rotate(0deg);
@@ -622,7 +571,6 @@ a:focus {
   }
 }
 
-/* glow pulse for whatsapp */
 @keyframes glowPulse {
   0% {
     box-shadow: 0 10px 30px rgba(17, 176, 91, 0.12);
@@ -641,7 +589,6 @@ a:focus {
   }
 }
 
-/* copy glow */
 @keyframes glowCopy {
   0% {
     box-shadow: 0 6px 22px rgba(184, 136, 70, 0.06);
@@ -659,7 +606,6 @@ a:focus {
   }
 }
 
-/* shake (used by .shaking) */
 @keyframes shake {
   0% {
     transform: translateX(0);
@@ -686,11 +632,6 @@ a:focus {
   }
 }
 
-.shaking {
-  animation: shake 620ms cubic-bezier(.36, .07, .19, .97);
-}
-
-/* pop in/out for cart items & badge */
 @keyframes popIn {
   0% {
     transform: scale(.96) translateY(6px);
@@ -720,20 +661,18 @@ a:focus {
   }
 }
 
-/* toast in */
 @keyframes toastIn {
   0% {
     transform: translateY(10px);
-    opacity: 0
+    opacity: 0;
   }
 
   100% {
     transform: translateY(0);
-    opacity: 1
+    opacity: 1;
   }
 }
 
-/* copy pulse */
 @keyframes copyPulse {
   0% {
     transform: scale(1);
@@ -749,25 +688,7 @@ a:focus {
   }
 }
 
-/* ---------- Toast classes ---------- */
-.toast-show {
-  display: block;
-  animation: toastIn 360ms cubic-bezier(.2, .9, .2, 1);
-}
-
-/* ---------- Micro states ---------- */
-.hidden {
-  display: none !important;
-}
-
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 980px) {
+@media(max-width:980px) {
   .grid {
     grid-template-columns: 1fr;
   }
@@ -785,7 +706,7 @@ a:focus {
   }
 }
 
-@media (max-width: 480px) {
+@media(max-width:480px) {
   .floating-buttons {
     right: 12px;
     bottom: 12px;
@@ -799,16 +720,3 @@ a:focus {
     font-size: 1.75rem;
   }
 }
-
-/* ---------- Accessibility focus ---------- */
-button:focus,
-.payment-option:focus,
-a:focus {
-  outline: 3px solid rgba(214, 168, 90, 0.12);
-  outline-offset: 4px;
-}
-
-/* ============================================================
-   End of payment.css
-   Drop this file into css/payment.css — pairs with your HTML + payment.js
-   ============================================================ */
