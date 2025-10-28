@@ -94,7 +94,7 @@
         cartItemsContainer.innerHTML = '';
 
         if (!cart.length) {
-            cartItemsContainer.innerHTML = `<p style="padding:12px;color:#444;">Your cart is empty. <a href="index.html#menu">Add items</a></p>`;
+            cartItemsContainer.innerHTML = `<p style="padding:12px;color:#fff;">Your cart is empty. <a href="index.html#menu" style="color:#ffb300;">Add items</a></p>`;
         }
 
         cart.forEach(item => {
@@ -115,6 +115,7 @@
             `;
             cartItemsContainer.appendChild(div);
 
+            // Decrease quantity
             div.querySelector('.minus').addEventListener('click', () => {
                 const target = cart.find(i => i.id === item.id);
                 if (!target) return;
@@ -124,6 +125,7 @@
                 showToast('Quantity decreased');
             });
 
+            // Increase quantity
             div.querySelector('.plus').addEventListener('click', () => {
                 const target = cart.find(i => i.id === item.id);
                 if (!target) return;
@@ -132,6 +134,7 @@
                 showToast('Quantity increased');
             });
 
+            // Remove item
             div.querySelector('.remove').addEventListener('click', () => {
                 cart = cart.filter(i => i.id !== item.id);
                 persistCart(); renderCart();
@@ -146,9 +149,17 @@
 
     const addToCart = item => {
         if (!item || !item.id) return;
-        const exists = cart.find(i => i.id === item.id);
-        if (!exists) cart.push({ ...item, qty: 1 });
-        persistCart(); renderCart();
+
+        // Check if item already exists
+        const existing = cart.find(i => i.id === item.id);
+        if (existing) {
+            existing.qty += 1; // just increase quantity
+        } else {
+            cart.push({ ...item, qty: 1 });
+        }
+
+        persistCart();
+        renderCart();
         showToast(`${item.name} added`);
     };
 
@@ -219,39 +230,15 @@
     =========================== */
     const createComplaintBox = () => {
         if (qs('#complaint-box')) return; // avoid duplicates
-
         const box = document.createElement('div');
         box.id = 'complaint-box';
-        box.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #fff;
-            border: 2px solid #c0392b;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            z-index: 9999;
-            width: 250px;
-            font-family: Poppins, sans-serif;
-        `;
         box.innerHTML = `
-            <h4 style="margin:0 0 10px 0;color:#c0392b;">Complaint / Feedback</h4>
-            <p style="margin:0 0 10px 0;font-size:0.9rem;">Have an issue or suggestion? Let us know!</p>
-            <a href="form.html" target="_blank" style="
-                display:inline-block;
-                padding:8px 12px;
-                background:#c0392b;
-                color:#fff;
-                border-radius:8px;
-                text-decoration:none;
-                font-weight:bold;
-                text-align:center;
-            ">Submit Complaint</a>
+            <h4>Complaint / Feedback</h4>
+            <p>Have an issue or suggestion? Let us know!</p>
+            <a href="form.html" target="_blank">Submit Complaint</a>
         `;
         document.body.appendChild(box);
     };
-
     createComplaintBox();
 
     /* ===========================
