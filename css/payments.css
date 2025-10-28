@@ -1,541 +1,338 @@
-/* ============================================================
-   payment.css — Coffee Life (FINAL PREMIUM PRODUCTION)
-   - Ultra-luxury GOLD OBSIDIAN theme
-   - Fully aligned with payment.js cart, MTN/Airtel, WhatsApp
-   ============================================================ */
+/* ===============================
+   COFFEE LIFE — Final Premium CSS
+================================= */
 
+/* ===== VARIABLES ===== */
 :root {
-  --bg-dark: #0f0c0b;
-  --bg-ivory: #fff8f1;
-  --panel: #0f0c0b;
-  --card: #121010;
-  --muted: #bfa67b;
-  --accent: #f0c27b;
-  --accent-dark: #b88a3f;
-  --glass: rgba(255, 255, 255, 0.04);
-  --shadow-xl: 0 30px 80px rgba(0, 0, 0, 0.65);
-  --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.50);
-  --shadow-md: 0 8px 22px rgba(0, 0, 0, 0.38);
-  --radius: 14px;
-  --trans-fast: 180ms cubic-bezier(.2, .9, .2, 1);
-  --trans-med: 320ms cubic-bezier(.2, .9, .2, 1);
-  --glass-border: rgba(255, 255, 255, 0.04);
-  --mtn: #fcd116;
-  --airtel: #e60000;
+  --primary-color: #2c2c2c;
+  --secondary-color: #f8f1e7;
+  --accent-color: #d4af37;
+  /* Gold */
+  --highlight-color: #3b82f6;
+  /* Royal Blue */
+  --text-color: #1a1a1a;
+  --subtext-color: #555;
+  --background-color: #fafafa;
+  --cart-bg: #fffaf0;
+  --shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+  --border-radius: 12px;
+  --transition: 0.3s ease-in-out;
 }
 
-/* ---------- Base / Reset ---------- */
-* {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-html,
+/* ===== GLOBAL ===== */
 body {
-  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
   margin: 0;
-  font-family: 'Lora', serif;
-  line-height: 1.5;
-  background: linear-gradient(180deg, var(--bg-ivory), #fdf7ec);
-  color: #1c1b18;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-}
-
-a:hover {
-  text-decoration: underline;
+  padding: 0;
+  line-height: 1.6;
 }
 
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   font-family: 'Playfair Display', serif;
-  color: #0f0c0b;
-  margin: 0;
+  color: var(--primary-color);
+  margin: 0.2em 0;
 }
 
-/* ---------- Layout / Containers ---------- */
-.container {
-  width: 94%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 28px 0 80px;
+p,
+span,
+small {
+  color: var(--text-color);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 22px;
-  align-items: start;
+/* ===== HEADER ===== */
+header.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  transition: all 0.3s ease-in-out;
 }
 
-/* ---------- Cards ---------- */
-.card {
-  background: linear-gradient(180deg, rgba(20, 18, 16, 0.98), rgba(15, 12, 11, 0.98));
-  border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--glass-border);
-  transition: transform var(--trans-med), box-shadow var(--trans-med);
+header.site-header.scrolled {
+  backdrop-filter: blur(18px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.55);
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-}
-
-.card.nested {
-  margin-top: 14px;
-  padding: 16px;
-}
-
-/* ---------- Hero Section ---------- */
-.hero-section {
-  text-align: center;
-  margin: 34px 0;
-}
-
-.hero-title {
-  display: inline-block;
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  color: var(--accent);
-  font-weight: 900;
-  text-shadow: 0 4px 16px rgba(240, 194, 123, 0.35);
-  animation: luxuryFloat 6.4s ease-in-out infinite;
-}
-
-.hero-sub {
-  font-family: 'Merriweather', serif;
-  color: var(--muted);
-  font-size: 1.2rem;
-  font-style: italic;
-}
-
-/* ---------- Cart ---------- */
-.cart-items {
-  max-height: 340px;
-  overflow-y: auto;
+/* ===== HAMBURGER ===== */
+.hamburger {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-right: 6px;
+  justify-content: space-between;
+  width: 32px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1001;
 }
 
+.hamburger .bar {
+  height: 4px;
+  width: 100%;
+  background-color: var(--highlight-color);
+  border-radius: 4px;
+  transition: all var(--transition);
+}
+
+.hamburger.active .bar {
+  background-color: var(--accent-color);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100%;
+  background-color: var(--secondary-color);
+  box-shadow: var(--shadow);
+  border-radius: 0 0 0 var(--border-radius);
+  transition: right var(--transition);
+  padding: 2em 1.5em;
+  z-index: 1000;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu a {
+  display: block;
+  margin: 1.2em 0;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--primary-color);
+  transition: color var(--transition);
+}
+
+.mobile-menu a:hover {
+  color: var(--accent-color);
+}
+
+/* ===== CART ===== */
 .cart-item {
   display: flex;
-  gap: 12px;
+  justify-content: space-between;
   align-items: center;
-  padding: 12px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  transition: transform var(--trans-fast), box-shadow var(--trans-fast), opacity 200ms;
+  background: var(--cart-bg);
+  margin: 0.5em 0;
+  padding: 1em;
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }
 
-.cart-item-img {
-  width: 64px;
-  height: 64px;
-  border-radius: 10px;
-  object-fit: cover;
+.cart-item.shake {
+  animation: shake 0.8s;
 }
 
-.cart-item-info {
-  flex: 1;
-  min-width: 0;
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
 }
 
-.cart-item-info h4 {
-  font-size: 1rem;
-  color: #f7e6d3;
-  margin: 0 0 6px;
-  font-weight: 700;
-}
-
-.cart-item-info p {
-  margin: 0;
-  color: var(--muted);
+.cart-item-info .name {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
-.cart-item-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+.cart-item-info .price {
+  font-size: 0.9rem;
+  color: var(--subtext-color);
 }
 
-.qty-controls {
+.cart-controls {
   display: flex;
-  gap: 8px;
   align-items: center;
 }
 
 .qty-btn {
-  background: rgba(255, 255, 255, 0.03);
-  color: #f9efe0;
+  background-color: var(--highlight-color);
   border: none;
-  padding: 8px 10px;
-  border-radius: 8px;
+  color: #fff;
+  padding: 0.25em 0.6em;
+  margin: 0 0.3em;
+  border-radius: var(--border-radius);
+  font-weight: 600;
   cursor: pointer;
-  transition: transform var(--trans-fast);
+  transition: background-color var(--transition);
 }
 
 .qty-btn:hover {
-  transform: translateY(-4px);
+  background-color: var(--accent-color);
 }
 
-.cart-item-remove {
-  background: transparent;
-  border: none;
-  color: #ff6b6b;
-  font-weight: 700;
-  font-size: 1.1rem;
+.remove {
   cursor: pointer;
+  font-size: 1.2em;
+  color: var(--accent-color);
+  margin-left: 0.5em;
+  transition: color var(--transition);
 }
 
-.cart-item.added {
-  animation: popIn 420ms cubic-bezier(.2, .9, .2, 1);
+.remove:hover {
+  color: var(--highlight-color);
 }
 
-.cart-item.removed {
-  animation: popOut 300ms ease forwards;
+.cart-empty {
+  text-align: center;
+  font-size: 1.1em;
+  color: var(--subtext-color);
+  margin: 2em 0;
 }
 
-/* ---------- Payment Options ---------- */
-.payment-options {
+/* ===== PAYMENTS ===== */
+.payment-btn {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-.payment-option {
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px 14px;
-  min-width: 140px;
-  border-radius: 12px;
-  font-weight: 800;
+  gap: 1em;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  padding: 0.8em 1em;
+  margin: 0.5em 0;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
-  color: #f6eedd;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  transition: transform var(--trans-fast), box-shadow var(--trans-fast), background var(--trans-fast);
+  transition: all var(--transition);
 }
 
-.payment-option img {
-  height: 22px;
-  width: 22px;
-  object-fit: contain;
-  border-radius: 4px;
+.payment-btn img {
+  width: 40px;
+  border-radius: 6px;
 }
 
-.payment-option.selected {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 28px 70px rgba(184, 136, 70, 0.14), inset 0 0 22px rgba(255, 220, 150, 0.02);
-  outline: none;
+.payment-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
-.payment-option:hover {
-  transform: translateY(-6px) scale(1.01);
-  animation: pulseFast 900ms infinite ease-in-out;
+.payment-label span {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
-.payment-option[data-provider="mtn"] {
-  background: linear-gradient(180deg, rgba(255, 246, 210, 0.03), rgba(255, 246, 210, 0.01));
-  color: #111;
+.payment-label small {
+  color: var(--subtext-color);
 }
 
-.payment-option[data-provider="airtel"] {
-  background: linear-gradient(180deg, rgba(255, 220, 220, 0.03), rgba(255, 220, 220, 0.01));
+/* ===== WHATSAPP FLOAT ===== */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1002;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition);
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-float.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.whatsapp-float img {
+  width: 32px;
+}
+
+/* ===== BUTTONS ===== */
+.btn,
+.btn-add {
+  background-color: var(--highlight-color);
   color: #fff;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
 }
 
-/* ---------- Merchant Inputs ---------- */
-#merchantCode,
-.copy-individual {
-  font-family: 'Lora', serif;
-  color: #f6eedd;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-  padding: 8px 10px;
-  display: inline-block;
-  font-weight: 800;
-}
-
-#paymentNumber {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  margin-top: 12px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.008));
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  color: #f6eedd;
-  font-weight: 700;
-}
-
-#paymentNumber:focus {
-  outline: none;
-  box-shadow: 0 16px 40px rgba(184, 136, 70, 0.06);
+.btn:hover,
+.btn-add:hover {
+  background-color: var(--accent-color);
   transform: translateY(-2px);
 }
 
-/* ---------- Buttons ---------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 800;
+/* ===== SELECTS ===== */
+select {
+  padding: 0.6em 1em;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  transition: all var(--transition);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 6px var(--highlight-color);
+}
+
+/* ===== FANCY SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0ece2;
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--highlight-color);
+}
+
+/* ===== SMALL ANIMATION FOR CARD HOVER ===== */
+.menu-card,
+.menu-item {
+  transition: all 0.3s ease-in-out;
   cursor: pointer;
-  border: none;
-  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
-  color: #0f0c0b;
-  box-shadow: 0 12px 34px rgba(184, 136, 70, 0.12);
-  transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+  border-radius: var(--border-radius);
 }
 
-.btn:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 26px 60px rgba(184, 136, 70, 0.18);
-}
-
-.btn:active {
-  transform: translateY(-2px) scale(.99);
-}
-
-/* ---------- Floating WhatsApp (icon-only) ---------- */
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-  border: none;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-}
-
-.whatsapp-float img {
-  width: 28px;
-  height: 28px;
-  display: block;
-}
-
-.whatsapp-float:hover {
-  transform: scale(1.12);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42);
-}
-
-.whatsapp-float.swinging {
-  animation: swing 2200ms ease-in-out infinite, glowPulse 2000ms ease-in-out infinite;
-  transform-origin: 50% 50%;
-}
-
-/* ---------- Animations ---------- */
-@keyframes luxuryFloat {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-6px) rotate(-0.12deg);
-    filter: drop-shadow(0 12px 48px rgba(184, 136, 70, 0.06));
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulseFast {
-  0% {
-    transform: translateY(0) scale(1);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
-  }
-
-  50% {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.28);
-  }
-
-  100% {
-    transform: translateY(0) scale(1);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
-  }
-}
-
-@keyframes swing {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  15% {
-    transform: rotate(8deg);
-  }
-
-  30% {
-    transform: rotate(-6deg);
-  }
-
-  45% {
-    transform: rotate(4deg);
-  }
-
-  60% {
-    transform: rotate(-2deg);
-  }
-
-  75% {
-    transform: rotate(1deg);
-  }
-
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes glowPulse {
-  0% {
-    box-shadow: 0 10px 30px rgba(17, 176, 91, 0.12);
-    filter: drop-shadow(0 10px 30px rgba(17, 176, 91, 0.06));
-  }
-
-  50% {
-    box-shadow: 0 26px 64px rgba(17, 176, 91, 0.2);
-    filter: drop-shadow(0 26px 64px rgba(214, 168, 90, 0.08));
-    transform: translateY(-4px) scale(1.01);
-  }
-
-  100% {
-    box-shadow: 0 10px 30px rgba(17, 176, 91, 0.12);
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* ---------- Responsive ---------- */
-@media(max-width:980px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-title {
-    font-size: 2.2rem;
-  }
-
-  .cart-items {
-    max-height: 260px;
-  }
-
-  .payment-option {
-    min-width: 120px;
-  }
-}
-
-@media(max-width:480px) {
-  .floating-buttons {
-    right: 12px;
-    bottom: 12px;
-  }
-
-  #merchantCode {
-    font-size: 0.95rem;
-  }
-
-  .hero-title {
-    font-size: 1.75rem;
-  }
-}
-
-/* ---------- Floating WhatsApp (icon-only, premium) ---------- */
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: transparent;
-  /* only icon visible */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: none;
-  /* remove extra shadow */
-  border: none;
-  /* remove border */
-  z-index: 9999;
-  /* always on top */
-  transition: transform 0.22s ease;
-}
-
-.whatsapp-float img {
-  width: 100%;
-  /* fill the container */
-  height: 100%;
-  display: block;
-  border-radius: 50%;
-  /* make the icon perfectly round */
-}
-
-.whatsapp-float:hover {
-  transform: scale(1.12);
-  /* subtle hover pop */
-}
-
-.whatsapp-float.swinging {
-  animation: swing 2200ms ease-in-out infinite;
-  transform-origin: 50% 50%;
-}
-
-/* ---------- Swing Animation ---------- */
-@keyframes swing {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  15% {
-    transform: rotate(8deg);
-  }
-
-  30% {
-    transform: rotate(-6deg);
-  }
-
-  45% {
-    transform: rotate(4deg);
-  }
-
-  60% {
-    transform: rotate(-2deg);
-  }
-
-  75% {
-    transform: rotate(1deg);
-  }
-
-  100% {
-    transform: rotate(0deg);
-  }
+.menu-card:hover,
+.menu-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
 }
