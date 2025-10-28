@@ -1,10 +1,10 @@
-/* payment.js — Coffee Life (final production)
-   - Full professional cart handling
-   - Delivery fee parsing
+/* payment.js — Coffee Life (Final Premium Production)
+   - Fully professional cart handling
    - MTN & Airtel merchant UI + copy
    - WhatsApp order construction (wa.me/256709691395)
    - Toasts, animations, remove/edit items
    - Persistent localStorage cart
+   - Starts empty every session, luxury UX/UI
 */
 
 (() => {
@@ -56,7 +56,10 @@
     =========================== */
     let DELIVERY_FEE = 0;
     let selectedProvider = null;
-    window.cart = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+    // Start with empty cart for every session
+    window.cart = [];
+    localStorage.removeItem(STORAGE_KEY);
 
     /* ===========================
        UTILS
@@ -107,7 +110,10 @@
 
         cartItemsContainer.innerHTML = '';
         if (!window.cart.length) {
-            cartItemsContainer.innerHTML = `<p style="padding:12px;color:#7a6b61;">Your cart is empty. <a href="index.html#menu">Add items</a>.</p>`;
+            cartItemsContainer.innerHTML = `
+                <p style="padding:12px;color:#7a6b61;">Your cart is empty.</p>
+                <button class="btn small" onclick="window.location.href='index.html#menu'">Add Items</button>
+            `;
             cartSubtotalEl.textContent = '0 UGX';
             cartTotalEl.textContent = formatUGX(DELIVERY_FEE);
             deliveryFeeSummaryEl.textContent = formatUGX(DELIVERY_FEE);
@@ -135,7 +141,7 @@
                 </div>
             `.trim();
 
-            // quantity buttons
+            // Quantity buttons
             itemWrap.querySelectorAll('.qty-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const target = window.cart.find(x => x.id === btn.dataset.id);
@@ -148,7 +154,7 @@
                 });
             });
 
-            // remove button
+            // Remove button
             itemWrap.querySelector('.cart-item-remove')?.addEventListener('click', () => {
                 window.cart = window.cart.filter(i => i.id !== item.id);
                 persistCart();
